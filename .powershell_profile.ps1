@@ -112,5 +112,4 @@ function Keep-Awake {
     }
 }
 
-# oh-my-posh --init --shell pwsh --config "~/$env:posh_themes_path/powerlevel10k_rainbow.omp.json" | Invoke-Expression
-oh-my-posh --init --shell pwsh --config "~/.config/oh_my_posh/powerlevel10k_rainbow.omp.json" | Invoke-Expression
+oh-my-posh --init --shell pwsh --config "$env:posh_themes_path/powerlevel10k_rainbow.omp.json" | Invoke-Expression
