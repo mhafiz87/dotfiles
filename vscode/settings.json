@@ -93,7 +93,7 @@
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.cwd": "${fileDirname}",
     "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font', 'FiraCode Nerd Font', 'Cascadia Code'",
-    "terminal.integrated.fontSize": 10,
+    "terminal.integrated.fontSize": 12,
     "terminal.integrated.defaultProfile.windows": "PowerShell",
     "terminal.integrated.profiles.windows": {
         "PowerShell": {
@@ -165,24 +165,21 @@
         {"before": ["<leader>", "p"], "after": ["\"", "a", "p"]},
         {"before": ["<C-d>"], "after": ["<C-d>", "z", "z"]},
         {"before": ["<C-u>"], "after": ["<C-u>", "z", "z"]},
-        {"before": ["g", "n"], "commands": [
+        {"before": ["<leader>", "g", "n"], "commands": [
             {
-                "command": "workbench.action.compareEditor.nextChange",
+                "command": "editor.action.dirtydiff.next",
                 "when": "textCompareEditorVisible"
-            },
-            {
-                "command": "workbench.action.editor.nextChange",
-                "when": "editorTextFocus && !textCompareEditorActive"
             }
         ]},
-        {"before": ["g", "p"], "commands": [
+        {"before": ["<leader>", "g", "p"], "commands": [
             {
-                "command": "workbench.action.compareEditor.previousChange",
+                "command": "editor.action.dirtydiff.previous",
                 "when": "textCompareEditorVisible"
-            },
+            }
+        ]},
+        {"before": ["<leader>", "g", "r"], "commands": [
             {
-                "command": "workbench.action.editor.previousChange",
-                "when": "editorTextFocus && !textCompareEditorActive"
+                "command": "git.revertChange",
             }
         ]},
         {"before": ["[", "d"], "commands": ["editor.action.marker.prev"]},
