@@ -104,17 +104,17 @@ Function Find-File($name) {
 
 Function nvims {
     <#
-        .DESCRIPTION
-        Switch NVIM_APPNAME to the given input. If appName is not given, will print current NVIM_APPNAME.
+    .DESCRIPTION
+    Switch NVIM_APPNAME to the given input. If appName is not given, will print current NVIM_APPNAME.
 
-        .PARAMETER appName
-        The name of the NVIM_APPNAME to switch to.
+    .PARAMETER appName
+    The name of the NVIM_APPNAME to switch to.
     #>
     param(
         [Parameter(Mandatory = $false)][string]$appName
     )
     $apps = "prod", "dev", "lazy", "chad"
-    if ($appName -eq "list") {
+    if ($appName -eq "") {
         Write-Output "Current NVIM_APPNAME environment variable: $env:NVIM_APPNAME"
         $counter = 1
         foreach ($item in $apps) {
@@ -145,32 +145,38 @@ Function nvims {
 
 Function Add-Env-Variable {
     <#
-        .SYNOPSIS
-        Add new Windows 10 environment variable.
+    .SYNOPSIS
+    Add new Windows environment variable.
 
-        .DESCRIPTION
-        Add new Windows 10 environment variable. If environment already exist, will append. Else will create new.
+    .DESCRIPTION
+    Add new Windows environment variable. If environment already exist, will append. Else will create new.
 
-        .PARAMETER envName
-        The name of the environment variable.
+    .PARAMETER envName
+    The name of the environment variable.
 
-        .PARAMETER userType
-        To add environment variable to user or system(machine).
+    .PARAMETER userType
+    To add environment variable to user or system(machine).
 
-        .PARAMETER newEnv
-        The path of the environment variable.
+    .PARAMETER newEnv
+    The path of the environment variable.
 
-        .EXAMPLE
-        PS> Add-Env-Variable -envName path -userType machine -newEnv "C:\swig"
-        To append "C:\swig" to system "path" environment variable.
+    .INPUTS
+    None. You cannot pipe objects to Add-Extension.
 
-        .EXAMPLE
-        PS> Add-Env-Variable -envName path -userType user -newEnv "C:\vlc"
-        To append "C:\vlc" to user "path" environment variable.
+    .OUTPUTS
+    None.
 
-        .EXAMPLE
-        PS> Add-Env-Variable -envName "WORKON_HOME" -userType user -newEnv "$env:userprofile:\.virtualenvs"
-        To create "WORKON_HOME" environment variable.
+    .EXAMPLE
+    # To append "C:\swig" to system "path" environment variable.
+    PS> Add-Env-Variable -envName path -userType machine -newEnv "C:\swig"
+
+    .EXAMPLE
+    # To append "C:\vlc" to user "path" environment variable.
+    PS> Add-Env-Variable -envName path -userType user -newEnv "C:\vlc"
+
+    .EXAMPLE
+    # To create "WORKON_HOME" environment variable.
+    PS> Add-Env-Variable -envName "WORKON_HOME" -userType user -newEnv "$env:userprofile:\.virtualenvs"
     #>
     param(
         [Parameter(Mandatory = $true)][string]$envName,
