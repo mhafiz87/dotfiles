@@ -43,7 +43,7 @@ $env:path += ";$env:localappdata\Notepad++"
 
 # Admin Check and Prompt Customization
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-function prompt {
+Function prompt {
     if ($isAdmin) { "[" + (Get-Location) + "] # " } else { "[" + (Get-Location) + "] $ " }
 }
 $adminSuffix = if ($isAdmin) { " [ADMIN]" } else { "" }
@@ -52,7 +52,7 @@ $Host.UI.RawUI.WindowTitle = "PowerShell {0}$adminSuffix" -f $PSVersionTable.PSV
 # Simple function to start a new elevated process. If arguments are supplied then
 # a single command is started with admin rights; if not then a new admin instance
 # of PowerShell is started.
-function admin {
+Function admin {
     if ($args.Count -gt 0) {
         $argList = "& '" + $args + "'"
         Start-Process "$psHome\pwsh.exe" -Verb runAs -ArgumentList $argList
@@ -68,22 +68,22 @@ Set-Alias -Name su -Value admin
 Set-Alias -Name sudo -Value admin
 
 # Useful shortcuts for traversing directories
-function cd... { Set-Location ..\.. }
-function cd.... { Set-Location ..\..\.. }
+Function cd... { Set-Location ..\.. }
+Function cd.... { Set-Location ..\..\.. }
 
 # Compute file hashes - useful for checking successful downloads
-function md5 { Get-FileHash -Algorithm MD5 $args }
-function sha1 { Get-FileHash -Algorithm SHA1 $args }
-function sha256 { Get-FileHash -Algorithm SHA256 $args }
+Function md5 { Get-FileHash -Algorithm MD5 $args }
+Function sha1 { Get-FileHash -Algorithm SHA1 $args }
+Function sha256 { Get-FileHash -Algorithm SHA256 $args }
 
 # Quick shortcut to start notepad
-function n { notepad $args }
+Function n { notepad $args }
 
-function np { notepad++ $args }
+Function np { notepad++ $args }
 
-function Get-PubIP { (Invoke-WebRequest http://ifconfig.me/ip ).Content }
+Function Get-PubIP { (Invoke-WebRequest http://ifconfig.me/ip ).Content }
 
-function uptime {
+Function Uptime {
     #Windows Powershell only
     If ($PSVersionTable.PSVersion.Major -eq 5 ) {
         Get-WmiObject win32_operatingsystem | Select-Object @{EXPRESSION = { $_.ConverttoDateTime($_.lastbootuptime) } } | Format-Table -HideTableHeaders
@@ -93,22 +93,22 @@ function uptime {
     }
 }
 
-function reload-profile { & $profile }
+Function Reload-Profile { & $profile }
 
-function find-file($name) {
+Function Find-File($name) {
     Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
         $place_path = $_.directory
         Write-Output "${place_path}\${_}"
     }
 }
 
-function nvims {
+Function nvims {
     <#
-    .DESCRIPTION
-    Switch NVIM_APPNAME to the given input. If appName is not given, will print current NVIM_APPNAME.
+        .DESCRIPTION
+        Switch NVIM_APPNAME to the given input. If appName is not given, will print current NVIM_APPNAME.
 
-    .PARAMETER appName
-    The name of the NVIM_APPNAME to switch to.
+        .PARAMETER appName
+        The name of the NVIM_APPNAME to switch to.
     #>
     param(
         [Parameter(Mandatory = $false)][string]$appName
@@ -143,7 +143,59 @@ function nvims {
     }
 }
 
-function Keep-Awake {
+Function Add-Env-Variable {
+    <#
+        .SYNOPSIS
+        Add new Windows 10 environment variable.
+
+        .DESCRIPTION
+        Add new Windows 10 environment variable. If environment already exist, will append. Else will create new.
+
+        .PARAMETER envName
+        The name of the environment variable.
+
+        .PARAMETER userType
+        To add environment variable to user or system(machine).
+
+        .PARAMETER newEnv
+        The path of the environment variable.
+
+        .EXAMPLE
+        PS> Add-Env-Variable -envName path -userType machine -newEnv "C:\swig"
+        To append "C:\swig" to system "path" environment variable.
+
+        .EXAMPLE
+        PS> Add-Env-Variable -envName path -userType user -newEnv "C:\vlc"
+        To append "C:\vlc" to user "path" environment variable.
+
+        .EXAMPLE
+        PS> Add-Env-Variable -envName "WORKON_HOME" -userType user -newEnv "$env:userprofile:\.virtualenvs"
+        To create "WORKON_HOME" environment variable.
+    #>
+    param(
+        [Parameter(Mandatory = $true)][string]$envName,
+        [Parameter(Mandatory = $true)][ValidateSet("user", "machine")][string]$userType,
+        [Parameter(Mandatory = $true)][string]$newEnv
+    )
+    if ($userType -eq "user") {
+        if ([System.Environment]::GetEnvironmentVariable($envname, [System.EnvironmentVariableTarget]::User).Length -eq 0) {
+            [System.Environment]::SetEnvironmentVariable($envname, $newEnv, [System.EnvironmentVariableTarget]::User)
+        }
+        else {
+            [System.Environment]::SetEnvironmentVariable($envName, [System.Environment]::GetEnvironmentVariable($envName, [System.EnvironmentVariableTarget]::User) + ";" + $newEnv, [System.EnvironmentVariableTarget]::User)
+        }
+    }
+    elseif ($userType -eq "machine") {
+        if ([System.Environment]::GetEnvironmentVariable($envname, [System.EnvironmentVariableTarget]::Machine).Length -eq 0) {
+            [System.Environment]::SetEnvironmentVariable($envname, $newEnv, [System.EnvironmentVariableTarget]::Machine)
+        }
+        else {
+            [System.Environment]::SetEnvironmentVariable($envName, [System.Environment]::GetEnvironmentVariable($envName, [System.EnvironmentVariableTarget]::Machine) + ";" + $newEnv, [System.EnvironmentVariableTarget]::Machine)
+        }
+    }
+}
+
+Function Keep-Awake {
     $TimerSeconds = 60 * 3
     $MyShell = New-Object -ComObject Wscript.Shell
     while (1) {
