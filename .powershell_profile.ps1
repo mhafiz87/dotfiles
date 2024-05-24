@@ -11,7 +11,7 @@ $canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds
 
 # Import Modules and External Profiles
 # Ensure Terminal-Icons module is installed before importing
-foreach ($module in @("PSReadLine", "Terminal-Icons", "7Zip4Powershell", "posh-git")){
+foreach ($module in @("PSReadLine", "Terminal-Icons", "7Zip4Powershell", "posh-git")) {
     if (-not (Get-Module -ListAvailable -Name $module)) {
         Install-Module -Name $module -Scope CurrentUser -Force -SkipPublisherCheck
     }
@@ -99,6 +99,47 @@ function find-file($name) {
     Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
         $place_path = $_.directory
         Write-Output "${place_path}\${_}"
+    }
+}
+
+function nvims {
+    <#
+    .DESCRIPTION
+    Switch NVIM_APPNAME to the given input. If appName is not given, will print current NVIM_APPNAME.
+
+    .PARAMETER appName
+    The name of the NVIM_APPNAME to switch to.
+    #>
+    param(
+        [Parameter(Mandatory = $false)][string]$appName
+    )
+    $apps = "prod", "dev", "lazy", "chad"
+    if ($appName -eq "list") {
+        Write-Output "Current NVIM_APPNAME environment variable: $env:NVIM_APPNAME"
+        $counter = 1
+        foreach ($item in $apps) {
+            $nvimapp = "nvim_$item"
+            if (($item -eq "prod" -and $env:NVIM_APPNAME -eq $null) -or ($nvimapp -eq $env:NVIM_APPNAME)) {
+                Write-Output("$counter : $item*")
+            }
+            else {
+                Write-Output("$counter : $item")
+            }
+            $counter++
+        }
+
+    }
+    elseif ($appName -notin $apps) {
+        Write-Output "$appName is not in available Nvim App. Please edit `$PROFILE to add the $appName."
+        Return
+    }
+    elseif ($appName -eq "prod") {
+        Write-Output "Changing NVIM_APPNAME environment variable to $null"
+        $env:NVIM_APPNAME = $null
+    }
+    else {
+        Write-Output "Changing NVIM_APPNAME environment variable to: nvim_$appName"
+        $env:NVIM_APPNAME = "nvim_$appName"
     }
 }
 
