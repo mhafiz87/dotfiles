@@ -14,6 +14,6 @@ new-item -itemtype symboliclink -path "$env:appdata/code/user/settings.json" -ta
 
 # Neovim Settings
 new-item -itemtype symboliclink -path "$env:localappdata/nvim" -target "$env:userprofile/.config/neovim/nvim" -force
-new-item -itemtype symboliclink -path "$env:localappdata/nvim_dev" -target "$env:userprofile/.config/neovim/nvim" -force
+new-item -itemtype symboliclink -path "$env:localappdata/nvim_dev" -target "$env:userprofile/.config/neovim/nvim_dev" -force
 
 ```
