@@ -22,7 +22,7 @@ Import-Module Terminal-Icons
 Import-Module 7Zip4Powershell
 Import-Module posh-git
 
-$ehst = $env:appdata\microsoft\windows\powershell\psreadline\consolehost_history.txt
+$ehst = "$env:appdata\microsoft\windows\powershell\psreadline\consolehost_history.txt"
 
 # Set UNIX-like aliases for the admin command, so sudo <command> will run the command with elevated rights.
 Set-Alias -Name su -Value admin
