@@ -39,13 +39,6 @@ return {
 
     require("telescope").load_extension("fzf")
 
-    require("which-key").register({
-      ["<leader>t"] = {
-        name = "+telescope",
-        f = { "<cmd>Telescope find_files<cr>", "Find File" },
-        r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-      }
-    })
   end
 }
 

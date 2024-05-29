@@ -16,10 +16,10 @@ vim.g.mapleader = " "
 
 require("lazy").setup(
   {
-    {import = "setup.plugins.which_key"},
     {import = "setup.plugins.themes"},
     {import = "setup.plugins.telescope"},
     {import = "setup.plugins.git"},
+    {import = "setup.plugins.which_key"},
   },
   {
     checker = {

@@ -53,3 +53,4 @@ map("v", ">", ">gv")
 
 -- Open current buffer folder in Windows Explorer
 map("n", "<F4>", "<cmd>!start explorer %:p:h<cr>", default_opts_desc("Open current buffer directory in Windows explorer."))
+

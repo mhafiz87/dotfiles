@@ -68,7 +68,7 @@ return {
         themeConfigFile = vim.fn.stdpath("config") .. "/lua/setup/plugins/themes.lua",
         livePreview = true,
       })
-      vim.keymap.set("n", "<leader>ft", "<CMD>Themery<CR>", { desc = "[F]ind [T]hemes" })
+      -- vim.keymap.set("n", "<leader>ft", "<CMD>Themery<CR>", { desc = "[F]ind [T]hemes" })
       -- Themery block
 -- This block will be replaced by Themery.
 vim.cmd("colorscheme vscode")
