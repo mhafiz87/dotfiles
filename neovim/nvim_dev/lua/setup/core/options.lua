@@ -48,4 +48,4 @@ vim.opt.cursorline = true
 -- Blinking cursor
 vim.o.guicursor = "n-v-sm:block,c-i-ci-ve:ver25,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
 
-vim.g.python3_host_prog = os.getenv("userprofile") .. "/.pyenv/pyenv-win/shims/python.bat"
+vim.g.python3_host_prog = os.getenv("userprofile") .. "\\.pyenv\\pyenv-win\\shims\\python.bat"
