@@ -11,6 +11,8 @@ return {
       ['<space>'] = 'SPC',
       ['<cr>'] = 'RET',
       ['<tab>'] = 'TAB',
+      ['<C>'] = 'CTRL',
+      ['<c>'] = 'CTRL',
     },
     window = {
       border = 'rounded',
