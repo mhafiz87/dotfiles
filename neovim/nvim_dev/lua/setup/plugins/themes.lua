@@ -70,10 +70,10 @@ return {
       })
       vim.keymap.set("n", "<leader>ft", "<CMD>Themery<CR>", { desc = "[F]ind [T]hemes" })
       -- Themery block
-      -- This block will be replaced by Themery.
-      vim.cmd("colorscheme vscode")
-      vim.g.theme_id = 16
-      -- end themery block
+-- This block will be replaced by Themery.
+vim.cmd("colorscheme vscode")
+vim.g.theme_id = 16
+-- end themery block
     end,
   },
 }
