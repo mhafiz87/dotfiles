@@ -4,7 +4,7 @@ which_key.register({
   -- Map Esc to 
   j = { mode = "i", k = { "<Esc>", "which_key_ignore" }},
   -- Exit terminal mode
-  j = { mode = "t", k = { "<C-\\><C-n>" , "which_key_ignore" }}
+  j = { mode = "t", k = { "<C-\\><C-n>" , "which_key_ignore" }},
   -- Keep cursor in middle when moving half a screen
   ["<c-d>"] = { "<c-d>zz", "which_key_ignore"},
   ["<c-u>"] = { "<c-u>zz", "which_key_ignore"},
@@ -24,7 +24,6 @@ which_key.register({
     -- Reference "https://tech.serhatteker.com/post/2020-06/close-all-buffers-but-current-in-vim/"
     d = { "<cmd>%bd|e#|bd#<cr>", "[d]elete other buffers"},
     h = { "<cmd>bnext<cr>", "[b]uffer [n]ext"},
-    l = { "<cmd>bprevious<cr>", "[b]uffer [p]revious"},
   },
 
   -- Window
