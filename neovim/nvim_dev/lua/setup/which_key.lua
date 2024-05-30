@@ -78,4 +78,7 @@ which_key.register({
     s = { "<cmd>Telescope live_grep<cr>", "[f]ind [s]tring in current working directory"},
     t = { "<cmd>Themery<cr>", "[f]ind [t]hemes"},
   },
+
+  -- gx
+  ["gx"] = { mode = {"n", "x"}, { "<cmd>Browse<cr>", "Browse link in browser" }},
 })
