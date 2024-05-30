@@ -22,6 +22,7 @@ require("lazy").setup(
   {
     {import = "setup.plugins.themes"},
     {import = "setup.plugins.telescope"},
+    {import = "setup.plugins.treesitter"},
     {import = "setup.plugins.git"},
     {import = "setup.plugins.which_key"},
   },
