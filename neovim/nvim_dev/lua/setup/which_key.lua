@@ -23,8 +23,16 @@ which_key.register({
     b = { "<cmd>e #<cr>", "[b]uffer switch with previous"},
     -- Reference "https://tech.serhatteker.com/post/2020-06/close-all-buffers-but-current-in-vim/"
     d = { "<cmd>%bd|e#|bd#<cr>", "[d]elete other buffers"},
-    h = { "<cmd>bnext<cr>", "[b]uffer [n]ext"},
+    n = { "<cmd>bnext<cr>", "[b]uffer [n]ext"},
+    p = { "<cmd>bprevious<cr>", "[b]uffer [p]revious"},
   },
+
+  -- Don't copy replaced text after pasting
+  p = { mode = "v", {'"_dP', "which_key_ignore"}},
+
+  -- Indent multiple times
+  [">"] = { mode = "v", {">gv", "which_key_ignore"}},
+  ["<"] = { mode = "v", {"<gv", "which_key_ignore"}},
 
   -- Window
   ["<c-up>"] = { "<cmd>resize +2<cr>", "Increase window height by 2" },
