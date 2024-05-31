@@ -15,8 +15,9 @@ return {
         vim.lsp.protocol.make_client_capabilities(),
         cmp_lsp.default_capabilities()
     )
-    local opts = { buffer = bufnr, noremap = true, silent = true }
+    local opts = { noremap = true, silent = true }
     local on_attach = function(client, bufnr)
+      opts.buffer = bufnr
       opts.desc = "Show LSP [r]eferences (Telescope)"
       map("n", "<leader>lR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
