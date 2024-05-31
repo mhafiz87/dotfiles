@@ -68,4 +68,6 @@ map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], de
 map("n", "<leader>qn", "<cmd>cnext<cr>zz", default_opts_desc("[n]ext quickfix list"))
 map("n", "<leader>qp", "<cmd>cprev<cr>zz", default_opts_desc("[p]revious quickfix list"))
 
--- Open link in browser
+-- Diagnostic
+map("n", "[d", vim.diagnostic.goto_prev, default_opts_desc("Go to previous diagnostic"))
+map("n", "]d", vim.diagnostic.goto_prev, default_opts_desc("Go to next diagnostic"))

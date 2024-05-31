@@ -33,6 +33,12 @@ return {
         mode = "n",
       },
 
+      -- Git
+      ["<leader>g"] = {
+        name = "+git",
+        mode = "n",
+      },
+
       -- Flash
       ["<leader>h"] = {
         mode = "n",
@@ -49,6 +55,12 @@ return {
       ["<leader>f"] = {
         mode = "n",
         name = "+find (files/themes/buffer)",
+      },
+
+      -- LSP
+      ["<leader>l"] = {
+        mode = "n",
+        name = "+LSP",
       },
 
       -- g

@@ -17,6 +17,33 @@ return {
     )
     local opts = { buffer = bufnr, noremap = true, silent = true }
     local on_attach = function(client, bufnr)
+      opts.desc = "Show LSP [r]eferences (Telescope)"
+      map("n", "lR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+
+      opts.desc = "Go to [D]eclaration"
+      map("n", "ld", vim.lsp.buf.declaration, opts) -- go to declaration
+
+      opts.desc = "Show LSP [d]efinitions (Telescope)"
+      map("n", "gD", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+
+      opts.desc = "Show LSP [i]mplementations (Telescope)"
+      map("n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+
+      opts.desc = "Show LSP [t]ype definitions"
+      map("n", "gT", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+
+      opts.desc = "See available [c]ode [a]ctions"
+      map({ "n", "v" }, "<leader>lca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+
+      opts.desc = "Smart [r]e[n]ame"
+      map("n", "<leader>lrn", vim.lsp.buf.rename, opts) -- smart rename
+
+      opts.desc = "Show buffer [D]iagnostics (Telescope)"
+      map("n", "<leader>lD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+
+      opts.desc = "Show line [d]iagnostics"
+      map("n", "<leader>ld", vim.diagnostic.open_float, opts) -- show diagnostics for line
+
       opts.desc = "Show do[k]umentation for what is under cursor"
       map("n", "<leader>lk", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
