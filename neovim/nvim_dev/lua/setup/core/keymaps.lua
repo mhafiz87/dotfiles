@@ -14,7 +14,7 @@ local default_opts = { desc = "which_key_ignore", noremap = true, silent = true 
 map("i", "jk", "<Esc>", default_opts)
 
 -- Clear highlight
-map("i", "<leader>l", ":nohl", default_opts_desc("Clear highlights"))
+map({ "n", "v" }, "<leader>cl", "<cmd>:nohl<cr>", default_opts_desc("Clear highlights"))
 
 -- Keep cursor in the middle
 map("n", "<C-d>", "<C-d>zz", default_opts)
@@ -69,4 +69,3 @@ map("n", "<leader>qn", "<cmd>cnext<cr>zz", default_opts_desc("[n]ext quickfix li
 map("n", "<leader>qp", "<cmd>cprev<cr>zz", default_opts_desc("[p]revious quickfix list"))
 
 -- Open link in browser
-map({ "n", "x" }, "gx", "<cmd>Browser<cr>", default_opts_desc("Browse link in browser"))

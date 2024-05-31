@@ -16,6 +16,53 @@ return {
     window = {
       border = 'rounded',
     },
-  }
+  },
+  config = function ()
+    which_key = require("which-key")
+    which_key.register({
+      -- Base
+      -- Buffers Controls
+      ["<leader>b"] = {
+        name = "+buffer controls",
+        mode = "n",
+      },
+
+      -- Clear
+      ["<leader>c"] = {
+        name = "+clear",
+        mode = "n",
+      },
+
+      -- Flash
+      ["<leader>h"] = {
+        mode = "n",
+        name = "+flash",
+      },
+
+      -- Quickfix
+      ["<leader>q"] = {
+        mode = "n",
+        name = "+quickfix",
+      },
+
+      -- Find files/themes/buffer using telescope
+      ["<leader>f"] = {
+        mode = "n",
+        name = "+find (files/themes/buffer)",
+      },
+
+      -- g
+      g = {
+        mode = {"n"},
+        name = "+prefix / mini.align / open in browser",
+      },
+
+      -- Surround
+      ["<leader>r"] = {
+        mode = {"n", "v"},
+        name = "+surround",
+      }
+    })
+  end,
 }
 

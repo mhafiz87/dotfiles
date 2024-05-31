@@ -24,6 +24,7 @@ require("lazy").setup(
     {import = "setup.plugins.telescope"},
     {import = "setup.plugins.treesitter"},
     {import = "setup.plugins.git"},
+    {import = "setup.plugins.autocompleter"},
     {import = "setup.plugins.lsp"},
     -- open link in browser, align, surround, file explorer, flash, highlight
     -- indent scope

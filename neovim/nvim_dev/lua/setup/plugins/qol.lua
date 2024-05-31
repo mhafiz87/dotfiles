@@ -24,6 +24,7 @@ return {
     submodules = false, -- not needed, submodules are required only for tests
     config = function()
       require("gx").setup({})
+      vim.keymap.set({ "n", "x" }, "gx", "<cmd>Browse<cr>", { desc = "Browse link in browser", noremap = true, silent = true })
     end,
   },
 
@@ -35,13 +36,13 @@ return {
     config = function ()
       require("mini.surround").setup({
         mappings = {
-          add = '<leader>sa', -- Add surrounding in Normal and Visual modes
-          delete = '<leader>sd', -- Delete surrounding
-          find = '<leader>sf', -- Find surrounding (to the right)
-          find_left = '<leader>sF', -- Find surrounding (to the left)
-          highlight = '<leader>sh', -- Highlight surrounding
-          replace = '<leader>sr', -- Replace surrounding
-          update_n_lines = '<leader>sn', -- Update `n_lines`
+          add = '<leader>ra', -- Add surrounding in Normal and Visual modes
+          delete = '<leader>rd', -- Delete surrounding
+          find = '<leader>rf', -- Find surrounding (to the right)
+          find_left = '<leader>rF', -- Find surrounding (to the left)
+          highlight = '<leader>rh', -- Highlight surrounding
+          replace = '<leader>rr', -- Replace surrounding
+          update_n_lines = '<leader>rn', -- Update `n_lines`
 		},
       })
     end
@@ -68,7 +69,7 @@ return {
     opts = {},
     keys = {
       {
-        "<leader>s",
+        "<leader>hs",
         mode = { "n", "x", "o" },
         function()
           require("flash").jump()
@@ -76,7 +77,7 @@ return {
         desc = "Flash",
       },
       {
-        "<leader>S",
+        "<leader>hS",
         mode = { "n", "o", "x" },
         function()
           require("flash").treesitter()
@@ -84,7 +85,7 @@ return {
         desc = "Flash Treesitter",
       },
       {
-        "<leader>r",
+        "<leader>hr",
         mode = "o",
         function()
           require("flash").remote()
@@ -92,7 +93,7 @@ return {
         desc = "Remote Flash",
       },
       {
-        "<leader>R",
+        "<leader>hR",
         mode = { "o", "x" },
         function()
           require("flash").treesitter_search()
