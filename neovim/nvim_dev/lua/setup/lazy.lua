@@ -24,8 +24,11 @@ require("lazy").setup(
     {import = "setup.plugins.telescope"},
     {import = "setup.plugins.treesitter"},
     {import = "setup.plugins.git"},
+    {import = "setup.plugins.surround"},
+    {import = "setup.plugins.lsp"},
     {import = "setup.plugins.oil"},
     {import = "setup.plugins.gx"},
+    {import = "setup.plugins.align"},
     {import = "setup.plugins.which_key"},
   },
   {

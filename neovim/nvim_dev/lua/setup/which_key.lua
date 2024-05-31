@@ -81,4 +81,10 @@ which_key.register({
 
   -- gx
   ["gx"] = { mode = {"n", "x"}, { "<cmd>Browse<cr>", "Browse link in browser" }},
+  
+  -- Surround
+  s = {
+    mode = {"n", "v"},
+    name = "+surround",
+  }
 })
