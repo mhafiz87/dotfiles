@@ -1,3 +1,6 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 which_key = require("which-key")
 which_key.register({
   -- Base
