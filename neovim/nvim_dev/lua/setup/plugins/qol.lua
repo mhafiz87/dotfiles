@@ -138,5 +138,17 @@ return {
       })
     end,
   },
+
+  -- Easier comment/uncomment line
+  {
+    "numToStr/Comment.nvim",
+    event = "VeryLazy",
+    config = function ()
+      if (vim.version().major == 0 and vim.version().minor < 10)
+      then
+        require("Comment").setup()
+      end
+    end,
+  },
 }
 

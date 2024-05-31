@@ -21,6 +21,7 @@ vim.g.mapleader = " "
 require("lazy").setup(
   {
     {import = "setup.plugins.themes"},
+    {import = "setup.plugins.ui"},
     {import = "setup.plugins.telescope"},
     {import = "setup.plugins.treesitter"},
     {import = "setup.plugins.git"},
