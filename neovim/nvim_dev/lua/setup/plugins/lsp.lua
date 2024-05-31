@@ -14,6 +14,10 @@ return {
         vim.lsp.protocol.make_client_capabilities(),
         cmp_lsp.default_capabilities()
     )
+    local opts = { buffer = bufnr, noremap = true, silent = true }
+    local on_attach = function(client, bufnr)
+
+    end
 
     require("fidget").setup()
     require("mason").setup()
@@ -29,16 +33,13 @@ return {
       handlers = {
         function(server_name)
           lspconfig[server_name].setup{
+            on_attach = on_attach,
             capabilities = capabilities,
-            handlers = {
-               -- Add borders to LSP popups
-              ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-              ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-            },
           }
         end,
         ["lua_ls"] = function()
           lspconfig.lua_ls.setup{
+            on_attach = on_attach,
             capabilities = capabilities,
             settings = {
               Lua = {
