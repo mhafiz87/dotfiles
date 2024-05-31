@@ -79,6 +79,12 @@ which_key.register({
     t = { "<cmd>Themery<cr>", "[f]ind [t]hemes"},
   },
 
+  -- g
+  g = {
+    mode = {"n"},
+    name = "+prefix / mini.align",
+  },
+
   -- gx
   ["gx"] = { mode = {"n", "x"}, { "<cmd>Browse<cr>", "Browse link in browser" }},
   
