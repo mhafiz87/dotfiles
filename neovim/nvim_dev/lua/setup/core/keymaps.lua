@@ -8,10 +8,13 @@ local map = vim.keymap.set
 local function default_opts_desc(desc)
   return { desc = desc, noremap = true, silent = true }
 end
-local default_opts = { noremap = true, silent = true }
+local default_opts = { desc = "which_key_ignore", noremap = true, silent = true }
 
 -- Map Esc to jk
-map("i", "jk", "<Esc>")
+map("i", "jk", "<Esc>", default_opts)
+
+-- Clear highlight
+map("i", "<leader>l", ":nohl", default_opts_desc("Clear highlights"))
 
 -- Keep cursor in the middle
 map("n", "<C-d>", "<C-d>zz", default_opts)
@@ -21,15 +24,20 @@ map("n", "<C-u>", "<C-u>zz", default_opts)
 map("n", "n", "nzzzv", default_opts)
 map("n", "N", "Nzzzv", default_opts)
 
--- Keep cursor in the beginning
+-- Keep cursor in the column 0 when [J]oining line below with current one
 map("n", "J", "mzJ`z", default_opts)
+
+-- Move current line with context aware
 map("v", "J", ":m '>+1<CR>gv=gv", default_opts)
 map("v", "K", ":m '<-2<CR>gv=gv", default_opts)
 
 -- buffers
-map("n", "<S-h>", "<cmd>bprevious<cr>", default_opts_desc("Prev buffer"))
-map("n", "<S-l>", "<cmd>bnext<cr>", default_opts_desc("Next buffer"))
+map("n", "<leader>bp", "<cmd>bprevious<cr>", default_opts_desc("Prev buffer"))
+map("n", "<leader>bn", "<cmd>bnext<cr>", default_opts_desc("Next buffer"))
 map("n", "<leader>bb", "<cmd>e #<cr>", default_opts_desc("Switch to Other Buffer"))
+map("n", "<leader>bc", "<cmd>bp|bd #<cr>", default_opts_desc("Close buffer without closing split"))
+-- Reference "https://tech.serhatteker.com/post/2020-06/close-all-buffers-but-current-in-vim/"
+map("n", "<leader>bd", "<cmd>%bd|e#|bd#<cr>", default_opts_desc("Close other buffers"))
 
 -- Resize window using <ctrl> arrow keys
 map("n", "<C-Up>", "<cmd>resize +2<cr>", default_opts_desc("Increase window height"))
@@ -40,16 +48,25 @@ map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", default_opts_desc("Increase
 -- exit terminal
 map("t", "jk", "<C-\\><C-n>", default_opts_desc("Exit terminal mode"))
 
--- Close all others buffer
--- Reference "https://tech.serhatteker.com/post/2020-06/close-all-buffers-but-current-in-vim/"
-map("n", "<leader>bd", "<cmd>%bd|e#|bd#<cr>", default_opts_desc("[b]uffer [d]elete others folder"))
-
 -- Don't copy the replaced text after pasting.
-map("v", "p", '"_dP')
+map("v", "p", '"_dP', default_opts)
 
 -- With this you can use > < multiple time for changing indent when you visual selected text.
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+map("v", "<", "<gv", default_opts)
+map("v", ">", ">gv", default_opts)
 
 -- Open current buffer folder in Windows Explorer
 map("n", "<F4>", "<cmd>!start explorer %:p:h<cr>", default_opts_desc("Open current buffer directory in Windows explorer."))
+
+-- Search for highlighted text in buffer
+map("n", "//", 'y/<c-r>"<cr>', default_opts_desc("Search for highlighted in current buffer"))
+
+-- Replace word under cursor across entire buffer
+map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], default_opts_desc("Replace word under cursor across entire buffer"))
+
+-- Quickfix
+map("n", "<leader>qn", "<cmd>cnext<cr>zz", default_opts_desc("[n]ext quickfix list"))
+map("n", "<leader>qp", "<cmd>cprev<cr>zz", default_opts_desc("[p]revious quickfix list"))
+
+-- Open link in browser
+map({ "n", "x" }, "gx", "<cmd>Browser<cr>", default_opts_desc("Browse link in browser"))

@@ -11,6 +11,7 @@ return {
 
   config = function ()
     local actions = require("telescope.actions")
+    local wk_exist, wk = pcall(require, "which-key")
 
     require("telescope").setup({
       defaults = {
@@ -38,6 +39,12 @@ return {
     })
 
     require("telescope").load_extension("fzf")
+
+    vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "[f]ind file in [b]uffers", noremap = true, silent = true })
+    vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "[f]ind [f]ile", noremap = true, silent = true })
+    vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>", { desc = "[f]ind file in [g]it repo", noremap = true, silent = true })
+    vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "[f]ind [r]ecent file", noremap = true, silent = true })
+    vim.keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "[f]ind [s]tring in current working directory", noremap = true, silent = true })
 
   end
 }

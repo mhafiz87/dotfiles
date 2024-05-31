@@ -74,6 +74,7 @@ return {
 vim.cmd("colorscheme vscode")
 vim.g.theme_id = 16
 -- end themery block
+    vim.keymap.set("n", "<leader>ft", "<cmd>Themery<cr>", { desc = "[f]ind [t]hemes", noremap = true, silent = true })
     end,
   },
 }

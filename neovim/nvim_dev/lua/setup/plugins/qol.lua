@@ -33,7 +33,17 @@ return {
     event = "VeryLazy",
     version = false,
     config = function ()
-      require("mini.surround").setup({})
+      require("mini.surround").setup({
+        mappings = {
+          add = '<leader>sa', -- Add surrounding in Normal and Visual modes
+          delete = '<leader>sd', -- Delete surrounding
+          find = '<leader>sf', -- Find surrounding (to the right)
+          find_left = '<leader>sF', -- Find surrounding (to the left)
+          highlight = '<leader>sh', -- Highlight surrounding
+          replace = '<leader>sr', -- Replace surrounding
+          update_n_lines = '<leader>sn', -- Update `n_lines`
+		},
+      })
     end
   },
 
@@ -44,7 +54,9 @@ return {
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("oil").setup({ })
+      require("oil").setup({
+        vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "which_key_ignore", noremap = true, silent = true })
+      })
     end
   },
 
