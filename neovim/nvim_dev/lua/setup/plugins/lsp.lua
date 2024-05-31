@@ -6,6 +6,7 @@ return {
     "j-hui/fidget.nvim",
   },
   config = function ()
+    local map = vim.keymap.set
     local lspconfig = require("lspconfig")
     local cmp_lsp = require("cmp_nvim_lsp")
     local capabilities = vim.tbl_deep_extend(
@@ -16,7 +17,11 @@ return {
     )
     local opts = { buffer = bufnr, noremap = true, silent = true }
     local on_attach = function(client, bufnr)
+      opts.desc = "Show do[k]umentation for what is under cursor"
+      map("n", "<leader>lk", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
+      opts.desc = "[r]e[s]tart LSP"
+      map("n", "<leader>lrs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
     end
 
     require("fidget").setup()
