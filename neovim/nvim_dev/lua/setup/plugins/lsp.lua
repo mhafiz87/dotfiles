@@ -18,19 +18,19 @@ return {
     local opts = { buffer = bufnr, noremap = true, silent = true }
     local on_attach = function(client, bufnr)
       opts.desc = "Show LSP [r]eferences (Telescope)"
-      map("n", "lR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+      map("n", "<leader>lR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
       opts.desc = "Go to [D]eclaration"
-      map("n", "ld", vim.lsp.buf.declaration, opts) -- go to declaration
+      map("n", "<leader>ld", vim.lsp.buf.declaration, opts) -- go to declaration
 
       opts.desc = "Show LSP [d]efinitions (Telescope)"
-      map("n", "gD", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+      map("n", "<leader>lD", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
 
       opts.desc = "Show LSP [i]mplementations (Telescope)"
-      map("n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+      map("n", "<leader>lI", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
       opts.desc = "Show LSP [t]ype definitions"
-      map("n", "gT", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+      map("n", "<leader>lT", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
 
       opts.desc = "See available [c]ode [a]ctions"
       map({ "n", "v" }, "<leader>lca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
