@@ -16,9 +16,9 @@ if(test-path -path "$env:appdata/code/user/settings.json"){remove-item -path "$e
 new-item -itemtype symboliclink -path "$env:appdata/code/user/settings.json" -target "$env:userprofile/.config/vscode/settings.json" -force
 
 # Neovim Settings
-if(test-path -path $env:localappdata/nvim){remove-item -path "$env:localappdata/nvim" -recurse -force}
-new-item -itemtype symboliclink -path "$env:localappdata/nvim" -target "$env:userprofile/.config/neovim/nvim" -force
-if(test-path -path $env:localappdata/nvim_dev){remove-item -path "$env:localappdata/nvim_dev" -recurse -force}
-new-item -itemtype symboliclink -path "$env:localappdata/nvim_dev" -target "$env:userprofile/.config/neovim/nvim_dev" -force
+if(test-path -path $env:localappdata/nvim-data){remove-item -path "$env:localappdata/nvim-data" -recurse -force}
+new-item -itemtype symboliclink -path "$env:localappdata/nvim-data" -target "$env:userprofile/.config/neovim/nvim" -force
+if(test-path -path $env:localappdata/nvim_dev-data){remove-item -path "$env:localappdata/nvim_dev-data" -recurse -force}
+new-item -itemtype symboliclink -path "$env:localappdata/nvim_dev-data" -target "$env:userprofile/.config/neovim/nvim_dev" -force
 
 ```
