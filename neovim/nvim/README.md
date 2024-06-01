@@ -9,4 +9,5 @@
 5. [Andrew Courter](https://github.com/exosyphon/nvim)
 6. [Filename modifiers](https://vimdoc.sourceforge.net/htmldoc/cmdline.html#filename-modifiers)
 7. [Devaslife](https://github.com/craftzdog/dotfiles-public/tree/master)
+8. [Adib Hanna](https://github.com/adibhanna/nvim)
 
