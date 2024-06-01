@@ -4,13 +4,14 @@ local M = {}
 ---@param args any
 ---@return table
 function M.init (args)
-  local enable = true
-  if type(args.enable) == "boolean" then
-    enable = args.enable
-  end
+  -- local enable = true
+  -- if type(args.enable) == "boolean" then
+  --   enable = args.enable
+  -- end
+  setmetatable(args, {__index={enable=true}})
   local data = {
     'nvim-telescope/telescope.nvim', tag = '0.1.5',
-    enabled = enable,
+    enabled = args.enable,
     event = 'VeryLazy',
     dependencies = {
       'nvim-lua/plenary.nvim',
