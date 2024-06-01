@@ -6,7 +6,7 @@
 
 ```powershell
 # Powershell Profile
-if(test-path -path "$profile"){remove-item -path "$env:userprofile/.config/.powershell_profile.ps1" -force}
+if(test-path -path "$profile"){remove-item -path "$profile" -force}
 new-item -itemtype symboliclink -path $profile -target "$env:userprofile/.config/.powershell_profile.ps1"
 
 # VSCode Settings
