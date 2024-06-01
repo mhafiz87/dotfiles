@@ -50,6 +50,7 @@ return {
 
       opts.desc = "[r]e[s]tart LSP"
       map("n", "<leader>lrs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+
     end
 
     require("fidget").setup()

@@ -1,14 +1,40 @@
 return {
+  -- Show code context at winbar
+  {
+    "LunarVim/breadcrumbs.nvim",
+    dependencies = { "SmiteshP/nvim-navic" },
+    config = function ()
+      require("nvim-navic").setup({
+        lsp = {
+          auto_attach = true,
+        },
+      })
+      require("breadcrumbs").setup()
+    end
+  },
+
+  -- Breadcrumbs navigation
+  {
+    "SmiteshP/nvim-navbuddy",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "SmiteshP/nvim-navic",
+      "MunifTanjim/nui.nvim",
+      "numToStr/Comment.nvim", -- Optional
+      "nvim-telescope/telescope.nvim", -- Optional
+    },
+    opts = { lsp = { auto_attach = true } },
+  },
+
   -- align functionality
   {
-     "echasnovski/mini.align",
-    event = "VeryLazy",
-     version = false,
-     event = "BufEnter",
-     config = function()
-       local align = require("mini.align")
-       align.setup()
-     end,
+    "echasnovski/mini.align",
+    event = { "VeryLazy", "BufEnter" },
+    version = false,
+    config = function()
+      local align = require("mini.align")
+      align.setup()
+    end,
   },
 
   -- open link in browser

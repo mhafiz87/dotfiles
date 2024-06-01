@@ -29,14 +29,14 @@ return {
       })
     end
   },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("treesitter-context").setup({
-        max_lines = 3,
-      })
-    end,
-  }
+  -- {
+  --   "nvim-treesitter/nvim-treesitter-context",
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   config = function()
+  --     require("treesitter-context").setup({
+  --       max_lines = 3,
+  --     })
+  --   end,
+  -- }
 }
 
