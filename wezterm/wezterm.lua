@@ -65,6 +65,7 @@ config.font_size = 10
 -- Keybindings
 config.leader = key.leader
 config.keys = key.keys
+config.key_tables = key.key_tables
 
 -- Mouse Bindings
 config.mouse_bindings = {
