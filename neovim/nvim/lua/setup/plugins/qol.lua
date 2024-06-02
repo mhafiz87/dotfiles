@@ -281,5 +281,102 @@ return {
         })
     end
   },
+
+  -- Fold
+  {
+    "kevinhwang91/nvim-ufo",
+    event = "VeryLazy",
+    dependencies = {
+      "kevinhwang91/promise-async",
+    },
+    config = function()
+      vim.o.foldcolumn = "1" -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+
+      -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+      vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open All Folds" })
+      vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close All Folds" })
+      vim.keymap.set("n", "zp", require("ufo").peekFoldedLinesUnderCursor, { desc = "[p]eek folded line under cursor" })
+
+      local handler = function(virtText, lnum, endLnum, width, truncate)
+        local newVirtText = {}
+        local suffix = ("↙ %d "):format(endLnum - lnum)
+        local sufWidth = vim.fn.strdisplaywidth(suffix)
+        local targetWidth = width - sufWidth
+        local curWidth = 0
+        for _, chunk in ipairs(virtText) do
+          local chunkText = chunk[1]
+          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+          if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+          else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            local hlGroup = chunk[2]
+            table.insert(newVirtText, { chunkText, hlGroup })
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            -- str width returned from truncate() may less than 2nd argument, need padding
+            if curWidth + chunkWidth < targetWidth then
+              suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+          end
+          curWidth = curWidth + chunkWidth
+        end
+        table.insert(newVirtText, { suffix, "MoreMsg" })
+        return newVirtText
+      end
+
+      local ufo = require("ufo")
+      ufo.setup({
+        fold_virt_text_handler = handler,
+        provider_selector = function(bufnr, filetype, buftype)
+          return { "treesitter", "indent" }
+        end,
+      })
+    end,
+  },
+
+  -- Markdown Preview
+  {
+    "iamcco/markdown-preview.nvim",
+    event = "VeryLazy",
+    config = function()
+      vim.fn["mkdp#util#install"]()
+      vim.keymap.set("n", "<leader>md", "<CMD>MarkdownPreviewToggle<CR>")
+      vim.g.mkdp_auto_close = 0
+      vim.g.mkdp_theme = "light"
+    end,
+  },
+
+  -- Multiline
+  {
+    "mg979/vim-visual-multi",
+    event = "VeryLazy",
+  },
+
+  -- Pretty Diagnostic List
+  {
+    "folke/trouble.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function ()
+      require("trouble").setup({})
+      vim.keymap.set("n", "<leader>tr", "<cmd>TroubleToggle<cr>", { desc = "[t]oggle t[r]ouble"})
+    end
+  },
+
+  -- Search QoL
+  {
+    "kevinhwang91/nvim-hlslens",
+    event = "VeryLazy",
+    config = function ()
+      require("hlslens").setup()
+      vim.api.nvim_set_keymap('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR><CMD>lua vim.api.nvim_feedkeys('zz', 'n', false)<CR>]], { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR><CMD>lua vim.api.nvim_feedkeys('zz', 'n', false)<CR>]], { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>l', '<cmd>noh<cr>', { noremap = true, silent = true })
+    end
+  },
 }
 
