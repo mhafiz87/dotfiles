@@ -27,6 +27,9 @@ require("lazy").setup(
     {require("setup.plugins.barbeque").init({})},
     {require("setup.plugins.navbuddy").init({})},
     -- Git
+    {require("setup.plugins.git.gitsigns").init({})},
+    {require("setup.plugins.git.vim-fugitive").init({})},
+    {require("setup.plugins.git.diffview").init({})},
     -- QoL
     {require("setup.plugins.todo_highlight").init({})},
     {require("setup.plugins.unfold").init({})},
