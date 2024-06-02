@@ -17,7 +17,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup(
   {
-    {require("setup.plugins.telescope").init({enable=false})},
+    {require("setup.plugins.telescope").init({})},
+    {require("setup.plugins.lsp").init({})},
+    {require("setup.plugins.autocompleter").init({})},
+    {require("setup.plugins.barbeque").init({})},
+    {require("setup.plugins.navbuddy").init({})},
   },
   {
     checker = {
