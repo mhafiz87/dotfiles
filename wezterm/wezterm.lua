@@ -3,6 +3,7 @@
 -- Pull in the wezterm API
 local platform = require("utils.platform")()
 local balance = require("utils.balancepane")
+local key = require("utils.key")
 local wezterm = require("wezterm")
 local mux = wezterm.mux
 local act = wezterm.action
@@ -187,5 +188,16 @@ wezterm.on("gui-startup", function(cmd)
 	window:gui_window():maximize()
 end)
 
--- and finally, return the configuration to wezterm
+-- function basename(s)
+--   return string.gsub(s, '(.*[/\\])(.*)', '%2')
+-- end
+--
+-- wezterm.on('update-right-status', function(window, pane)
+--   local process_info = pane:get_foreground_process_info()
+--   if string.find(process_info.executable, "nvim") then
+--     wezterm.log_info("Nvim is running in current pane.")
+--   end
+--   -- window:set_right_status(basename(process_name))
+-- end)
+
 return config
