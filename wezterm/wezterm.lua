@@ -63,114 +63,8 @@ config.font = wezterm.font_with_fallback({
 config.font_size = 10
 
 -- Keybindings
-config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
-config.keys = {
-	{ key = "p", mods = "LEADER|CTRL|SHIFT", action = act.ActivateCommandPalette },
-	{ key = "F11", mods = "LEADER", action = act.ToggleFullScreen },
-
-	-- Fonts
-	{
-		key = "f",
-		mods = "LEADER",
-		action = act.ActivateKeyTable({
-			name = "resize_font",
-			one_shot = false,
-			timeout_milliseconds = 1000,
-		}),
-	},
-
-	-- Copy Paste
-	{ key = "x", mods = "LEADER|CTRL|SHIFT", action = act.ActivateCopyMode },
-	{ key = "c", mods = "LEADER|CTRL|SHIFT", action = act.CopyTo("Clipboard") },
-	{ key = "v", mods = "LEADER|CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
-
-	-- Tab
-	{ key = "l", mods = "LEADER|SHIFT", action = act.ActivateTabRelative(1) },
-	{ key = "h", mods = "LEADER|SHIFT", action = act.ActivateTabRelative(-1) },
-	{ key = "t", mods = "LEADER|CTRL", action = act.SpawnTab("CurrentPaneDomain") },
-	{
-		key = "1",
-		mods = "LEADER|CTRL",
-		action = act.SpawnCommandInNewTab({
-			args = { "pwsh", "-l" },
-			cwd = config.default_cwd,
-		}),
-	},
-	{
-		key = "2",
-		mods = "LEADER|CTRL",
-		action = act.SpawnCommandInNewTab({
-			args = { "cmd", "-l" },
-			cwd = config.default_cwd,
-		}),
-	},
-	{ key = "w", mods = "LEADER|CTRL", action = act.CloseCurrentTab({ confirm = true }) },
-
-	-- Search
-	{ key = "f", mods = "LEADER|CTRL|SHIFT", action = act.Search({ CaseInSensitiveString = "" }) },
-
-	-- Pane
-	{ key = "f", mods = "LEADER|ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-	{ key = "v", mods = "LEADER|ALT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-	{ key = "w", mods = "LEADER|ALT", action = act.CloseCurrentPane({ confirm = true }) },
-	{ key = "k", mods = "LEADER|ALT", action = act.ActivatePaneDirection("Up") },
-	{ key = "j", mods = "LEADER|ALT", action = act.ActivatePaneDirection("Down") },
-	{ key = "h", mods = "LEADER|ALT", action = act.ActivatePaneDirection("Left") },
-	{ key = "l", mods = "LEADER|ALT", action = act.ActivatePaneDirection("Right") },
-
-	{
-		key = "p",
-		mods = "LEADER",
-		action = act.ActivateKeyTable({
-			name = "resize_pane",
-			one_shot = false,
-			timeout_milliseconds = 1000,
-		}),
-	},
-
-	-- Hyperlink
-	{
-		key = "u",
-		mods = "LEADER",
-		action = wezterm.action.QuickSelectArgs({
-			label = "open url",
-			patterns = {
-				"https?://\\S+",
-			},
-			action = wezterm.action_callback(function(window, pane)
-				local url = window:get_selection_text_for_pane(pane)
-				wezterm.log_info("opening: " .. url)
-				wezterm.open_with(url)
-			end),
-		}),
-	},
-}
-
--- Key Tables
-config.key_tables = {
-	resize_font = {
-		{ key = "=", action = act.IncreaseFontSize },
-		{ key = "-", action = act.DecreaseFontSize },
-		{ key = "Backspace", action = act.ResetFontSize },
-		{ key = "Escape", action = "PopKeyTable" },
-		{ key = "q", action = "PopKeyTable" },
-	},
-	resize_pane = {
-		{ key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
-		{ key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
-		{ key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
-		{ key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
-		{
-			key = "b",
-			action = wezterm.action.Multiple({
-				wezterm.action_callback(balance.balance_panes("x")),
-				wezterm.action_callback(balance.balance_panes("y")),
-			}),
-		},
-		{ key = "Escape", action = "PopKeyTable" },
-		{ key = "q", action = "PopKeyTable" },
-	},
-}
+config.leader = key.leader
+config.keys = key.keys
 
 -- Mouse Bindings
 config.mouse_bindings = {
@@ -188,16 +82,17 @@ wezterm.on("gui-startup", function(cmd)
 	window:gui_window():maximize()
 end)
 
--- function basename(s)
---   return string.gsub(s, '(.*[/\\])(.*)', '%2')
--- end
---
--- wezterm.on('update-right-status', function(window, pane)
---   local process_info = pane:get_foreground_process_info()
---   if string.find(process_info.executable, "nvim") then
---     wezterm.log_info("Nvim is running in current pane.")
---   end
---   -- window:set_right_status(basename(process_name))
--- end)
+function basename(s)
+  return string.gsub(s, '(.*[/\\])(.*)', '%2')
+end
+
+wezterm.on('update-right-status', function(window, pane)
+  local process_info = pane:get_foreground_process_info()
+  if string.find(process_info.executable, "nvim") then
+    window:set_right_status("nvim")
+  else
+    window:set_right_status(basename(process_info.name))
+  end
+end)
 
 return config
