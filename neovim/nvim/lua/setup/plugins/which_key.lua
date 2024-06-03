@@ -57,6 +57,12 @@ return {
         name = "+find (files/themes/buffer)",
       },
 
+      -- Trouble
+      ["<leader>x"] = {
+        mode = "n",
+        name = "+trouble",
+      },
+
       -- LSP
       ["<leader>l"] = {
         mode = "n",

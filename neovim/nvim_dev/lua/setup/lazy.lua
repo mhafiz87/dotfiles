@@ -33,6 +33,7 @@ require("lazy").setup(
     -- QoL
     {require("setup.plugins.qol.todo_highlight").init({})},
     {require("setup.plugins.qol.unfold").init({})},
+    {require("setup.plugins.qol.which_key").init({})},
     {require("setup.plugins.qol.trouble").init({})},  -- List diagnostic in a pretty way.
   },
   {
