@@ -31,8 +31,9 @@ require("lazy").setup(
     {require("setup.plugins.git.vim-fugitive").init({})},
     {require("setup.plugins.git.diffview").init({})},
     -- QoL
-    {require("setup.plugins.todo_highlight").init({})},
-    {require("setup.plugins.unfold").init({})},
+    {require("setup.plugins.qol.todo_highlight").init({})},
+    {require("setup.plugins.qol.unfold").init({})},
+    {require("setup.plugins.qol.trouble").init({})},  -- List diagnostic in a pretty way.
   },
   {
     checker = {
