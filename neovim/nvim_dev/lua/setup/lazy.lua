@@ -24,7 +24,10 @@ require("lazy").setup(
     -- Code
     {require("setup.plugins.lsp").init({})},
     {require("setup.plugins.autocompleter").init({})},
-    {require("setup.plugins.barbeque").init({})},
+    -- AutoFormatter
+    {require("setup.plugins.conform").init({})},
+    -- Code Navigation
+    {require("setup.plugins.barbecue").init({})},
     {require("setup.plugins.navbuddy").init({})},
     -- Git
     {require("setup.plugins.git.gitsigns").init({})},
@@ -37,6 +40,7 @@ require("lazy").setup(
     {require("setup.plugins.qol.trouble").init({})},  -- List diagnostic in a pretty way.
     {require("setup.plugins.qol.gx").init({})},
     {require("setup.plugins.qol.mini-align").init({})},
+    {require("setup.plugins.qol.colorizer").init({})},
   },
   {
     checker = {
