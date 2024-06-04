@@ -40,6 +40,7 @@ require("lazy").setup(
     { require("setup.plugins.qol.trouble").init({}) }, -- List diagnostic in a pretty way.
     { require("setup.plugins.qol.gx").init({}) },
     { require("setup.plugins.qol.mini-align").init({}) },
+    { require("setup.plugins.qol.mini-indent").init({}) },
     { require("setup.plugins.qol.mini-surround").init({}) },
     { require("setup.plugins.qol.colorizer").init({}) },
     { require("setup.plugins.qol.deadcolumn").init({}) },
