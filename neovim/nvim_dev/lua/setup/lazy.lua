@@ -41,6 +41,7 @@ require("lazy").setup(
     {require("setup.plugins.qol.gx").init({})},
     {require("setup.plugins.qol.mini-align").init({})},
     {require("setup.plugins.qol.colorizer").init({})},
+    {require("setup.plugins.qol.deadcolumn").init({})},
   },
   {
     checker = {

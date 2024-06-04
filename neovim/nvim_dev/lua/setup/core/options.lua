@@ -1,6 +1,9 @@
 -- Sync With System Clipboard
 vim.opt.clipboard = "unnamedplus"
 
+vim.opt.termguicolors = true
+vim.opt.colorcolumn = "80"
+
 -- Top / Bottom Scroll Off
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
