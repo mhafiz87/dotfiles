@@ -9,7 +9,14 @@ local mux = wezterm.mux
 local act = wezterm.action
 
 local function basename(s)
-  return string.gsub(s, '(.*[/\\])(.*)', '%2')
+  return string.match(string.gsub(s, '(.*[/\\])(.*)', '%2'), "[a-zA-Z0-9_-]+")
+end
+
+local function remove_exe(s)
+  local temp = string.gmatch(s, "%.")
+  for i in temp do
+    print(i)
+  end
 end
 
 -- This will hold the configuration.

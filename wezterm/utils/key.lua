@@ -3,15 +3,18 @@ local balance = require("utils.balancepane")
 local config = wezterm.config_builder()
 local act = wezterm.action
 
--- https://github.com/letieu/dotfiles/blob/master/dot_config/wezterm/key.lua
+local function basename(s)
+  return string.match(string.gsub(s, '(.*[/\\])(.*)', '%2'), "[a-zA-Z0-9_-]+")
+end
 
+-- https://github.com/letieu/dotfiles/blob/master/dot_config/wezterm/key.lua
 local function is_vim(pane)
   local process_info = pane:get_foreground_process_info()
   local process_name = ""
   if string.find(process_info.executable, "nvim") then
     process_name = "nvim"
   else
-    process_name = process_info.name
+    process_name = basename(process_info.name)
   end
   return process_name == "nvim"
 end
@@ -23,6 +26,8 @@ local function find_vim_pane(tab)
     end
   end
 end
+
+
 
 local function TableConcat(t1, t2)
   for i = 1, #t2 do
@@ -121,35 +126,38 @@ local keys_default = {
       end),
     }),
   },
-  -- Toggle Zoom For Neovim
-  -- {
-  -- key = ";",
-  -- mods = "CTRL",
-  -- action = wezterm.action_callback(function(window, pane)
-  -- 	local tab = window:active_tab()
-  --
-  -- 	-- Open pane below if current pane is vim
-  -- 	if is_vim(pane) then
-  -- 		if (#tab:panes()) == 1 then
-  -- 			-- Open pane right if when there is only one pane and it is vim
-  -- 			pane:split({ direction = "Right" })
-  -- 		else
-  -- 			-- Send `CTRL-; to vim`, navigate to bottom pane from vim
-  -- 			window:perform_action({
-  -- 				SendKey = { key = ";", mods = "CTRL" },
-  -- 			}, pane)
-  -- 		end
-  -- 		return
-  -- 	end
-  --
-  -- 	-- Zoom to vim pane if it exists
-  -- 	local vim_pane = find_vim_pane(tab)
-  -- 	if vim_pane then
-  -- 		vim_pane:activate()
-  -- 		tab:set_zoomed(true)
-  -- 	end
-  -- end),
-  -- },
+  -- If nvim is in tab; split right and toggle
+  {
+    key = ";",
+    mods = "CTRL",
+    action = wezterm.action_callback(function(window, pane)
+      local tab = window:active_tab()
+      -- if current active pane is vim
+      if is_vim(pane) then
+        -- if number of panes is 1
+        if (#tab:panes()) == 1 then
+          -- Split pane to the right
+          pane:split({ direction = "Right" })
+        else
+          for _, panel in ipairs(tab:panes_with_info()) do
+            if is_vim(panel.pane) then
+              tab:set_zoomed(false)
+            else
+              panel.pane:activate()
+            end
+          end
+        end
+        return
+      end
+
+      -- Zoom to vim pane if it exists
+      local vim_pane = find_vim_pane(tab)
+      if vim_pane then
+        vim_pane:activate()
+        tab:set_zoomed(true)
+      end
+    end),
+  },
 }
 
 M.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
