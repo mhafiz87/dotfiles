@@ -36,12 +36,14 @@ require("lazy").setup(
     -- QoL
     {require("setup.plugins.qol.todo_highlight").init({})},
     {require("setup.plugins.qol.unfold").init({})},
-    {require("setup.plugins.qol.which_key").init({})},
     {require("setup.plugins.qol.trouble").init({})},  -- List diagnostic in a pretty way.
     {require("setup.plugins.qol.gx").init({})},
     {require("setup.plugins.qol.mini-align").init({})},
     {require("setup.plugins.qol.colorizer").init({})},
     {require("setup.plugins.qol.deadcolumn").init({})},
+    {require("setup.plugins.qol.flash").init({})},
+    -- Which Key (Must be last to override others)
+    {require("setup.plugins.qol.which_key").init({})},
   },
   {
     checker = {

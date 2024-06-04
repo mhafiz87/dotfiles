@@ -69,8 +69,14 @@ function M.init (args)
 
         -- LSP
         ["<leader>l"] = {
-          mode = "n",
+          mode = {"n", "v"},
           name = "+LSP",
+        },
+
+        -- Format
+        ["<leader>m"] = {
+          mode = {"n", "v"},
+          name = "+format",
         },
 
         -- g
