@@ -22,6 +22,7 @@ require("lazy").setup(
     { require("setup.plugins.lualine").init({}) },
     { require("setup.plugins.telescope").init({}) },
     -- Code
+    { require("setup.plugins.treesitter").init({}) },
     { require("setup.plugins.lsp").init({}) },
     { require("setup.plugins.autocompleter").init({}) },
     -- AutoFormatter
