@@ -90,13 +90,27 @@ local keys_default = {
   { key = "w", mods = "LEADER|CTRL", action = act.CloseCurrentTab({ confirm = true }) },
 
   -- Pane
-  { key = "f", mods = "LEADER|ALT",  action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-  { key = "v", mods = "LEADER|ALT",  action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-  { key = "w", mods = "LEADER|ALT",  action = act.CloseCurrentPane({ confirm = true }) },
-  { key = "k", mods = "LEADER|ALT",  action = act.ActivatePaneDirection("Up") },
-  { key = "j", mods = "LEADER|ALT",  action = act.ActivatePaneDirection("Down") },
-  { key = "h", mods = "LEADER|ALT",  action = act.ActivatePaneDirection("Left") },
-  { key = "l", mods = "LEADER|ALT",  action = act.ActivatePaneDirection("Right") },
+  {
+    key = "w",
+    mods = "CTRL",
+    action = wezterm.action_callback(function(window, pane)
+      -- if current active pane is vim
+      if is_vim(pane) then
+        wezterm.log_info("Is vim pane: " .. tostring(is_vim(pane)))
+        window:perform_action({
+          SendKey = { key = "w", mods = "CTRL" },
+        }, pane)
+      else
+        window:perform_action({
+          ActivateKeyTable = {
+            name = "pane_direction",
+            one_shot = false,
+            timeout_milliseconds = 1000,
+          },
+        }, pane)
+      end
+    end),
+  },
   {
     key = "p",
     mods = "LEADER",
@@ -108,7 +122,7 @@ local keys_default = {
   },
 
   -- Workspace
-  { key = "w", mods = "LEADER", action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
+  { key = "w", mods = "LEADER",      action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
 
   -- Hyperlink
   {
@@ -184,6 +198,17 @@ M.key_tables = {
         wezterm.action_callback(balance.balance_panes("y")),
       }),
     },
+    { key = "Escape", action = "PopKeyTable" },
+    { key = "q",      action = "PopKeyTable" },
+  },
+  pane_direction = {
+    { key = "h",      mods = "CTRL",         action = act.ActivatePaneDirection("Left") },
+    { key = "j",      mods = "CTRL",         action = act.ActivatePaneDirection("Down") },
+    { key = "k",      mods = "CTRL",         action = act.ActivatePaneDirection("Up") },
+    { key = "l",      mods = "CTRL",         action = act.ActivatePaneDirection("Right") },
+    { key = "s",      mods = "CTRL",         action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+    { key = "v",      mods = "CTRL",         action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+    { key = "q",      mods = "CTRL",         action = act.CloseCurrentPane({ confirm = true }) },
     { key = "Escape", action = "PopKeyTable" },
     { key = "q",      action = "PopKeyTable" },
   },
