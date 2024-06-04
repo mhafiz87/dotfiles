@@ -1,24 +1,24 @@
 local M = {}
 
-function M.init (args)
-  setmetatable(args, {__index={enable=true}})
+function M.init(args)
+  setmetatable(args, { __index = { enable = true } })
   local data = {
     enabled = args.enable,
     "neovim/nvim-lspconfig",
-    dependencies =  {
+    dependencies = {
       "hrsh7th/cmp-nvim-lsp", -- neovim built-in language server client
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "j-hui/fidget.nvim",
     },
-    config = function ()
+    config = function()
       local map = vim.keymap.set
       local lspconfig = require("lspconfig")
       local capabilities = vim.tbl_deep_extend(
-          "force",
-          {},
-          vim.lsp.protocol.make_client_capabilities(),
-          require("cmp_nvim_lsp").default_capabilities()
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        require("cmp_nvim_lsp").default_capabilities()
       )
       local opts = { noremap = true, silent = true }
       local on_attach = function(client, bufnr)
@@ -27,10 +27,10 @@ function M.init (args)
         map("n", "<>lR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
         opts.desc = "Go to [D]eclaration"
-        map("n", "<leader>ld", vim.lsp.buf.declaration, opts) -- go to declaration
+        map("n", "<leader>ln", vim.lsp.buf.declaration, opts) -- go to declaration
 
         opts.desc = "Show LSP [d]efinitions (Telescope)"
-        map("n", "<leader>lD", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+        map("n", "<leader>lN", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
 
         opts.desc = "Show LSP [i]mplementations (Telescope)"
         map("n", "<leader>lI", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
@@ -55,7 +55,6 @@ function M.init (args)
 
         opts.desc = "[r]e[s]tart LSP"
         map("n", "<leader>lrs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
-
       end
 
       require("fidget").setup()
@@ -71,13 +70,13 @@ function M.init (args)
         },
         handlers = {
           function(server_name)
-            lspconfig[server_name].setup{
+            lspconfig[server_name].setup {
               on_attach = on_attach,
               capabilities = capabilities,
             }
           end,
           ["lua_ls"] = function()
-            lspconfig.lua_ls.setup{
+            lspconfig.lua_ls.setup {
               on_attach = on_attach,
               capabilities = capabilities,
               settings = {
@@ -94,9 +93,8 @@ function M.init (args)
     end
 
     -- TODO: Beautify ui
-    }
+  }
   return data
 end
 
 return M
-

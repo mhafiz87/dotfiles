@@ -40,10 +40,13 @@ require("lazy").setup(
     { require("setup.plugins.qol.trouble").init({}) }, -- List diagnostic in a pretty way.
     { require("setup.plugins.qol.gx").init({}) },
     { require("setup.plugins.qol.mini-align").init({}) },
+    { require("setup.plugins.qol.mini-surround").init({}) },
     { require("setup.plugins.qol.colorizer").init({}) },
     { require("setup.plugins.qol.deadcolumn").init({}) },
     { require("setup.plugins.qol.flash").init({}) },
     { require("setup.plugins.qol.oil").init({}) },
+    { require("setup.plugins.qol.aerial").init({}) },
+    { require("setup.plugins.qol.autopairs").init({}) },
     -- Which Key (Must be last to override others)
     { require("setup.plugins.qol.which_key").init({}) },
   },
