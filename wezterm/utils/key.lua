@@ -16,7 +16,7 @@ local function is_vim(pane)
   else
     process_name = basename(process_info.name)
   end
-  return process_name == "nvim"
+  return process_name == "nvim" or process_name == "python"
 end
 
 local function find_vim_pane(tab)
