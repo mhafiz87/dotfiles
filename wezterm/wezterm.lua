@@ -106,9 +106,10 @@ wezterm.on("update-right-status", function(window, pane)
   if window:active_key_table() then stat = window:active_key_table() end
   if window:leader_is_active() then stat = "LDR" end
   -- Current process
-  local process = basename(pane:get_foreground_process_name())
-  if process ~= "nvim" then
-    process = pane:get_foreground_process_info().executable
+  -- local process = basename(pane:get_foreground_process_name())
+  local process = pane:get_foreground_process_info().executable
+  if string.find(process, "nvim") then
+    process = "nvim"
   end
   -- Time
   local time = wezterm.strftime("%H:%M")
