@@ -50,7 +50,7 @@ config.disable_default_key_bindings = true
 config.enable_scroll_bar = true
 config.adjust_window_size_when_changing_font_size = false
 config.hide_mouse_cursor_when_typing = true
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false
 config.tab_max_width = 25
 config.window_padding = {
   left = 5,
@@ -107,6 +107,9 @@ wezterm.on("update-right-status", function(window, pane)
   if window:leader_is_active() then stat = "LDR" end
   -- Current process
   local process = basename(pane:get_foreground_process_name())
+  if process ~= "nvim" then
+    process = pane:get_foreground_process_info().executable
+  end
   -- Time
   local time = wezterm.strftime("%H:%M")
 
