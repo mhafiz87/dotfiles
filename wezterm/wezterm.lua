@@ -97,7 +97,7 @@ end)
 -- Tab bar
 -- https://github.com/theopn/dotfiles/blob/25b85936ef3e7195a0f029525f854fdb915b9f90/wezterm/wezterm.lua
 config.use_fancy_tab_bar = false
-config.status_update_interval = 1000
+config.status_update_interval = 500
 wezterm.on("update-right-status", function(window, pane)
   -- Workspace name
   local stat = window:active_workspace()
