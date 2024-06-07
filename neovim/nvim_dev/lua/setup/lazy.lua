@@ -17,6 +17,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup(
   {
+    -- Markdown
+    { require("setup.plugins.markdown").init({}) },
     -- UI
     { require("setup.plugins.themery").init({}) },
     { require("setup.plugins.lualine").init({}) },
