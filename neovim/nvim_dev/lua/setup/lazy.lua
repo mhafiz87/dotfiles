@@ -45,6 +45,7 @@ require("lazy").setup(
     { require("setup.plugins.qol.mini-indent").init({}) },
     { require("setup.plugins.qol.mini-surround").init({}) },
     { require("setup.plugins.qol.colorizer").init({}) },
+    { require("setup.plugins.qol.colortils").init({}) },
     { require("setup.plugins.qol.deadcolumn").init({}) },
     { require("setup.plugins.qol.flash").init({}) },
     { require("setup.plugins.qol.oil").init({}) },
