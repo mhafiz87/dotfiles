@@ -51,6 +51,7 @@ require("lazy").setup(
     { require("setup.plugins.qol.oil").init({}) },
     { require("setup.plugins.qol.aerial").init({}) },
     { require("setup.plugins.qol.autopairs").init({}) },
+    { require("setup.plugins.qol.marks").init({}) },
     -- Which Key (Must be last to override others)
     { require("setup.plugins.qol.which_key").init({}) },
   },
