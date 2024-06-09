@@ -12,6 +12,12 @@ local function basename(s)
   return string.match(string.gsub(s, '(.*[/\\])(.*)', '%2'), "[a-zA-Z0-9_-]+")
 end
 
+local function table_length(T)
+  local count = 0
+  for _ in pairs(T) do count = count + 1 end
+  return count
+end
+
 local function remove_exe(s)
   local temp = string.gmatch(s, "%.")
   for i in temp do
@@ -92,6 +98,11 @@ config.mouse_bindings = {
 wezterm.on("gui-startup", function(cmd)
   local tab, pane, window = mux.spawn_window(cmd or {})
   window:gui_window():maximize()
+  window:toast_notification('wezterm', 'Wezterm Start.', nil, 4000)
+end)
+
+wezterm.on('window-config-reloaded', function(window, pane)
+  window:toast_notification('wezterm', 'Configuration Reloaded!', nil, 4000)
 end)
 
 -- Tab bar
@@ -111,11 +122,19 @@ wezterm.on("update-right-status", function(window, pane)
   if string.find(process, "nvim") then
     process = "nvim"
   end
+  -- Number of panes in current tab
+  local panes_n = table_length(window:active_tab():panes_with_info())
+  local pane_str = "pane"
+  if panes_n > 1 then
+    pane_str = "panes"
+  end
   -- Time
   local time = wezterm.strftime("%H:%M")
 
   window:set_right_status(wezterm.format({
     { Text = wezterm.nerdfonts.oct_table .. "  " .. stat },
+    { Text = " | " },
+    { Text = wezterm.nerdfonts.cod_layout .. " " .. panes_n .. " " .. pane_str },
     { Text = " | " },
     { Foreground = { Color = "FFB86C" } },
     { Text = wezterm.nerdfonts.fa_code .. "  " .. process },
