@@ -136,7 +136,7 @@ wezterm.on("update-right-status", function(window, pane)
     { Text = " | " },
     { Text = wezterm.nerdfonts.cod_layout .. " " .. panes_n .. " " .. pane_str },
     { Text = " | " },
-    { Foreground = { Color = "FFB86C" } },
+    { Foreground = { Color = "#FFB86C" } },
     { Text = wezterm.nerdfonts.fa_code .. "  " .. process },
     "ResetAttributes",
     { Text = " | " },
