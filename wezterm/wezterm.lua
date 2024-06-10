@@ -2,22 +2,11 @@
 
 -- Pull in the wezterm API
 local platform = require("utils.platform")()
-local balance = require("utils.balancepane")
 local key = require("utils.key")
 local wezterm = require("wezterm")
 local helper = require("utils.helper")
 local mux = wezterm.mux
 local act = wezterm.action
-
-local function basename(s)
-  return string.match(string.gsub(s, '(.*[/\\])(.*)', '%2'), "[a-zA-Z0-9_-]+")
-end
-
-local function table_length(T)
-  local count = 0
-  for _ in pairs(T) do count = count + 1 end
-  return count
-end
 
 local function remove_exe(s)
   local temp = string.gmatch(s, "%.")
@@ -112,19 +101,20 @@ config.use_fancy_tab_bar = false
 config.status_update_interval = 500
 wezterm.on("update-right-status", function(window, pane)
   -- Workspace name
+  local tab = window:active_tab()
   local stat = window:active_workspace()
   -- It's a little silly to have workspace name all the time
   -- Utilize this to display LDR or current key table name
   if window:active_key_table() then stat = window:active_key_table() end
   if window:leader_is_active() then stat = "LDR" end
   -- Current process
-  -- local process = basename(pane:get_foreground_process_name())
+  -- local process = helper.basename(pane:get_foreground_process_name())
   local process = pane:get_foreground_process_info().executable
   if string.find(process, "nvim") then
     process = "nvim"
   end
   -- Number of panes in current tab
-  local panes_n = table_length(window:active_tab():panes_with_info())
+  local panes_n = helper.table_length(window:active_tab():panes_with_info())
   local pane_str = "pane"
   if panes_n > 1 then
     pane_str = "panes"

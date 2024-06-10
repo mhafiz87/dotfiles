@@ -1,40 +1,8 @@
 local wezterm = require("wezterm")
 local balance = require("utils.balancepane")
+local helper = require("utils.helper")
 local config = wezterm.config_builder()
 local act = wezterm.action
-
-local function basename(s)
-  return string.match(string.gsub(s, '(.*[/\\])(.*)', '%2'), "[a-zA-Z0-9_-]+")
-end
-
--- https://github.com/letieu/dotfiles/blob/master/dot_config/wezterm/key.lua
-local function is_vim(pane)
-  local process_info = pane:get_foreground_process_info()
-  local process_name = ""
-  if string.find(process_info.executable, "nvim") then
-    process_name = "nvim"
-  else
-    process_name = basename(process_info.name)
-  end
-  return process_name == "nvim" or process_name == "python"
-end
-
-local function find_vim_pane(tab)
-  for _, pane in ipairs(tab:panes()) do
-    if is_vim(pane) then
-      return pane
-    end
-  end
-end
-
-
-
-local function TableConcat(t1, t2)
-  for i = 1, #t2 do
-    t1[#t1 + 1] = t2[i]
-  end
-  return t1
-end
 
 local M = {}
 
@@ -95,8 +63,8 @@ local keys_default = {
     mods = "CTRL",
     action = wezterm.action_callback(function(window, pane)
       -- if current active pane is vim
-      if is_vim(pane) then
-        wezterm.log_info("Is vim pane: " .. tostring(is_vim(pane)))
+      if helper.is_vim(pane) then
+        wezterm.log_info("Is vim pane: " .. tostring(helper.is_vim(pane)))
         window:perform_action({
           SendKey = { key = "w", mods = "CTRL" },
         }, pane)
@@ -147,14 +115,14 @@ local keys_default = {
     action = wezterm.action_callback(function(window, pane)
       local tab = window:active_tab()
       -- if current active pane is vim
-      if is_vim(pane) then
+      if helper.is_vim(pane) then
         -- if number of panes is 1
         if (#tab:panes()) == 1 then
           -- Split pane to the right
           pane:split({ direction = "Right" })
         else
           for _, panel in ipairs(tab:panes_with_info()) do
-            if is_vim(panel.pane) then
+            if helper.is_vim(panel.pane) then
               tab:set_zoomed(false)
             else
               panel.pane:activate()
@@ -165,7 +133,7 @@ local keys_default = {
       end
 
       -- Zoom to vim pane if it exists
-      local vim_pane = find_vim_pane(tab)
+      local vim_pane = helper.find_vim_pane(tab)
       if vim_pane then
         vim_pane:activate()
         tab:set_zoomed(true)
@@ -176,7 +144,7 @@ local keys_default = {
 
 M.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
 
-M.keys = TableConcat(keys_default, keys_wezterm)
+M.keys = helper.TableConcat(keys_default, keys_wezterm)
 
 M.key_tables = {
   resize_font = {
