@@ -1,37 +1,37 @@
 local M = {}
 
-function M.init (args)
-  setmetatable(args, {__index={enable=true}})
+function M.init(args)
+  setmetatable(args, { __index = { enable = true } })
   local data = {
     enabled = args.enable,
-    "hrsh7th/nvim-cmp", -- neovim completion engine
+    "hrsh7th/nvim-cmp",                      -- neovim completion engine
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp", -- neovim built-in language server client
-      "hrsh7th/cmp-buffer", -- source for buffer words
-      "hrsh7th/cmp-path", -- source for filesytem paths
+      "hrsh7th/cmp-nvim-lsp",                -- neovim built-in language server client
+      "hrsh7th/cmp-buffer",                  -- source for buffer words
+      "hrsh7th/cmp-path",                    -- source for filesytem paths
       "hrsh7th/cmp-nvim-lsp-signature-help", -- source for displaying function signatures with the current parameter
-      "hrsh7th/cmp-cmdline", -- source for vim's command line
-      "saadparwaiz1/cmp_luasnip", -- luasnip completion source
+      "hrsh7th/cmp-cmdline",                 -- source for vim's command line
+      "saadparwaiz1/cmp_luasnip",            -- luasnip completion source
       "L3MON4D3/LuaSnip",
-      "rafamadriz/friendly-snippets", -- Snippets collection for a set of different programming languages.
-      "onsails/lspkind.nvim", -- vs-code like pictograms
+      "rafamadriz/friendly-snippets",        -- Snippets collection for a set of different programming languages.
+      "onsails/lspkind.nvim",                -- vs-code like pictograms
     },
-    config = function ()
+    config = function()
       local luasnip = require("luasnip")
       local lspkind = require("lspkind")
       local cmp = require('cmp')
       local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
       require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "\\snippets\\vscode\\" } }) -- vscode style snippet
-      require("luasnip.loaders.from_vscode").lazy_load() -- vscode style snippet
+      require("luasnip.loaders.from_vscode").lazy_load()                                                                   -- vscode style snippet
 
       cmp.setup({
         completion = {
           completeopt = "menu, menuone, preview, noselect",
         },
         snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
+          expand = function(a)
+            luasnip.lsp_expand(a.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
@@ -66,10 +66,10 @@ function M.init (args)
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "luasnip" }, -- snippets
-          { name = 'nvim_lsp_signature_help' },  -- function signature with current parameter
-          { name = "buffer" }, -- text within current buffer
-          { name = "path" }, -- file system paths
+          { name = "luasnip" },                 -- snippets
+          { name = 'nvim_lsp_signature_help' }, -- function signature with current parameter
+          { name = "buffer" },                  -- text within current buffer
+          { name = "path" },                    -- file system paths
         }),
         -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
         cmp.setup.cmdline({ "/", "?" }, {
@@ -108,4 +108,3 @@ function M.init (args)
 end
 
 return M
-

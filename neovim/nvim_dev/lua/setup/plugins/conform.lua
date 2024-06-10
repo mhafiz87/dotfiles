@@ -1,16 +1,16 @@
 local M = {}
 
-function M.init (args)
-  setmetatable(args, {__index={enable=true}})
+function M.init(args)
+  setmetatable(args, { __index = { enable = true } })
   local data = {
     enabled = args.enable,
     "stevearc/conform.nvim",
-    event = {"BufReadPre", "BufNewFile"},
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "williamboman/mason.nvim",
       "zapling/mason-conform.nvim",
     },
-    config = function ()
+    config = function()
       local conform = require("conform")
       conform.setup({
         formatters_by_ft = {
@@ -30,7 +30,7 @@ function M.init (args)
         conform.format({
           lsp_fallback = true,
           async = false,
-          timeout_ms = 500,
+          timeout_ms = 1500,
         })
       end, { desc = "Format file or range (in visual mode)" })
     end
@@ -39,4 +39,3 @@ function M.init (args)
 end
 
 return M
-
