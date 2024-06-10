@@ -5,6 +5,7 @@ local platform = require("utils.platform")()
 local balance = require("utils.balancepane")
 local key = require("utils.key")
 local wezterm = require("wezterm")
+local helper = require("utils.helper")
 local mux = wezterm.mux
 local act = wezterm.action
 
