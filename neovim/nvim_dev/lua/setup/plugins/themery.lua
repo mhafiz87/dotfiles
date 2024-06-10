@@ -1,7 +1,7 @@
 local M = {}
 
-function M.init (args)
-  setmetatable(args, {__index={enable=true}})
+function M.init(args)
+  setmetatable(args, { __index = { enable = true } })
   local data = {
     enabled = args.enable,
     {
@@ -70,15 +70,15 @@ function M.init (args)
             "tokyonight-storm",
             "vscode",
           },
-          themeConfigFile = vim.fn.stdpath("config") .. "/lua/setup/plugins/themes.lua",
+          themeConfigFile = vim.fn.stdpath("config") .. "/lua/setup/plugins/themery.lua",
           livePreview = true,
         })
         vim.keymap.set("n", "<leader>ft", "<cmd>Themery<cr>", { desc = "[f]ind [t]hemes", noremap = true, silent = true })
         -- Themery block
-        -- This block will be replaced by Themery.
-        vim.cmd("colorscheme vscode")
-        vim.g.theme_id = 16
-        -- end themery block
+-- This block will be replaced by Themery.
+vim.cmd("colorscheme catppuccin-mocha")
+vim.g.theme_id = 4
+-- end themery block
       end,
     },
   }
@@ -86,4 +86,3 @@ function M.init (args)
 end
 
 return M
-
