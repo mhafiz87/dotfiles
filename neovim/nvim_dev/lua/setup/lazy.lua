@@ -19,6 +19,7 @@ require("lazy").setup(
   {
     -- Markdown
     { require("setup.plugins.markdown").init({}) },
+    { require("setup.plugins.markdown-viewer").init({}) },
     -- UI
     { require("setup.plugins.themery").init({}) },
     { require("setup.plugins.lualine").init({}) },

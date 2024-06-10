@@ -1,7 +1,7 @@
 local M = {}
 
-function M.init (args)
-  setmetatable(args, {__index={enable=true}})
+function M.init(args)
+  setmetatable(args, { __index = { enable = true } })
   local data = {
     enabled = args.enable,
     "folke/which-key.nvim",
@@ -22,7 +22,7 @@ function M.init (args)
         border = 'rounded',
       },
     },
-    config = function ()
+    config = function()
       local wk = require("which-key")
       wk.register({
         -- Buffers Controls
@@ -69,25 +69,25 @@ function M.init (args)
 
         -- LSP
         ["<leader>l"] = {
-          mode = {"n", "v"},
+          mode = { "n", "v" },
           name = "+LSP",
         },
 
-        -- Format
+        -- Format / Markdown
         ["<leader>m"] = {
-          mode = {"n", "v"},
-          name = "+format",
+          mode = { "n", "v" },
+          name = "+format / markdown",
         },
 
         -- g
         g = {
-          mode = {"n"},
+          mode = { "n" },
           name = "+prefix / mini.align / open in browser",
         },
 
         -- Surround
         ["<leader>r"] = {
-          mode = {"n", "v"},
+          mode = { "n", "v" },
           name = "+surround",
         }
       })
@@ -97,4 +97,3 @@ function M.init (args)
 end
 
 return M
-
