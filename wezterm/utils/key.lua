@@ -3,6 +3,7 @@ local balance = require("utils.balancepane")
 local helper = require("utils.helper")
 local config = wezterm.config_builder()
 local act = wezterm.action
+local mux = wezterm.mux
 
 local M = {}
 
@@ -79,6 +80,7 @@ local keys_default = {
       end
     end),
   },
+  -- resize_pane
   {
     key = "p",
     mods = "LEADER",
@@ -90,13 +92,21 @@ local keys_default = {
   },
 
   -- Workspace
-  { key = "w", mods = "LEADER",      action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
+  {
+    key = "w",
+    mods = "LEADER",
+    action = act.ActivateKeyTable({
+      name = "workspace",
+      one_shot = false,
+      timeout_milliseconds = 1000,
+    })
+  },
 
   -- Hyperlink
   {
     key = "u",
     mods = "LEADER",
-    action = wezterm.action.QuickSelectArgs({
+    action = act.QuickSelectArgs({
       label = "open url",
       patterns = {
         "https?://\\S+",
@@ -147,6 +157,20 @@ M.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
 M.keys = helper.TableConcat(keys_default, keys_wezterm)
 
 M.key_tables = {
+  workspace = {
+    { key = "o", action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
+    {
+      key = "r",
+      action = act.PromptInputLine{
+        description = "Rename current workspace",
+        action = wezterm.action_callback(function (window, pane, line)
+          if line then
+            mux.rename_workspace(mux.get_active_workspace(), line)
+          end
+        end)
+      },
+    },
+  },
   resize_font = {
     { key = "=",         action = act.IncreaseFontSize },
     { key = "-",         action = act.DecreaseFontSize },
@@ -161,7 +185,7 @@ M.key_tables = {
     { key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
     {
       key = "b",
-      action = wezterm.action.Multiple({
+      action = act.Multiple({
         wezterm.action_callback(balance.balance_panes("x")),
         wezterm.action_callback(balance.balance_panes("y")),
       }),
