@@ -5,6 +5,7 @@ local platform = require("utils.platform")()
 local key = require("utils.key")
 local wezterm = require("wezterm")
 local helper = require("utils.helper")
+local ws = require("utils.workspaces")
 local mux = wezterm.mux
 local act = wezterm.action
 
@@ -86,13 +87,25 @@ config.mouse_bindings = {
 }
 
 wezterm.on("gui-startup", function(cmd)
-  local tab, pane, window = mux.spawn_window(cmd or {})
+  local tab, pane, window = mux.spawn_window(cmd or {
+    workspace = "awake",
+    cwd = config.default_cwd
+  })
+  mux.set_active_workspace("awake")
+  pane:send_text("cls\rkeep-awake\r")
   window:gui_window():maximize()
-  window:toast_notification('wezterm', 'Wezterm Start.', nil, 4000)
+  mux.spawn_window({
+    workspace = "home",
+    cwd = config.default_cwd
+  })
+  mux.set_active_workspace("home")
+  pane:send_text("cls\r")
+end)
+
+wezterm.on("gui-attached", function()
 end)
 
 wezterm.on('window-config-reloaded', function(window, pane)
-  window:toast_notification('wezterm', 'Configuration Reloaded!', nil, 4000)
 end)
 
 -- Tab bar

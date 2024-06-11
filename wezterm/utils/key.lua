@@ -177,36 +177,10 @@ M.key_tables = {
                 function(inner_window, inner_pane, id, label)
                   if label == "new" then
                     wezterm.log_info("Creating new workspace")
-                    inner_window:perform_action(
-                      act.PromptInputLine {
-                        description = wezterm.format {
-                          { Attribute = { Intensity = 'Bold' } },
-                          { Foreground = { AnsiColor = 'Fuchsia' } },
-                          { Text = 'Enter name for new workspace' },
-                        },
-                        action = wezterm.action_callback(function(new_window, new_pane, line)
-                          if line then
-                            ws.workspaces[line] = { parameter = { label = line } }
-                            new_window:perform_action(
-                              act.SwitchToWorkspace {
-                                name = line,
-                              },
-                              new_pane
-                            )
-                          end
-                        end)
-                      },
-                      inner_pane
-                    )
+                    ws.create_workspace(inner_window, inner_pane)
                   else
                     wezterm.log_info("Loading workspace...")
-                    inner_window:perform_action(
-                      act.SwitchToWorkspace {
-                        name = label,
-                        spawn = ws.workspaces[label]["parameter"],
-                      },
-                      inner_pane
-                    )
+                    ws.load_workpace(inner_window, inner_pane, label)
                   end
                 end
               ),
@@ -223,6 +197,34 @@ M.key_tables = {
           )
         end),
       })
+    },
+    {
+      key = "d",
+      action = wezterm.action_callback(function(window, pane)
+        local selection = {}
+        for key, _ in pairs(ws.workspaces) do
+          table.insert(selection, { label = key })
+        end
+        window:perform_action(
+          act.InputSelector {
+            action = wezterm.action_callback(
+              function(inner_window, inner_pane, id, label)
+                wezterm.log_info(label)
+                ws.kill_workspace(label)
+              end
+            ),
+            title = 'Delete Workspace',
+            choices = selection,
+            fuzzy = true,
+            fuzzy_description = wezterm.format {
+              { Attribute = { Intensity = 'Bold' } },
+              { Foreground = { AnsiColor = 'Fuchsia' } },
+              { Text = "Select workspace to delete: " },
+            },
+          },
+          pane
+        )
+      end)
     },
     -- rename current workspace
     -- {
