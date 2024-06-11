@@ -4,6 +4,8 @@ local helper = require("utils.helper")
 local config = wezterm.config_builder()
 local act = wezterm.action
 local mux = wezterm.mux
+local ws = require("utils.workspaces")
+local ws_selection = {}
 
 local M = {}
 
@@ -80,6 +82,7 @@ local keys_default = {
       end
     end),
   },
+
   -- resize_pane
   {
     key = "p",
@@ -87,7 +90,7 @@ local keys_default = {
     action = act.ActivateKeyTable({
       name = "resize_pane",
       one_shot = false,
-      timeout_milliseconds = 1000,
+      timeout_milliseconds = 2000,
     }),
   },
 
@@ -98,7 +101,7 @@ local keys_default = {
     action = act.ActivateKeyTable({
       name = "workspace",
       one_shot = false,
-      timeout_milliseconds = 1000,
+      timeout_milliseconds = 2000,
     })
   },
 
@@ -118,6 +121,7 @@ local keys_default = {
       end),
     }),
   },
+
   -- If nvim is in tab; split right and toggle
   {
     key = ";",
@@ -158,18 +162,84 @@ M.keys = helper.TableConcat(keys_default, keys_wezterm)
 
 M.key_tables = {
   workspace = {
-    { key = "o", action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
+    -- Create new workspace
     {
-      key = "r",
-      action = act.PromptInputLine{
-        description = "Rename current workspace",
-        action = wezterm.action_callback(function (window, pane, line)
-          if line then
-            mux.rename_workspace(mux.get_active_workspace(), line)
+      key = "o",
+      action = act.Multiple({
+        wezterm.action_callback(function(window, pane)
+          local selection = { { label = "new" } }
+          for key, _ in pairs(ws.workspaces) do
+            table.insert(selection, { label = key })
           end
-        end)
-      },
+          window:perform_action(
+            act.InputSelector {
+              action = wezterm.action_callback(
+                function(inner_window, inner_pane, id, label)
+                  if label == "new" then
+                    wezterm.log_info("Creating new workspace")
+                    inner_window:perform_action(
+                      act.PromptInputLine {
+                        description = wezterm.format {
+                          { Attribute = { Intensity = 'Bold' } },
+                          { Foreground = { AnsiColor = 'Fuchsia' } },
+                          { Text = 'Enter name for new workspace' },
+                        },
+                        action = wezterm.action_callback(function(new_window, new_pane, line)
+                          if line then
+                            ws.workspaces[line] = { parameter = { label = line } }
+                            new_window:perform_action(
+                              act.SwitchToWorkspace {
+                                name = line,
+                              },
+                              new_pane
+                            )
+                          end
+                        end)
+                      },
+                      inner_pane
+                    )
+                  else
+                    wezterm.log_info("Loading workspace...")
+                    inner_window:perform_action(
+                      act.SwitchToWorkspace {
+                        name = label,
+                        spawn = ws.workspaces[label]["parameter"],
+                      },
+                      inner_pane
+                    )
+                  end
+                end
+              ),
+              title = 'Choose Workspace',
+              choices = selection,
+              fuzzy = true,
+              fuzzy_description = wezterm.format {
+                { Attribute = { Intensity = 'Bold' } },
+                { Foreground = { AnsiColor = 'Fuchsia' } },
+                { Text = "Select workspace or 'new' to create new workspace: " },
+              },
+            },
+            pane
+          )
+        end),
+      })
     },
+    -- rename current workspace
+    -- {
+    --   key = "r",
+    --   action = act.PromptInputLine {
+    --     description = "Rename current workspace",
+    --     action = wezterm.action_callback(function(window, pane, line)
+    --       if line then
+    --         mux.rename_workspace(mux.get_active_workspace(), line)
+    --       end
+    --     end)
+    --   },
+    -- },
+    { key = "l",      action = act.SwitchWorkspaceRelative(1) },
+    { key = "h",      action = act.SwitchWorkspaceRelative(-1) },
+    { key = "Escape", action = "PopKeyTable" },
+    { key = "q",      action = "PopKeyTable" },
   },
   resize_font = {
     { key = "=",         action = act.IncreaseFontSize },
