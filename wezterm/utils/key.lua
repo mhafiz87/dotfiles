@@ -58,7 +58,17 @@ local keys_default = {
       cwd = config.default_cwd,
     }),
   },
-  { key = "w", mods = "LEADER|CTRL", action = act.CloseCurrentTab({ confirm = true }) },
+
+  -- Pane Operation
+  {
+    key = "w",
+    mods = "LEADER|CTRL",
+    action = act.ActivateKeyTable({
+      name = "pane_operation",
+      one_shot = false,
+      timeout_milliseconds = 2000,
+    }),
+  },
 
   -- Pane
   {
@@ -265,11 +275,13 @@ M.key_tables = {
     { key = "Escape", action = "PopKeyTable" },
     { key = "q",      action = "PopKeyTable" },
   },
-  pane_direction = {
+  pane_operation = {
+    { key = "w",      mods = "CTRL",         action = act.CloseCurrentTab({ confirm = true }) },
     { key = "h",      mods = "CTRL",         action = act.ActivatePaneDirection("Left") },
     { key = "j",      mods = "CTRL",         action = act.ActivatePaneDirection("Down") },
     { key = "k",      mods = "CTRL",         action = act.ActivatePaneDirection("Up") },
     { key = "l",      mods = "CTRL",         action = act.ActivatePaneDirection("Right") },
+    { key = "t",      mods = "CTRL",         action = act.TogglePaneZoomState },
     { key = "s",      mods = "CTRL",         action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
     { key = "v",      mods = "CTRL",         action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
     { key = "q",      mods = "CTRL",         action = act.CloseCurrentPane({ confirm = true }) },
