@@ -54,6 +54,9 @@ function M.create_workspace(window, pane)
       action = wezterm.action_callback(function(inner_window, inner_pane, line)
         if line then
           M.workspaces[line] = { parameter = { label = line } }
+          for k, v in pairs(M.workspaces) do
+            wezterm.log_info(k, v)
+          end
           inner_window:perform_action(
             act.SwitchToWorkspace {
               name = line,
