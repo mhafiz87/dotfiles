@@ -1,11 +1,9 @@
 local wezterm = require("wezterm")
 local balance = require("utils.balancepane")
 local helper = require("utils.helper")
-local config = wezterm.config_builder()
 local act = wezterm.action
 local mux = wezterm.mux
 local ws = require("utils.workspaces")
-local ws_selection = {}
 
 local M = {}
 
@@ -22,7 +20,7 @@ local keys_default = {
   -- Toggle zoom state
   { key = "z",   mods = "LEADER|CTRL",       action = act.TogglePaneZoomState },
 
-  -- Fonts
+  -- fonts
   {
     key = "f",
     mods = "LEADER",
@@ -30,6 +28,7 @@ local keys_default = {
       name = "resize_font",
       one_shot = false,
       timeout_milliseconds = 1000,
+      until_unknown = true,
     }),
   },
 
@@ -47,7 +46,7 @@ local keys_default = {
     mods = "LEADER|CTRL",
     action = act.SpawnCommandInNewTab({
       args = { "pwsh", "-l" },
-      cwd = config.default_cwd,
+      cwd = os.getenv("userprofile"),
     }),
   },
   {
@@ -55,7 +54,7 @@ local keys_default = {
     mods = "LEADER|CTRL",
     action = act.SpawnCommandInNewTab({
       args = { "cmd", "-l" },
-      cwd = config.default_cwd,
+      cwd = os.getenv("userprofile"),
     }),
   },
 
@@ -67,6 +66,7 @@ local keys_default = {
       name = "pane_operation",
       one_shot = false,
       timeout_milliseconds = 2000,
+      until_unknown = true,
     }),
   },
 
@@ -87,6 +87,7 @@ local keys_default = {
             name = "pane_direction",
             one_shot = false,
             timeout_milliseconds = 1000,
+            until_unknown = true,
           },
         }, pane)
       end
@@ -101,6 +102,7 @@ local keys_default = {
       name = "resize_pane",
       one_shot = false,
       timeout_milliseconds = 2000,
+      until_unknown = true,
     }),
   },
 
@@ -112,6 +114,7 @@ local keys_default = {
       name = "workspace",
       one_shot = false,
       timeout_milliseconds = 2000,
+      until_unknown = true,
     })
   },
 
