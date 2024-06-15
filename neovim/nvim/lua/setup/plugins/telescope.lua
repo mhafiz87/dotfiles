@@ -32,8 +32,11 @@ function M.init(args)
             i = {
               ["<C-k>"] = actions.move_selection_previous, -- move to prev result
               ["<C-j>"] = actions.move_selection_next,     -- move to next result
+              ["<C-u>"] = actions.preview_scrolling_down,  -- move to next result
+              ["<C-i>"] = actions.preview_scrolling_up,    -- move to next result
               ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
               ["<C-d>"] = actions.delete_buffer,
+              ["<C-h>"] = actions.which_key,
             },
           },
         },
@@ -57,12 +60,18 @@ function M.init(args)
         { desc = "[f]ind file in [b]uffers", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>",
         { desc = "[f]ind [f]ile", noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>",
+      vim.keymap.set("n", "<leader>fgf", "<cmd>Telescope git_files<cr>",
         { desc = "[f]ind file in [g]it repo", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>",
         { desc = "[f]ind [r]ecent file", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>",
         { desc = "[f]ind [s]tring in current working directory", noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>fgs", require("telescope.builtin").git_status,
+        { desc = "[f]ind [g]it [s]tatus", noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>fgc", require("telescope.builtin").git_commits,
+        { desc = "[f]ind [g]it [c]ommits", noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>fgb", require("telescope.builtin").git_branches,
+        { desc = "[f]ind [g]it [b]ranches", noremap = true, silent = true })
     end
   }
   return data
