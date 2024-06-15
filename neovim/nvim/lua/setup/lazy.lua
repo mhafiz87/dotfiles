@@ -17,6 +17,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup(
   {
+    -- Example to disable plugin
+    -- { require("setup.plugins.markdown").init({ enable = false }) },
+
     -- Markdown
     { require("setup.plugins.markdown").init({}) },
     { require("setup.plugins.markdown-viewer").init({}) },
@@ -37,6 +40,8 @@ require("lazy").setup(
     { require("setup.plugins.git.gitsigns").init({}) },
     { require("setup.plugins.git.vim-fugitive").init({}) },
     { require("setup.plugins.git.diffview").init({}) },
+    -- Noice
+    { require("setup.plugins.noice").init({}) },
     -- QoL
     { require("setup.plugins.qol.todo_highlight").init({}) },
     { require("setup.plugins.qol.unfold").init({}) },
