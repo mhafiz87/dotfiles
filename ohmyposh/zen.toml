@@ -1,0 +1,157 @@
+#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+# reference: https://github.com/dreamsofautonomy/zen-omp/blob/main/zen.toml
+
+version = 2
+final_space = true
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'root'
+    style = 'plain'
+    foreground = 'white'
+    background = 'transparent'
+    template = '  '
+
+  [[blocks.segments]]
+    type = 'os'
+    style = 'plain'
+    foreground = 'white'
+    background = 'transparent'
+    template = '{{ if .WSL }}WSL at {{ end }}{{.Icon}} '
+
+  [[blocks.segments]]
+    type = 'session'
+    style = 'plain'
+    foreground = 'white'
+    background = 'transparent'
+    template = '{{ if .SSHSession }} {{ end }}{{ .UserName }} '
+
+  [[blocks.segments]]
+    type = 'path'
+    style = 'plain'
+    foreground = 'white'
+    background = 'transparent'
+    template = '  {{ path .Path .Location}} '
+
+    [blocks.segments.properties]
+      home_icon = '~'
+      style = 'full'
+
+  [[blocks.segments]]
+    type = 'git'
+    style = 'plain'
+    foreground = 'white'
+    background = 'transparent'
+    template = '{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }} '
+
+    [blocks.segments.properties]
+      branch_icon = ' '
+      fetch_stash_count = true
+      fetch_status = true
+      fetch_upstream_icon = true
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]]
+    type = 'node'
+    style = 'plain'
+    foreground = 'green'
+    background = 'transparent'
+    template = ' '
+
+    [blocks.segments.properties]
+      display_mode = 'files'
+      fetch_package_manager = false
+      home_enabled = false
+
+  [[blocks.segments]]
+    type = 'go'
+    style = 'plain'
+    foreground = 'blue'
+    background = 'transparent'
+    template = ' '
+
+    [blocks.segments.properties]
+      fetch_version = false
+
+  [[blocks.segments]]
+    type = 'python'
+    style = 'plain'
+    foreground = 'yellow'
+    background = 'transparent'
+    template = '  {{ if .Venv }}({{ .Venv }}){{ end }} '
+
+    [blocks.segments.properties]
+      display_mode = 'files'
+      fetch_version = false
+      fetch_virtual_env = true
+
+  [[blocks.segments]]
+    type = 'shell'
+    style = 'plain'
+    foreground = 'p:white'
+    background = 'transparent'
+    template = 'in <b>{{ .Name }}</b> '
+
+  [[blocks.segments]]
+    type = 'time'
+    style = 'plain'
+    foreground = 'white'
+    background = 'transparent'
+    template = 'at {{ .CurrentDate | date "15:04:05" }}</>'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type  = 'text'
+    style  = 'plain'
+    foreground_templates = [
+      "{{if gt .Code 0}}red{{end}}",
+      "{{if eq .Code 0}}white{{end}}",
+    ]
+    background = 'transparent'
+    template = "❭"
+
+[[blocks]]
+  type = 'rprompt'
+  overflow = 'hidden'
+
+  [[blocks.segments]]
+  type = 'executiontime'
+  style  = 'plain'
+  foreground = 'white'
+  background = 'transparent'
+  template = '{{ .FormattedMs }}'
+
+    [blocks.segments.properties]
+      threshold = 500
+
+[transient_prompt]
+  foreground_templates = [
+    "{{if gt .Code 0}}red{{end}}",
+    "{{if eq .Code 0}}white{{end}}",
+  ]
+  background = 'transparent'
+  template = "<b>❭ </b>"
+
+[secondary_prompt]
+  foreground = 'white'
+  background = 'transparent'
+  template = "<b>❭❭ </b>"
+
+[palette]
+black = '#000000'
+blue = '#0000ff'
+orange = '#ffa500'
+white = '#ffffff'
+green = '#00ff00'
