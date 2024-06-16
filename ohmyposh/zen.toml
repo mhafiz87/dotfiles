@@ -47,7 +47,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     style = 'plain'
     foreground = 'white'
     background = 'transparent'
-    template = '{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
+    template = '{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} {{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}'
 
     [blocks.segments.properties]
       branch_icon = ' '
@@ -58,6 +58,18 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
 [[blocks]]
   type = 'prompt'
   alignment = 'right'
+
+  [[blocks.segments]]
+    type = 'python'
+    style = 'plain'
+    foreground = 'yellow'
+    background = 'transparent'
+    template = '  {{ if .Venv }}({{ .Venv }}){{ end }} '
+
+    [blocks.segments.properties]
+      display_mode = 'files'
+      fetch_version = false
+      fetch_virtual_env = true
 
   [[blocks.segments]]
     type = 'node'
@@ -82,21 +94,16 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
       fetch_version = false
 
   [[blocks.segments]]
-    type = 'python'
+    type = 'lua'
     style = 'plain'
-    foreground = 'yellow'
+    foreground = 'blue'
     background = 'transparent'
-    template = '  {{ if .Venv }}({{ .Venv }}){{ end }} '
-
-    [blocks.segments.properties]
-      display_mode = 'files'
-      fetch_version = false
-      fetch_virtual_env = true
+    template = ' {{ .Full }} '
 
   [[blocks.segments]]
     type = 'shell'
     style = 'plain'
-    foreground = 'p:white'
+    foreground = 'white'
     background = 'transparent'
     template = 'in <b>{{ .Name }}</b> '
 
@@ -106,6 +113,23 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     foreground = 'white'
     background = 'transparent'
     template = 'at {{ .CurrentDate | date "15:04:05" }}</>'
+
+  [[blocks.segments]]
+    type = "battery"
+    style = "plain"
+    powerline_symbol = ""
+    foreground = "#ffffff"
+    foreground_templates  = [
+      "{{if eq \"Charging\" .State.String}}#40c4ff{{end}}",
+      "{{if eq \"Discharging\" .State.String}}#ff5722{{end}}",
+      "{{if eq \"Full\" .State.String}}#4caf50{{end}}"
+    ]
+    template = " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }} "
+
+    [blocks.segments.properties]
+      discharging_icon = " "
+      charging_icon = " "
+      charged_icon = " "
 
 [[blocks]]
   type = 'prompt'
@@ -135,6 +159,8 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
 
     [blocks.segments.properties]
       threshold = 500
+      style = "austin"
+      always_enabled = true
 
 [transient_prompt]
   foreground_templates = [
