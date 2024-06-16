@@ -37,7 +37,7 @@ config.automatically_reload_config = true
 
 -- Themes
 -- Override scrollbar thumb color
-local scheme = wezterm.get_builtin_color_schemes()["Vs Code Dark+ (Gogh)"]
+local scheme = wezterm.get_builtin_color_schemes()["Tokyo Night"]
 scheme.scrollbar_thumb = "#ffffff"
 config.color_schemes = { ["Tokyo Night"] = scheme }
 config.color_scheme = "Tokyo Night"
