@@ -26,6 +26,15 @@ Import-Module Terminal-Icons
 Import-Module 7Zip4Powershell
 Import-Module posh-git
 
+Set-PSReadLineOption -AddToHistoryHandler {
+  param($command)
+  if ($command -like ' *')
+  {
+    return $false
+  }
+  return $true
+} 
+
 $ehst = "$env:appdata\microsoft\windows\powershell\psreadline\consolehost_history.txt"
 $hosts = "$env:systemroot\system32\drivers\etc\hosts"
 
