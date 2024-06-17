@@ -15,41 +15,41 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     style = 'plain'
     foreground = 'white'
     background = 'transparent'
-    template = '  '
+    template = '│  '
 
   [[blocks.segments]]
     type = 'os'
     style = 'plain'
     foreground = 'white'
     background = 'transparent'
-    template = '{{ if .WSL }}WSL at {{ end }}{{.Icon}} '
+    template = '│ {{ if .WSL }}WSL at {{ end }}{{.Icon}} '
 
   [[blocks.segments]]
     type = 'session'
     style = 'plain'
     foreground = 'white'
     background = 'transparent'
-    template = '{{ if .SSHSession }}  {{ .UserName }}{{ end }} '
+    template = '{{ if .SSHSession }}│   {{ .UserName }}{{ end }}'
 
   [[blocks.segments]]
     type = 'path'
     style = 'plain'
     foreground = 'cyan'
     background = 'transparent'
-    template = ' '
+    template = '│   '
 
   [[blocks.segments]]
     type = 'path'
     style = 'plain'
     foreground = 'white'
     background = 'transparent'
-    template = '{{ path .Path .Location}} '
+    template = '{{ path .Path .Location}}'
 
     [blocks.segments.properties]
       style = 'full'
 
       [blocks.segments.properties.mapped_locations]
-        "~/.config" = ""
+        "~/.config" = " "
 
   [[blocks.segments]]
     type = 'git'
@@ -64,7 +64,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     ]
     # template = '{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}'
     templates = [
-      '{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}',
+      ' │ {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}',
       '{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}',
       '{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}',
       '{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}',
@@ -96,7 +96,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     style = 'plain'
     foreground = 'green'
     background = 'transparent'
-    template = '{{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} '
+    template = '│ {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} '
 
     [blocks.segments.properties]
       display_mode = 'files'
@@ -106,7 +106,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     style = 'plain'
     foreground = 'blue'
     background = 'transparent'
-    template = ' '
+    template = '│  '
 
     [blocks.segments.properties]
       fetch_version = true
@@ -116,28 +116,28 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     style = 'plain'
     foreground = 'blue'
     background = 'transparent'
-    template = ' {{ .Full }} '
+    template = '│  {{ .Full }}'
 
   [[blocks.segments]]
     type = 'shell'
     style = 'plain'
     foreground = 'white'
     background = 'transparent'
-    template = 'in <b>{{ .Name }}</b> '
+    template = '│ <b>{{ .Name }}</b> '
 
   [[blocks.segments]]
     type = 'time'
     style = 'plain'
     foreground = 'white'
     background = 'transparent'
-    template = 'at {{ .CurrentDate | date "15:04:05" }}</>'
+    template = '│ {{ .CurrentDate | date "15:04:05" }} '
 
   [[blocks.segments]]
     type = "owm"
     style = "plain"
     foreground = "white"
     background = "transparent"
-    template = "{{.Weather}} ({{.Temperature}}{{.UnitIcon}})"
+    template = "│ {{.Weather}} ({{.Temperature}}{{.UnitIcon}})"
 
     [blocks.segments.properties]
       api_key = "{{ .Env.OpenWeatherMapAPIKey }}"
@@ -155,7 +155,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
       "{{if eq \"Discharging\" .State.String}}#ff5722{{end}}",
       "{{if eq \"Full\" .State.String}}#4caf50{{end}}"
     ]
-    template = " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }} "
+    template = "│ {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }} "
 
     [blocks.segments.properties]
       discharging_icon = " "
