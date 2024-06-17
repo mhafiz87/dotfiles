@@ -126,9 +126,22 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     template = 'at {{ .CurrentDate | date "15:04:05" }}</>'
 
   [[blocks.segments]]
+    type = "owm"
+    style = "plain"
+    foreground = "white"
+    background = "transparent"
+    template = "{{.Weather}} ({{.Temperature}}{{.UnitIcon}})"
+
+    [blocks.segments.properties]
+      api_key = "<YOUR_API_KEY>"
+      location = "<YOUR_LOCATION>"
+      units = "metric"
+      http_timeout = 20
+      cache_timeout = 10
+
+  [[blocks.segments]]
     type = "battery"
     style = "plain"
-    powerline_symbol = ""
     foreground = "#ffffff"
     foreground_templates  = [
       "{{if eq \"Charging\" .State.String}}#40c4ff{{end}}",
