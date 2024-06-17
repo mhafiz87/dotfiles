@@ -209,6 +209,14 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
   background = 'transparent'
   template = "<b>❯❯ </b>"
 
+[[tooltips]]
+type = "git"
+tips = [ "git" ]
+style = "plain"
+foreground = "#fffb38"#
+background = "transparent"
+template = "{{ .HEAD }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}"
+
 [palette]
 black = '#000000'
 blue = '#0000ff'
