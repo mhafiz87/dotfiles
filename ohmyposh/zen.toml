@@ -70,24 +70,20 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     style = 'plain'
     foreground = 'yellow'
     background = 'transparent'
-    template = '  {{ if .Venv }}({{ .Venv }}){{ end }} '
+    template = ' {{ .Full }}{{ if .Venv }}({{ .Venv }}){{ end }} '
 
     [blocks.segments.properties]
       display_mode = 'files'
-      fetch_version = false
-      fetch_virtual_env = true
 
   [[blocks.segments]]
     type = 'node'
     style = 'plain'
     foreground = 'green'
     background = 'transparent'
-    template = ' '
+    template = '{{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} '
 
     [blocks.segments.properties]
       display_mode = 'files'
-      fetch_package_manager = false
-      home_enabled = false
 
   [[blocks.segments]]
     type = 'go'
@@ -97,7 +93,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     template = ' '
 
     [blocks.segments.properties]
-      fetch_version = false
+      fetch_version = true
 
   [[blocks.segments]]
     type = 'lua'
