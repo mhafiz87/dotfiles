@@ -34,9 +34,16 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
   [[blocks.segments]]
     type = 'path'
     style = 'plain'
+    foreground = 'cyan'
+    background = 'transparent'
+    template = ' '
+
+  [[blocks.segments]]
+    type = 'path'
+    style = 'plain'
     foreground = 'white'
     background = 'transparent'
-    template = '  {{ path .Path .Location}} '
+    template = '{{ path .Path .Location}} '
 
     [blocks.segments.properties]
       home_icon = '~'
