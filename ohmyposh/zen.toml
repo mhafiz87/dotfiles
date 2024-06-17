@@ -29,7 +29,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     style = 'plain'
     foreground = 'white'
     background = 'transparent'
-    template = '{{ if .SSHSession }} {{ end }}{{ .UserName }} '
+    template = '{{ if .SSHSession }}  {{ .UserName }}{{ end }} '
 
   [[blocks.segments]]
     type = 'path'
@@ -149,6 +149,16 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
 [[blocks]]
   type = 'rprompt'
   overflow = 'hidden'
+
+  [[blocks.segments]]
+  type = 'text'
+  style  = 'plain'
+  background = 'transparent'
+  foreground_templates = [
+    "{{ if gt .Code 0 }}red{{ end }}",
+    "{{ if eq .Code 0 }}white{{ end }}",
+  ]
+  template = '{{ if gt .Code 0 }}✗{{ else }}{{ end }} '
 
   [[blocks.segments]]
   type = 'executiontime'
