@@ -133,8 +133,8 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     template = "{{.Weather}} ({{.Temperature}}{{.UnitIcon}})"
 
     [blocks.segments.properties]
-      api_key = "<YOUR_API_KEY>"
-      location = "<YOUR_LOCATION>"
+      api_key = "{{ .Env.OpenWeatherMapAPIKey }}"
+      location = "{{ .Env.OpenWeatherMapAPILocation }}"
       units = "metric"
       http_timeout = 20
       cache_timeout = 10
