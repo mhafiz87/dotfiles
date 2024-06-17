@@ -14,7 +14,7 @@ local default_opts = { desc = "which_key_ignore", noremap = true, silent = true 
 map("i", "jk", "<Esc>", default_opts)
 
 -- Clear highlight
-map({ "n", "v" }, "<leader>cl", "<cmd>:nohl<cr>", default_opts_desc("Clear highlights"))
+map({ "n", "v" }, "<leader>cl", "<cmd>:nohl<cr>", default_opts_desc("[c]lear high[l]ights"))
 
 -- Keep cursor in the middle
 map("n", "<C-d>", "<C-d>zz", default_opts)
@@ -32,12 +32,12 @@ map("v", "J", ":m '>+1<CR>gv=gv", default_opts)
 map("v", "K", ":m '<-2<CR>gv=gv", default_opts)
 
 -- buffers
-map("n", "<leader>bp", "<cmd>bprevious<cr>", default_opts_desc("Prev buffer"))
-map("n", "<leader>bn", "<cmd>bnext<cr>", default_opts_desc("Next buffer"))
-map("n", "<leader>bb", "<cmd>e #<cr>", default_opts_desc("Switch to Other Buffer"))
-map("n", "<leader>bc", "<cmd>bp|bd #<cr>", default_opts_desc("Close buffer without closing split"))
+map("n", "<leader>bp", "<cmd>bprevious<cr>", default_opts_desc("[b]uffer [p]revious"))
+map("n", "<leader>bn", "<cmd>bnext<cr>", default_opts_desc("[b]uffer [n]ext"))
+map("n", "<leader>bb", "<cmd>e #<cr>", default_opts_desc("switch to other [b]uffer"))
+map("n", "<leader>bc", "<cmd>bp|bd #<cr>", default_opts_desc("[c]lose [b]uffer without closing split"))
 -- Reference "https://tech.serhatteker.com/post/2020-06/close-all-buffers-but-current-in-vim/"
-map("n", "<leader>bd", "<cmd>%bd|e#|bd#<cr>", default_opts_desc("Close other buffers"))
+map("n", "<leader>bd", "<cmd>%bd|e#|bd#<cr>", default_opts_desc("[d]elete other [b]uffers"))
 
 -- Resize window using <ctrl> arrow keys
 map("n", "<C-Up>", "<cmd>resize +2<cr>", default_opts_desc("Increase window height"))
