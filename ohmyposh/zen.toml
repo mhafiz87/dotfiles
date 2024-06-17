@@ -168,7 +168,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
       "{{if eq .Code 0}}white{{end}}",
     ]
     background = 'transparent'
-    template = "❭"
+    template = "❯"
 
 [[blocks]]
   type = 'rprompt'
@@ -202,12 +202,12 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     "{{if eq .Code 0}}white{{end}}",
   ]
   background = 'transparent'
-  template = "<b>❭ </b>"
+  template = "<b>❯ </b>"
 
 [secondary_prompt]
   foreground = 'white'
   background = 'transparent'
-  template = "<b>❭❭ </b>"
+  template = "<b>❯❯ </b>"
 
 [palette]
 black = '#000000'
