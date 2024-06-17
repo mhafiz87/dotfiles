@@ -46,8 +46,10 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     template = '{{ path .Path .Location}} '
 
     [blocks.segments.properties]
-      home_icon = '~'
       style = 'full'
+
+      [blocks.segments.properties.mapped_locations]
+        "~/.config" = ""
 
   [[blocks.segments]]
     type = 'git'
