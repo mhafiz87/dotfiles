@@ -13,7 +13,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
   [[blocks.segments]]
     type = 'root'
     style = 'plain'
-    foreground = 'white'
+    foreground = 'yellow'
     background = 'transparent'
     template = '│  '
 
