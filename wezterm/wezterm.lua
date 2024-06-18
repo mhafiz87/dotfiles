@@ -37,10 +37,11 @@ config.automatically_reload_config = true
 
 -- Themes
 -- Override scrollbar thumb color
-local scheme = wezterm.get_builtin_color_schemes()["Tokyo Night"]
+local theme = "Monokai Remastered"
+local scheme = wezterm.get_builtin_color_schemes()[theme]
 scheme.scrollbar_thumb = "#ffffff"
-config.color_schemes = { ["Tokyo Night"] = scheme }
-config.color_scheme = "Tokyo Night"
+config.color_schemes = { [theme] = scheme }
+config.color_scheme = theme
 
 -- UI
 config.disable_default_key_bindings = true

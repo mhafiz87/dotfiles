@@ -13,6 +13,26 @@ function M.init(args)
       end,
     },
     {
+      "tiagovla/tokyodark.nvim",
+      opts = {
+        transparent_background = false,                                        -- set background to transparent
+        gamma = 1.00,                                                          -- adjust the brightness of the theme
+        styles = {
+          comments = { italic = true },                                        -- style for comments
+          keywords = { italic = true },                                        -- style for keywords
+          identifiers = { italic = true },                                     -- style for identifiers
+          functions = {},                                                      -- style for functions
+          variables = {},                                                      -- style for variables
+        },
+        custom_highlights = {} or function(highlights, palette) return {} end, -- extend highlights
+        custom_palette = {} or function(palette) return {} end,                -- extend palette
+        terminal_colors = true,                                                -- enable terminal colors      },
+      },
+      config = function(_, opts)
+        require("tokyodark").setup(opts) -- calling setup is optional
+      end,
+    },
+    {
       "catppuccin/nvim",
       name = "catppuccin",
       lazy = false,
@@ -49,22 +69,34 @@ function M.init(args)
       end,
     },
     {
+      'projekt0n/github-nvim-theme',
+      config = function()
+        require('github-theme').setup({
+          -- ...
+        })
+      end
+    },
+    {
       "zaldih/themery.nvim",
       config = function()
         require("themery").setup({
           themes = {
             "catppuccin-frappe",
-            "catppuccin-latte",
+            -- "catppuccin-latte",
             "catppuccin-macchiato",
             "catppuccin-mocha",
+            "github_dark",
+            "github_dark_dimmed",
+            "github_dark_default",
             "kanagawa-dragon",
-            "kanagawa-lotus",
+            -- "kanagawa-lotus",
             "kanagawa-wave",
             "monokai_pro",
-            "monokai_ristretto",
+            -- "monokai_ristretto",
             "monokai_soda",
             "monokai",
-            "tokyonight-day",
+            "tokyodark",
+            -- "tokyonight-day",
             "tokyonight-moon",
             "tokyonight-night",
             "tokyonight-storm",
@@ -76,8 +108,8 @@ function M.init(args)
         vim.keymap.set("n", "<leader>ft", "<cmd>Themery<cr>", { desc = "[f]ind [t]hemes", noremap = true, silent = true })
         -- Themery block
 -- This block will be replaced by Themery.
-vim.cmd("colorscheme tokyonight-night")
-vim.g.theme_id = 14
+vim.cmd("colorscheme monokai")
+vim.g.theme_id = 11
 -- end themery block
       end,
     },
