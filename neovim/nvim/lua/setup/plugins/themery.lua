@@ -108,8 +108,8 @@ function M.init(args)
         vim.keymap.set("n", "<leader>ft", "<cmd>Themery<cr>", { desc = "[f]ind [t]hemes", noremap = true, silent = true })
         -- Themery block
 -- This block will be replaced by Themery.
-vim.cmd("colorscheme monokai")
-vim.g.theme_id = 11
+vim.cmd("colorscheme tokyodark")
+vim.g.theme_id = 12
 -- end themery block
       end,
     },
