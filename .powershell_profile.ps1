@@ -51,10 +51,19 @@ if (($host.name -eq 'ConsoleHost') -and ($PSVersionTable.PSVersion -ge $versionM
 	Set-PSReadLineOption -PredictionSource History
 }
 Set-PSReadLineOption -PredictionViewStyle ListView
+Set-PSReadLineOption -EditMode Windows
 Set-PSReadlineKeyHandler -Key Ctrl+Tab -Function TabCompleteNext
 Set-PSReadlineKeyHandler -Key Ctrl+Shift+Tab -Function TabCompletePrevious
 Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
+
+$env:FZF_DEFAULT_OPTS = "--height 70% --layout=reverse --border"
+
+# https://www.youtube.com/watch?v=fnMajPIe_uU
+Function ff
+{
+	nvim $(fzf --preview 'bat --style=numbers --color=always  --line-range :500 {}')	 
+}
 
 $env:path += ";$env:localappdata\Notepad++"
 
