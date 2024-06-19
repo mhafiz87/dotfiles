@@ -130,7 +130,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     style = 'plain'
     foreground = 'white'
     background = 'transparent'
-    template = '│ {{ .CurrentDate | date "15:04:05" }} '
+    template = '│  {{ .CurrentDate | date "15:04:05" }} '
 
   [[blocks.segments]]
     type = "owm"
@@ -223,6 +223,17 @@ style = "plain"
 foreground = "#fffb38"
 background = "transparent"
 template = "{{ .HEAD }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}"
+
+  [tooltips.properties]
+    display_mode = "always"
+
+[[tooltips]]
+type = "python"
+tips = [ "python", "py" ]
+style = "plain"
+foreground = "#fffb38"
+background = "transparent"
+template = " {{ .Full }}{{ if .Venv }}({{ .Venv }}){{ end }}"
 
   [tooltips.properties]
     display_mode = "always"
