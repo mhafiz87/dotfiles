@@ -33,7 +33,7 @@ function M.init(args)
         },
       })
       require("telescope").load_extension("noice")
-      vim.keymap.set("n", "<leader>cn", "<cmd>Noise dismiss<cr>",
+      vim.keymap.set("n", "<leader>cn", "<cmd>Noice dismiss<cr>",
         { desc = "[c]lear [n]oice message", silent = true })
     end,
   }
