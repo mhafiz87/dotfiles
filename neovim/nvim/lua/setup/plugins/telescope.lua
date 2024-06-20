@@ -40,6 +40,11 @@ function M.init(args)
             },
           },
         },
+        pickers = {
+          find_files = {
+            hidden = true
+          }
+        },
         extensions = {
           "fzf",
           {
