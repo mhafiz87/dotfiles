@@ -59,6 +59,13 @@ Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 
 $env:FZF_DEFAULT_OPTS = "--height 70% --layout=reverse --border"
 
+function Git-Branch-FZF
+{
+	git checkout $(git branch -a | Select-String -NotMatch "^\*" | fzf | ForEach-Object { Write-Output($_.trim()) })
+}
+
+Set-Alias -Name gbf -Value Git-Branch-FZF
+
 # https://www.youtube.com/watch?v=fnMajPIe_uU
 Function ff
 {
