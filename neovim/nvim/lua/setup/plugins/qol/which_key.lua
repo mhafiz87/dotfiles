@@ -67,6 +67,12 @@ function M.init(args)
           name = "+trouble",
         },
 
+        -- Docstring
+        ["<leader>d"] = {
+          mode = { "n", "v" },
+          name = "+docstring",
+        },
+
         -- LSP
         ["<leader>l"] = {
           mode = { "n", "v" },

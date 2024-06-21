@@ -31,6 +31,8 @@ require("lazy").setup(
     { require("setup.plugins.treesitter").init({}) },
     { require("setup.plugins.lsp").init({}) },
     { require("setup.plugins.autocompleter").init({}) },
+    -- Document Generator
+    { require("setup.plugins.neogen").init({}) },
     -- AutoFormatter
     { require("setup.plugins.conform").init({}) },
     -- Code Navigation
