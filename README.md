@@ -2,7 +2,9 @@
 
 - My own application configuration. Currently only support windows operating system.
 
-## Symbolic Link
+## Windows
+
+Create symbolic link.
 
 ```powershell
 # Powershell Profile
@@ -21,4 +23,11 @@ new-item -itemtype symboliclink -path "$env:localappdata/nvim" -target "$env:use
 if(test-path -path $env:localappdata/nvim_dev){remove-item -path "$env:localappdata/nvim_dev" -recurse -force}
 new-item -itemtype symboliclink -path "$env:localappdata/nvim_dev" -target "$env:userprofile/.config/neovim/nvim_dev" -force
 
+```
+
+## Linux - Ubuntu
+
+```bash
+ln -s ~/.config/bash/.bash_aliases ~/.bash_aliases
+ln -s ~/.config/bash/.bash_profile ~/.bash_profile
 ```
