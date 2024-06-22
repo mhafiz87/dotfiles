@@ -1,4 +1,13 @@
+local global = require("global")
 local M = {}
+local build = ""
+if global.is_windows then
+  build =
+  "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
+elseif global.is_linux then
+  build = "make"
+end
+
 
 ---comment
 ---@param args any
@@ -14,8 +23,7 @@ function M.init(args)
       'nvim-lua/plenary.nvim',
       {
         "nvim-telescope/telescope-fzf-native.nvim",
-        build =
-        "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+        build = build,
       },
     },
 
