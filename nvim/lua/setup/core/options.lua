@@ -1,3 +1,4 @@
+local global = require("global")
 -- Sync With System Clipboard
 vim.opt.clipboard = "unnamedplus"
 
@@ -22,7 +23,7 @@ vim.opt.mouse = "a" -- Enable mouse mode
 vim.opt.wrap = false
 
 -- Line Numbers
-vim.opt.number = true -- Print line number
+vim.opt.number = true         -- Print line number
 vim.opt.relativenumber = true -- Relative line numbers
 
 -- Better Completion Experience
@@ -51,4 +52,6 @@ vim.opt.cursorline = true
 -- Blinking cursor
 vim.o.guicursor = "n-v-sm:block,c-i-ci-ve:ver25,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
 
-vim.g.python3_host_prog = os.getenv("userprofile") .. "\\.pyenv\\pyenv-win\\shims\\python.bat"
+if global.is_windows then
+  vim.g.python3_host_prog = os.getenv("userprofile") .. "\\.pyenv\\pyenv-win\\shims\\python.bat"
+end
