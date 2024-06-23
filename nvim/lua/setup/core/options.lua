@@ -53,5 +53,7 @@ vim.opt.cursorline = true
 vim.o.guicursor = "n-v-sm:block,c-i-ci-ve:ver25,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
 
 if global.is_windows then
-  vim.g.python3_host_prog = os.getenv("userprofile") .. "\\.pyenv\\pyenv-win\\shims\\python.bat"
+  vim.g.python3_host_prog = os.getenv("userprofile") .. "\\.venv\\neovim\\scripts\\python.exe"
+elseif global.is_linux then
+  vim.g.python3_host_prog = os.getenv("HOME") .. "/.venv/neovim/bin/python"
 end
