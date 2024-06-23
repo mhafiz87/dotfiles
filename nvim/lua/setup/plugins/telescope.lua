@@ -25,6 +25,7 @@ function M.init(args)
         "nvim-telescope/telescope-fzf-native.nvim",
         build = build,
       },
+      'nvim-telescope/telescope-ui-select.nvim'
     },
 
     config = function()
@@ -32,6 +33,7 @@ function M.init(args)
 
       require("telescope").setup({
         defaults = {
+          file_ignore_pattern = { "%.dll", "%.pyd" },
           path_display = { "truncate" },
           mappings = {
             n = {
@@ -50,12 +52,23 @@ function M.init(args)
         },
         pickers = {
           find_files = {
-            hidden = true
+            hidden = true,
+            find_command = {
+              "rg",
+              "--files",
+              "--hidden",
+              "--glob=!**/.git/*",
+              "--glob=!**/.idea/*",
+              "--glob=!**/.vscode/*",
+              "--glob=!**/build/*",
+              "--glob=!**/dist/*",
+              "--glob=!**/yarn.lock",
+              "--glob=!**/package-lock.json",
+            },
           }
         },
         extensions = {
-          "fzf",
-          {
+          ["fzf"] = {
             undo = {
               side_by_side = true,
               layout_strategy = "vertical",
@@ -64,10 +77,14 @@ function M.init(args)
               },
             },
           },
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown {}
+          },
         },
       })
 
       require("telescope").load_extension("fzf")
+      require("telescope").load_extension("ui-select")
 
       vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>",
         { desc = "[f]ind file in [b]uffers", noremap = true, silent = true })
