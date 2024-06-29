@@ -94,6 +94,16 @@ local keys_default = {
     end),
   },
 
+  {
+    key = "Space",
+    mods = "CTRL",
+    action = wezterm.action_callback(function(window, pane)
+      window:perform_action({
+        SendKey = { key = "Space", mods = "CTRL" },
+      }, pane)
+    end),
+  },
+
   -- resize_pane
   {
     key = "p",

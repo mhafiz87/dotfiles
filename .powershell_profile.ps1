@@ -13,7 +13,7 @@ $canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds
 
 # Import Modules and External Profiles
 # Ensure Terminal-Icons module is installed before importing
-foreach ($module in @("PSReadLine", "Terminal-Icons", "7Zip4Powershell", "posh-git", "PSFzf"))
+foreach ($module in @("PSReadLine", "Terminal-Icons", "7Zip4Powershell", "posh-git", "PSFzf", "PSTree"))
 {
 	if (-not (Get-Module -ListAvailable -Name $module))
 	{
@@ -26,6 +26,7 @@ Import-Module Terminal-Icons
 Import-Module 7Zip4Powershell
 Import-Module posh-git
 Import-Module PSFzf
+Import-Module PSTree
 
 Set-PSReadLineOption -AddToHistoryHandler {
 	param($command)
