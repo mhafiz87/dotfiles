@@ -23,6 +23,10 @@ new-item -itemtype symboliclink -path "$env:localappdata/nvim" -target "$env:use
 if(test-path -path $env:localappdata/nvim_dev){remove-item -path "$env:localappdata/nvim_dev" -recurse -force}
 new-item -itemtype symboliclink -path "$env:localappdata/nvim_dev" -target "$env:userprofile/.config/neovim/nvim_dev" -force
 
+# Clink Settings
+if(test-path -path $env:userprofile/.inputrc){remove-item -path "$env:userprofile/.inputrc" -force}
+new-item -itemtype symboliclink -path "env:userprofile/.inputrc" -target "$env:userprofile/.config/clink/.inputrc" -force
+
 ```
 
 ## Linux - Ubuntu
