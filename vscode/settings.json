@@ -32,7 +32,7 @@
     },
     "autoDocstring.docstringFormat": "google",
     "autoDocstring.startOnNewLine": false,
-    "autoDocstring.customTemplatePath": "${env:userprofile}/.config/vscode/custom_docstring.mustache",
+    "autoDocstring.customTemplatePath": "C:/Users/5004124381/.config/vscode/custom_docstring.mustache",
     "code-runner.clearPreviousOutput": true,
     "code-runner.executorMap": {
         "python": "$pythonPath -u $fullFileName"
@@ -60,6 +60,7 @@
     "editor.tabSize": 4,
     "explorer.openEditors.visible": 5,
     "explorer.confirmDelete": false,
+    "explicitFolding.autoFold": "comments",
     "files.associations": {
         "*.ino": "cpp"
     },
@@ -153,8 +154,8 @@
         {"before": ["j","k"],"after": ["<Esc>"]}
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
-        {"before": ["j"], "commands": ["cursorDown"]},
-        {"before": ["k"], "commands": ["cursorUp"]},
+        // {"before": ["j"], "commands": ["cursorDown"]},
+        // {"before": ["k"], "commands": ["cursorUp"]},
         {"before": ["<C-n>"], "commands": [":nohl"]},
         {"before": ["<S-h>"], "commands": ["workbench.action.previousEditorInGroup"]},
         {"before": ["<S-l>"], "commands": ["workbench.action.nextEditorInGroup"]},
@@ -208,5 +209,6 @@
     },
     "workbench.iconTheme": "vscode-icons",
     "workbench.list.horizontalScrolling": true,
-    "workbench.startupEditor": "none"
+    "workbench.startupEditor": "none",
+    "terminal.integrated.tabs.defaultColor": "terminal.ansiBlack",
 }
