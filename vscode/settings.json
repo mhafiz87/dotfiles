@@ -180,14 +180,14 @@
         ]},
         {"before": ["<leader>", "g", "r"], "commands": [
             {
-                "command": "git.revertChange",
+                "command": "git.revertSelectedRanges",
             }
         ]},
         {"before": ["[", "d"], "commands": ["editor.action.marker.prev"]},
         {"before": ["]", "d"], "commands": ["editor.action.marker.next"]},
         {"before": ["<S-k>"], "commands": ["editor.action.peekDefinition"]},
-        {"before": ["}", "}"], "commands": ["gotoNextPreviousMember.nextMember"]},
-        {"before": ["{", "{"], "commands": ["gotoNextPreviousMemer.previousMember"]},
+        {"before": ["}"], "commands": ["gotoNextPreviousMember.nextMember"]},
+        {"before": ["{"], "commands": ["gotoNextPreviousMember.previousMember"]},
         {"before": ["<leader>", "a"], "commands": ["outline.focus"]}
 
     ],
