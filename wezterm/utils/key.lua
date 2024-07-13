@@ -264,12 +264,14 @@ M.key_tables = {
     { key = "l",      action = act.SwitchWorkspaceRelative(1) },
     { key = "h",      action = act.SwitchWorkspaceRelative(-1) },
     { key = "Escape", action = "PopKeyTable" },
+    { key = "q",      action = "PopKeyTable" },
   },
   resize_font = {
     { key = "=",         action = act.IncreaseFontSize },
     { key = "-",         action = act.DecreaseFontSize },
     { key = "Backspace", action = act.ResetFontSize },
     { key = "Escape",    action = "PopKeyTable" },
+    { key = "q",         action = "PopKeyTable" },
   },
   resize_pane = {
     { key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
@@ -284,6 +286,7 @@ M.key_tables = {
       }),
     },
     { key = "Escape", action = "PopKeyTable" },
+    { key = "q",      action = "PopKeyTable" },
   },
   pane_operation = {
     { key = "w",      action = act.CloseCurrentTab({ confirm = true }) },
@@ -294,8 +297,9 @@ M.key_tables = {
     { key = "t",      action = act.TogglePaneZoomState },
     { key = "s",      action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
     { key = "v",      action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-    { key = "q",      action = act.CloseCurrentPane({ confirm = true }) },
+    { key = "d",      action = act.CloseCurrentPane({ confirm = true }) },
     { key = "Escape", action = "PopKeyTable" },
+    { key = "q",      action = "PopKeyTable" },
   },
 }
 
