@@ -22,15 +22,15 @@ function M.init(args)
         },
         format_on_save = {
           lsp_fallback = true,
-          async = false,
+          async = true,
           timeout_ms = 500,
         },
       })
       vim.keymap.set({ "n", "v" }, "<leader>mp", function()
         conform.format({
           lsp_fallback = true,
-          async = false,
-          timeout_ms = 1500,
+          async = true,
+          timeout_ms = 2000,
         })
       end, { desc = "Format file or range (in visual mode)" })
     end
