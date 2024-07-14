@@ -24,78 +24,67 @@ function M.init(args)
     },
     config = function()
       local wk = require("which-key")
-      wk.register({
-        -- Buffers Controls
-        ["<leader>b"] = {
-          name = "+buffer controls",
-          mode = "n",
+      wk.add({
+        { -- Buffers Controls
+          "<leader>b",
+          desc = "+buffer controls",
+          mode = "n"
         },
-
-        -- Clear
-        ["<leader>c"] = {
-          name = "+clear",
-          mode = "n",
+        { -- Clear
+          "<leader>c",
+          desc = "+clear",
+          mode = "n"
         },
-
-        -- Git
-        ["<leader>g"] = {
-          name = "+git",
-          mode = "n",
+        { -- Git
+          "<leader>g",
+          desc = "+git",
+          mode = "n"
         },
-
-        -- Flash
-        ["<leader>h"] = {
-          mode = "n",
-          name = "+flash",
+        { -- Flash
+          "<leader>h",
+          desc = "+flash",
+          mode = "n"
         },
-
-        -- Quickfix
-        ["<leader>q"] = {
-          mode = "n",
-          name = "+quickfix",
+        { -- QuickFix
+          "<leader>q",
+          desc = "+quickfix",
+          mode = "n"
         },
-
-        -- Find files/themes/buffer using telescope
-        ["<leader>f"] = {
-          mode = "n",
-          name = "+find (files/themes/buffer)",
+        { --Find files/themes/buffer using telescope
+          "<leader>f",
+          desc = "+find (files/themes/buffer)",
+          mode = "n"
         },
-
-        -- Trouble
-        ["<leader>x"] = {
-          mode = "n",
-          name = "+trouble",
+        { -- Trouble
+          "<leader>x",
+          desc = "+trouble",
+          mode = "n"
         },
-
-        -- Docstring
-        ["<leader>d"] = {
-          mode = { "n", "v" },
-          name = "+docstring",
+        { -- Docstring
+          "<leader>d",
+          desc = "+docstring",
+          mode = "n"
         },
-
-        -- LSP
-        ["<leader>l"] = {
-          mode = { "n", "v" },
-          name = "+LSP",
+        { -- LSP
+          "<leader>l",
+          desc = "+LSP",
+          mode = { "n", "v" }
         },
-
-        -- Format / Markdown
-        ["<leader>m"] = {
-          mode = { "n", "v" },
-          name = "+format / markdown",
+        { -- Format / Markdown
+          "<leader>m",
+          desc = "+format / markdown",
+          mode = "n"
         },
-
-        -- g
-        g = {
-          mode = { "n" },
-          name = "+prefix / mini.align / open in browser",
+        { -- g
+          "g",
+          desc = "+prefix / mini.align / open in browser",
+          mode = "n"
         },
-
-        -- Surround
-        ["<leader>r"] = {
-          mode = { "n", "v" },
-          name = "+surround",
-        }
+        { -- Surround
+          "<leader>r",
+          desc = "+quickfix",
+          mode = { "n", "v" }
+        },
       })
     end
   }
