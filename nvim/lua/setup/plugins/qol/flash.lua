@@ -1,7 +1,7 @@
 local M = {}
 
-function M.init (args)
-  setmetatable(args, {__index={enable=true}})
+function M.init(args)
+  setmetatable(args, { __index = { enable = true } })
   local data = {
     enabled = args.enable,
     "folke/flash.nvim",
@@ -10,7 +10,7 @@ function M.init (args)
     opts = {},
     keys = {
       {
-        "<leader>hs",
+        "<leader><leader>s",
         mode = { "n", "x", "o" },
         function()
           require("flash").jump()
@@ -55,4 +55,3 @@ function M.init (args)
 end
 
 return M
-
