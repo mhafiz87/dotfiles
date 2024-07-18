@@ -7,6 +7,10 @@
                 "color": "#c3c30090"
             },
             {
+                "column": 88,
+                "color": "#c3780090"
+            },
+            {
                 "column": 120,
                 "color": "#c4000090"
             }
@@ -166,16 +170,32 @@
         {"before": ["<leader>", "p"], "after": ["\"", "a", "p"]},
         {"before": ["<C-d>"], "after": ["<C-d>", "z", "z"]},
         {"before": ["<C-u>"], "after": ["<C-u>", "z", "z"]},
+        {"before": ["n"], "after": ["n", "z", "z", "z", "v"]},
+        {"before": ["N"], "after": ["N", "z", "z", "z", "v"]},
+        {"before": ["J"], "after": ["m", "z", "J", "`", "z"]},
         {"before": ["<leader>", "g", "n"], "commands": [
             {
                 "command": "editor.action.dirtydiff.next",
+                "when": "textCompareEditorVisible"
+            },
+            {
+                "command": "workbench.action.compareEditor.nextChange",
                 "when": "textCompareEditorVisible"
             }
         ]},
         {"before": ["<leader>", "g", "p"], "commands": [
             {
+                "command": "workbench.action.compareEditor.previousChange",
+                "when": "textCompareEditorVisible"
+            },
+            {
                 "command": "editor.action.dirtydiff.previous",
                 "when": "textCompareEditorVisible"
+            }
+        ]},
+        {"before": ["<leader>", "g", "o"], "commands": [
+            {
+                "command": "git.openChange"
             }
         ]},
         {"before": ["<leader>", "g", "r"], "commands": [
@@ -193,6 +213,8 @@
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         {"before": ["<leader>", "y"],"after": ["\"", "a", "y", "<enter>"]},
+        {"before": [">"],"after": [">", "g", "v"]},
+        {"before": ["<"],"after": ["<", "g", "v"]},
     ],
     "vim.handleKeys": {
         "<C-a>": false,
@@ -211,4 +233,5 @@
     "workbench.list.horizontalScrolling": true,
     "workbench.startupEditor": "none",
     "terminal.integrated.tabs.defaultColor": "terminal.ansiBlack",
+    "workbench.colorTheme": "Default Light Modern",
 }
