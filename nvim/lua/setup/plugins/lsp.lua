@@ -91,8 +91,6 @@ function M.init(args)
         }
       })
     end
-
-    -- TODO: Beautify ui
   }
   return data
 end
