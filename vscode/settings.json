@@ -76,7 +76,6 @@
         "**/.DS_Store": true
     },
     "files.trimTrailingWhitespace": true,
-    "flake8.args": ["--ignore=E501"],
     "gotoNextPreviousMember.symbolKinds": [
         "class",
         "function",
@@ -193,21 +192,13 @@
                 "when": "textCompareEditorVisible"
             }
         ]},
-        {"before": ["<leader>", "g", "o"], "commands": [
-            {
-                "command": "git.openChange"
-            }
-        ]},
-        {"before": ["<leader>", "g", "r"], "commands": [
-            {
-                "command": "git.revertSelectedRanges",
-            }
-        ]},
+        {"before": ["<leader>", "g", "o"], "commands": ["git.openChange"]},
+        {"before": ["<leader>", "g", "r"], "commands": ["git.revertSelectedRanges"]},
         {"before": ["[", "d"], "commands": ["editor.action.marker.prev"]},
         {"before": ["]", "d"], "commands": ["editor.action.marker.next"]},
         {"before": ["<S-k>"], "commands": ["editor.action.peekDefinition"]},
-        {"before": ["}"], "commands": ["gotoNextPreviousMember.nextMember"]},
-        {"before": ["{"], "commands": ["gotoNextPreviousMember.previousMember"]},
+        {"before": ["}"], "commands": [{"command": "gotoNextPreviousMember.nextMember"}, {"command": "center-editor-window.center"}]},
+        {"before": ["{"], "commands": [{"command": "gotoNextPreviousMember.previousMember"}, {"command": "center-editor-window.center"}]},
         {"before": ["<leader>", "a"], "commands": ["outline.focus"]}
 
     ],
