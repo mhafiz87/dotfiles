@@ -25,12 +25,12 @@ function M.init(args)
         "nvim-telescope/telescope-fzf-native.nvim",
         build = build,
       },
-      'nvim-telescope/telescope-ui-select.nvim'
+      'nvim-telescope/telescope-ui-select.nvim',
+      "radyz/telescope-gitsigns"
     },
 
     config = function()
       local actions = require("telescope.actions")
-
       require("telescope").setup({
         defaults = {
           file_ignore_pattern = { "%.dll", "%.pyd" },
@@ -85,6 +85,7 @@ function M.init(args)
 
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("ui-select")
+      require("telescope").load_extension("git_signs")
 
       vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>",
         { desc = "[f]ind file in [b]uffers", noremap = true, silent = true })

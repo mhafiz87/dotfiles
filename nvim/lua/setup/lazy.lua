@@ -62,6 +62,7 @@ require("lazy").setup(
     { require("setup.plugins.qol.autopairs").init({}) },
     { require("setup.plugins.qol.marks").init({}) },
     { require("setup.plugins.qol.local_highlight").init({}) },
+    -- { require("setup.plugins.qol.stay_centered").init({}) },
     -- Which Key (Must be last to override others)
     { require("setup.plugins.qol.which_key").init({}) },
   },
