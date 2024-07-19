@@ -42,6 +42,7 @@ require("lazy").setup(
     { require("setup.plugins.git.gitsigns").init({}) },
     { require("setup.plugins.git.vim-fugitive").init({}) },
     { require("setup.plugins.git.diffview").init({}) },
+    -- { require("setup.plugins.git.vgit").init({}) },
     -- Noice
     { require("setup.plugins.noice").init({}) },
     -- QoL

@@ -1,7 +1,7 @@
 local M = {}
 
-function M.init (args)
-  setmetatable(args, {__index={enable=true}})
+function M.init(args)
+  setmetatable(args, { __index = { enable = true } })
   local data = {
     enabled = args.enable,
     "lewis6991/gitsigns.nvim",
@@ -20,10 +20,17 @@ function M.init (args)
         signcolumn = true,
         on_attach = function(bufnr)
           local gs = package.loaded.gitsigns
-          vim.keymap.set("n", "<leader>gp", gitsigns.prev_hunk, { buffer = bufnr, desc = "[g]o to [p]revious Hunk" })
-          vim.keymap.set("n", "<leader>gn", gitsigns.next_hunk, { buffer = bufnr, desc = "[g]o to [n]ext Hunk" })
+          vim.keymap.set("n", "<leader>gp", function()
+            gitsigns.prev_hunk()
+            gitsigns.preview_hunk()
+          end, { buffer = bufnr, desc = "[g]o to [p]revious Hunk" })
+          vim.keymap.set("n", "<leader>gn", function()
+            gitsigns.next_hunk()
+            gitsigns.preview_hunk()
+          end, { buffer = bufnr, desc = "[g]o to [n]ext Hunk" })
           vim.keymap.set("n", "<leader>gh", gitsigns.preview_hunk, { buffer = bufnr, desc = "View [g]it [h]unk" })
-          vim.keymap.set("n", "<leader>gb", gitsigns.toggle_current_line_blame, { buffer = bufnr, desc = "Toggle [g]it [b]lame" })
+          vim.keymap.set("n", "<leader>gb", gitsigns.toggle_current_line_blame,
+            { buffer = bufnr, desc = "Toggle [g]it [b]lame" })
         end,
       })
     end,
@@ -32,4 +39,3 @@ function M.init (args)
 end
 
 return M
-
