@@ -33,6 +33,23 @@ function M.init(args)
       local actions = require("telescope.actions")
       require("telescope").setup({
         defaults = {
+          scroll_strategy = "limit",
+          layout_strategy = "horizontal",
+          sorting_strategy = "ascending",
+          color_devicons = true,
+          layout_config = {
+            horizontal = {
+              prompt_position = "top",
+              preview_width = 0.7,
+              results_width = 0.8,
+            },
+            vertical = {
+              mirror = false,
+            },
+            width = 0.85,
+            height = 0.92,
+            preview_cutoff = 120,
+          },
           file_ignore_pattern = { "%.dll", "%.pyd" },
           path_display = { "truncate" },
           mappings = {
@@ -103,6 +120,8 @@ function M.init(args)
         { desc = "[f]ind [g]it [c]ommits", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>fgb", require("telescope.builtin").git_branches,
         { desc = "[f]ind [g]it [b]ranches", noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>fgh", "<cmd>Telescope git,signs<cr>",
+        { desc = "[f]ind [g]it [h]unk", noremap = true, silent = true })
     end
   }
   return data
