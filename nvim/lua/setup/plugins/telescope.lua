@@ -120,7 +120,7 @@ function M.init(args)
         { desc = "[f]ind [g]it [c]ommits", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>fgb", require("telescope.builtin").git_branches,
         { desc = "[f]ind [g]it [b]ranches", noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>fgh", "<cmd>Telescope git,signs<cr>",
+      vim.keymap.set("n", "<leader>fgh", "<cmd>Telescope git_signs<cr>",
         { desc = "[f]ind [g]it [h]unk", noremap = true, silent = true })
     end
   }
