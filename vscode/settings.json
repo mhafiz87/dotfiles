@@ -157,8 +157,6 @@
         {"before": ["j","k"],"after": ["<Esc>"]}
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
-        // {"before": ["j"], "commands": ["cursorDown"]},
-        // {"before": ["k"], "commands": ["cursorUp"]},
         {"before": ["<C-n>"], "commands": [":nohl"]},
         {"before": ["<S-h>"], "commands": ["workbench.action.previousEditorInGroup"]},
         {"before": ["<S-l>"], "commands": ["workbench.action.nextEditorInGroup"]},
@@ -200,7 +198,6 @@
         {"before": ["}"], "commands": [{"command": "gotoNextPreviousMember.nextMember"}, {"command": "center-editor-window.center"}]},
         {"before": ["{"], "commands": [{"command": "gotoNextPreviousMember.previousMember"}, {"command": "center-editor-window.center"}]},
         {"before": ["<leader>", "a"], "commands": ["outline.focus"]}
-
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         {"before": ["<leader>", "y"],"after": ["\"", "a", "y", "<enter>"]},
