@@ -58,6 +58,7 @@ config.window_padding = {
 }
 config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.50 }
 config.min_scroll_bar_height = "2cell"
+config.window_decorations = "RESIZE"
 
 -- Cursor
 config.animation_fps = 60
