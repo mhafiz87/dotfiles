@@ -2,18 +2,18 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.rulers": [
+            // {
+            //     "column": 80,
+            //     "color": "#c3c30090"
+            // },
             {
-                "column": 80,
-                "color": "#c3c30090"
+                "column": 88,  // Default Black column length
+                "color": "#ffa500a0"
             },
-            {
-                "column": 88,
-                "color": "#c3780090"
-            },
-            {
-                "column": 120,
-                "color": "#c4000090"
-            }
+            // {
+            //     "column": 120,
+            //     "color": "#c4000090"
+            // }
         ],
         "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding",
         "explicitFolding.rules": [
@@ -195,6 +195,7 @@
         {"before": ["[", "d"], "commands": ["editor.action.marker.prev"]},
         {"before": ["]", "d"], "commands": ["editor.action.marker.next"]},
         {"before": ["<S-k>"], "commands": ["editor.action.peekDefinition"]},
+        {"before": ["<leader>", "l", "f"], "commands": ["editor.action.referenceSearch.trigger"]},
         {"before": ["}"], "commands": [{"command": "gotoNextPreviousMember.nextMember"}, {"command": "center-editor-window.center"}]},
         {"before": ["{"], "commands": [{"command": "gotoNextPreviousMember.previousMember"}, {"command": "center-editor-window.center"}]},
         {"before": ["<leader>", "a"], "commands": ["outline.focus"]}

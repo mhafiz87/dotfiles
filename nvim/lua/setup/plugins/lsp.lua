@@ -23,19 +23,19 @@ function M.init(args)
       local opts = { noremap = true, silent = true }
       local on_attach = function(client, bufnr)
         opts.buffer = bufnr
-        opts.desc = "Show LSP [r]eferences (Telescope)"
-        map("n", "<>lR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+        opts.desc = "Show LSP re[f]erences (Telescope)"
+        map("n", "<leader>lf", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
-        opts.desc = "Go to [D]eclaration"
-        map("n", "<leader>ln", vim.lsp.buf.declaration, opts) -- go to declaration
+        opts.desc = "Go to [d]efinition"
+        map("n", "gd", vim.lsp.buf.declaration, opts) -- go to declaration
 
         opts.desc = "Show LSP [d]efinitions (Telescope)"
         map("n", "<leader>lN", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
 
-        opts.desc = "Show LSP [i]mplementations (Telescope)"
-        map("n", "<leader>lI", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+        opts.desc = "Show LSP [i]mplementation (Telescope)"
+        map("n", "<leader>li", "<cmd>Telescope lsp_implementation<CR>", opts) -- show lsp implementations
 
-        opts.desc = "Show LSP [t]ype definitions"
+        opts.desc = "Show LSP [t]ype definitions (Telescope)"
         map("n", "<leader>lT", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
 
         opts.desc = "See available [c]ode [a]ctions"
