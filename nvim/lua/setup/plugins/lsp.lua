@@ -33,7 +33,7 @@ function M.init(args)
         map("n", "<leader>lN", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
 
         opts.desc = "Show LSP [i]mplementation (Telescope)"
-        map("n", "<leader>li", "<cmd>Telescope lsp_implementation<CR>", opts) -- show lsp implementations
+        map("n", "<leader>li", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
         opts.desc = "Show LSP [t]ype definitions (Telescope)"
         map("n", "<leader>lT", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
