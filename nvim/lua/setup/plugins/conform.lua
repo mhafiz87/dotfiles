@@ -25,6 +25,17 @@ function M.init(args)
           async = true,
           timeout_ms = 500,
         },
+        formatters = {
+          isort = {
+            include_trailing_comma = true,
+            command = "isort",
+            args = {
+              "--profile",
+              "black",
+              "-",
+            },
+          },
+        },
       })
       vim.keymap.set({ "n", "v" }, "<leader>mp", function()
         conform.format({
@@ -33,7 +44,7 @@ function M.init(args)
           timeout_ms = 2000,
         })
       end, { desc = "Format file or range (in visual mode)" })
-    end
+    end,
   }
   return data
 end
