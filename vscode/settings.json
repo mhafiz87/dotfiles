@@ -1,5 +1,9 @@
 {
     "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        },
+        "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding",
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.rulers": [
             // {
@@ -15,7 +19,6 @@
             //     "color": "#c4000090"
             // }
         ],
-        "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding",
         "explicitFolding.rules": [
             {
                 "beginRegex": "\"\"\"|'''",
@@ -26,7 +29,8 @@
                 "indentation": true,
                 "offSide": true
             }
-        ]
+        ],
+        "isort.args": ["--profile", "black"]
     },
     "[markdown]": {
         "editor.defaultFormatter": "yzhang.markdown-all-in-one"
