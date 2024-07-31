@@ -21,6 +21,10 @@ function M.init(args)
           debounce = 10,
           sign_priority = 40,
         },
+        outline = {
+          auto_preview = false, -- default to true
+          close_after_jump = true, -- default to true
+        },
       })
       vim.keymap.set("n", "<S-k>", "<cmd>Lspsaga hover_doc<cr>", { desc = "Show documentation", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>lca", "<cmd>Lspsaga code_action<cr>", { desc = "List code action", noremap = true, silent = true })
