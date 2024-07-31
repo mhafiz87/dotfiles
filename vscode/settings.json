@@ -227,4 +227,5 @@
     "workbench.startupEditor": "none",
     "terminal.integrated.tabs.defaultColor": "terminal.ansiBlack",
     "workbench.colorTheme": "Default Light Modern",
+    "hediet.vscode-drawio.resizeImages": null,
 }
