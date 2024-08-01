@@ -7,7 +7,7 @@ function M.init (args)
     "nvim-tree/nvim-tree.lua",
     config = function ()
       require("nvim-tree").setup({})
-      vim.keymap.set("n", "<C-k>b", "<CMD>NvimTreeToggle<CR>", { desc = "Toggle Nvim Tree" })
+      vim.keymap.set("n", "<C-k><C-b>", "<CMD>NvimTreeToggle<CR>", { desc = "Toggle Nvim Tree" })
     end
   }
   return data

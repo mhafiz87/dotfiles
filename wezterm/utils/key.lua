@@ -179,7 +179,7 @@ local keys_default = {
   },
 }
 
-M.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
+M.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2000 }
 
 M.keys = helper.TableConcat(keys_default, keys_wezterm)
 

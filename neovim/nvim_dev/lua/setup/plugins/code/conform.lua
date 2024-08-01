@@ -20,11 +20,11 @@ function M.init(args)
           -- Use a sub-list to run only the first available formatter
           -- javascript = { { "prettierd", "prettier" } },
         },
-        format_after_save = {
-          lsp_fallback = true,
-          async = true,
-          timeout_ms = 500,
-        },
+        -- format_after_save = {
+        --   lsp_fallback = true,
+        --   async = true,
+        --   timeout_ms = 500,
+        -- },
         formatters = {
           isort = {
             include_trailing_comma = true,
