@@ -49,6 +49,7 @@ require("lazy").setup({
   { require("setup.plugins.qol.mini-align").init({}) },
   { require("setup.plugins.qol.mini-indent").init({}) },
   { require("setup.plugins.qol.mini-surround").init({}) },
+  { require("setup.plugins.qol.neogen").init({}) },
   { require("setup.plugins.qol.todo_highlight").init({}) },
   { require("setup.plugins.qol.trouble").init({}) },
   { require("setup.plugins.qol.unfold").init({}) },

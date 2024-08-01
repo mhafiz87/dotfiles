@@ -122,6 +122,8 @@ function M.init(args)
         { desc = "[f]ind [g]it [b]ranches", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>fgh", "<cmd>Telescope git_signs<cr>",
         { desc = "[f]ind [g]it [h]unk", noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics bufnr=0<CR>",
+        { desc = "List current buffer diagnostics", noremap = true, silent = true }) -- show  diagnostics for file
     end
   }
   return data
