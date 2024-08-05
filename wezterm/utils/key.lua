@@ -33,9 +33,9 @@ local keys_default = {
   },
 
   -- Copy Paste
-  { key = "x",   mods = "LEADER|CTRL|SHIFT", action = act.ActivateCopyMode },
-  { key = "c",   mods = "LEADER|CTRL|SHIFT", action = act.CopyTo("Clipboard") },
-  { key = "v",   mods = "LEADER|CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
+  { key = "x",   mods = "LEADER|CTRL", action = act.ActivateCopyMode },
+  { key = "c",   mods = "LEADER|CTRL", action = act.CopyTo("Clipboard") },
+  { key = "v",   mods = "LEADER|CTRL", action = act.PasteFrom("Clipboard") },
 
   -- Tab
   { key = "Tab", mods = "CTRL",              action = act.ActivateTabRelative(1) },
@@ -94,6 +94,7 @@ local keys_default = {
     end),
   },
 
+  -- Send Ctrl Space to windows
   {
     key = "Space",
     mods = "CTRL",
@@ -221,6 +222,7 @@ M.key_tables = {
         end),
       })
     },
+    -- Delete workspaces
     {
       key = "d",
       action = wezterm.action_callback(function(window, pane)
