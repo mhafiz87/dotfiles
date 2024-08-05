@@ -30,8 +30,8 @@
                 "offSide": true
             }
         ],
-        "isort.args": ["--profile", "black"]
     },
+    "isort.args": ["--profile", "black"],
     "[markdown]": {
         "editor.defaultFormatter": "yzhang.markdown-all-in-one"
     },
@@ -228,4 +228,5 @@
     "terminal.integrated.tabs.defaultColor": "terminal.ansiBlack",
     "workbench.colorTheme": "Default Light Modern",
     "hediet.vscode-drawio.resizeImages": null,
+    "workbench.activityBar.location": "hidden",
 }
