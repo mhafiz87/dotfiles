@@ -85,6 +85,7 @@
         "function",
         "method"
     ],
+    "hediet.vscode-drawio.resizeImages": null,
     "jupyter.interactiveWindow.creationMode": "perFile",
     "markdownlint.config": {
         "MD033": false
@@ -120,6 +121,7 @@
             "source": "Git Bash"
         }
     },
+    "terminal.integrated.tabs.defaultColor": "terminal.ansiBlack",
     "todo-tree.general.tags": [
         "BUG",
         "HACK",
@@ -217,6 +219,7 @@
     "vim.smartRelativeLine": false,
     "vsicons.dontShowNewVersionMessage": true,
     "window.autoDetectColorScheme": true,
+    "workbench.colorTheme": "Default Light Modern",
     "workbench.editor.enablePreview": false,
     "workbench.editor.pinnedTabSizing": "compact",
     "workbench.editorAssociations": {
@@ -224,9 +227,7 @@
     },
     "workbench.iconTheme": "vscode-icons",
     "workbench.list.horizontalScrolling": true,
+    "workbench.panel.defaultLocation": "right",
     "workbench.startupEditor": "none",
-    "terminal.integrated.tabs.defaultColor": "terminal.ansiBlack",
-    "workbench.colorTheme": "Default Light Modern",
-    "hediet.vscode-drawio.resizeImages": null,
     "workbench.activityBar.location": "hidden",
 }

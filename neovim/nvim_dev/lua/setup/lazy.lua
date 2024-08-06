@@ -36,6 +36,7 @@ require("lazy").setup({
   { require("setup.plugins.ui.noice").init({}) },
   { require("setup.plugins.ui.dropbar").init({}) },
   -- QoL
+  { require("setup.plugins.qol.aerial").init({}) },
   { require("setup.plugins.qol.autopairs").init({}) },
   { require("setup.plugins.qol.deadcolumn").init({}) },
   { require("setup.plugins.qol.colorizer").init({}) },
