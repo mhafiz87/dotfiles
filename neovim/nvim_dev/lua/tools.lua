@@ -53,4 +53,3 @@ M.set_powershell_terminal = function()
 end
 
 return M
-
