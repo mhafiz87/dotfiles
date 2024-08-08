@@ -38,12 +38,42 @@ function M.init(args)
       enabled = args.enable,
       "nvim-treesitter/nvim-treesitter-context",
       event = { "BufReadPost", "BufNewFile" },
+      dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+      },
       config = function()
         require("treesitter-context").setup({
-          max_lines = 3,
+          max_lines = 5,
         })
       end,
     },
+    {
+      enabled = args.enable,
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      event = { "BufReadPost", "BufNewFile" },
+      dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+      },
+      config = function ()
+        local ntt = require("nvim-treesitter.textobjects.move")
+        vim.keymap.set(
+          "n", "}", function ()
+            ntt.goto_next_start("@block.outer")
+            vim.cmd(":sleep 100m")
+            vim.cmd("norm! zz")
+          end,
+          { desc = "Go to next symbol", noremap = true, silent = true }
+          )
+        vim.keymap.set(
+          "n", "{", function ()
+            ntt.goto_previous_start("@block.outer")
+            vim.cmd(":sleep 100m")
+            vim.cmd("norm! zz")
+          end,
+          { desc = "Go to next symbol", noremap = true, silent = true }
+          )
+      end
+    }
   }
   return data
 end

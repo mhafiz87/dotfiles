@@ -72,4 +72,12 @@ map("n", "<leader>qp", "<cmd>cprev<cr>zz", default_opts_desc("[p]revious quickfi
 
 -- Diagnostic
 map("n", "[d", vim.diagnostic.goto_prev, default_opts_desc("Go to previous diagnostic"))
-map("n", "]d", vim.diagnostic.goto_prev, default_opts_desc("Go to next diagnostic"))
+map("n", "]d", vim.diagnostic.goto_next, default_opts_desc("Go to next diagnostic"))
+
+map("n", "]m", function ()
+  vim.cmd("norm! ]m")
+  vim.cmd(":sleep 200m")
+  vim.cmd("norm! zz")
+end,
+default_opts_desc("Go to next method")
+)

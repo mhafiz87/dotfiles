@@ -29,8 +29,6 @@ function M.init(args)
           "lua_ls",
           "pyright",
           "powershell_es",
-          "markdown",
-          "markdown_inline",
           "marksman",
           "ruff_lsp",
         },
