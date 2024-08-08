@@ -50,17 +50,6 @@ function M.init(args)
       end,
     },
     {
-      "Mofiqul/vscode.nvim",
-      lazy = false,
-      priority = 1000,
-      config = function()
-        local c = require("vscode.colors").get_colors()
-        require("vscode").setup({
-          italic_comments = true,
-        })
-      end,
-    },
-    {
       "tanvirtin/monokai.nvim",
       lazy = false,
       priority = 1000,
@@ -75,6 +64,24 @@ function M.init(args)
           -- ...
         })
       end
+    },
+    {
+      "Mofiqul/vscode.nvim",
+      lazy = false,
+      priority = 1000,
+      config = function()
+        local c = require("vscode.colors").get_colors()
+        require("vscode").setup({
+          italic_comments = true,
+        })
+      end,
+    },
+    {
+      "rockyzhang24/arctic.nvim",
+      lazy = false,
+      priority = 1000,
+      branch = "v2",
+      dependencies = { "rktjmp/lush.nvim" }
     },
     {
       "zaldih/themery.nvim",
@@ -100,7 +107,9 @@ function M.init(args)
             "tokyonight-moon",
             "tokyonight-night",
             "tokyonight-storm",
+            --  VS Code Inspired
             "vscode",
+            "arctic",
           },
           livePreview = true,
         })

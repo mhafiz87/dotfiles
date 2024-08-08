@@ -39,6 +39,11 @@ function M.init(args)
           desc = "+winbar/breadcrumb",
           mode = "n",
         },
+        { -- Surround
+          "<leader>r",
+          desc = "+surround",
+          mode = "n",
+        },
         { -- g
           "g",
           desc = "+prefix / git / mini.align / open in browser",

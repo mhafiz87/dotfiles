@@ -35,6 +35,13 @@ require("lazy").setup({
   -- UI
   { require("setup.plugins.ui.telescope").init({ enable = true }) },
 
+  -- QoL
+  { require("setup.plugins.qol.autopairs").init({ enable = true }) },
+  { require("setup.plugins.qol.colorizer").init({ enable = true }) },
+  { require("setup.plugins.qol.colortils").init({ enable = true }) },
+  { require("setup.plugins.qol.mini-indent").init({ enable = true }) },
+  { require("setup.plugins.qol.mini-surround").init({ enable = true }) },
+
   { require("setup.plugins.which-key").init({ enable = true }) },
 }, {
   checker = {
