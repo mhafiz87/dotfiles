@@ -1,4 +1,13 @@
 {
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[lua]": {
+        "editor.defaultFormatter": "JohnnyMorganz.stylua"
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
     "[python]": {
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
@@ -31,16 +40,9 @@
             }
         ],
     },
-    "isort.args": ["--profile", "black"],
-    "[markdown]": {
-        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
+    "autoDocstring.customTemplatePath": "C:/Users/5004124381/.config/vscode/custom_docstring.mustache",
     "autoDocstring.docstringFormat": "google",
     "autoDocstring.startOnNewLine": false,
-    "autoDocstring.customTemplatePath": "C:/Users/5004124381/.config/vscode/custom_docstring.mustache",
     "code-runner.clearPreviousOutput": true,
     "code-runner.executorMap": {
         "python": "$pythonPath -u $fullFileName"
@@ -73,11 +75,12 @@
         "*.ino": "cpp"
     },
     "files.exclude": {
+        "**/*.bkp": true,
+        "**/.DS_Store": true,
         "**/.git": false,
-        "**/.svn": true,
         "**/.hg": true,
-        "**/CVS": true,
-        "**/.DS_Store": true
+        "**/.svn": true,
+        "**/CVS": true
     },
     "files.trimTrailingWhitespace": true,
     "gotoNextPreviousMember.symbolKinds": [
@@ -86,6 +89,7 @@
         "method"
     ],
     "hediet.vscode-drawio.resizeImages": null,
+    "isort.args": ["--profile", "black"],
     "jupyter.interactiveWindow.creationMode": "perFile",
     "markdownlint.config": {
         "MD033": false
@@ -101,9 +105,9 @@
     "search.quickOpen.includeHistory": false,
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.cwd": "${fileDirname}",
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
     "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font', 'FiraCode Nerd Font', 'Cascadia Code'",
     "terminal.integrated.fontSize": 12,
-    "terminal.integrated.defaultProfile.windows": "PowerShell",
     "terminal.integrated.profiles.windows": {
         "PowerShell": {
             "source": "PowerShell",
