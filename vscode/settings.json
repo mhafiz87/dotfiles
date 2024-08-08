@@ -230,4 +230,6 @@
     "workbench.panel.defaultLocation": "right",
     "workbench.startupEditor": "none",
     "workbench.activityBar.location": "hidden",
+    "zenMode.hideLineNumbers": false,
+    "zenMode.hideStatusBar": false,
 }
