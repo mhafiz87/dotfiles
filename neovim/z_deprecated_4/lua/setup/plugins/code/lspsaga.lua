@@ -6,13 +6,12 @@ function M.init(args)
     enabled = args.enable,
     "nvimdev/lspsaga.nvim",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter", -- optional lspsaga
-      "nvim-tree/nvim-web-devicons", -- optional lspsaga
+      "nvim-treesitter/nvim-treesitter", -- optional
+      "nvim-tree/nvim-web-devicons", -- optional
     },
-    event = "VeryLazy",
     config = function()
       require("lspsaga").setup({
-        symbol_in_winbar = {  -- breadcrumbs
+        symbol_in_winbar = {
           enable = false,
         },
         lightbulb = {
@@ -33,7 +32,7 @@ function M.init(args)
       vim.keymap.set("n", "<leader>ldp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", { desc = "Jump to previous diagnostic", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>ls", "<cmd>Lspsaga outline<cr>", { desc = "List symbols using LSP saga", noremap = true, silent = true })
       vim.keymap.set("n", "gd", "<cmd>Lspsaga finder<cr>", { desc = "List references and implementation", noremap = true, silent = true })
-    end
+    end,
   }
   return data
 end

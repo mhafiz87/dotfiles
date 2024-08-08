@@ -15,16 +15,59 @@ function M.init(args)
       "L3MON4D3/LuaSnip",
       "rafamadriz/friendly-snippets",        -- Snippets collection for a set of different programming languages.
       "onsails/lspkind.nvim",                -- vs-code like pictograms
+      "neovim/nvim-lspconfig",
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "j-hui/fidget.nvim",
     },
     config = function()
       local luasnip = require("luasnip")
       local lspkind = require("lspkind")
       local cmp = require('cmp')
       local cmp_select = { behavior = cmp.SelectBehavior.Select }
+      local lspconfig = require("lspconfig")
+      local capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        require("cmp_nvim_lsp").default_capabilities()
+      )
 
       require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "\\snippets\\vscode\\" } }) -- vscode style snippet
       require("luasnip.loaders.from_vscode").lazy_load()                                                                   -- vscode style snippet
-
+      require("fidget").setup()
+      require("mason").setup()
+      require("mason-lspconfig").setup({
+        automatic_installation = true,
+        ensure_installed = {
+          "lua_ls",
+          "pyright",
+          "powershell_es",
+          "marksman",
+          "ruff_lsp",
+        },
+        handlers = {
+          function(server_name)
+            lspconfig[server_name].setup {
+              on_attach = on_attach,
+              capabilities = capabilities,
+            }
+          end,
+          ["lua_ls"] = function()
+            lspconfig.lua_ls.setup {
+              on_attach = on_attach,
+              capabilities = capabilities,
+              settings = {
+                Lua = {
+                  diagnostics = {
+                    globals = { "vim" },
+                  },
+                },
+              },
+            }
+          end,
+        }
+      })
       cmp.setup({
         completion = {
           completeopt = "menu, menuone, preview, noselect",
