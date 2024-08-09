@@ -14,7 +14,7 @@ function M.init(args)
     config = function()
       local wk = require("which-key")
       wk.add({
-        {
+        { --buffer
           "<leader>b",
           desc = "+buffer",
           mode = "n",
@@ -44,10 +44,20 @@ function M.init(args)
           desc = "+surround",
           mode = "n",
         },
-        { -- g
-          "g",
+        { -- git, mini.align, open in browser
+          "<leader>g",
           desc = "+prefix / git / mini.align / open in browser",
           mode = "n",
+        },
+        { -- Docstring
+          "<leader>d",
+          desc = "+docstring",
+          mode = { "n" },
+        },
+        { -- Format
+          "<leader>m",
+          desc = "+format",
+          mode = { "n" },
         },
         { -- LSP
           "<leader>l",
