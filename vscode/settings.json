@@ -223,7 +223,7 @@
     "vim.smartRelativeLine": false,
     "vsicons.dontShowNewVersionMessage": true,
     "window.autoDetectColorScheme": true,
-    "workbench.colorTheme": "Default Light Modern",
+    "workbench.colorTheme": "Default Dark Modern",
     "workbench.editor.enablePreview": false,
     "workbench.editor.pinnedTabSizing": "compact",
     "workbench.editorAssociations": {

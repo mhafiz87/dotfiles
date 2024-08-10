@@ -14,7 +14,7 @@ function M.init(args)
   setmetatable(args, { __index = { enable = true } })
   local data = {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.5",
+    tag = "0.1.8",
     enabled = args.enable,
     event = "VeryLazy",
     dependencies = {
