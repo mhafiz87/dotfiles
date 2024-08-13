@@ -233,7 +233,9 @@
     "workbench.list.horizontalScrolling": true,
     "workbench.panel.defaultLocation": "right",
     "workbench.startupEditor": "none",
-    "workbench.activityBar.location": "hidden",
     "zenMode.hideLineNumbers": false,
     "zenMode.hideStatusBar": false,
+    "gitlens.mode.active": "zen",
+    "editor.definitionLinkOpensInPeek": true,
+    "workbench.activityBar.location": "hidden",
 }
