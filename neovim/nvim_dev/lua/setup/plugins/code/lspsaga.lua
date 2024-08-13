@@ -24,7 +24,11 @@ function M.init(args)
         },
         outline = {
           auto_preview = false, -- default to true
-          close_after_jump = true, -- default to true
+          close_after_jump = false, -- default to true
+          detail = false, -- default to true
+          layout = "normal", -- default to normal
+          max_height = 0.9, -- default to 0.9
+          left_width = 0.3, -- default to 0.3
         },
         finder = {
           left_width = 0.3,
@@ -37,7 +41,7 @@ function M.init(args)
       vim.keymap.set("n", "<leader>ldn", "<cmd>Lspsaga diagnostic_jump_next<cr>", { desc = "Jump to next diagnostic", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>ldp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", { desc = "Jump to previous diagnostic", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>ls", "<cmd>Lspsaga outline<cr>", { desc = "List symbols using LSP saga", noremap = true, silent = true })
-      vim.keymap.set("n", "gd", "<cmd>Lspsaga finder<cr>", { desc = "List references and implementation", noremap = true, silent = true })
+      vim.keymap.set("n", "gd", "<cmd>Lspsaga finder def+ref+imp<cr>", { desc = "List references and implementation", noremap = true, silent = true })
     end
   }
   return data

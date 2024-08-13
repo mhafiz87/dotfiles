@@ -7,6 +7,9 @@ function M.init(args)
     "folke/zen-mode.nvim",
     config = function()
       require("zen-mode").setup({
+        window = {
+          width = 150,
+        },
         options = {
           signcolumn = "true", -- disable signcolumn
           number = true, -- disable number column

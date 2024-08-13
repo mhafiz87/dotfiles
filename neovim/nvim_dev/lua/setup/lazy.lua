@@ -42,6 +42,7 @@ require("lazy").setup({
 
   -- QoL
   { require("setup.plugins.qol.autopairs").init({ enable = true }) },
+  { require("setup.plugins.qol.rainbow-delimiters").init({ enable = true }) },
   { require("setup.plugins.qol.colorizer").init({ enable = true }) },
   { require("setup.plugins.qol.colortils").init({ enable = true }) },
   { require("setup.plugins.qol.mini-indent").init({ enable = true }) },
