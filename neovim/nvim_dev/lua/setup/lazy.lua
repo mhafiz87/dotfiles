@@ -34,6 +34,7 @@ require("lazy").setup({
   { require("setup.plugins.code.neogen").init({ enable = true }) }, -- docstring generator
   { require("setup.plugins.code.treesitter").init({ enable = true }) },
   { require("setup.plugins.code.autoformatter").init({ enable = true }) },
+  { require("setup.plugins.code.aerial").init({ enable = true }) },
 
   -- UI
   { require("setup.plugins.ui.telescope").init({ enable = true }) },

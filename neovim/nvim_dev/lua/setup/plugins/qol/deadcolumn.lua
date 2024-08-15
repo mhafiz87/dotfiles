@@ -7,9 +7,10 @@ function M.init (args)
     "Bekaboo/deadcolumn.nvim",
     config = function ()
       require("deadcolumn").setup({
+        scope = "line", -- Default to "line"
         blending = {
-            threshold = 0.75,
-            colorcode = '#000000',
+            threshold = 0.1,
+            colorcode = '#1E90FF',
             hlgroup = { 'Normal', 'bg' },
         },
         warning = {

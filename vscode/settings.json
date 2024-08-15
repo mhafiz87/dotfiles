@@ -237,5 +237,4 @@
     "zenMode.hideStatusBar": false,
     "gitlens.mode.active": "zen",
     "editor.definitionLinkOpensInPeek": true,
-    "workbench.activityBar.location": "hidden",
 }
