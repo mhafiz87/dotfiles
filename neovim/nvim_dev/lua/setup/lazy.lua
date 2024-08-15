@@ -53,6 +53,7 @@ require("lazy").setup({
   { require("setup.plugins.qol.todo_highlight").init({ enable = true }) },
   { require("setup.plugins.qol.unfold").init({ enable = true }) },
   { require("setup.plugins.qol.flash").init({ enable = true }) },
+  { require("setup.plugins.qol.undotree").init({ enable = true }) },
   { require("setup.plugins.qol.zenmode").init({ enable = true }) },
 
   { require("setup.plugins.which-key").init({ enable = true }) },

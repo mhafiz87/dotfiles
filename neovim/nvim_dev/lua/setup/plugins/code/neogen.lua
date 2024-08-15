@@ -57,7 +57,6 @@ function M.init(args)
                 { i.HasYield,              "",                        { type = { "func" } } },
                 { nil,                     'Caveats:',                { type = { "func" } } },
                 { nil,                     '\t$1',                    { type = { "func" } } },
-                { nil,                     "",                        { type = { "func" } } },
                 { nil,                     '"""' },
               },
             }
