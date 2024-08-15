@@ -6,13 +6,14 @@ function M.init(args)
     enabled = args.enable,
     "jiaoshijie/undotree",
     dependencies = "nvim-lua/plenary.nvim",
-    keys = {{"<leader>u", "<cmd>lua require('undotree').toggle()<cr>"}},
-    config = function ()
-      require("undotree").setup({})
-    end
+    keys = { { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" } },
+    config = function()
+      require("undotree").setup({
+        window = { winblend = 0 },
+      })
+    end,
   }
   return data
 end
 
 return M
-
