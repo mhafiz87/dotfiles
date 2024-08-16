@@ -112,8 +112,11 @@ end)
 
 -- Tab bar
 -- https://github.com/theopn/dotfiles/blob/25b85936ef3e7195a0f029525f854fdb915b9f90/wezterm/wezterm.lua
-config.use_fancy_tab_bar = false
+config.use_fancy_tab_bar = true
 config.status_update_interval = 500
+config.window_frame = {
+  active_titlebar_bg = "rgba(0, 0, 0, 0)"
+}
 wezterm.on("update-right-status", function(window, pane)
   -- Workspace name
   local tab = window:active_tab()
@@ -138,13 +141,15 @@ wezterm.on("update-right-status", function(window, pane)
   local time = wezterm.strftime("%H:%M")
 
   window:set_right_status(wezterm.format({
+    { Background = { Color = "rgba(0, 0, 0, 0)" } },
     { Text = wezterm.nerdfonts.oct_table .. "  " .. stat },
     { Text = " | " },
     { Text = wezterm.nerdfonts.cod_layout .. " " .. panes_n .. " " .. pane_str },
     { Text = " | " },
-    { Foreground = { Color = "#FFB86C" } },
+    { Foreground = { Color = "rgba(255, 184, 108, 0)" } },
     { Text = wezterm.nerdfonts.fa_code .. "  " .. process },
     "ResetAttributes",
+    { Background = { Color = "rgba(0, 0, 0, 0)" } },
     { Text = " | " },
     { Text = wezterm.nerdfonts.md_clock .. "  " .. time },
     { Text = " |" },
