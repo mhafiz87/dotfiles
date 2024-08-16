@@ -1,3 +1,9 @@
+
+-- LEADER F      | resize font (=, - , BS)
+-- LEADER CTRL W | pane navigation (h, j, k, l, w, d, t, v, s)
+-- LEADER P      | resize pane using (h, j, k, l, b)
+-- LEADER W      | workspace (o, d, l, h)
+
 local wezterm = require("wezterm")
 local balance = require("utils.balancepane")
 local helper = require("utils.helper")
@@ -7,8 +13,7 @@ local ws = require("utils.workspaces")
 
 local M = {}
 
-local keys_wezterm = {
-}
+local keys_wezterm = {}
 
 local keys_default = {
   { key = "p",   mods = "LEADER|CTRL|SHIFT", action = act.ActivateCommandPalette },
@@ -82,6 +87,7 @@ local keys_default = {
           SendKey = { key = "w", mods = "CTRL" },
         }, pane)
       else
+        -- pane_direction key table does not exist
         window:perform_action({
           ActivateKeyTable = {
             name = "pane_direction",
@@ -276,9 +282,9 @@ M.key_tables = {
     { key = "q",         action = "PopKeyTable" },
   },
   resize_pane = {
-    { key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
-    { key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
     { key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
+    { key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
+    { key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
     { key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
     {
       key = "b",
@@ -299,7 +305,7 @@ M.key_tables = {
     { key = "t",      action = act.TogglePaneZoomState },
     { key = "s",      action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
     { key = "v",      action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-    { key = "d",      action = act.CloseCurrentPane({ confirm = true }) },
+    { key = "d",      action = act.CloseCurrentPane({ confirm = false }) },
     { key = "Escape", action = "PopKeyTable" },
     { key = "q",      action = "PopKeyTable" },
   },
