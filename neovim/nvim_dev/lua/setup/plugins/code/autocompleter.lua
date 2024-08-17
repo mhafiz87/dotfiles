@@ -15,6 +15,12 @@ function M.init(args)
       "L3MON4D3/LuaSnip",
       "rafamadriz/friendly-snippets",        -- Snippets collection for a set of different programming languages.
       "onsails/lspkind.nvim",                -- vs-code like pictograms
+      {
+        "Exafunction/codeium.nvim",            -- AI autocomplete
+        dependencies = {
+          "nvim-lua/plenary.nvim"
+        },
+      }
     },
     config = function()
       local luasnip = require("luasnip")
@@ -24,6 +30,9 @@ function M.init(args)
 
       require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "\\snippets\\vscode\\" } }) -- vscode style snippet
       require("luasnip.loaders.from_vscode").lazy_load()                                                                   -- vscode style snippet
+      require("codeium").setup({
+
+      })
 
       cmp.setup({
         completion = {
@@ -66,6 +75,7 @@ function M.init(args)
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
+          { name = "codeium" },
           { name = "luasnip" },                 -- snippets
           { name = 'nvim_lsp_signature_help' }, -- function signature with current parameter
           { name = "buffer" },                  -- text within current buffer
@@ -99,6 +109,9 @@ function M.init(args)
             mode = "symbol_text",
             maxwidth = 50,
             ellipsis_char = "...",
+            symbol_map = {
+              Codeium = ""
+            }
           }),
         },
       })
