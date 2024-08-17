@@ -35,6 +35,7 @@ require("lazy").setup({
   { require("setup.plugins.code.treesitter").init({ enable = true }) },
   { require("setup.plugins.code.autoformatter").init({ enable = true }) },
   { require("setup.plugins.code.aerial").init({ enable = true }) },
+  { require("setup.plugins.code.chatgpt").init({ enable = true }) },
 
   -- UI
   { require("setup.plugins.ui.telescope").init({ enable = true }) },
