@@ -59,6 +59,11 @@ function M.init(args)
           desc = "+format",
           mode = { "n" },
         },
+        { -- Trouble
+          "<leader>x",
+          desc = "+trouble",
+          mode = { "n" },
+        },
         { -- LSP
           "<leader>l",
           desc = "+LSP",

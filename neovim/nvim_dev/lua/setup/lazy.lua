@@ -52,6 +52,7 @@ require("lazy").setup({
   { require("setup.plugins.qol.local_highlight").init({ enable = true }) },
   { require("setup.plugins.qol.marks").init({ enable = true }) },
   { require("setup.plugins.qol.todo_highlight").init({ enable = true }) },
+  { require("setup.plugins.qol.trouble").init({ enable = true }) },
   { require("setup.plugins.qol.unfold").init({ enable = true }) },
   { require("setup.plugins.qol.flash").init({ enable = true }) },
   { require("setup.plugins.qol.undotree").init({ enable = true }) },
