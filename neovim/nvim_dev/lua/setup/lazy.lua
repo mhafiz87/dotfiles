@@ -23,6 +23,7 @@ require("lazy").setup({
   { require("setup.plugins.themes.themery").init({ enable = true }) },
 
   -- GIT
+  { require("setup.plugins.git.fugitive").init({ enable = true }) },
   { require("setup.plugins.git.gitsigns").init({ enable = true }) },
   { require("setup.plugins.git.diffview").init({ enable = true }) },
 

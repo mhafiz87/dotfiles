@@ -38,7 +38,7 @@ function M.init(args)
           layout_config = {
             horizontal = {
               prompt_position = "top",
-              preview_width = 0.7,
+              preview_width = 0.6,
               results_width = 0.8,
             },
             vertical = {
