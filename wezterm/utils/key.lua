@@ -306,6 +306,8 @@ M.key_tables = {
     { key = "s",      action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
     { key = "v",      action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
     { key = "d",      action = act.CloseCurrentPane({ confirm = false }) },
+    { key = "u",      action = act.ScrollByLine(1) },
+    { key = "i",      action = act.ScrollByLine(-1) },
     { key = "Escape", action = "PopKeyTable" },
     { key = "q",      action = "PopKeyTable" },
   },

@@ -42,7 +42,9 @@ function M.init(args)
       vim.keymap.set("n", "<leader>ldp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", { desc = "Jump to previous diagnostic", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>ldl", vim.diagnostic.open_float, { desc = "Show line diagnostic", noremap = true, silent = true })
       vim.keymap.set("n", "<leader>ls", "<cmd>Lspsaga outline<cr>", { desc = "List symbols using LSP saga", noremap = true, silent = true })
-      vim.keymap.set("n", "gd", "<cmd>Lspsaga finder def+ref+imp<cr>", { desc = "List references and implementation", noremap = true, silent = true })
+      vim.keymap.set("n", "gd", "<cmd>Lspsaga finder def<cr>", { desc = "List definition", noremap = true, silent = true })
+      vim.keymap.set("n", "gr", "<cmd>Lspsaga finder ref<cr>", { desc = "List references", noremap = true, silent = true })
+      vim.keymap.set("n", "gi", "<cmd>Lspsaga finder imp<cr>", { desc = "List implementation", noremap = true, silent = true })
     end,
   }
   return data
