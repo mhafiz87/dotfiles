@@ -50,7 +50,6 @@
     "code-runner.runInTerminal": true,
     "code-runner.saveFileBeforeRun": true,
     "code-runner.showExecutionMessage": false,
-    "diffEditor.hideUnchangedRegions.enabled": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.cursorSurroundingLines": 10,
     "editor.detectIndentation": true,
@@ -237,4 +236,5 @@
     "zenMode.hideStatusBar": false,
     "gitlens.mode.active": "zen",
     "editor.definitionLinkOpensInPeek": true,
+    "diffEditor.renderSideBySide": true,
 }

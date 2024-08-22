@@ -9,6 +9,7 @@ local function default_opts_desc(desc)
   return { desc = desc, noremap = true, silent = true }
 end
 local default_opts = { desc = "which_key_ignore", noremap = true, silent = true }
+local cwd = vim.fn.getcwd()
 
 -- Map Esc to jk
 map("i", "jk", "<Esc>", default_opts)
@@ -54,6 +55,9 @@ map("v", "p", '"_dP', default_opts)
 -- With this you can use > < multiple time for changing indent when you visual selected text.
 map("v", "<", "<gv", default_opts)
 map("v", ">", ">gv", default_opts)
+
+-- Open Current Working Directory In VSCode
+map("n", "<F3>", "<cmd>silent !code " .. vim.fn.getcwd() .. "<cr>", default_opts_desc("Open current working directory in VSCode."))
 
 -- Open current buffer folder in Windows Explorer
 map("n", "<F4>", "<cmd>!start explorer %:p:h<cr>",
