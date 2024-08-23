@@ -51,6 +51,7 @@ require("lazy").setup({
   { require("setup.plugins.qol.mini-indent").init({ enable = true }) },
   { require("setup.plugins.qol.mini-surround").init({ enable = true }) },
   { require("setup.plugins.qol.deadcolumn").init({ enable = true }) },
+  { require("setup.plugins.qol.hlslens").init({ enable = true }) },
   { require("setup.plugins.qol.local_highlight").init({ enable = true }) },
   { require("setup.plugins.qol.marks").init({ enable = true }) },
   { require("setup.plugins.qol.todo_highlight").init({ enable = true }) },

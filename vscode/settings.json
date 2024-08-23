@@ -62,7 +62,7 @@
     "editor.insertSpaces": true,
     "editor.minimap.enabled": false,
     "editor.multiCursorPaste": "full",
-    "editor.lineNumbers": "relative",
+    "editor.lineNumbers": "on",
     "editor.linkedEditing": true,
     "editor.showFoldingControls": "always",
     "editor.suggestSelection": "first",
