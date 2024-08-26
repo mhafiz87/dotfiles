@@ -84,6 +84,11 @@ function M.init(args)
       dependencies = { "rktjmp/lush.nvim" }
     },
     {
+      "sainnhe/sonokai",
+      lazy = false,
+      priority = 1000,
+    },
+    {
       "zaldih/themery.nvim",
       config = function()
         require("themery").setup({
@@ -103,6 +108,7 @@ function M.init(args)
             "monokai_soda",
             "monokai",
             "tokyodark",
+            "sonokai",
             -- "tokyonight-day",
             "tokyonight-moon",
             "tokyonight-night",
