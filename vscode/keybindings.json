@@ -134,5 +134,10 @@
         "key": "ctrl+k ctrl+t",
         "command": "workbench.files.action.collapseExplorerFolders",
         "when": "filesExplorerFocus"
+    },
+    {
+        "key": "ctrl+k f",
+        "command": "workbench.explorer.fileView.focus",
+        "when": "filesExplorerFocus"
     }
 ]

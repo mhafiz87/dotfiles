@@ -32,7 +32,7 @@ local keys_default = {
     action = act.ActivateKeyTable({
       name = "resize_font",
       one_shot = false,
-      timeout_milliseconds = 1000,
+      -- timeout_milliseconds = 1000,
       until_unknown = true,
     }),
   },
@@ -70,7 +70,7 @@ local keys_default = {
     action = act.ActivateKeyTable({
       name = "pane_operation",
       one_shot = false,
-      timeout_milliseconds = 2000,
+      -- timeout_milliseconds = 2000,
       until_unknown = true,
     }),
   },
@@ -80,23 +80,26 @@ local keys_default = {
     key = "w",
     mods = "CTRL",
     action = wezterm.action_callback(function(window, pane)
-      -- if current active pane is vim
-      if helper.is_vim(pane) then
-        wezterm.log_info("Is vim pane: " .. tostring(helper.is_vim(pane)))
         window:perform_action({
           SendKey = { key = "w", mods = "CTRL" },
         }, pane)
-      else
-        -- pane_direction key table does not exist
-        window:perform_action({
-          ActivateKeyTable = {
-            name = "pane_direction",
-            one_shot = false,
-            timeout_milliseconds = 1000,
-            until_unknown = true,
-          },
-        }, pane)
-      end
+      -- -- if current active pane is vim
+      -- if helper.is_vim(pane) then
+      --   wezterm.log_info("Is vim pane: " .. tostring(helper.is_vim(pane)))
+      --   window:perform_action({
+      --     SendKey = { key = "w", mods = "CTRL" },
+      --   }, pane)
+      -- else
+      --   -- pane_direction key table does not exist
+      --   window:perform_action({
+      --     ActivateKeyTable = {
+      --       name = "pane_direction",
+      --       one_shot = false,
+      --       timeout_milliseconds = 1000,
+      --       until_unknown = true,
+      --     },
+      --   }, pane)
+      -- end
     end),
   },
 
@@ -118,7 +121,7 @@ local keys_default = {
     action = act.ActivateKeyTable({
       name = "resize_pane",
       one_shot = false,
-      timeout_milliseconds = 2000,
+      -- timeout_milliseconds = 2000,
       until_unknown = true,
     }),
   },
@@ -130,7 +133,7 @@ local keys_default = {
     action = act.ActivateKeyTable({
       name = "workspace",
       one_shot = false,
-      timeout_milliseconds = 2000,
+      -- timeout_milliseconds = 2000,
       until_unknown = true,
     })
   },
@@ -306,8 +309,8 @@ M.key_tables = {
     { key = "s",      action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
     { key = "v",      action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
     { key = "d",      action = act.CloseCurrentPane({ confirm = false }) },
-    { key = "u",      action = act.ScrollByLine(1) },
-    { key = "i",      action = act.ScrollByLine(-1) },
+    { key = "u",      action = act.ScrollByLine(5) },
+    { key = "i",      action = act.ScrollByLine(-5) },
     { key = "Escape", action = "PopKeyTable" },
     { key = "q",      action = "PopKeyTable" },
   },
