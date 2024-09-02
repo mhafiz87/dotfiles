@@ -41,7 +41,7 @@ require("lazy").setup({
   -- UI
   { require("setup.plugins.ui.telescope").init({ enable = true }) },
   { require("setup.plugins.ui.lualine").init({ enable = true }) }, -- statusbar
-  { require("setup.plugins.ui.nvim-tree").init({ enable = true }) }, -- statusbar
+  { require("setup.plugins.ui.nvim-tree").init({ enable = true }) }, -- file explorer
 
   -- QoL
   { require("setup.plugins.qol.autopairs").init({ enable = true }) },
@@ -60,6 +60,7 @@ require("lazy").setup({
   { require("setup.plugins.qol.flash").init({ enable = true }) },
   { require("setup.plugins.qol.undotree").init({ enable = true }) },
   { require("setup.plugins.qol.zenmode").init({ enable = true }) },
+  { require("setup.plugins.qol.markdown").init({ enable = true }) },
 
   { require("setup.plugins.which-key").init({ enable = true }) },
 }, {
