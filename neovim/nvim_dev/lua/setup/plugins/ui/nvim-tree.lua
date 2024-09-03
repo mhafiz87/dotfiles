@@ -13,7 +13,7 @@ function M.init (args)
           }
         }
       })
-      vim.keymap.set("n", "<C-k><C-b>", "<CMD>NvimTreeToggle<CR>", { desc = "Toggle Nvim Tree" })
+      vim.keymap.set("n", "<leader>fe", "<CMD>NvimTreeToggle<CR>", { desc = "[F]ile [E]xplorer" })
     end
   }
   return data

@@ -61,6 +61,8 @@ require("lazy").setup({
   { require("setup.plugins.qol.undotree").init({ enable = true }) },
   { require("setup.plugins.qol.zenmode").init({ enable = true }) },
   { require("setup.plugins.qol.markdown").init({ enable = true }) },
+  { require("setup.plugins.qol.mini-align").init({ enable = true }) },
+  { require("setup.plugins.qol.icon-picker").init({ enable = true }) },
 
   { require("setup.plugins.which-key").init({ enable = true }) },
 }, {
