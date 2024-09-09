@@ -51,7 +51,9 @@
     "code-runner.saveFileBeforeRun": true,
     "code-runner.showExecutionMessage": false,
     "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.renderSideBySide": true,
     "editor.cursorSurroundingLines": 10,
+    "editor.definitionLinkOpensInPeek": true,
     "editor.detectIndentation": true,
     "editor.foldingImportsByDefault": false,
     "editor.foldingStrategy": "auto",
@@ -62,7 +64,7 @@
     "editor.insertSpaces": true,
     "editor.minimap.enabled": false,
     "editor.multiCursorPaste": "full",
-    "editor.lineNumbers": "on",
+    "editor.lineNumbers": "relative",
     "editor.linkedEditing": true,
     "editor.showFoldingControls": "always",
     "editor.suggestSelection": "first",
@@ -167,18 +169,26 @@
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {"before": ["<C-n>"], "commands": [":nohl"]},
-        {"before": ["<S-h>"], "commands": ["workbench.action.previousEditorInGroup"]},
-        {"before": ["<S-l>"], "commands": ["workbench.action.nextEditorInGroup"]},
+        // Split Navigation
         {"before": ["<leader>", "<S-h>"], "commands": ["workbench.action.navigateLeft"]},
         {"before": ["<leader>", "<S-l>"], "commands": ["workbench.action.navigateRight"]},
-        {"before": ["<S-l>"], "commands": ["workbench.action.nextEditorInGroup"]},
-        {"before": ["<leader>", "y"], "after": ["\"", "a", "y", "<enter>"]},
-        {"before": ["<leader>", "p"], "after": ["\"", "a", "p"]},
+
+        // Half Page Navigation Then Re-Centre
         {"before": ["<C-d>"], "after": ["<C-d>", "z", "z"]},
         {"before": ["<C-u>"], "after": ["<C-u>", "z", "z"]},
+
+        // Search Then Re-Centre
         {"before": ["n"], "after": ["n", "z", "z", "z", "v"]},
         {"before": ["N"], "after": ["N", "z", "z", "z", "v"]},
+
+        // Move line below to the end of current line while maintaining cursor position
         {"before": ["J"], "after": ["m", "z", "J", "`", "z"]},
+
+        {"before": ["<S-h>"], "commands": ["workbench.action.previousEditorInGroup"]},
+        {"before": ["<S-l>"], "commands": ["workbench.action.nextEditorInGroup"]},
+        {"before": ["<S-l>"], "commands": ["workbench.action.nextEditorInGroup"]},
+
+        // Git Go To Next Hunk
         {"before": ["<leader>", "g", "n"], "commands": [
             {
                 "command": "editor.action.dirtydiff.next",
@@ -189,6 +199,7 @@
                 "when": "textCompareEditorVisible"
             }
         ]},
+        // Git Go To Previous Hunk
         {"before": ["<leader>", "g", "p"], "commands": [
             {
                 "command": "workbench.action.compareEditor.previousChange",
@@ -199,16 +210,30 @@
                 "when": "textCompareEditorVisible"
             }
         ]},
-        {"before": ["<leader>", "g", "o"], "commands": ["git.openChange"]},
+        // Git Go To Revert Selected Ranges
         {"before": ["<leader>", "g", "r"], "commands": ["git.revertSelectedRanges"]},
+
+        // Go To Next Diagnostic
         {"before": ["[", "d"], "commands": ["editor.action.marker.prev"]},
+        // Go To Previous Diagnostic
         {"before": ["]", "d"], "commands": ["editor.action.marker.next"]},
-        {"before": ["<S-k>"], "commands": ["editor.action.peekDefinition"]},
-        {"before": ["<leader>", "l", "f"], "commands": ["editor.action.referenceSearch.trigger"]},
+
+        // LSP - Peek Definition
+        {"before": ["<S-k>"], "commands": ["editor.action.showDefinitionPreviewHover"]},
+        // LSP - References
+        {"before": ["g", "r"], "commands": ["editor.action.referenceSearch.trigger"]},
+        {"before": ["g", "i"], "commands": [
+            {
+                "command": "editor.action.peekImplementation",
+                "when": "editorHasImplementationProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+            }
+        ]},
         {"before": ["}"], "commands": [{"command": "gotoNextPreviousMember.nextMember"}, {"command": "center-editor-window.center"}]},
         {"before": ["{"], "commands": [{"command": "gotoNextPreviousMember.previousMember"}, {"command": "center-editor-window.center"}]},
+
         {"before": ["<leader>", "a"], "commands": ["outline.focus"]}
     ],
+    // Allow tab line multiple times
     "vim.visualModeKeyBindingsNonRecursive": [
         {"before": ["<leader>", "y"],"after": ["\"", "a", "y", "<enter>"]},
         {"before": [">"],"after": [">", "g", "v"]},
@@ -234,7 +259,5 @@
     "workbench.startupEditor": "none",
     "zenMode.hideLineNumbers": false,
     "zenMode.hideStatusBar": false,
-    "gitlens.mode.active": "zen",
-    "editor.definitionLinkOpensInPeek": true,
-    "diffEditor.renderSideBySide": true,
+    "notebook.lineNumbers": "on",
 }
