@@ -52,12 +52,6 @@ vim.opt.cursorline = true
 -- Blinking cursor
 vim.o.guicursor = "n-v-sm:block,c-i-ci-ve:ver25,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
 
--- Persist Undo
-vim.o.undofile = true
-if global.is_windows then
-  vim.o.undodir = vim.fn.getcwd() .. "\\.nvim\\undo"
-end
-
 if global.is_windows then
   vim.g.python3_host_prog = os.getenv("userprofile") .. "\\.venv\\neovim\\scripts\\python.exe"
 elseif global.is_linux then

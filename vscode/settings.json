@@ -99,6 +99,7 @@
         "default": "right",
         "jupyter-notebook": "left"
     },
+    "notebook.lineNumbers": "on",
     "python.analysis.diagnosticMode": "openFilesOnly",
     "python.languageServer": "Pylance",
     "python.venvPath": "~/.virtualenvs",
@@ -188,6 +189,9 @@
         {"before": ["<S-l>"], "commands": ["workbench.action.nextEditorInGroup"]},
         {"before": ["<S-l>"], "commands": ["workbench.action.nextEditorInGroup"]},
 
+        // Move line below to the end of current line while maintaining cursor position
+        {"before": ["<leader>", "f", "e"], "commands": ["workbench.explorer.fileView.focus"]},
+
         // Git Go To Next Hunk
         {"before": ["<leader>", "g", "n"], "commands": [
             {
@@ -259,5 +263,4 @@
     "workbench.startupEditor": "none",
     "zenMode.hideLineNumbers": false,
     "zenMode.hideStatusBar": false,
-    "notebook.lineNumbers": "on",
 }

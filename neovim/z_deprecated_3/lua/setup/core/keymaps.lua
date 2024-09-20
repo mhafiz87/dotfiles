@@ -9,7 +9,6 @@ local function default_opts_desc(desc)
   return { desc = desc, noremap = true, silent = true }
 end
 local default_opts = { desc = "which_key_ignore", noremap = true, silent = true }
-local cwd = vim.fn.getcwd()
 
 -- Map Esc to jk
 map("i", "jk", "<Esc>", default_opts)
@@ -56,9 +55,6 @@ map("v", "p", '"_dP', default_opts)
 map("v", "<", "<gv", default_opts)
 map("v", ">", ">gv", default_opts)
 
--- Open Current Working Directory In VSCode
-map("n", "<F3>", "<cmd>silent !code " .. vim.fn.getcwd() .. "<cr>", default_opts_desc("Open current working directory in VSCode."))
-
 -- Open current buffer folder in Windows Explorer
 map("n", "<F4>", "<cmd>!start explorer %:p:h<cr>",
   default_opts_desc("Open current buffer directory in Windows explorer."))
@@ -76,12 +72,4 @@ map("n", "<leader>qp", "<cmd>cprev<cr>zz", default_opts_desc("[p]revious quickfi
 
 -- Diagnostic
 map("n", "[d", vim.diagnostic.goto_prev, default_opts_desc("Go to previous diagnostic"))
-map("n", "]d", vim.diagnostic.goto_next, default_opts_desc("Go to next diagnostic"))
-
-map("n", "]m", function ()
-  vim.cmd("norm! ]m")
-  vim.cmd(":sleep 200m")
-  vim.cmd("norm! zz")
-end,
-default_opts_desc("Go to next method")
-)
+map("n", "]d", vim.diagnostic.goto_prev, default_opts_desc("Go to next diagnostic"))

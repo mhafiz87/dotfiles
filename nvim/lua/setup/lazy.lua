@@ -15,68 +15,65 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup(
-  {
-    -- Example to disable plugin
-    -- { require("setup.plugins.markdown").init({ enable = false }) },
+require("lazy").setup({
+  -- Example to disable plugin
+  -- { require("setup.plugins.markdown").init({ enable = false }) },
 
-    -- Markdown
-    { require("setup.plugins.markdown").init({}) },
-    { require("setup.plugins.markdown-viewer").init({}) },
-    -- UI
-    { require("setup.plugins.themery").init({}) },
-    { require("setup.plugins.lualine").init({}) },
-    { require("setup.plugins.telescope").init({}) },
-    -- Code
-    { require("setup.plugins.treesitter").init({}) },
-    { require("setup.plugins.lsp").init({}) },
-    { require("setup.plugins.autocompleter").init({}) },
-    -- Document Generator
-    { require("setup.plugins.neogen").init({}) },
-    -- AutoFormatter
-    { require("setup.plugins.conform").init({}) },
-    -- Code Navigation
-    { require("setup.plugins.barbecue").init({}) },
-    { require("setup.plugins.navbuddy").init({}) },
-    -- Git
-    { require("setup.plugins.git.gitsigns").init({}) },
-    { require("setup.plugins.git.vim-fugitive").init({}) },
-    { require("setup.plugins.git.diffview").init({}) },
-    -- { require("setup.plugins.git.vgit").init({}) },
-    -- Noice
-    { require("setup.plugins.noice").init({}) },
-    -- QoL
-    { require("setup.plugins.qol.todo_highlight").init({}) },
-    { require("setup.plugins.qol.unfold").init({}) },
-    { require("setup.plugins.qol.trouble").init({}) }, -- List diagnostic in a pretty way.
-    { require("setup.plugins.qol.gx").init({}) },
-    { require("setup.plugins.qol.mini-align").init({}) },
-    { require("setup.plugins.qol.mini-indent").init({}) },
-    { require("setup.plugins.qol.mini-surround").init({}) },
-    { require("setup.plugins.qol.colorizer").init({}) },
-    { require("setup.plugins.qol.colortils").init({}) },
-    { require("setup.plugins.qol.deadcolumn").init({}) },
-    { require("setup.plugins.qol.flash").init({}) },
-    { require("setup.plugins.qol.oil").init({}) },
-    { require("setup.plugins.qol.aerial").init({}) },
-    { require("setup.plugins.qol.autopairs").init({}) },
-    { require("setup.plugins.qol.marks").init({}) },
-    { require("setup.plugins.qol.local_highlight").init({}) },
-    -- { require("setup.plugins.qol.multicursor").init({}) },
-    -- { require("setup.plugins.qol.stay_centered").init({}) },
-    -- Which Key (Must be last to override others)
-    { require("setup.plugins.qol.which_key").init({}) },
+  -- Themes
+  { require("setup.plugins.themes.themery").init({ enable = true }) },
+
+  -- GIT
+  { require("setup.plugins.git.fugitive").init({ enable = true }) },
+  { require("setup.plugins.git.gitsigns").init({ enable = true }) },
+  { require("setup.plugins.git.diffview").init({ enable = true }) },
+
+  -- Code
+  { require("setup.plugins.code.lsp").init({ enable = true }) }, -- main LSP
+  { require("setup.plugins.code.lspsaga").init({ enable = true }) },
+  { require("setup.plugins.code.autocompleter").init({ enable = true }) },
+  { require("setup.plugins.code.dropbar").init({ enable = true }) }, -- winbar / breadcrumb
+  { require("setup.plugins.code.neogen").init({ enable = true }) }, -- docstring generator
+  { require("setup.plugins.code.treesitter").init({ enable = true }) },
+  { require("setup.plugins.code.autoformatter").init({ enable = true }) },
+  { require("setup.plugins.code.aerial").init({ enable = true }) },
+  -- { require("setup.plugins.code.chatgpt").init({ enable = true }) },
+
+  -- UI
+  { require("setup.plugins.ui.telescope").init({ enable = true }) },
+  { require("setup.plugins.ui.lualine").init({ enable = true }) }, -- statusbar
+  { require("setup.plugins.ui.nvim-tree").init({ enable = true }) }, -- file explorer
+
+  -- QoL
+  { require("setup.plugins.qol.autopairs").init({ enable = true }) },
+  { require("setup.plugins.qol.rainbow-delimiters").init({ enable = true }) },
+  { require("setup.plugins.qol.colorizer").init({ enable = true }) },
+  { require("setup.plugins.qol.colortils").init({ enable = true }) },
+  { require("setup.plugins.qol.mini-indent").init({ enable = true }) },
+  { require("setup.plugins.qol.mini-surround").init({ enable = true }) },
+  { require("setup.plugins.qol.deadcolumn").init({ enable = true }) },
+  { require("setup.plugins.qol.hlslens").init({ enable = true }) },
+  { require("setup.plugins.qol.local_highlight").init({ enable = true }) },
+  { require("setup.plugins.qol.marks").init({ enable = true }) },
+  { require("setup.plugins.qol.todo_highlight").init({ enable = true }) },
+  { require("setup.plugins.qol.trouble").init({ enable = true }) },
+  { require("setup.plugins.qol.unfold").init({ enable = true }) },
+  { require("setup.plugins.qol.flash").init({ enable = true }) },
+  { require("setup.plugins.qol.undotree").init({ enable = true }) },
+  { require("setup.plugins.qol.zenmode").init({ enable = true }) },
+  { require("setup.plugins.qol.markdown").init({ enable = true }) },
+  { require("setup.plugins.qol.mini-align").init({ enable = true }) },
+  { require("setup.plugins.qol.icon-picker").init({ enable = true }) },
+
+  { require("setup.plugins.which-key").init({ enable = true }) },
+}, {
+  checker = {
+    enabled = true,
+    notify = false,
   },
-  {
-    checker = {
-      enabled = true,
-      notify = false,
-    },
-    change_detection = {
-      notify = false,
-    },
-    ui = {
-      border = "rounded",
-    },
-  }
-)
+  change_detection = {
+    notify = false,
+  },
+  ui = {
+    border = "rounded",
+  },
+})
