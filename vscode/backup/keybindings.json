@@ -1,0 +1,147 @@
+[
+    {
+        "key": "ctrl+alt+b",
+        "command": "workbench.action.toggleActivityBarVisibility"
+    },
+    {
+        "key": "ctrl+k ctrl+b",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "shift+alt+2",
+        "command": "workbench.action.editorLayoutTwoColumns"
+    },
+    {
+        "key": "ctrl+alt+p",
+        "command": "workbench.action.toggleMaximizedPanel"
+    },
+    {
+        "key": "ctrl+shift+x",
+        "command": "workbench.action.terminal.kill"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditorInGroup"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditorInGroup"
+    },
+    {
+        "key": "ctrl+shift+]",
+        "command": "gotoNextPreviousMember.nextMember"
+    },
+    {
+        "key": "ctrl+shift+[",
+        "command": "gotoNextPreviousMember.previousMember"
+    },
+    {
+        "key": "F2",
+        "command": "toggle",
+        "args": {
+            "id": "darklight",
+            "value": [
+                {
+                    "workbench.colorTheme": "Default Dark Modern"
+                },
+                {
+                    "workbench.colorTheme": "Default Light Modern"
+                }
+            ]
+        }
+    },
+    {
+        "key": "F4",
+        "command": "toggle",
+        "args": {
+            "id": "linenumbers",
+            "value": [
+                {
+                    "editor.lineNumbers": "on"
+                },
+                {
+                    "editor.lineNumbers": "relative"
+                }
+            ]
+        }
+    },
+    //Similar with VIM
+    {
+        "key": "tab",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "shift+tab",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+k h",
+        "command": "workbench.action.focusLeftGroup"
+    },
+    {
+        "key": "ctrl+k l",
+        "command": "workbench.action.focusRightGroup"
+    },
+    {
+        "key": "ctrl+k k",
+        "command": "workbench.view.explorer"
+    },
+    {
+        "key": "ctrl+alt+=",
+        "command": "editor.action.fontZoomIn"
+    },
+    {
+        "key": "ctrl+alt+-",
+        "command": "editor.action.fontZoomOut"
+    },
+    {
+        "key": "ctrl+alt+backspace",
+        "command": "editor.action.fontZoomReset"
+    },
+    {
+        "key": "shift+alt+p",
+        "command": "workbench.action.navigateBack",
+        "when": "canNavigateBack"
+    },
+    {
+        "key": "alt+left",
+        "command": "-workbench.action.navigateBack",
+        "when": "canNavigateBack"
+    },
+    {
+        "key": "shift+alt+n",
+        "command": "workbench.action.navigateForward",
+        "when": "canNavigateForward"
+    },
+    {
+        "key": "alt+right",
+        "command": "-workbench.action.navigateForward",
+        "when": "canNavigateForward"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "-extension.vim_ctrl+p",
+        "when": "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "-extension.vim_ctrl+t",
+        "when": "editorTextFocus && vim.active && vim.use<C-t> && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+k ctrl+t",
+        "command": "workbench.files.action.collapseExplorerFolders",
+        "when": "filesExplorerFocus"
+    },
+    {
+        "key": "ctrl+k f",
+        "command": "workbench.explorer.fileView.focus",
+        "when": "filesExplorerFocus"
+    },
+    {
+        "key": "shift+k",
+        "command": "editor.action.showDefinitionPreviewHover"
+    }
+]

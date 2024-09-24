@@ -1,40 +1,6 @@
+
+// Place your key bindings in this file to override the defaults
 [
-    {
-        "key": "ctrl+alt+b",
-        "command": "workbench.action.toggleActivityBarVisibility"
-    },
-    {
-        "key": "ctrl+k ctrl+b",
-        "command": "workbench.action.toggleSidebarVisibility"
-    },
-    {
-        "key": "shift+alt+2",
-        "command": "workbench.action.editorLayoutTwoColumns"
-    },
-    {
-        "key": "ctrl+alt+p",
-        "command": "workbench.action.toggleMaximizedPanel"
-    },
-    {
-        "key": "ctrl+shift+x",
-        "command": "workbench.action.terminal.kill"
-    },
-    {
-        "key": "ctrl+tab",
-        "command": "workbench.action.nextEditorInGroup"
-    },
-    {
-        "key": "ctrl+shift+tab",
-        "command": "workbench.action.previousEditorInGroup"
-    },
-    {
-        "key": "ctrl+shift+]",
-        "command": "gotoNextPreviousMember.nextMember"
-    },
-    {
-        "key": "ctrl+shift+[",
-        "command": "gotoNextPreviousMember.previousMember"
-    },
     {
         "key": "F2",
         "command": "toggle",
@@ -42,10 +8,10 @@
             "id": "darklight",
             "value": [
                 {
-                    "workbench.colorTheme": "Default Dark Modern"
+                    "workbench.preferredDarkColorTheme": "Default Dark Modern"
                 },
                 {
-                    "workbench.colorTheme": "Default Light Modern"
+                    "workbench.preferredDarkColorTheme": "Default Light Modern"
                 }
             ]
         }
@@ -65,7 +31,49 @@
             ]
         }
     },
-    //Similar with VIM
+    {
+        "key": "ctrl+shift+x",
+        "command": "workbench.action.terminal.kill",
+        "when": "terminal.active"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+=",
+        "command": "editor.action.fontZoomIn",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+-",
+        "command": "editor.action.fontZoomOut",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+backspace",
+        "command": "editor.action.fontZoomReset",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+-",
+        "command": "workbench.action.terminal.fontZoomOut",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+=",
+        "command": "workbench.action.terminal.fontZoomIn",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+backspace",
+        "command": "workbench.action.terminal.fontZoomReset",
+        "when": "terminalFocus"
+    },
     {
         "key": "tab",
         "command": "selectNextSuggestion",
@@ -75,50 +83,6 @@
         "key": "shift+tab",
         "command": "selectPrevSuggestion",
         "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-    },
-    {
-        "key": "ctrl+k h",
-        "command": "workbench.action.focusLeftGroup"
-    },
-    {
-        "key": "ctrl+k l",
-        "command": "workbench.action.focusRightGroup"
-    },
-    {
-        "key": "ctrl+k k",
-        "command": "workbench.view.explorer"
-    },
-    {
-        "key": "ctrl+alt+=",
-        "command": "editor.action.fontZoomIn"
-    },
-    {
-        "key": "ctrl+alt+-",
-        "command": "editor.action.fontZoomOut"
-    },
-    {
-        "key": "ctrl+alt+backspace",
-        "command": "editor.action.fontZoomReset"
-    },
-    {
-        "key": "shift+alt+p",
-        "command": "workbench.action.navigateBack",
-        "when": "canNavigateBack"
-    },
-    {
-        "key": "alt+left",
-        "command": "-workbench.action.navigateBack",
-        "when": "canNavigateBack"
-    },
-    {
-        "key": "shift+alt+n",
-        "command": "workbench.action.navigateForward",
-        "when": "canNavigateForward"
-    },
-    {
-        "key": "alt+right",
-        "command": "-workbench.action.navigateForward",
-        "when": "canNavigateForward"
     },
     {
         "key": "ctrl+p",
@@ -131,17 +95,23 @@
         "when": "editorTextFocus && vim.active && vim.use<C-t> && !inDebugRepl"
     },
     {
-        "key": "ctrl+k ctrl+t",
-        "command": "workbench.files.action.collapseExplorerFolders",
-        "when": "filesExplorerFocus"
+        "key": "ctrl+b",
+        "command": "extension.vim_ctrl+b",
+        "when": "editorTextFocus && vim.active && vim.use<C-b> && !inDebugRepl && vim.mode == 'Visual'"
     },
     {
-        "key": "ctrl+k f",
-        "command": "workbench.explorer.fileView.focus",
-        "when": "filesExplorerFocus"
+        "key": "ctrl+b",
+        "command": "-extension.vim_ctrl+b",
+        "when": "editorTextFocus && vim.active && vim.use<C-b> && !inDebugRepl && vim.mode != 'Insert'"
     },
     {
-        "key": "shift+k",
-        "command": "editor.action.showDefinitionPreviewHover"
-    }
+        "key": "ctrl+backspace",
+        "command": "extension.vim_ctrl+backspace",
+        "when": "editorTextFocus && vim.active && vim.use<C-BS> && !inDebugRepl && vim.mode == 'Visual'"
+    },
+    {
+        "key": "ctrl+backspace",
+        "command": "-extension.vim_ctrl+backspace",
+        "when": "editorTextFocus && vim.active && vim.use<C-BS> && !inDebugRepl && vim.mode != 'Insert'"
+    },
 ]

@@ -15,14 +15,14 @@
         "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding",
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.rulers": [
-            {
-                "column": 80,
-                "color": "#ffa500a0"
-            }
             // {
-            //     "column": 88,  // Default Black column length
-            //     "color": "#ffa500a0"
+            //     "column": 80,
+            //     "color": "#c3c30090"
             // },
+            {
+                "column": 88,  // Default Black column length
+                "color": "#ffa500a0"
+            },
             // {
             //     "column": 120,
             //     "color": "#c4000090"
@@ -109,6 +109,7 @@
     "terminal.integrated.cwd": "${fileDirname}",
     "terminal.integrated.defaultProfile.windows": "PowerShell",
     "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font', 'FiraCode Nerd Font', 'Cascadia Code'",
+    "terminal.integrated.fontSize": 12,
     "terminal.integrated.profiles.windows": {
         "PowerShell": {
             "source": "PowerShell",
@@ -137,37 +138,23 @@
         "[x]"
     ],
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
-    "todohighlight.isCaseSensitive": false,
+    "todohighlight.isCaseSensitive": true,
     "todohighlight.isEnable": true,
     "todohighlight.keywords": [
         {
+            "isWholeLine": true,
             "text": "TODO:",
-            "isWholeLine": true,
-            "color": "black",
-            "border": "1px",
-            "borderRadius": "5px"
+            "color": "black"
         },
         {
-            "text": "FIXME:",
             "isWholeLine": true,
-            "border": "1px",
-            "borderRadius": "5px"
+            "text": "FIXME:"
         },
         {
+            "isWholeLine": true,
             "text": "HACK:",
-            "isWholeLine": true,
             "color": "black",
-            "backgroundColor": "#FF99FF",
-            "border": "1px #FF99FF",
-            "borderRadius": "5px"
-        },
-        {
-            "text": "NOTE:",
-            "isWholeLine": true,
-            "color": "black",
-            "backgroundColor": "rgb(40, 219, 0)",
-            "border": "1px rgb(40, 219, 0)",
-            "borderRadius": "5px"
+            "backgroundColor": "#FF99FF"
         }
     ],
     "vim.easymotion": true,
@@ -252,23 +239,10 @@
                 "when": "editorHasImplementationProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
             }
         ]},
-        {
-            "before": ["}"],
-            "commands": [
-                {"command": "gotoNextPreviousMember.nextMember"},
-                {"command": "center-editor-window.center"}
-            ]
-        },
-        {
-            "before": ["{"],
-            "commands": [
-                {"command": "gotoNextPreviousMember.previousMember"},
-                {"command": "center-editor-window.center"}
-            ]
-        },
-        {
-            "before": ["<leader>", "a"],
-            "commands": ["outline.focus"]}
+        {"before": ["}"], "commands": [{"command": "gotoNextPreviousMember.nextMember"}, {"command": "center-editor-window.center"}]},
+        {"before": ["{"], "commands": [{"command": "gotoNextPreviousMember.previousMember"}, {"command": "center-editor-window.center"}]},
+
+        {"before": ["<leader>", "a"], "commands": ["outline.focus"]}
     ],
     // Allow tab line multiple times
     "vim.visualModeKeyBindingsNonRecursive": [
@@ -284,6 +258,7 @@
     "vim.smartRelativeLine": false,
     "vsicons.dontShowNewVersionMessage": true,
     "window.autoDetectColorScheme": true,
+    "workbench.colorTheme": "Default Dark Modern",
     "workbench.editor.enablePreview": false,
     "workbench.editor.pinnedTabSizing": "compact",
     "workbench.editorAssociations": {
@@ -292,9 +267,7 @@
     "workbench.iconTheme": "vscode-icons",
     "workbench.list.horizontalScrolling": true,
     "workbench.panel.defaultLocation": "right",
-    "workbench.preferredDarkColorTheme": "Default Dark Modern",
     "workbench.startupEditor": "none",
     "zenMode.hideLineNumbers": false,
     "zenMode.hideStatusBar": false,
-    "terminal.integrated.fontSize": 12,
 }
