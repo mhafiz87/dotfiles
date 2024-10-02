@@ -291,10 +291,10 @@
     },
     "workbench.iconTheme": "vscode-icons",
     "workbench.list.horizontalScrolling": true,
-    "workbench.panel.defaultLocation": "right",
     "workbench.preferredDarkColorTheme": "Default Dark Modern",
     "workbench.startupEditor": "none",
     "zenMode.hideLineNumbers": false,
     "zenMode.hideStatusBar": false,
     "terminal.integrated.fontSize": 12,
+    "workbench.panel.defaultLocation": "bottom",
 }

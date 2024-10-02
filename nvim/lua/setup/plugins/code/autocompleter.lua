@@ -30,9 +30,7 @@ function M.init(args)
 
       require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "\\snippets\\vscode\\" } }) -- vscode style snippet
       require("luasnip.loaders.from_vscode").lazy_load()                                                                   -- vscode style snippet
-      require("codeium").setup({
-
-      })
+      require("codeium").setup({})
 
       cmp.setup({
         completion = {
