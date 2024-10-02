@@ -30,7 +30,7 @@ function M.init(args)
 
       require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "\\snippets\\vscode\\" } }) -- vscode style snippet
       require("luasnip.loaders.from_vscode").lazy_load()                                                                   -- vscode style snippet
-      require("codeium").setup({})
+      -- require("codeium").setup({})
 
       cmp.setup({
         completion = {
@@ -73,7 +73,7 @@ function M.init(args)
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "codeium" },
+          -- { name = "codeium" },
           { name = "luasnip" },                 -- snippets
           { name = 'nvim_lsp_signature_help' }, -- function signature with current parameter
           { name = "buffer" },                  -- text within current buffer
@@ -108,7 +108,7 @@ function M.init(args)
             maxwidth = 50,
             ellipsis_char = "...",
             symbol_map = {
-              Codeium = ""
+              -- Codeium = ""
             }
           }),
         },
