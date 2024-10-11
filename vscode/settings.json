@@ -246,6 +246,7 @@
         {"before": ["<S-k>"], "commands": ["editor.action.showDefinitionPreviewHover"]},
         // LSP - References
         {"before": ["g", "r"], "commands": ["editor.action.referenceSearch.trigger"]},
+        // LSP - Implementation
         {"before": ["g", "i"], "commands": [
             {
                 "command": "editor.action.peekImplementation",

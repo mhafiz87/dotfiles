@@ -17,7 +17,7 @@ function M.init(args)
       "onsails/lspkind.nvim",                -- vs-code like pictograms
       {
         "Exafunction/codeium.nvim",            -- AI autocomplete
-        commit = "937667b",
+        -- commit = "937667b",
         dependencies = {
           "nvim-lua/plenary.nvim"
         },
