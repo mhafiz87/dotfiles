@@ -35,7 +35,7 @@ Set-PSReadLineOption -AddToHistoryHandler {
 		return $false
 	}
 	return $true
-} 
+}
 
 
 $ehst = "$env:appdata\microsoft\windows\powershell\psreadline\consolehost_history.txt"
@@ -74,7 +74,7 @@ Set-Alias -Name gbf -Value Git-Branch-FZF
 # https://www.youtube.com/watch?v=fnMajPIe_uU
 Function ff
 {
-	nvim $(fzf --preview 'bat --style=numbers --color=always  --line-range :500 {}')	 
+	nvim $(fzf --preview 'bat --style=numbers --color=always  --line-range :500 {}')
 }
 
 $env:path += ";$env:localappdata\Notepad++"
@@ -84,15 +84,15 @@ $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIden
 Function prompt
 {
 	if ($isAdmin)
-	{ "[" + (Get-Location) + "] # " 
+	{ "[" + (Get-Location) + "] # "
 	} else
-	{ "[" + (Get-Location) + "] $ " 
+	{ "[" + (Get-Location) + "] $ "
 	}
 }
 $adminSuffix = if ($isAdmin)
-{ " [ADMIN]" 
+{ " [ADMIN]"
 } else
-{ "" 
+{ ""
 }
 $Host.UI.RawUI.WindowTitle = "PowerShell {0}$adminSuffix" -f $PSVersionTable.PSVersion.ToString()
 
@@ -118,34 +118,34 @@ Set-Alias -Name sudo -Value admin
 
 # Useful shortcuts for traversing directories
 Function cd...
-{ Set-Location ..\.. 
+{ Set-Location ..\..
 }
 Function cd....
-{ Set-Location ..\..\.. 
+{ Set-Location ..\..\..
 }
 
 # Compute file hashes - useful for checking successful downloads
 Function md5
-{ Get-FileHash -Algorithm MD5 $args 
+{ Get-FileHash -Algorithm MD5 $args
 }
 Function sha1
-{ Get-FileHash -Algorithm SHA1 $args 
+{ Get-FileHash -Algorithm SHA1 $args
 }
 Function sha256
-{ Get-FileHash -Algorithm SHA256 $args 
+{ Get-FileHash -Algorithm SHA256 $args
 }
 
 # Quick shortcut to start notepad
 Function n
-{ notepad $args 
+{ notepad $args
 }
 
 Function np
-{ notepad++ $args 
+{ notepad++ $args
 }
 
 Function Get-PubIP
-{ (Invoke-WebRequest http://ifconfig.me/ip ).Content 
+{ (Invoke-WebRequest http://ifconfig.me/ip ).Content
 }
 
 Function Uptime
@@ -161,7 +161,7 @@ Function Uptime
 }
 
 Function Reload-Profile
-{ & $profile 
+{ & $profile
 }
 
 Function Find-File($name)
@@ -307,9 +307,69 @@ Function Keep-Awake
 
 # https://github.com/chocolatey/choco/blob/stable/src/chocolatey.resources/helpers/functions/Update-SessionEnvironment.ps1
 function Update-SessionEnvironment {
-    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 }
 
 Set-Alias refreshenv Update-SessionEnvironment
+
+# https://gist.github.com/Nora-Ballard/11240204
+function Set-WindowState
+{
+    param(
+        [Parameter()]
+        [ValidateSet('FORCEMINIMIZE', 'HIDE', 'MAXIMIZE', 'MINIMIZE', 'RESTORE',
+                'SHOW', 'SHOWDEFAULT', 'SHOWMAXIMIZED', 'SHOWMINIMIZED',
+                'SHOWMINNOACTIVE', 'SHOWNA', 'SHOWNOACTIVATE', 'SHOWNORMAL')]
+        [Alias('Style')]
+        [String] $State = 'SHOW',
+
+        [Parameter(ValueFromPipelineByPropertyname = 'True')]
+        [System.IntPtr] $MainWindowHandle = (Get-Process -id $pid).MainWindowHandle,
+
+        [Parameter()]
+        [switch] $PassThru
+
+    )
+    BEGIN
+    {
+        Set-Alias -Name 'Set-WindowStyle' -Value 'Set-WindowState'
+
+        $WindowStates = @{
+            'FORCEMINIMIZE' = 11
+            'HIDE' = 0
+            'MAXIMIZE' = 3
+            'MINIMIZE' = 6
+            'RESTORE' = 9
+            'SHOW' = 5
+            'SHOWDEFAULT' = 10
+            'SHOWMINIMIZED' = 2
+            'SHOWMINNOACTIVE' = 7
+            'SHOWNA' = 8
+            'SHOWNOACTIVATE' = 4
+            'SHOWNORMAL' = 1
+        }
+
+        $Win32ShowWindowAsync = Add-Type -memberDefinition @"
+[DllImport("user32.dll")]
+public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+"@ -name "Win32ShowWindowAsync" -namespace Win32Functions -passThru
+
+    }
+    PROCESS
+    {
+        $Win32ShowWindowAsync::ShowWindowAsync($MainWindowHandle, $WindowStates[$State]) | Out-Null
+        Write-Verbose ("Set Window State on '{0}' to '{1}' " -f $MainWindowHandle, $State)
+
+        if ($PassThru)
+        {
+            Write-Output $MainWindowHandle
+        }
+
+    }
+    END
+    {
+    }
+
+}
 
 oh-my-posh --init --shell pwsh --config "$env:userprofile/.config/ohmyposh/zen.toml" | Invoke-Expression
