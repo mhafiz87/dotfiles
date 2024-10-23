@@ -300,7 +300,7 @@ M.key_tables = {
     { key = "q",      action = "PopKeyTable" },
   },
   pane_operation = {
-    { key = "w",      action = act.CloseCurrentTab({ confirm = true }) },
+    { key = "w",      action = act.CloseCurrentPane({ confirm = true }) },
     { key = "h",      action = act.ActivatePaneDirection("Left") },
     { key = "j",      action = act.ActivatePaneDirection("Down") },
     { key = "k",      action = act.ActivatePaneDirection("Up") },

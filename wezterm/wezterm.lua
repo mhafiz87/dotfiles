@@ -44,11 +44,12 @@ config.color_schemes = { [theme] = scheme }
 config.color_scheme = theme
 
 -- UI
+config.front_end = "OpenGL"
 config.disable_default_key_bindings = true
 config.enable_scroll_bar = true
 config.adjust_window_size_when_changing_font_size = false
 config.hide_mouse_cursor_when_typing = true
-config.hide_tab_bar_if_only_one_tab = false
+config.hide_tab_bar_if_only_one_tab = true
 config.tab_max_width = 25
 config.window_padding = {
   left = 5,
