@@ -310,6 +310,10 @@ function Update-SessionEnvironment {
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 }
 
+Function Update-PowerShell{
+	Invoke-Expression "& { $(Invoke-RestMethod https://aka.ms/install-powershell.ps1) } -UseMSI -Quiet"
+}
+
 Set-Alias refreshenv Update-SessionEnvironment
 
 # https://gist.github.com/Nora-Ballard/11240204
