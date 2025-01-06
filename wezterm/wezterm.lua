@@ -113,9 +113,9 @@ wezterm.on("gui-startup", function(cmd)
     args = args,
   }
   mux.set_active_workspace "home"
-  if platform.is_win then
-    pane:send_text("clear\r")
-  end
+  -- if platform.is_win then
+  --   pane:send_text("clear\r")
+  -- end
   window:gui_window():maximize()
 end)
 
