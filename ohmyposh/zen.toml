@@ -1,0 +1,258 @@
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+version = 3
+auto_upgrade = true
+shell_integration = true
+final_space = true
+
+[palette]
+  black = '#000000'
+  blue = '#0000ff'
+  green = '#00ff00'
+  orange = '#ffa500'
+  white = '#ffffff'
+
+[secondary_prompt]
+  template = '<b>❯❯ </b>'
+  foreground = 'white'
+  background = 'transparent'
+
+[transient_prompt]
+  template = '<b>❯ </b>'
+  background = 'transparent'
+  foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}white{{end}}']
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = '│  '
+    foreground = 'yellow'
+    background = 'transparent'
+    type = 'root'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    template = '│ {{ if .WSL }}WSL at {{ end }}{{.Icon}} '
+    foreground = 'white'
+    background = 'transparent'
+    type = 'os'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    template = '{{ if .SSHSession }}│   {{ .UserName }}{{ end }}'
+    foreground = 'white'
+    background = 'transparent'
+    type = 'session'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    template = '│   '
+    foreground = 'cyan'
+    background = 'transparent'
+    type = 'path'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    template = '{{ path .Path .Location}}'
+    foreground = 'white'
+    background = 'transparent'
+    type = 'path'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      style = 'full'
+
+      [blocks.segments.properties.mapped_locations]
+        '~/.config' = ' '
+
+  [[blocks.segments]]
+    foreground = 'white'
+    background = 'transparent'
+    type = 'git'
+    style = 'plain'
+    foreground_templates = ['{{ if or (.Working.Changed) (.Staging.Changed) }}#c4a000{{ end }}', '{{ if and (gt .Ahead 0) (gt .Behind 0) }}#f26d50{{ end }}', '{{ if gt .Ahead 0 }}#89d1dc{{ end }}', '{{ if gt .Behind 0 }}#4e9a06{{ end }}']
+    templates = [' │ {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}', '{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}', '{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}', '{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}', '{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}']
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      fetch_stash_count = true
+      fetch_status = true
+      fetch_upstream_icon = true
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]]
+    template = ' {{ .Full }}{{ if .Venv }}({{ .Venv }}){{ end }} '
+    foreground = 'yellow'
+    background = 'transparent'
+    type = 'python'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      display_mode = 'environment'
+      home_enabled = true
+
+  [[blocks.segments]]
+    template = '│ {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} '
+    foreground = 'green'
+    background = 'transparent'
+    type = 'node'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      display_mode = 'files'
+
+  [[blocks.segments]]
+    template = '│  '
+    foreground = 'blue'
+    background = 'transparent'
+    type = 'go'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      fetch_version = true
+
+  [[blocks.segments]]
+    template = '│  {{ .Full }}'
+    foreground = 'blue'
+    background = 'transparent'
+    type = 'lua'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    template = '│ <b>{{ .Name }}</b> '
+    foreground = 'white'
+    background = 'transparent'
+    type = 'shell'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    template = '│  {{ .CurrentDate | date "15:04:05" }} '
+    foreground = 'white'
+    background = 'transparent'
+    type = 'time'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    template = '│ {{.Weather}} ({{.Temperature}}{{.UnitIcon}})'
+    foreground = 'white'
+    background = 'transparent'
+    type = 'owm'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      api_key = '{{ .Env.OpenWeatherMapAPIKey }}'
+      cache_duration = 'none'
+      http_timeout = 20
+      location = '{{ .Env.OpenWeatherMapAPILocation }}'
+      units = 'metric'
+
+    [blocks.segments.cache]
+      duration = '10m0s'
+      strategy = 'folder'
+
+  [[blocks.segments]]
+    template = '│ {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }} '
+    foreground = '#ffffff'
+    type = 'battery'
+    style = 'plain'
+    foreground_templates = ['{{if eq "Charging" .State.String}}#40c4ff{{end}}', '{{if eq "Discharging" .State.String}}#ff5722{{end}}', '{{if eq "Full" .State.String}}#4caf50{{end}}']
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      charged_icon = ' '
+      charging_icon = ' '
+      discharging_icon = ' '
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = '❯'
+    background = 'transparent'
+    type = 'text'
+    style = 'plain'
+    foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}white{{end}}']
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+[[blocks]]
+  type = 'rprompt'
+  overflow = 'hidden'
+
+  [[blocks.segments]]
+    template = '{{ if gt .Code 0 }}✗{{ else }}{{ end }} '
+    background = 'transparent'
+    type = 'text'
+    style = 'plain'
+    foreground_templates = ['{{ if gt .Code 0 }}red{{ end }}', '{{ if eq .Code 0 }}white{{ end }}']
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    template = '{{ .FormattedMs }}'
+    foreground = 'white'
+    background = 'transparent'
+    type = 'executiontime'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      always_enabled = true
+      cache_duration = 'none'
+      style = 'austin'
+      threshold = 500
+
+[[tooltips]]
+  template = '{{ .HEAD }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}'
+  foreground = '#fffb38'
+  background = 'transparent'
+  type = 'git'
+  style = 'plain'
+  tips = ['git']
+
+  [tooltips.properties]
+    display_mode = 'always'
+
+[[tooltips]]
+  template = ' {{ .Full }}{{ if .Venv }}({{ .Venv }}){{ end }}'
+  foreground = '#fffb38'
+  background = 'transparent'
+  type = 'python'
+  style = 'plain'
+  tips = ['python', 'py']
+
+  [tooltips.properties]
+    display_mode = 'always'
