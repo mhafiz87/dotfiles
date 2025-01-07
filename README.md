@@ -28,6 +28,8 @@ if(test-path -path $env:userprofile/.inputrc){remove-item -path "$env:userprofil
 new-item -itemtype symboliclink -path "$env:userprofile/.inputrc" -target "$env:userprofile/.config/clink/.inputrc" -force
 if(test-path -path $env:localappdata/clink/oh-my-posh.lua){remove-item -path "$env:localappdata/clink/oh-my-posh.lua" -force}
 new-item -itemtype symboliclink -path "$env:localappdata/clink/oh-my-posh.lua" -target "$env:userprofile/.config/clink/oh-my-posh.lua" -force
+if(test-path -path $env:localappdata/clink/clink_start.cmd){remove-item -path "$env:localappdata/clink/clink_start.cmd" -force}
+new-item -itemtype symboliclink -path "$env:localappdata/clink/clink_start.cmd" -target "$env:userprofile/.config/clink/clink_start.cmd" -force
 
 ```
 
