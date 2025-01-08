@@ -2,23 +2,10 @@ local M = {}
 local global = require("global")
 
 local dependent = function()
-  plugins = {
-    {
-      "folke/lazydev.nvim",
-      ft = "lua", -- only load on lua files
-      opts = {
-        library = {
-          -- See the configuration section for more details
-          -- Load luvit types when the `vim.uv` word is found
-          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        },
-      },
-    },
-    "saghen/blink.cmp"
-  }
+  local plugins = {}
   if global.is_linux then
     table.insert(plugins, "williamboman/mason.nvim")
-    table.insert(plugins, "williamboman/mason-lspconfig.nvim")
+    table.insert(plugins, "zapling/mason-conform.nvim")
   end
   return plugins
 end
@@ -81,7 +68,7 @@ function M.init(args)
           handlers = {
             function(server_name)
               lspconfig[server_name].setup({
-                on_attach = on_attach,
+                -- on_attach = on_attach,
                 capabilities = capabilities,
               })
             end,

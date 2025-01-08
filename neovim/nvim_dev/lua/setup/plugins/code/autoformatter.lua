@@ -1,10 +1,21 @@
 local M = {}
+local global = require("global")
+
+local dependent = function()
+  local plugins = {}
+  if global.is_linux then
+    table.insert(plugins, "williamboman/mason.nvim")
+    table.insert(plugins, "williamboman/mason-lspconfig.nvim")
+  end
+  return plugins
+end
 
 function M.init(args)
   setmetatable(args, { __index = { enable = true } })
   local data = {
     enabled = args.enable,
     "stevearc/conform.nvim",
+    dependencies = dependent(),
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local conform = require("conform")
@@ -40,17 +51,19 @@ function M.init(args)
           timeout_ms = 2000,
         })
       end, { desc = "Format file or range (in visual mode)" })
-      -- require("mason-conform").setup({
-      --   ensure_installed = {
-      --     "black",
-      --     "isort",
-      --     "markdownlint",
-      --     "markdown-toc",
-      --     "stylua"
-      --   },
-      --   automatic_installation = {},
-      --   ignore_install = {},
-      -- })
+      if global.is_linux then
+        require("mason-conform").setup({
+          ensure_installed = {
+              "black",
+              "isort",
+              "markdownlint",
+              "markdown-toc",
+              "stylua"
+            },
+            automatic_installation = {},
+            ignore_install = {},
+          })
+      end
     end,
   }
   return data
