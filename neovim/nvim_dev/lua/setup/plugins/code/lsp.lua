@@ -40,6 +40,12 @@ function M.init(args)
         },
       })
 
+      lspconfig.bashls.setup({
+        -- on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "sh", "bash", "zsh" },
+      })
+
       lspconfig.ruff.setup({
         -- on_attach = on_attach,
         capabilities = capabilities,
