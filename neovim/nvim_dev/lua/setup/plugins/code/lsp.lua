@@ -53,6 +53,18 @@ function M.init(args)
           -- on_attach = on_attach,
           capabilities = capabilities,
         })
+
+        lspconfig.powershell_es.setup({
+          -- on_attach = on_attach,
+          capabilities = capabilities,
+          filetypes = {"ps1", "psm1", "psd1"},
+          bundle_path = os.getenv("USERPROFILE") .. "\\lsp\\PowerShellEditorServices",
+          settings = { powershell = { codeFormatting = { Preset = 'OTBS' } } },
+          init_options = {
+            enableProfileLoading = false,
+          },
+        })
+
       else
         require("mason").setup()
         require("mason-lspconfig").setup({
