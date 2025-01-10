@@ -27,6 +27,7 @@ function M.init(args)
             },
           },
         },
+        "moyiz/blink-emoji.nvim"
       },
       version = "*",
       opts = {
@@ -89,7 +90,8 @@ function M.init(args)
           preset = 'enter',
           ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
           ['<C-e>'] = { 'hide' },
-          ['<Enter>'] = { 'accept', 'fallback'},
+          ['<S-e>'] = { 'hide' },
+          ['<Enter>'] = { 'select_and_accept', 'fallback'},
           ['<C-y>'] = { 'select_and_accept' },
 
           ['<Up>'] = { 'select_prev' },
@@ -117,7 +119,7 @@ function M.init(args)
         -- Default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, due to `opts_extend`
         sources = {
-          default = { 'lazydev', 'lsp', 'codeium', 'path', 'snippets', 'buffer'},
+          default = { 'lazydev', 'lsp', 'codeium', 'path', 'snippets', 'buffer', 'emoji'},
           providers = {
             lazydev = {
               name = "LazyDev",
@@ -133,7 +135,12 @@ function M.init(args)
             markdown = {
               name = "RenderMarkdown",
               module = "render-markdown.integ.blink",
-              fallbacks = { "lsp" },
+            },
+            emoji = {
+              name = "emoji",
+              module = "blink-emoji",
+              score_offset = 15,
+              opts = { insert = true }
             },
           },
         },
