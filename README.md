@@ -31,6 +31,10 @@ new-item -itemtype symboliclink -path "$env:localappdata/clink/oh-my-posh.lua" -
 if(test-path -path $env:localappdata/clink/clink_start.cmd){remove-item -path "$env:localappdata/clink/clink_start.cmd" -force}
 new-item -itemtype symboliclink -path "$env:localappdata/clink/clink_start.cmd" -target "$env:userprofile/.config/clink/clink_start.cmd" -force
 
+# .wslconfig
+if(test-path -path $env:userprofile/.wslconfig){remove-item -path "$env:userprofile/.wslconfig" -force}
+new-item -itemtype symboliclink -path "$env:userprofile/.wslconfig" -target "$env:userprofile/.config/.wslconfig" -force
+
 ```
 
 ## Linux - Ubuntu
