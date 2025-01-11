@@ -90,12 +90,12 @@ function M.init(args)
           preset = 'enter',
           ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
           ['<C-e>'] = { 'hide' },
-          ['<S-e>'] = { 'hide' },
+          ['<S-e>'] = { 'hide', 'fallback' },
           ['<Enter>'] = { 'select_and_accept', 'fallback'},
           ['<C-y>'] = { 'select_and_accept' },
 
-          ['<Up>'] = { 'select_prev' },
-          ['<Down>'] = { 'select_next' },
+          ['<Up>'] = { 'select_prev', 'fallback' },
+          ['<Down>'] = { 'select_next', 'fallback' },
           ['<C-p>'] = { 'select_prev' },
           ['<C-n>'] = { 'select_next' },
 
