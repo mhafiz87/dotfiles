@@ -26,6 +26,7 @@ function M.init(args)
           python = { "isort", "black" },
           -- Use a sub-list to run only the first available formatter
           -- javascript = { { "prettierd", "prettier" } },
+          markdown = { "prettier" },
         },
         -- format_after_save = {
         --   lsp_fallback = true,
