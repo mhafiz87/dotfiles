@@ -34,6 +34,7 @@ if platform.is_win then
 end
 
 config.automatically_reload_config = true
+config.canonicalize_pasted_newlines = "CarriageReturn"
 
 -- Themes
 -- Override scrollbar thumb color
