@@ -91,7 +91,8 @@ function M.init(args)
           ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
           ['<C-e>'] = { 'hide' },
           ['<S-e>'] = { 'hide', 'fallback' },
-          ['<Enter>'] = { 'select_and_accept', 'fallback'},
+          ['<Enter>'] = { 'select_and_accept', 'fallback' },
+
           ['<C-y>'] = { 'select_and_accept' },
 
           ['<Up>'] = { 'select_prev', 'fallback' },
@@ -101,9 +102,8 @@ function M.init(args)
 
           ['<C-k>'] = { 'scroll_documentation_up', 'fallback' },
           ['<C-j>'] = { 'scroll_documentation_down', 'fallback' },
-
-          ['<Tab>'] = { 'select_next', 'snippet_forward' },
-          ['<S-Tab>'] = { 'select_prev', 'snippet_backward' },
+          ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+          ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
         },
 
         appearance = {
