@@ -1,8 +1,15 @@
-
--- LEADER F      | resize font (=, - , BS)
--- LEADER CTRL W | pane navigation (h, j, k, l, w, d, t, v, s, u, i)
--- LEADER P      | resize pane using (h, j, k, l, b)
--- LEADER W      | workspace (o, d, l, h)
+-- LEADER F            | resize font (=, - , BS)
+-- LEADER CTRL W       | pane navigation (h, j, k, l, w, d, t, v, s, u, i)
+-- LEADER P            | resize pane using (h, j, k, l, b)
+-- LEADER W            | workspace (o, d, l, h)
+-- LEADER CTRL SHIFT F | search
+-- LEADER F11          | Toggle full screen
+-- LEADER CTRL Z       | Toggle zoom
+-- LEADER CTRL SHIFT T | Rename current tab
+-- LEADER CTRL T       | Spawn new tab
+-- LEADER CTRL 1       | Spawn new tab for pwsh
+-- LEADER CTRL 2       | Spawn new tab for cmd
+-- LEADER U            | open url
 
 local wezterm = require("wezterm")
 local balance = require("utils.balancepane")
@@ -22,9 +29,6 @@ local keys_default = {
   -- Search
   { key = "f",   mods = "LEADER|CTRL|SHIFT", action = act.Search({ CaseInSensitiveString = "" }) },
 
-  -- Toggle zoom state
-  { key = "z",   mods = "LEADER|CTRL",       action = act.TogglePaneZoomState },
-
   -- Rename Current Tab
   {
     key = "t",
@@ -40,18 +44,6 @@ local keys_default = {
         end
       end),
     }
-  },
-
-  -- fonts
-  {
-    key = "f",
-    mods = "LEADER",
-    action = act.ActivateKeyTable({
-      name = "resize_font",
-      one_shot = false,
-      timeout_milliseconds = 1000,
-      until_unknown = true,
-    }),
   },
 
   -- Copy Paste
@@ -80,19 +72,24 @@ local keys_default = {
     }),
   },
 
-  -- Pane Operation
+  -- Hyperlink
   {
-    key = "w",
-    mods = "LEADER|CTRL",
-    action = act.ActivateKeyTable({
-      name = "pane_operation",
-      one_shot = false,
-      timeout_milliseconds = 2000,
-      until_unknown = true,
+    key = "u",
+    mods = "LEADER",
+    action = act.QuickSelectArgs({
+      label = "open url",
+      patterns = {
+        "https?://\\S+",
+      },
+      action = wezterm.action_callback(function(window, pane)
+        local url = window:get_selection_text_for_pane(pane)
+        wezterm.log_info("opening: " .. url)
+        wezterm.open_with(url)
+      end),
     }),
   },
 
-  -- Pane
+  -- Send Ctrl W to windows
   {
     key = "w",
     mods = "CTRL",
@@ -118,58 +115,6 @@ local keys_default = {
       --   }, pane)
       -- end
     end),
-  },
-
-  -- Send Ctrl Space to windows
-  {
-    key = "Space",
-    mods = "CTRL",
-    action = wezterm.action_callback(function(window, pane)
-      window:perform_action({
-        SendKey = { key = "Space", mods = "CTRL" },
-      }, pane)
-    end),
-  },
-
-  -- resize_pane
-  {
-    key = "p",
-    mods = "LEADER",
-    action = act.ActivateKeyTable({
-      name = "resize_pane",
-      one_shot = false,
-      timeout_milliseconds = 2000,
-      until_unknown = true,
-    }),
-  },
-
-  -- Workspace
-  {
-    key = "w",
-    mods = "LEADER",
-    action = act.ActivateKeyTable({
-      name = "workspace",
-      one_shot = false,
-      timeout_milliseconds = 2000,
-      until_unknown = true,
-    })
-  },
-
-  -- Hyperlink
-  {
-    key = "u",
-    mods = "LEADER",
-    action = act.QuickSelectArgs({
-      label = "open url",
-      patterns = {
-        "https?://\\S+",
-      },
-      action = wezterm.action_callback(function(window, pane)
-        local url = window:get_selection_text_for_pane(pane)
-        wezterm.log_info("opening: " .. url)
-        wezterm.open_with(url)
-      end),
-    }),
   },
 
   -- If nvim is in tab; split right and toggle
@@ -203,6 +148,66 @@ local keys_default = {
         tab:set_zoomed(true)
       end
     end),
+  },
+
+  -- Send Ctrl Space to windows
+  {
+    key = "Space",
+    mods = "CTRL",
+    action = wezterm.action_callback(function(window, pane)
+      window:perform_action({
+        SendKey = { key = "Space", mods = "CTRL" },
+      }, pane)
+    end),
+  },
+
+  -- Key Table
+  -- fonts
+  {
+    key = "f",
+    mods = "LEADER|CTRL",
+    action = act.ActivateKeyTable({
+      name = "resize_font",
+      one_shot = false,
+      timeout_milliseconds = 1000,
+      until_unknown = true,
+    }),
+  },
+
+  -- Pane Operation
+  {
+    key = "w",
+    mods = "LEADER|CTRL",
+    action = act.ActivateKeyTable({
+      name = "pane_operation",
+      one_shot = false,
+      timeout_milliseconds = 2000,
+      until_unknown = true,
+    }),
+  },
+
+  -- resize_pane
+  {
+    key = "p",
+    mods = "LEADER",
+    action = act.ActivateKeyTable({
+      name = "resize_pane",
+      one_shot = false,
+      timeout_milliseconds = 2000,
+      until_unknown = true,
+    }),
+  },
+
+  -- Workspace
+  {
+    key = "w",
+    mods = "LEADER",
+    action = act.ActivateKeyTable({
+      name = "workspace",
+      one_shot = false,
+      timeout_milliseconds = 2000,
+      until_unknown = true,
+    })
   },
 }
 
@@ -307,7 +312,7 @@ M.key_tables = {
     { key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
     { key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
     {
-      key = "b",
+      key = "Backspace",
       action = act.Multiple({
         wezterm.action_callback(balance.balance_panes("x")),
         wezterm.action_callback(balance.balance_panes("y")),
@@ -322,12 +327,12 @@ M.key_tables = {
     { key = "j",      action = act.ActivatePaneDirection("Down") },
     { key = "k",      action = act.ActivatePaneDirection("Up") },
     { key = "l",      action = act.ActivatePaneDirection("Right") },
-    { key = "t",      action = act.TogglePaneZoomState },
+    { key = "z",      action = act.TogglePaneZoomState },
     { key = "s",      action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
     { key = "v",      action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
     { key = "d",      action = act.CloseCurrentPane({ confirm = false }) },
-    { key = "u",      action = act.ScrollByLine(5) },
-    { key = "i",      action = act.ScrollByLine(-5) },
+    { key = "i",      action = act.ScrollByLine(5) },
+    { key = "u",      action = act.ScrollByLine(-5) },
     { key = "Escape", action = "PopKeyTable" },
     { key = "q",      action = "PopKeyTable" },
   },
