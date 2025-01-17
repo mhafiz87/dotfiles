@@ -1,17 +1,21 @@
 -- Change leader to a comma
 vim.g.mapleader = " "
+vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -34,10 +38,10 @@ require("lazy").setup({
   { require("setup.plugins.ui.telescope").init({ enable = true }) },
   { require("setup.plugins.ui.lualine").init({ enable = true }) }, -- statusbar
   { require("setup.plugins.ui.file-explorer").init({ enable = true }) }, -- file explorer
-  -- { require("setup.plugins.ui.nvim-tree").init({ enable = true }) }, -- file explorer
 
 
   -- Code
+  { require("setup.plugins.code.lazydev").init({ enable = true }) },
   { require("setup.plugins.code.treesitter").init({ enable = true }) },
   { require("setup.plugins.code.lsp").init({ enable = true }) }, -- main LSP
   { require("setup.plugins.code.autocompleter").init({ enable = true }) },
@@ -47,9 +51,7 @@ require("lazy").setup({
   { require("setup.plugins.code.tiny-code-action").init({ enable = true }) }, -- docstring generator
   { require("setup.plugins.code.garbage-day").init({ enable = true }) }, -- docstring generator
   { require("setup.plugins.code.debugger").init({ enable = true }) }, -- docstring generator
-  -- { require("setup.plugins.code.lspsaga").init({ enable = true }) },
-  -- { require("setup.plugins.code.aerial").init({ enable = true }) },
-  -- -- { require("setup.plugins.code.chatgpt").init({ enable = true }) },
+  { require("setup.plugins.code.markdown").init({ enable = true }) },
 
   -- QoL
   { require("setup.plugins.qol.autopairs").init({ enable = true }) },
@@ -59,9 +61,7 @@ require("lazy").setup({
   { require("setup.plugins.qol.flash").init({ enable = true }) },
   { require("setup.plugins.qol.hlslens").init({ enable = true }) },
   { require("setup.plugins.qol.local_highlight").init({ enable = true }) },
-  { require("setup.plugins.qol.markdown").init({ enable = true }) },
   { require("setup.plugins.qol.marks").init({ enable = true }) },
-  { require("setup.plugins.qol.mini-indent").init({ enable = true }) },
   { require("setup.plugins.qol.mini-surround").init({ enable = true }) },
   { require("setup.plugins.qol.rainbow-delimiters").init({ enable = true }) },
   { require("setup.plugins.qol.todo_highlight").init({ enable = true }) },

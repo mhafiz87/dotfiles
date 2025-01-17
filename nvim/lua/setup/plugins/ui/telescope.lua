@@ -53,13 +53,16 @@ function M.init(args)
           path_display = { "truncate" },
           mappings = {
             n = {
+              ["<C-j>"] = actions.preview_scrolling_down, -- move to next result
+              ["<C-k>"] = actions.preview_scrolling_up, -- move to next result
+              ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
               ["<C-d>"] = actions.delete_buffer,
             },
             i = {
-              ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-              ["<C-j>"] = actions.move_selection_next, -- move to next result
-              ["<C-u>"] = actions.preview_scrolling_down, -- move to next result
-              ["<C-i>"] = actions.preview_scrolling_up, -- move to next result
+              ["<C-p>"] = actions.move_selection_previous, -- move to prev result
+              ["<C-n>"] = actions.move_selection_next, -- move to next result
+              ["<C-j>"] = actions.preview_scrolling_down, -- move to next result
+              ["<C-k>"] = actions.preview_scrolling_up, -- move to next result
               ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
               ["<C-d>"] = actions.delete_buffer,
               ["<C-h>"] = actions.which_key,
@@ -116,6 +119,12 @@ function M.init(args)
         require("telescope").load_extension("git_signs")
         vim.keymap.set("n", "<leader>fgh", "<cmd>Telescope git_signs<cr>", { desc = "[f]ind [g]it [h]unk", noremap = true, silent = true })
       end
+      vim.keymap.set("n", "<leader>lgr", function()
+        require("telescope.builtin").lsp_references({
+          show_line = false,
+          path_display = { "smart" },
+        }, { desc = "[l]sp [g]o to [r]eferences", noremap = true, silent = true })
+      end)
     end,
   }
   return data

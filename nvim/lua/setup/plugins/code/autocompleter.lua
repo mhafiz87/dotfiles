@@ -70,6 +70,7 @@ function M.init(args)
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
+          { name = 'lazydev' },
           { name = 'nvim_lsp_signature_help' }, -- function signature with current parameter
           { name = "nvim_lsp" },
           { name = "codeium" },

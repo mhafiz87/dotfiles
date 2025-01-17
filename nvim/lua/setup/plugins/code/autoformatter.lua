@@ -1,18 +1,23 @@
 local M = {}
+local global = require("global")
+
+local dependent = function()
+  local plugins = {}
+  if global.is_linux then
+    table.insert(plugins, "williamboman/mason.nvim")
+    table.insert(plugins, "williamboman/mason-lspconfig.nvim")
+    table.insert(plugins, "zapling/mason-conform.nvim")
+  end
+  return plugins
+end
 
 function M.init(args)
   setmetatable(args, { __index = { enable = true } })
   local data = {
     enabled = args.enable,
     "stevearc/conform.nvim",
+    dependencies = dependent(),
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-        {
-          "burstknight/mason.nvim",
-          branch = "master"
-        },
-        "zapling/mason-conform.nvim"
-    },
     config = function()
       local conform = require("conform")
       conform.setup({
@@ -22,6 +27,7 @@ function M.init(args)
           python = { "isort", "black" },
           -- Use a sub-list to run only the first available formatter
           -- javascript = { { "prettierd", "prettier" } },
+          markdown = { "prettier" },
         },
         -- format_after_save = {
         --   lsp_fallback = true,
@@ -47,21 +53,23 @@ function M.init(args)
           timeout_ms = 2000,
         })
       end, { desc = "Format file or range (in visual mode)" })
-      require("mason-conform").setup({
-        ensure_installed = {
-          "black",
-          "isort",
-          "markdownlint",
-          "markdown-toc",
-          "stylua"
-        },
-        automatic_installation = {},
-        ignore_install = {},
-      })
+      if global.is_linux then
+        require("mason-conform").setup({
+          ensure_installed = {
+              "black",
+              "isort",
+              "markdownlint",
+              "markdown-toc",
+              "prettier",
+              "stylua"
+            },
+            automatic_installation = {},
+            ignore_install = {},
+          })
+      end
     end,
   }
   return data
 end
 
 return M
-

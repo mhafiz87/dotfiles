@@ -6,7 +6,7 @@ function M.init(args)
     {
       enabled = args.enable,
       "iamcco/markdown-preview.nvim",
-      event = "BufRead *.",
+      ft = "markdown",
       config = function()
         vim.fn["mkdp#util#install"]()
         vim.keymap.set("n", "<leader>md", "<CMD>MarkdownPreviewToggle<CR>")
