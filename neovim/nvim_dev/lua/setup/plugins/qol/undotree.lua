@@ -6,7 +6,9 @@ function M.init(args)
     enabled = args.enable,
     "jiaoshijie/undotree",
     dependencies = "nvim-lua/plenary.nvim",
-    keys = { { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" } },
+    keys = { -- load the plugin only when using it's keybinding:
+      { "<leader>ut", "<cmd>lua require('undotree').toggle()<cr>" }
+    },
     config = function()
       require("undotree").setup({
         window = { winblend = 0 },

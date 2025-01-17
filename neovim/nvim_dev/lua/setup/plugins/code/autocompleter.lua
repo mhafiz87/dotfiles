@@ -34,8 +34,8 @@ function M.init(args)
         completion = {
           list = {
             selection = {
+              preselect = function(ctx) return ctx.mode ~= 'cmdline' end,
               auto_insert = true,
-              preselect = true,
             },
           },
           menu = {
@@ -108,10 +108,7 @@ function M.init(args)
           cmdline = {
             ['<C-e>'] = { 'hide' },
             ['<S-e>'] = { 'hide', 'fallback' },
-            ['<Enter>'] = {
-              function(cmp) cmp.accept({ callback = function() vim.api.nvim_feedkeys('\n', 'n', true) end }) end,
-              'fallback'
-            },
+            ['Enter'] = { 'select_and_accept' },
             ['<C-y>'] = { 'select_and_accept' },
             ['<Up>'] = { 'select_prev', 'fallback' },
             ['<Down>'] = { 'select_next', 'fallback' },
@@ -165,8 +162,8 @@ function M.init(args)
       },
       opts_extend = { "sources.default" },
       config = function (_, opts)
-        require("blink.cmp").setup(opts)
         require("blink.compat").setup({})
+        require("blink.cmp").setup(opts)
         require("codeium").setup({})
       end
     },

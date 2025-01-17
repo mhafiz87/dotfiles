@@ -6,6 +6,7 @@ local dependent = function()
   if global.is_linux then
     table.insert(plugins, "williamboman/mason.nvim")
     table.insert(plugins, "williamboman/mason-lspconfig.nvim")
+    table.insert(plugins, "zapling/mason-conform.nvim")
   end
   return plugins
 end
