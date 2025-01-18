@@ -178,7 +178,7 @@ Function Nvim-Selector {
     $apps = "prod", "dev"
     $index = 0
     foreach ($currentItemName in $apps) {
-        if ($currentItemName -eq $env:NVIM_APPNAME) {
+        if ("nvim_$currentItemName" -eq $env:NVIM_APPNAME) {
             $apps[$index] = $currentItemName + "*"
             break
         }
@@ -187,7 +187,20 @@ Function Nvim-Selector {
             $apps[0] = $apps[0] + "*"
         }
     }
-    $nvim_app = ForEach-Object { Write-Output($apps) } | fzf --prompt=" NVIM Selector" --height=~50% --layout=reverse --border --exit-0
+    $nvim_app = $(ForEach-Object { Write-Output($apps) } | fzf --prompt=" NVIM Selector" --height=~50% --layout=reverse --border --exit-0)
+    if ($null -eq $nvim_app) {
+        return
+    }
+    $nvim_app = $nvim_app.Replace("*","")
+    if ($nvim_app -ne "prod") {
+        $env:NVIM_APPNAME = "nvim_" + $nvim_app
+    }
+    else {
+        $env:NVIM_APPNAME = $null
+    }
+    # https://github.com/kelleyma49/PSFzf/blob/3f31db0367a4865378cc9f667dd3f679d2590c6f/PSFzf.Base.ps1#L883
+    #[Microsoft.PowerShell.PSConsoleReadLine]::ClearScreen()
+    #[Microsoft.PowerShell.PSConsoleReadLine]::Insert("nvim")
     #git checkout $(git branch -a | Select-String -NotMatch "^\*" | fzf --prompt=" Git Branch Selector" | ForEach-Object { Write-Output($_.trim()) })
 }
 
