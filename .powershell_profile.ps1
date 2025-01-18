@@ -198,10 +198,14 @@ Function Nvim-Selector {
     else {
         $env:NVIM_APPNAME = $null
     }
-    # https://github.com/kelleyma49/PSFzf/blob/3f31db0367a4865378cc9f667dd3f679d2590c6f/PSFzf.Base.ps1#L883
-    #[Microsoft.PowerShell.PSConsoleReadLine]::ClearScreen()
-    #[Microsoft.PowerShell.PSConsoleReadLine]::Insert("nvim")
-    #git checkout $(git branch -a | Select-String -NotMatch "^\*" | fzf --prompt=" Git Branch Selector" | ForEach-Object { Write-Output($_.trim()) })
+}
+
+# https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlinekeyhandler?view=powershell-7.4 
+# https://github.com/kelleyma49/PSFzf/blob/3f31db0367a4865378cc9f667dd3f679d2590c6f/PSFzf.Base.ps1#L883
+Set-PSReadLineKeyHandler -Chord Ctrl+n -ScriptBlock {
+    Nvim-Selector
+    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+    [Microsoft.PowerShell.PSConsoleReadLine]::Insert('nvim')
 }
 
 Function nvims {
