@@ -73,7 +73,7 @@ Function Test-CommandExists {
 } #end function test-CommandExists
 
 function Git-Branch-FZF {
-    git checkout $(git branch -a | Select-String -NotMatch "^\*" | fzf | ForEach-Object { Write-Output($_.trim()) })
+    git checkout $(git branch -a | Select-String -NotMatch "^\*" | fzf --prompt=" Git Branch Selector" | ForEach-Object { Write-Output($_.trim()) })
 }
 
 Set-Alias -Name gbf -Value Git-Branch-FZF
@@ -172,6 +172,23 @@ Function Find-File($name) {
         $place_path = $_.directory
         Write-Output "${place_path}\${_}"
     }
+}
+
+Function Nvim-Selector {
+    $apps = "prod", "dev"
+    $index = 0
+    foreach ($currentItemName in $apps) {
+        if ($currentItemName -eq $env:NVIM_APPNAME) {
+            $apps[$index] = $currentItemName + "*"
+            break
+        }
+        $index++
+        if ($index -eq $apps.Length) {
+            $apps[0] = $apps[0] + "*"
+        }
+    }
+    $nvim_app = ForEach-Object { Write-Output($apps) } | fzf --prompt=" NVIM Selector" --height=~50% --layout=reverse --border --exit-0
+    #git checkout $(git branch -a | Select-String -NotMatch "^\*" | fzf --prompt=" Git Branch Selector" | ForEach-Object { Write-Output($_.trim()) })
 }
 
 Function nvims {
@@ -361,8 +378,8 @@ public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 }
 
 Set-Alias refreshenv Update-SessionEnvironment
-if (Test-CommandExists oh-my-posh){oh-my-posh --init --shell pwsh --config "$env:userprofile/.config/ohmyposh/zen.toml" | Invoke-Expression}
-if (Test-CommandExists uv){(& uv generate-shell-completion powershell) | Out-String | Invoke-Expression}
-if (Test-CommandExists fastfetch){fastfetch}
+if (Test-CommandExists oh-my-posh) { oh-my-posh --init --shell pwsh --config "$env:userprofile/.config/ohmyposh/zen.toml" | Invoke-Expression }
+if (Test-CommandExists uv) { (& uv generate-shell-completion powershell) | Out-String | Invoke-Expression }
+if (Test-CommandExists fastfetch) { fastfetch }
 refreshenv
 
