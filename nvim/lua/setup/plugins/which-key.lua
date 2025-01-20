@@ -7,8 +7,12 @@ function M.init(args)
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
-      window = {
+      preset = "helix",
+      win = {
         border = "rounded",
+        wo = {
+          winblend = 50
+        }
       },
     },
     config = function()
