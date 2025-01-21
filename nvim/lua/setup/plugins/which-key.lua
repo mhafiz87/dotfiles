@@ -15,8 +15,9 @@ function M.init(args)
         }
       },
     },
-    config = function()
+    config = function(_, opts)
       local wk = require("which-key")
+      wk.setup(opts)
       wk.add({
         { --buffer
           "<leader>b",
