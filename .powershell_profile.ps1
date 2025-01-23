@@ -397,6 +397,6 @@ public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 Set-Alias refreshenv Update-SessionEnvironment
 if (Test-CommandExists oh-my-posh) { oh-my-posh --init --shell pwsh --config "$env:userprofile/.config/ohmyposh/zen.toml" | Invoke-Expression }
 if (Test-CommandExists uv) { (& uv generate-shell-completion powershell) | Out-String | Invoke-Expression }
-if (Test-CommandExists fastfetch) { fastfetch }
+#if (Test-CommandExists fastfetch) { fastfetch }
 refreshenv
 
