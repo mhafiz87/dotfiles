@@ -5,6 +5,17 @@ function M.init(args)
   local data = {
     {
       enabled = args.enable,
+      "iamcco/markdown-preview.nvim",
+      ft = "markdown",
+      config = function()
+        vim.fn["mkdp#util#install"]()
+        vim.keymap.set("n", "<leader>md", "<CMD>MarkdownPreviewToggle<CR>")
+        vim.g.mkdp_auto_close = 0
+        vim.g.mkdp_theme = "light"
+      end,
+    },
+    {
+      enabled = args.enable,
       "MeanderingProgrammer/render-markdown.nvim",
       dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
       ft = "markdown",
