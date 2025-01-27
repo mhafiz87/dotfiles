@@ -1,4 +1,4 @@
--- LEADER F            | resize font (=, - , BS)
+-- LEADER CTRL F       | resize font (=, - , BS)
 -- LEADER CTRL W       | pane navigation (h, j, k, l, w, d, t, v, s, u, i)
 -- LEADER P            | resize pane using (h, j, k, l, b)
 -- LEADER W            | workspace (o, d, l, h)
@@ -169,7 +169,7 @@ local keys_default = {
     action = act.ActivateKeyTable({
       name = "resize_font",
       one_shot = false,
-      timeout_milliseconds = 1000,
+      -- timeout_milliseconds = 1000,
       until_unknown = true,
     }),
   },
@@ -181,7 +181,7 @@ local keys_default = {
     action = act.ActivateKeyTable({
       name = "pane_operation",
       one_shot = false,
-      timeout_milliseconds = 2000,
+      -- timeout_milliseconds = 2000,
       until_unknown = true,
     }),
   },
@@ -193,7 +193,7 @@ local keys_default = {
     action = act.ActivateKeyTable({
       name = "resize_pane",
       one_shot = false,
-      timeout_milliseconds = 2000,
+      -- timeout_milliseconds = 2000,
       until_unknown = true,
     }),
   },
