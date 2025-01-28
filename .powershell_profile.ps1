@@ -9,7 +9,7 @@
 $env:VIRTUAL_ENV_DISABLE_PROMPT = 1
 
 # Initial GitHub.com connectivity check with 1 second timeout
-$canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds 1
+ $canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds 1
 
 # Import Modules and External Profiles
 # Ensure Terminal-Icons module is installed before importing
@@ -37,7 +37,6 @@ Set-PSReadLineOption -AddToHistoryHandler {
     return $true
 }
 
-
 $ehst = "$env:appdata\microsoft\windows\powershell\psreadline\consolehost_history.txt"
 $hosts = "$env:systemroot\system32\drivers\etc\hosts"
 
@@ -59,9 +58,14 @@ Set-PSReadlineKeyHandler -Key Ctrl+Shift+Tab -Function TabCompletePrevious
 Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 
+$env:FZF_DEFAULT_OPTS = "--height ~100% --layout reverse --border"
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
-
-$env:FZF_DEFAULT_OPTS = "--height 70% --layout=reverse --border"
+Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
+Set-PsFzfOption -TabExpansion
+# example command - use $Location with a different command:
+$commandOverride = [ScriptBlock]{ param($Location) Write-Host $Location }
+# pass your override to PSFzf:
+Set-PsFzfOption -AltCCommand $commandOverride
 
 Function Test-CommandExists {
     Param ($command)
