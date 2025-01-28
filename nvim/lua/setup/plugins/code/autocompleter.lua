@@ -40,12 +40,13 @@ function M.init(args)
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ["<C-k>"] = cmp.mapping.select_next_item(cmp_select),
-          ["<C-j>"] = cmp.mapping.select_prev_item(cmp_select),
+          ["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
+          ["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-t>"] = cmp.mapping.complete(),
           ["<C-Space>"] = cmp.mapping.complete(),
+          ["<Esc>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
