@@ -14,15 +14,18 @@
         },
         "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding",
         "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "editor.formatOnSaveMode": "modificationsIfAvailable",
         "editor.rulers": [
             {
                 "column": 80,
                 "color": "#ffa500a0"
-            }
-            // {
-            //     "column": 88,  // Default Black column length
-            //     "color": "#ffa500a0"
-            // },
+            },
+            {
+                "column": 88,  // Default Black column length
+                "color": "#ff0000a0"
+            },
             // {
             //     "column": 120,
             //     "color": "#c4000090"
@@ -40,17 +43,12 @@
             }
         ],
     },
-    "autoDocstring.customTemplatePath": "C:/Users/5004124381/.config/vscode/custom_docstring.mustache",
     "autoDocstring.docstringFormat": "google",
     "autoDocstring.startOnNewLine": false,
     "code-runner.clearPreviousOutput": true,
-    "code-runner.executorMap": {
-        "python": "$pythonPath -u $fullFileName"
-    },
     "code-runner.runInTerminal": true,
     "code-runner.saveFileBeforeRun": true,
     "code-runner.showExecutionMessage": false,
-    "diffEditor.ignoreTrimWhitespace": false,
     "diffEditor.renderSideBySide": true,
     "editor.cursorSurroundingLines": 10,
     "editor.definitionLinkOpensInPeek": true,
@@ -62,16 +60,16 @@
     "editor.fontSize": 12,
     "editor.formatOnSave": false,
     "editor.insertSpaces": true,
-    "editor.minimap.enabled": false,
-    "editor.multiCursorPaste": "full",
     "editor.lineNumbers": "relative",
     "editor.linkedEditing": true,
+    "editor.minimap.enabled": false,
+    "editor.multiCursorPaste": "full",
     "editor.showFoldingControls": "always",
     "editor.suggestSelection": "first",
     "editor.tabSize": 4,
-    "explorer.openEditors.visible": 5,
-    "explorer.confirmDelete": false,
     "explicitFolding.autoFold": "comments",
+    "explorer.confirmDelete": false,
+    "explorer.openEditors.visible": 5,
     "files.associations": {
         "*.ino": "cpp"
     },
@@ -102,7 +100,6 @@
     "notebook.lineNumbers": "on",
     "python.analysis.diagnosticMode": "openFilesOnly",
     "python.languageServer": "Pylance",
-    "python.venvPath": "~/.virtualenvs",
     "ruff.lint.args": ["--ignore=E501"],
     "search.quickOpen.includeHistory": false,
     "telemetry.telemetryLevel": "off",
@@ -172,7 +169,7 @@
     ],
     "vim.easymotion": true,
     "vim.foldfix": false,
-    "vim.hlsearch": false,
+    "vim.hlsearch": true,
     "vim.incsearch": true,
     "vim.leader": "<space>",
     "vim.surround": true,
@@ -206,10 +203,6 @@
             {
                 "command": "workbench.action.toggleSidebarVisibility"
             },
-            // {
-            //     "command": "workbench.explorer.fileView.focus",
-            //     "when": "sideBarVisible"
-            // }
         ]},
 
         // Git Go To Next Hunk
@@ -223,6 +216,7 @@
                 "when": "textCompareEditorVisible"
             }
         ]},
+
         // Git Go To Previous Hunk
         {"before": ["<leader>", "g", "p"], "commands": [
             {
@@ -234,16 +228,33 @@
                 "when": "textCompareEditorVisible"
             }
         ]},
-        // Git Go To Revert Selected Ranges
-        {"before": ["<leader>", "g", "r"], "commands": ["git.revertSelectedRanges"]},
-
         // Go To Next Diagnostic
-        {"before": ["[", "d"], "commands": ["editor.action.marker.prev"]},
+        {
+            "before": ["[", "d"],
+            "commands": [
+                {"command": "editor.action.marker.prev"},
+                {"command": "center-editor-window.center"}
+            ]
+        },
         // Go To Previous Diagnostic
-        {"before": ["]", "d"], "commands": ["editor.action.marker.next"]},
+        {
+            "before": ["]", "d"],
+            "commands": [
+                {"command": "editor.action.marker.next"},
+                {"command": "center-editor-window.center"}
+            ]
+        },
 
         // LSP - Peek Definition
-        {"before": ["<S-k>"], "commands": ["editor.action.showDefinitionPreviewHover"]},
+        {
+            "before": ["<S-k>"],
+            "commands": [
+                {
+                    "command": "editor.action.showDefinitionPreviewHover",
+                    "when": "editorHasDefinitionProvider && editorTextFocus"
+                }
+            ]
+        },
         // LSP - References
         {"before": ["g", "r"], "commands": ["editor.action.referenceSearch.trigger"]},
         // LSP - Implementation
@@ -254,28 +265,24 @@
             }
         ]},
         {
-            "before": ["}"],
+            "before": ["]", "m"],
             "commands": [
                 {"command": "gotoNextPreviousMember.nextMember"},
                 {"command": "center-editor-window.center"}
             ]
         },
         {
-            "before": ["{"],
+            "before": ["[", "m"],
             "commands": [
                 {"command": "gotoNextPreviousMember.previousMember"},
                 {"command": "center-editor-window.center"}
             ]
         },
-        {
-            "before": ["<leader>", "a"],
-            "commands": ["outline.focus"]}
     ],
-    // Allow tab line multiple times
     "vim.visualModeKeyBindingsNonRecursive": [
-        {"before": ["<leader>", "y"],"after": ["\"", "a", "y", "<enter>"]},
-        {"before": [">"],"after": [">", "g", "v"]},
-        {"before": ["<"],"after": ["<", "g", "v"]},
+        {"before": [">"],"after": [">", "g", "v"]},  // Allow tab line multiple times
+        {"before": ["<"],"after": ["<", "g", "v"]},  // Allow tab line multiple times
+        {"before": ["p"],"after": ["\"", "_", "d", "P"]},  // Allow tab line multiple times
     ],
     "vim.handleKeys": {
         "<C-a>": false,
@@ -297,19 +304,4 @@
     "zenMode.hideLineNumbers": false,
     "zenMode.hideStatusBar": false,
     "workbench.panel.defaultLocation": "bottom",
-    "terminal.integrated.fontSize": 12,
-    "explorer.fileNesting.patterns": {
-        "*.ts": "${capture}.js",
-        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
-        "*.jsx": "${capture}.js",
-        "*.tsx": "${capture}.ts",
-        "tsconfig.json": "tsconfig.*.json",
-        "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
-        "*.sqlite": "${capture}.${extname}-*",
-        "*.db": "${capture}.${extname}-*",
-        "*.sqlite3": "${capture}.${extname}-*",
-        "*.db3": "${capture}.${extname}-*",
-        "*.sdb": "${capture}.${extname}-*",
-        "*.s3db": "${capture}.${extname}-*"
-    },
 }

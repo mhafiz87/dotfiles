@@ -9,7 +9,7 @@
 $env:VIRTUAL_ENV_DISABLE_PROMPT = 1
 
 # Initial GitHub.com connectivity check with 1 second timeout
- $canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds 1
+$canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds 1
 
 # Import Modules and External Profiles
 # Ensure Terminal-Icons module is installed before importing
@@ -204,7 +204,7 @@ Function Nvim-Selector {
     }
 }
 
-# https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlinekeyhandler?view=powershell-7.4 
+# https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlinekeyhandler?view=powershell-7.4
 # https://github.com/kelleyma49/PSFzf/blob/3f31db0367a4865378cc9f667dd3f679d2590c6f/PSFzf.Base.ps1#L883
 Set-PSReadLineKeyHandler -Chord Ctrl+n -ScriptBlock {
     Nvim-Selector
