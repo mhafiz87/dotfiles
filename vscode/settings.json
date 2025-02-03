@@ -6,7 +6,7 @@
         "editor.defaultFormatter": "JohnnyMorganz.stylua"
     },
     "[markdown]": {
-        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[python]": {
         "editor.codeActionsOnSave": {
