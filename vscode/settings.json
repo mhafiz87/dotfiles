@@ -1,0 +1,308 @@
+{
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[lua]": {
+        "editor.defaultFormatter": "JohnnyMorganz.stylua"
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        },
+        "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding",
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "editor.formatOnSaveMode": "modificationsIfAvailable",
+        "editor.rulers": [
+            {
+                "column": 80,
+                "color": "#ffa500a0"
+            },
+            {
+                "column": 88,  // Default Black column length
+                "color": "#ff0000a0"
+            },
+            // {
+            //     "column": 120,
+            //     "color": "#c4000090"
+            // }
+        ],
+        "explicitFolding.rules": [
+            {
+                "beginRegex": "\"\"\"|'''",
+                "endRegex": "\"\"\"|'''",
+                "autoFold": true
+            },
+            {
+                "indentation": true,
+                "offSide": true
+            }
+        ],
+    },
+    "autoDocstring.docstringFormat": "google",
+    "autoDocstring.startOnNewLine": false,
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.showExecutionMessage": false,
+    "diffEditor.renderSideBySide": true,
+    "editor.cursorSurroundingLines": 10,
+    "editor.definitionLinkOpensInPeek": true,
+    "editor.detectIndentation": true,
+    "editor.foldingImportsByDefault": false,
+    "editor.foldingStrategy": "auto",
+    "editor.fontFamily": "'JetBrainsMono Nerd Font', 'FiraCode Nerd Font', 'Cascadia Code'",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 12,
+    "editor.formatOnSave": false,
+    "editor.insertSpaces": true,
+    "editor.lineNumbers": "relative",
+    "editor.linkedEditing": true,
+    "editor.minimap.enabled": false,
+    "editor.multiCursorPaste": "full",
+    "editor.showFoldingControls": "always",
+    "editor.suggestSelection": "first",
+    "editor.tabSize": 4,
+    "explicitFolding.autoFold": "comments",
+    "explorer.confirmDelete": false,
+    "explorer.openEditors.visible": 5,
+    "files.associations": {
+        "*.ino": "cpp"
+    },
+    "files.exclude": {
+        "**/*.bkp": true,
+        "**/.DS_Store": true,
+        "**/.git": false,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/CVS": true
+    },
+    "files.trimTrailingWhitespace": true,
+    "gotoNextPreviousMember.symbolKinds": [
+        "class",
+        "function",
+        "method"
+    ],
+    "hediet.vscode-drawio.resizeImages": null,
+    "isort.args": ["--profile", "black"],
+    "jupyter.interactiveWindow.creationMode": "perFile",
+    "markdownlint.config": {
+        "MD033": false
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "notebook.lineNumbers": "on",
+    "python.analysis.diagnosticMode": "openFilesOnly",
+    "python.languageServer": "Pylance",
+    "ruff.lint.args": ["--ignore=E501"],
+    "search.quickOpen.includeHistory": false,
+    "telemetry.telemetryLevel": "off",
+    "terminal.integrated.cwd": "${fileDirname}",
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font', 'FiraCode Nerd Font', 'Cascadia Code'",
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell"
+        },
+        "Command Prompt": {
+            "path": [
+                "${env:windir}\\Sysnative\\cmd.exe",
+                "${env:windir}\\System32\\cmd.exe"
+            ],
+            "args": [],
+            "icon": "terminal-cmd"
+        },
+        "Git Bash": {
+            "source": "Git Bash"
+        }
+    },
+    "terminal.integrated.tabs.defaultColor": "terminal.ansiBlack",
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "[ ]",
+        "[x]"
+    ],
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+    "todohighlight.isCaseSensitive": false,
+    "todohighlight.isEnable": true,
+    "todohighlight.keywords": [
+        {
+            "text": "TODO:",
+            "isWholeLine": true,
+            "color": "black",
+            "border": "1px",
+            "borderRadius": "5px"
+        },
+        {
+            "text": "FIXME:",
+            "isWholeLine": true,
+            "border": "1px",
+            "borderRadius": "5px"
+        },
+        {
+            "text": "HACK:",
+            "isWholeLine": true,
+            "color": "black",
+            "backgroundColor": "#FF99FF",
+            "border": "1px #FF99FF",
+            "borderRadius": "5px"
+        },
+        {
+            "text": "NOTE:",
+            "isWholeLine": true,
+            "color": "black",
+            "backgroundColor": "rgb(40, 219, 0)",
+            "border": "1px rgb(40, 219, 0)",
+            "borderRadius": "5px"
+        }
+    ],
+    "vim.easymotion": true,
+    "vim.foldfix": false,
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.leader": "<space>",
+    "vim.surround": true,
+    "vim.useCtrlKeys": true,
+    "vim.useSystemClipboard": true,
+    "vim.insertModeKeyBindings": [
+        {"before": ["j","k"],"after": ["<Esc>"]}
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {"before": ["<C-n>"], "commands": [":nohl"]},
+        // Split Navigation
+        {"before": ["<leader>", "<S-h>"], "commands": ["workbench.action.navigateLeft"]},
+        {"before": ["<leader>", "<S-l>"], "commands": ["workbench.action.navigateRight"]},
+
+        // Half Page Navigation Then Re-Centre
+        {"before": ["<C-d>"], "after": ["<C-d>", "z", "z"]},
+        {"before": ["<C-u>"], "after": ["<C-u>", "z", "z"]},
+
+        // Search Then Re-Centre
+        {"before": ["n"], "after": ["n", "z", "z", "z", "v"]},
+        {"before": ["N"], "after": ["N", "z", "z", "z", "v"]},
+
+        // Move line below to the end of current line while maintaining cursor position
+        {"before": ["J"], "after": ["m", "z", "J", "`", "z"]},
+
+        {"before": ["<S-h>"], "commands": ["workbench.action.previousEditorInGroup"]},
+        {"before": ["<S-l>"], "commands": ["workbench.action.nextEditorInGroup"]},
+
+        // Move line below to the end of current line while maintaining cursor position
+        {"before": ["<leader>", "f", "e"], "commands": [
+            {
+                "command": "workbench.action.toggleSidebarVisibility"
+            },
+        ]},
+
+        // Git Go To Next Hunk
+        {"before": ["<leader>", "g", "n"], "commands": [
+            {
+                "command": "editor.action.dirtydiff.next",
+                "when": "textCompareEditorVisible"
+            },
+            {
+                "command": "workbench.action.compareEditor.nextChange",
+                "when": "textCompareEditorVisible"
+            }
+        ]},
+
+        // Git Go To Previous Hunk
+        {"before": ["<leader>", "g", "p"], "commands": [
+            {
+                "command": "workbench.action.compareEditor.previousChange",
+                "when": "textCompareEditorVisible"
+            },
+            {
+                "command": "editor.action.dirtydiff.previous",
+                "when": "textCompareEditorVisible"
+            }
+        ]},
+        // Go To Next Diagnostic
+        {
+            "before": ["[", "d"],
+            "commands": [
+                {"command": "editor.action.marker.prev"},
+                {"command": "center-editor-window.center"}
+            ]
+        },
+        // Go To Previous Diagnostic
+        {
+            "before": ["]", "d"],
+            "commands": [
+                {"command": "editor.action.marker.next"},
+                {"command": "center-editor-window.center"}
+            ]
+        },
+
+        // LSP - Peek Definition
+        {
+            "before": ["<S-k>"],
+            "commands": [
+                {
+                    "command": "editor.action.showDefinitionPreviewHover",
+                    "when": "editorHasDefinitionProvider && editorTextFocus"
+                }
+            ]
+        },
+        // LSP - References
+        {"before": ["g", "r"], "commands": ["editor.action.referenceSearch.trigger"]},
+        // LSP - Implementation
+        {"before": ["g", "i"], "commands": [
+            {
+                "command": "editor.action.peekImplementation",
+                "when": "editorHasImplementationProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+            }
+        ]},
+        {
+            "before": ["]", "m"],
+            "commands": [
+                {"command": "gotoNextPreviousMember.nextMember"},
+                {"command": "center-editor-window.center"}
+            ]
+        },
+        {
+            "before": ["[", "m"],
+            "commands": [
+                {"command": "gotoNextPreviousMember.previousMember"},
+                {"command": "center-editor-window.center"}
+            ]
+        },
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {"before": [">"],"after": [">", "g", "v"]},  // Allow tab line multiple times
+        {"before": ["<"],"after": ["<", "g", "v"]},  // Allow tab line multiple times
+        {"before": ["p"],"after": ["\"", "_", "d", "P"]},  // Allow tab line multiple times
+    ],
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false,
+        "<C-w>": false
+    },
+    "vim.smartRelativeLine": false,
+    "vsicons.dontShowNewVersionMessage": true,
+    "window.autoDetectColorScheme": true,
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.pinnedTabSizing": "compact",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.list.horizontalScrolling": true,
+    "workbench.preferredDarkColorTheme": "Default Dark Modern",
+    "workbench.startupEditor": "none",
+    "zenMode.hideLineNumbers": false,
+    "zenMode.hideStatusBar": false,
+    "workbench.panel.defaultLocation": "bottom",
+}

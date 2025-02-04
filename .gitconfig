@@ -1,0 +1,12 @@
+[color]
+	ui = auto
+[alias]
+	hist = log --oneline --graph --decorate --all --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)%cr %C(bold cyan)<%an>%C(reset)' --abbrev-commit
+	lg = log --no-merges --first-parent --decorate --abbrev-commit --pretty=tformat:'%C(bold red)%h%C(reset)%C(bold yellow)%d%C(reset) | %C(bold cyan)%an%C(reset) | %C(bold green)%cr%C(reset)%n%C(bold white)%s%C(reset)%n%b'
+[core]
+	editor = notepad++ -multiInst -notabbar -nosession -noPlugin
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
