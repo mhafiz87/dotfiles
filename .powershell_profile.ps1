@@ -13,7 +13,8 @@ $canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds
 
 # Import Modules and External Profiles
 # Ensure Terminal-Icons module is installed before importing
-foreach ($module in @("PSReadLine", "Terminal-Icons", "7Zip4Powershell", "posh-git", "PSFzf", "PSTree", "ps-color-scripts")) {
+# foreach ($module in @("PSReadLine", "Terminal-Icons", "7Zip4Powershell", "posh-git", "PSFzf", "PSTree", "ps-color-scripts")) {
+foreach ($module in @("PSReadLine", "Terminal-Icons", "PSFzf", "PSTree", "ps-color-scripts")) {
     if (-not (Get-Module -ListAvailable -Name $module)) {
         Install-Module -Name $module -Scope CurrentUser -Force -SkipPublisherCheck
     }
@@ -21,13 +22,13 @@ foreach ($module in @("PSReadLine", "Terminal-Icons", "7Zip4Powershell", "posh-g
 
 Import-Module PSReadLine
 Import-Module Terminal-Icons
-Import-Module 7Zip4Powershell
-Import-Module posh-git
+# Import-Module 7Zip4Powershell
+# Import-Module posh-git
 Import-Module PSFzf
 Import-Module PSTree
-Import-Module ps-color-scripts
+# Import-Module ps-color-scripts
 
-Set-Alias -Name colorscript -Value Show-ColorScript
+# Set-Alias -Name colorscript -Value Show-ColorScript
 
 Set-PSReadLineOption -AddToHistoryHandler {
     param($command)
@@ -36,9 +37,6 @@ Set-PSReadLineOption -AddToHistoryHandler {
     }
     return $true
 }
-
-$ehst = "$env:appdata\microsoft\windows\powershell\psreadline\consolehost_history.txt"
-$hosts = "$env:systemroot\system32\drivers\etc\hosts"
 
 # Set UNIX-like aliases for the admin command, so sudo <command> will run the command with elevated rights.
 Set-Alias -Name su -Value admin
@@ -204,13 +202,6 @@ Function Nvim-Selector {
     }
 }
 
-# https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlinekeyhandler?view=powershell-7.4
-# https://github.com/kelleyma49/PSFzf/blob/3f31db0367a4865378cc9f667dd3f679d2590c6f/PSFzf.Base.ps1#L883
-Set-PSReadLineKeyHandler -Chord Ctrl+n -ScriptBlock {
-    Nvim-Selector
-    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
-    [Microsoft.PowerShell.PSConsoleReadLine]::Insert('nvim')
-}
 
 Function nvims {
     <#
@@ -396,6 +387,17 @@ public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
     END {
     }
 
+}
+
+$ehst = "$env:appdata\microsoft\windows\powershell\psreadline\consolehost_history.txt"
+$hosts = "$env:systemroot\system32\drivers\etc\hosts"
+
+# https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlinekeyhandler?view=powershell-7.4
+# https://github.com/kelleyma49/PSFzf/blob/3f31db0367a4865378cc9f667dd3f679d2590c6f/PSFzf.Base.ps1#L883
+Set-PSReadLineKeyHandler -Chord Ctrl+n -ScriptBlock {
+    Nvim-Selector
+    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+    [Microsoft.PowerShell.PSConsoleReadLine]::Insert('nvim')
 }
 
 Set-Alias refreshenv Update-SessionEnvironment
