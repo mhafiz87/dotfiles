@@ -237,6 +237,13 @@
                 {"command": "center-editor-window.center"}
             ]
         },
+        {
+            "before": ["[", "5"],
+            "commands": [
+                {"command": "editor.action.marker.prev"},
+                {"command": "center-editor-window.center"}
+            ]
+        },
         // Go To Previous Diagnostic
         {
             "before": ["]", "d"],
@@ -245,7 +252,13 @@
                 {"command": "center-editor-window.center"}
             ]
         },
-
+        {
+            "before": ["]", "5"],
+            "commands": [
+                {"command": "editor.action.marker.next"},
+                {"command": "center-editor-window.center"}
+            ]
+        },
         // LSP - Peek Definition
         {
             "before": ["<S-k>"],
