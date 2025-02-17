@@ -66,7 +66,7 @@ if global.is_windows then
 end
 
 if global.is_windows then
-  vim.g.python3_host_prog = os.getenv("userprofile") .. "\\.venv\\neovim\\scripts\\python.exe"
+  vim.g.python3_host_prog = vim.fn.getenv("USERPROFILE") .. "\\.venv\\neovim\\scripts\\python.exe"
 elseif global.is_linux then
   vim.g.python3_host_prog = os.getenv("HOME") .. "/.venv/neovim/bin/python"
 end
