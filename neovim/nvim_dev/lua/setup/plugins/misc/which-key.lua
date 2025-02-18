@@ -24,6 +24,21 @@ function M.init(args)
           desc = "+buffer",
           mode = "n",
         },
+        { --highlight
+          "<leader>c",
+          desc = "+highlight",
+          mode = "n",
+        },
+        { --theme
+          "<leader>f",
+          desc = "+themes",
+          mode = "n",
+        },
+        { --quickfix
+          "<leader>q",
+          desc = "+quickfix",
+          mode = "n",
+        },
       })
     end,
   }
