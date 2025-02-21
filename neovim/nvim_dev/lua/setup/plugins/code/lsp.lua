@@ -20,6 +20,60 @@ function M.init(args)
       local map = vim.keymap.set
       local opts = { noremap = true, silent = true }
       local on_attach = function(client, bufnr)
+        vim.api.nvim_create_autocmd("CursorHold", {
+          buffer = bufnr,
+          callback = function()
+            local float_opts = {
+              focusable = false,
+              close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+              border = "rounded",
+              source = "always", -- show source in diagnostic popup window
+              prefix = " ",
+            }
+
+            if not vim.b.diagnostics_pos then
+              vim.b.diagnostics_pos = { nil, nil }
+            end
+
+            local cursor_pos = vim.api.nvim_win_get_cursor(0)
+            if
+              (cursor_pos[1] ~= vim.b.diagnostics_pos[1] or cursor_pos[2] ~= vim.b.diagnostics_pos[2])
+              and #vim.diagnostic.get() > 0
+            then
+              vim.diagnostic.open_float(nil, float_opts)
+            end
+
+            vim.b.diagnostics_pos = cursor_pos
+          end,
+        })
+
+        -- The blow command will highlight the current variable and its usages in the buffer.
+        if client.server_capabilities.documentHighlightProvider then
+          vim.cmd([[
+            hi! link LspReferenceRead Visual
+            hi! link LspReferenceText Visual
+            hi! link LspReferenceWrite Visual
+          ]])
+
+          local gid = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+          vim.api.nvim_create_autocmd("CursorHold", {
+            group = gid,
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.document_highlight()
+            end,
+          })
+
+          vim.api.nvim_create_autocmd("CursorMoved", {
+            group = gid,
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.clear_references()
+            end,
+          })
+        end
+        -- opts.desc = "show do[k]umentation"
+        -- vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
       end
       require("fidget").setup()
       require("mason").setup()
@@ -78,6 +132,17 @@ function M.init(args)
             })
           end,
         },
+      })
+
+      -- Change diagnostic signs.
+      vim.fn.sign_define("DiagnosticSignError", { text = "🆇", texthl = "DiagnosticSignError" })
+      vim.fn.sign_define("DiagnosticSignWarn", { text = "⚠️", texthl = "DiagnosticSignWarn" })
+      vim.fn.sign_define("DiagnosticSignInfo", { text = "ℹ️", texthl = "DiagnosticSignInfo" })
+      vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+
+      -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+        border = "rounded",
       })
     end,
   }
