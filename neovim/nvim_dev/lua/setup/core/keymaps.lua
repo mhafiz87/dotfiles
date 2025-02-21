@@ -67,8 +67,8 @@ map("n", "<F4>", "<cmd>!start explorer %:p:h<cr>",
 -- map("n", "//", 'y/<c-r>"<cr>', default_opts_desc("Search for highlighted in current buffer"))
 
 -- Replace word under cursor across entire buffer
-map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-  default_opts_desc("Replace word under cursor across entire buffer"))
+-- map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+--   default_opts_desc("Replace word under cursor across entire buffer"))
 
 -- Quickfix
 map("n", "<leader>qn", "<cmd>cnext<cr>zz", default_opts_desc("[n]ext quickfix list"))

@@ -2,6 +2,7 @@ local M = {}
 
 function M.init(args)
   setmetatable(args, { __index = { enable = true } })
+  local tools = require("tools")
   local data = {
     enabled = args.enable,
     "neovim/nvim-lspconfig",
@@ -17,9 +18,14 @@ function M.init(args)
       local tools = require("tools")
       local lspconfig = require("lspconfig")
       local capabilities = vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), require("cmp_nvim_lsp").default_capabilities())
-      local map = vim.keymap.set
-      local opts = { noremap = true, silent = true }
       local on_attach = function(client, bufnr)
+        local map = function(mode, l, r, opts)
+          opts = opts or {}
+          opts.silent = true
+          opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, opts)
+        end
+
         vim.api.nvim_create_autocmd("CursorHold", {
           buffer = bufnr,
           callback = function()
@@ -72,8 +78,17 @@ function M.init(args)
             end,
           })
         end
-        -- opts.desc = "show do[k]umentation"
-        -- vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        if tools.is_plugin_installed("snacks.nvim") == true then
+          local Snacks = require("snacks")
+          Snacks.notify("snacks plugin is installed !!!")
+          map("n", "gd", function() Snacks.picker.lsp_definitions() end, {desc = "Goto Definition"} )
+          map("n", "gD", function() Snacks.picker.lsp_declarations() end, {desc = "Goto Declaration"} )
+          map("n", "gr", function() Snacks.picker.lsp_references() end, {nowait = true, desc = "References"} )
+          map("n", "gI", function() Snacks.picker.lsp_implementations() end, {desc = "Goto Implementation"} )
+          map("n", "gy", function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto T[y]pe Definition" } )
+          map("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, {desc = "LSP Symbols"} )
+          map("n", "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, {desc = "LSP Workspace Symbols"} )
+        end
       end
       require("fidget").setup()
       require("mason").setup()
