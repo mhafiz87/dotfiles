@@ -15,7 +15,6 @@ function M.init(args)
     },
     event = "BufReadPre",
     config = function()
-      local tools = require("tools")
       local lspconfig = require("lspconfig")
       local capabilities = vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), require("cmp_nvim_lsp").default_capabilities())
       local on_attach = function(client, bufnr)

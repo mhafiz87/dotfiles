@@ -20,15 +20,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    -- Themes
+    { require("setup.plugins.themes.themery").init({ enable = true }) },
     { require("setup.plugins.git.git").init({ enable = true }) },
     { require("setup.plugins.misc.nvim-web-devicons").init({ enable = true }) },
     { require("setup.plugins.misc.snacks").init({ enable = true }) },
     { require("setup.plugins.misc.which-key").init({ enable = true }) },
-    { require("setup.plugins.themes.themery").init({ enable = true }) },
     { require("setup.plugins.code.treesitter").init({ enable = true }) },
     { require("setup.plugins.code.lsp").init({ enable = true }) },
     { require("setup.plugins.misc.nvim-ufo").init({ enable = true }) },
+    { require("setup.plugins.code.autocompleter").init({ enable = true }) },
   },
   checker = {
     enabled = true,
