@@ -51,7 +51,7 @@
     "code-runner.showExecutionMessage": false,
     "diffEditor.renderSideBySide": true,
     "editor.cursorSurroundingLines": 10,
-    "editor.definitionLinkOpensInPeek": true,
+    "editor.definitionLinkOpensInPeek": false,
     "editor.detectIndentation": true,
     "editor.foldingImportsByDefault": false,
     "editor.foldingStrategy": "auto",
@@ -212,22 +212,24 @@
                 "command": "editor.action.dirtydiff.next",
                 "when": "textCompareEditorVisible"
             },
-            {
-                "command": "workbench.action.compareEditor.nextChange",
-                "when": "textCompareEditorVisible"
-            }
+            // {
+            //     "command": "workbench.action.compareEditor.nextChange",
+            //     "when": "textCompareEditorVisible"
+            // },
+            {"command": "center-editor-window.center"}
         ]},
 
         // Git Go To Previous Hunk
         {"before": ["<leader>", "g", "p"], "commands": [
             {
-                "command": "workbench.action.compareEditor.previousChange",
-                "when": "textCompareEditorVisible"
-            },
-            {
                 "command": "editor.action.dirtydiff.previous",
                 "when": "textCompareEditorVisible"
-            }
+            },
+            // {
+            //     "command": "workbench.action.compareEditor.previousChange",
+            //     "when": "textCompareEditorVisible"
+            // },
+            {"command": "center-editor-window.center"}
         ]},
         // Go To Next Diagnostic
         {
