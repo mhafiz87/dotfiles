@@ -179,8 +179,10 @@
     "vim.insertModeKeyBindings": [
         {"before": ["j","k"],"after": ["<Esc>"]}
     ],
+    "vim.commandLineModeKeyBindingsNonRecursive": [
+        {"before": ["j","k"],"after": ["<Esc>"]}
+    ],
     "vim.normalModeKeyBindingsNonRecursive": [
-        {"before": ["<C-n>"], "commands": [":nohl"]},
         // Split Navigation
         {"before": ["<leader>", "<S-h>"], "commands": ["workbench.action.navigateLeft"]},
         {"before": ["<leader>", "<S-l>"], "commands": ["workbench.action.navigateRight"]},
@@ -198,6 +200,7 @@
 
         {"before": ["<S-h>"], "commands": ["workbench.action.previousEditorInGroup"]},
         {"before": ["<S-l>"], "commands": ["workbench.action.nextEditorInGroup"]},
+        {"before": ["<leader>", "c", "l"], "commands": [":nohl"]},
 
         // Move line below to the end of current line while maintaining cursor position
         {"before": ["<leader>", "f", "e"], "commands": [
@@ -212,10 +215,6 @@
                 "command": "editor.action.dirtydiff.next",
                 "when": "textCompareEditorVisible"
             },
-            // {
-            //     "command": "workbench.action.compareEditor.nextChange",
-            //     "when": "textCompareEditorVisible"
-            // },
             {"command": "center-editor-window.center"}
         ]},
 
@@ -225,10 +224,6 @@
                 "command": "editor.action.dirtydiff.previous",
                 "when": "textCompareEditorVisible"
             },
-            // {
-            //     "command": "workbench.action.compareEditor.previousChange",
-            //     "when": "textCompareEditorVisible"
-            // },
             {"command": "center-editor-window.center"}
         ]},
         // Go To Next Diagnostic
