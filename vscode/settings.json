@@ -60,7 +60,7 @@
     "editor.fontSize": 12,
     "editor.formatOnSave": false,
     "editor.insertSpaces": true,
-    "editor.lineNumbers": "relative",
+    "editor.lineNumbers": "on",
     "editor.linkedEditing": true,
     "editor.minimap.enabled": false,
     "editor.multiCursorPaste": "full",
@@ -225,6 +225,9 @@
                 "when": "textCompareEditorVisible"
             },
             {"command": "center-editor-window.center"}
+        ]},
+        {"before": ["<Esc>"], "commands": [
+                {"command": "closeQuickDiff"},
         ]},
         // Go To Next Diagnostic
         {
