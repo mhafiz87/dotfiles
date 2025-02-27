@@ -391,22 +391,20 @@ public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 
 Function Set-Teams-Status {
     param(
-        [Parameter(Mandatory = $true)][ValidateSet("available", "away")][string]$Status
+        [Parameter(Mandatory = $true)][ValidateSet("available", "away", "offline", "busy")][string]$Status
     )
     $ps = Start-Process -PassThru -FilePath "$env:localappdata\Microsoft\WindowsApps\ms-teams.exe" -WindowStyle Normal
     $wshell = New-Object -ComObject wscript.shell
-    Start-Sleep 5
+    Start-Sleep 1
     $wshell.SendKeys('^{e}')
-    Start-Sleep 1
-    if ($Status -eq "available") {
-        $wshell.SendKeys('/available')
-    }
-    elseif ($Status -eq "away") {
-        $wshell.SendKeys('/away')
-    }
-    Start-Sleep 1
+    Start-Sleep 0.25
+    $wshell.SendKeys("/$Status")
+    Start-Sleep 0.25
     $wshell.SendKeys('{ENTER}')
+    Start-Sleep 0.25
+    $wshell.SendKeys('%{TAB}')
 }
+Set-Alias sts Set-Teams-Status
 
 $ehst = "$env:appdata\microsoft\windows\powershell\psreadline\consolehost_history.txt"
 $hosts = "$env:systemroot\system32\drivers\etc\hosts"
