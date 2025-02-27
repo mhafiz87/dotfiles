@@ -389,6 +389,10 @@ public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 
 }
 
+# https://stackoverflow.com/questions/65932454/how-to-launch-teams-exe-with-powershell
+# https://stackoverflow.com/a/78493765
+# https://stackoverflow.com/questions/74147128/how-do-i-send-keys-to-an-active-window-in-powershell
+# https://stackoverflow.com/a/19825078
 Function Set-Teams-Status {
     param(
         [Parameter(Mandatory = $true)][ValidateSet("available", "away", "offline", "busy")][string]$Status
