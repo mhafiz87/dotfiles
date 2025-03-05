@@ -29,6 +29,14 @@ require("lazy").setup({
     { require("setup.plugins.code.lsp").init({ enable = true }) },
     { require("setup.plugins.misc.nvim-ufo").init({ enable = true }) },
     { require("setup.plugins.code.autocompleter").init({ enable = true }) },
+
+    { require("setup.plugins.code.autoformatter").init({ enable = true }) },
+    { require("setup.plugins.code.debugger").init({ enable = true }) },
+    { require("setup.plugins.code.dropbar").init({ enable = true }) },
+    { require("setup.plugins.code.garbage-day").init({ enable = true }) },
+    { require("setup.plugins.code.markdown").init({ enable = true }) },
+    { require("setup.plugins.code.neogen").init({ enable = true }) },
+    { require("setup.plugins.code.tiny-code-action").init({ enable = true }) },
   },
   checker = {
     enabled = true,
