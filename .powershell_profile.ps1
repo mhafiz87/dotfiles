@@ -401,11 +401,11 @@ Function Set-Teams-Status {
     $wshell = New-Object -ComObject wscript.shell
     Start-Sleep 1
     $wshell.SendKeys('^{e}')
-    Start-Sleep 0.25
+    Start-Sleep 1.00
     $wshell.SendKeys("/$Status")
-    Start-Sleep 0.25
+    Start-Sleep 1.00
     $wshell.SendKeys('{ENTER}')
-    Start-Sleep 0.25
+    Start-Sleep 1.00
     $wshell.SendKeys('%{TAB}')
 }
 Set-Alias sts Set-Teams-Status
