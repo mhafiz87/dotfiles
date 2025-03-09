@@ -7,7 +7,10 @@ function M.init(args)
     "bekaboo/dropbar.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+      },
     },
     config = function()
       require("dropbar").setup({})
