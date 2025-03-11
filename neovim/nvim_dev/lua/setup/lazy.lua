@@ -41,6 +41,8 @@ require("lazy").setup({
     { require("setup.plugins.misc.unfold").init({ enable = true }) },
     { require("setup.plugins.misc.marks").init({ enable = true }) },
     { require("setup.plugins.misc.flash").init({ enable = true }) },
+    { require("setup.plugins.misc.todo_highlight").init({ enable = true }) },
+    { require("setup.plugins.misc.trouble").init({ enable = true }) },
   },
   checker = {
     enabled = true,
