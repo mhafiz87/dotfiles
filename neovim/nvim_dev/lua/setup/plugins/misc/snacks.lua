@@ -27,7 +27,7 @@ function M.init(args)
     },
     keys = {
       -- Common
-      { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
+      { "<leader>fb", function() Snacks.picker.buffers() end, desc = "[f]ind [b]uffers" },
       { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
       { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
       { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
