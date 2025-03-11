@@ -38,6 +38,9 @@ require("lazy").setup({
     { require("setup.plugins.code.tiny-code-action").init({ enable = true }) },
     { require("setup.plugins.misc.rainbow-delimiters").init({ enable = true }) },
     { require("setup.plugins.misc.hlslens").init({ enable = true }) },
+    { require("setup.plugins.misc.unfold").init({ enable = true }) },
+    { require("setup.plugins.misc.marks").init({ enable = true }) },
+    { require("setup.plugins.misc.flash").init({ enable = true }) },
   },
   checker = {
     enabled = true,
