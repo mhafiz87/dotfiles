@@ -79,3 +79,4 @@ map("n", "[d", vim.diagnostic.goto_prev, default_opts_desc("Go to previous diagn
 map("n", "]d", vim.diagnostic.goto_next, default_opts_desc("Go to next diagnostic"))
 map("n", "[5", vim.diagnostic.goto_prev, default_opts_desc("Go to previous diagnostic"))
 map("n", "]5", vim.diagnostic.goto_next, default_opts_desc("Go to next diagnostic"))
+
