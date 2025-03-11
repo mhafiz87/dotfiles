@@ -19,7 +19,11 @@ function M.init(args)
             { path = "${3rd}/luv/library", words = { "vim%.uv" } },
           },
         },
-      }
+      },
+      {
+        "monkoose/neocodeium",
+        event = "VeryLazy",
+      },
     },
     version = '*',
     ---@module 'blink.cmp'
@@ -119,8 +123,39 @@ function M.init(args)
     },
     opts_extend = { "sources.default" },
     config = function (_, opts)
+      local neocodeium = require("neocodeium")
+      local blink = require("blink.cmp")
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'BlinkCmpMenuOpen',
+        callback = function()
+          neocodeium.clear()
+        end,
+      })
+      neocodeium.setup({
+        filter = function()
+          return not blink.is_visible()
+        end,
+      })
+      vim.keymap.set("i", "<A-f>", function()
+          require("neocodeium").accept()
+      end)
+      vim.keymap.set("i", "<A-w>", function()
+          require("neocodeium").accept_word()
+      end)
+      vim.keymap.set("i", "<A-a>", function()
+          require("neocodeium").accept_line()
+      end)
+      vim.keymap.set("i", "<A-e>", function()
+          require("neocodeium").cycle_or_complete()
+      end)
+      vim.keymap.set("i", "<A-r>", function()
+          require("neocodeium").cycle_or_complete(-1)
+      end)
+      vim.keymap.set("i", "<A-c>", function()
+          require("neocodeium").clear()
+      end)
       require("blink.compat").setup({})
-      require("blink.cmp").setup(opts)
+      blink.setup(opts)
     end
   }
   return data
