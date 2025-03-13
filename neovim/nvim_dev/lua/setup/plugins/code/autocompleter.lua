@@ -75,7 +75,6 @@ function M.init(args)
         preset = 'enter',
         ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<C-e>'] = { 'hide' },
-        ['<S-e>'] = { 'hide', 'fallback' },
         ['<Enter>'] = { 'select_and_accept', 'fallback' },
 
         ['<C-y>'] = { 'select_and_accept' },
@@ -96,7 +95,6 @@ function M.init(args)
       cmdline = {
         keymap = {
           ['<C-e>'] = { 'hide' },
-          ['<S-e>'] = { 'hide', 'fallback' },
           ['Enter'] = { 'select_and_accept' },
           ['<C-y>'] = { 'select_and_accept' },
           ['<Up>'] = { 'select_prev', 'fallback' },
