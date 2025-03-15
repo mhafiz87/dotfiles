@@ -29,9 +29,29 @@ function M.init(args)
           desc = "+highlight",
           mode = "n",
         },
+        { --
+          "<leader>d",
+          desc = "+docstring|debugger|diagnostic",
+          mode = "n",
+        },
+        { --
+          "<leader>db",
+          desc = "+debugger",
+          mode = "n",
+        },
+        { --
+          "<leader>dg",
+          desc = "+diagnostics",
+          mode = "n",
+        },
         { --theme
           "<leader>f",
-          desc = "+find files/themes",
+          desc = "+find files|themes",
+          mode = "n",
+        },
+        { --surround
+          "<leader>r",
+          desc = "+surround",
           mode = "n",
         },
         { --quickfix

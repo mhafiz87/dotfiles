@@ -51,7 +51,7 @@ function M.init(args)
                 vim.cmd("norm! zz")
               end, { buffer = bufnr, desc = "[g]o to [n]ext Hunk" })
               vim.keymap.set("n", "<leader>gh", gitsigns.preview_hunk, { buffer = bufnr, desc = "View [g]it [h]unk" })
-              vim.keymap.set("n", "<leader>gb", gitsigns.toggle_current_line_blame, { buffer = bufnr, desc = "Toggle [g]it [b]lame" })
+              vim.keymap.set("n", "<leader>gr", gitsigns.toggle_current_line_blame, { buffer = bufnr, desc = "Toggle [g]it [b]lame" })
             else
               vim.print("gitsigns plugin is not installed !!!")
               -- vim.notify("gitsigns plugin is not installed !!!")

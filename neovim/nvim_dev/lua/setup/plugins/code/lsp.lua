@@ -79,7 +79,7 @@ function M.init(args)
         end
         if tools.is_plugin_installed("snacks.nvim") == true then
           local Snacks = require("snacks")
-          Snacks.notify("snacks plugin is installed !!!")
+          Snacks.notify("[lsp] snacks plugin is installed !!!")
           map("n", "gd", function() Snacks.picker.lsp_definitions() end, {desc = "Goto Definition"} )
           map("n", "gD", function() Snacks.picker.lsp_declarations() end, {desc = "Goto Declaration"} )
           map("n", "gr", function() Snacks.picker.lsp_references() end, {nowait = true, desc = "References"} )
