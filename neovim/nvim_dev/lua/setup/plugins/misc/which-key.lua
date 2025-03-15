@@ -31,7 +31,7 @@ function M.init(args)
         },
         { --theme
           "<leader>f",
-          desc = "+themes",
+          desc = "+find files/themes",
           mode = "n",
         },
         { --quickfix
