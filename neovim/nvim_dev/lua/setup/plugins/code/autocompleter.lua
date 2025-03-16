@@ -36,7 +36,7 @@ function M.init(args)
       completion = {
         list = {
           selection = {
-            preselect = function(ctx) return ctx.mode ~= 'cmdline' end,
+            preselect = true,
             auto_insert = true,
           },
         },
@@ -49,7 +49,7 @@ function M.init(args)
           draw = {
             columns = {
               { "label", "label_description", gap = 1 },
-              { "kind_icon", "kind", gap = 1 }
+              { "kind_icon", "kind", "source_name", gap = 1 }
             },
           }
         },
@@ -72,9 +72,10 @@ function M.init(args)
         },
       },
       keymap = {
-        preset = 'enter',
-        ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        preset = 'none',
+        ['<C-space>'] = { 'show_and_insert', 'show_documentation', 'hide_documentation' },
         ['<C-e>'] = { 'hide' },
+        ['<Esc>'] = { 'cancel', 'fallback' },
         ['<Enter>'] = { 'select_and_accept', 'fallback' },
 
         ['<C-y>'] = { 'select_and_accept' },
@@ -93,9 +94,15 @@ function M.init(args)
         ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
       },
       cmdline = {
+        completion = {
+          menu = {
+            auto_show = true
+          }
+        },
         keymap = {
           ['<C-e>'] = { 'hide' },
-          ['Enter'] = { 'select_and_accept' },
+          ['<Esc>'] = { 'cancel', 'fallback' },
+          ['<Enter>'] = { 'select_and_accept', 'fallback' },
           ['<C-y>'] = { 'select_and_accept' },
           ['<Up>'] = { 'select_prev', 'fallback' },
           ['<Down>'] = { 'select_next', 'fallback' },
