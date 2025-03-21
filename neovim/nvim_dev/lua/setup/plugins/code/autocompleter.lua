@@ -2,6 +2,7 @@ local M = {}
 
 function M.init(args)
   setmetatable(args, { __index = { enable = true } })
+  local trigger_text = ";"
   local data = {
     enabled = args.enable,
     'saghen/blink.cmp',
@@ -122,7 +123,27 @@ function M.init(args)
             module = "lazydev.integrations.blink",
             -- make lazydev completions top priority (see `:h blink.cmp`)
             score_offset = 100,
-          }
+          },
+          lsp = {
+            name = "lsp",
+            module = "blink.cmp.sources.lsp",
+            score_offset = 99,
+          },
+          path = {
+            name = "path",
+            module = "blink.cmp.sources.path",
+            score_offset = 98,
+          },
+          buffer = {
+            name = "buffer",
+            module = "blink.cmp.sources.buffer",
+            score_offset = 97,
+          },
+          snippets = {
+            name = "snippets",
+            module = "blink.cmp.sources.snippets",
+            score_offset = 96,
+          },
         }
       },
     },
