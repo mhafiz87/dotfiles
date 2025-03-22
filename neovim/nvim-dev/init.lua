@@ -1,5 +1,4 @@
--- require ("tools")
-require ("setup.core")
-require ("setup.lazy")
--- require ("setup.which_key")
-
+require("config.options")
+require("config.autocmds")
+require("config.keymaps")
+require("config.lazy")
