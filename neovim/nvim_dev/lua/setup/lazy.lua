@@ -24,6 +24,8 @@ require("lazy").setup({
     { require("setup.plugins.themes.themery").init({ enable = true }) },
     { require("setup.plugins.git.git").init({ enable = true }) },
     { require("setup.plugins.misc.autopairs").init({ enable = true }) },
+    { require("setup.plugins.misc.bullets").init({ enable = true }) },
+    { require("setup.plugins.misc.colorizer").init({ enable = true }) },
     { require("setup.plugins.misc.nvim-web-devicons").init({ enable = true }) },
     { require("setup.plugins.misc.which-key").init({ enable = true }) },
     { require("setup.plugins.code.treesitter").init({ enable = true }) },

@@ -61,7 +61,7 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory
 Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
 Set-PsFzfOption -TabExpansion
 # example command - use $Location with a different command:
-$commandOverride = [ScriptBlock]{ param($Location) Write-Host $Location }
+$commandOverride = [ScriptBlock] { param($Location) Write-Host $Location }
 # pass your override to PSFzf:
 Set-PsFzfOption -AltCCommand $commandOverride
 
@@ -74,11 +74,16 @@ Function Test-CommandExists {
     Finally { $ErrorActionPreference = $oldPreference }
 } #end function test-CommandExists
 
+# https://stackoverflow.com/questions/2858484/creating-aliases-in-powershell-for-git-commands
 function Git-Branch-FZF {
-    git checkout $(git branch -a | Select-String -NotMatch "^\*" | fzf --prompt=" Git Branch Selector" | ForEach-Object { Write-Output($_.trim()) })
+    # git checkout $(git branch -a | Select-String -NotMatch "^\*" | fzf --prompt=" Git Branch Selector" | ForEach-Object { Write-Output($_.trim()) })
+    git checkout $(git branch | Select-String -NotMatch "^\*" | fzf --prompt=" Git Branch Selector" | ForEach-Object { Write-Output($_.trim()) })
 }
 
+function Get-GitStatus { & git status -sb $args }
+
 Set-Alias -Name gbf -Value Git-Branch-FZF
+Set-Alias -Name gs -Value Get-GitStatus
 
 # https://www.youtube.com/watch?v=fnMajPIe_uU
 Function ff {
@@ -189,17 +194,24 @@ Function Nvim-Selector {
             $apps[0] = $apps[0] + "*"
         }
     }
-    $nvim_app = $(ForEach-Object { Write-Output($apps) } | fzf --prompt=" NVIM Selector" --height=~50% --layout=reverse --border --exit-0)
+    $nvim_app = $(ForEach-Object { Write-Output($apps) } | fzf --prompt=" NVIM Selector" --height ~50% --border --exit-0)
     if ($null -eq $nvim_app) {
         return
     }
-    $nvim_app = $nvim_app.Replace("*","")
+    $nvim_app = $nvim_app.Replace("*", "")
     if ($nvim_app -ne "prod") {
         $env:NVIM_APPNAME = "nvim_" + $nvim_app
     }
     else {
         $env:NVIM_APPNAME = $null
     }
+}
+# https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlinekeyhandler?view=powershell-7.4
+# https://github.com/kelleyma49/PSFzf/blob/3f31db0367a4865378cc9f667dd3f679d2590c6f/PSFzf.Base.ps1#L883
+Set-PSReadLineKeyHandler -Chord Ctrl+n -ScriptBlock {
+    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+    [Microsoft.PowerShell.PSConsoleReadLine]::Insert('Nvim-Selector')
+    [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
 
 
@@ -412,14 +424,6 @@ Set-Alias sts Set-Teams-Status
 
 $ehst = "$env:appdata\microsoft\windows\powershell\psreadline\consolehost_history.txt"
 $hosts = "$env:systemroot\system32\drivers\etc\hosts"
-
-# https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlinekeyhandler?view=powershell-7.4
-# https://github.com/kelleyma49/PSFzf/blob/3f31db0367a4865378cc9f667dd3f679d2590c6f/PSFzf.Base.ps1#L883
-Set-PSReadLineKeyHandler -Chord Ctrl+n -ScriptBlock {
-    Nvim-Selector
-    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
-    [Microsoft.PowerShell.PSConsoleReadLine]::Insert('nvim')
-}
 
 Set-Alias refreshenv Update-SessionEnvironment
 if (Test-CommandExists oh-my-posh) { oh-my-posh --init --shell pwsh --config "$env:userprofile/.config/ohmyposh/zen.toml" | Invoke-Expression }
