@@ -2,9 +2,9 @@ local M = {}
 
 function M.init(args)
   setmetatable(args, { __index = { enable = true } })
-  local trigger_text = ";"
   local data = {
     enabled = args.enable,
+    event = "InsertEnter",
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
     dependencies = {
@@ -35,6 +35,11 @@ function M.init(args)
         nerd_font_variant = 'mono'
       },
       completion = {
+        accept = {
+          auto_brackets = {
+            enabled = true
+          }
+        },
         list = {
           selection = {
             preselect = true,
@@ -57,7 +62,7 @@ function M.init(args)
         -- Show documentation when selecting a completion item
         documentation = {
           auto_show = true,
-          auto_show_delay_ms = 500,
+          auto_show_delay_ms = 200,
           window = {
             border = "rounded",
           },
@@ -101,18 +106,19 @@ function M.init(args)
           }
         },
         keymap = {
-          ['<C-e>'] = { 'hide' },
-          ['<Esc>'] = { 'cancel', 'fallback' },
-          ['<Enter>'] = { 'select_and_accept', 'fallback' },
-          ['<C-y>'] = { 'select_and_accept' },
-          ['<Up>'] = { 'select_prev', 'fallback' },
-          ['<Down>'] = { 'select_next', 'fallback' },
-          ['<C-p>'] = { 'select_prev' },
-          ['<C-n>'] = { 'select_next' },
-          ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-          ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-          ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
-          ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+          preset = "cmdline",
+          -- ['<C-e>'] = { 'hide' },
+          -- ['<Esc>'] = { 'cancel', 'fallback' },
+          -- ['<Enter>'] = { 'select_and_accept', 'fallback' },
+          -- ['<C-y>'] = { 'select_and_accept' },
+          -- ['<Up>'] = { 'select_prev', 'fallback' },
+          -- ['<Down>'] = { 'select_next', 'fallback' },
+          -- ['<C-p>'] = { 'select_prev' },
+          -- ['<C-n>'] = { 'select_next' },
+          -- ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+          -- ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+          -- ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+          -- ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
         }
       },
       sources = {
