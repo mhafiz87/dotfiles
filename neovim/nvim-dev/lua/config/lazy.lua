@@ -17,6 +17,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     -- { require("setup.plugins.code.tiny-code-action").init({ enable = true }) },
+    { require("plugins.misc.themery").init({ enable = true }) },
+    { require("plugins.code.lsp").init({ enable = true }) },
   },
   checker = {
     enabled = true,
