@@ -182,10 +182,10 @@ Function Find-File($name) {
 }
 
 Function Nvim-Selector {
-    $apps = "prod", "dev"
+    $apps = "prod", "dev", "lazy"
     $index = 0
     foreach ($currentItemName in $apps) {
-        if ("nvim_$currentItemName" -eq $env:NVIM_APPNAME) {
+        if ("nvim-$currentItemName" -eq $env:NVIM_APPNAME) {
             $apps[$index] = $currentItemName + "*"
             break
         }
@@ -200,7 +200,7 @@ Function Nvim-Selector {
     }
     $nvim_app = $nvim_app.Replace("*", "")
     if ($nvim_app -ne "prod") {
-        $env:NVIM_APPNAME = "nvim_" + $nvim_app
+        $env:NVIM_APPNAME = "nvim-" + $nvim_app
     }
     else {
         $env:NVIM_APPNAME = $null

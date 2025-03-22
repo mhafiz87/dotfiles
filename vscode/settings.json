@@ -60,7 +60,7 @@
     "editor.fontSize": 12,
     "editor.formatOnSave": false,
     "editor.insertSpaces": true,
-    "editor.lineNumbers": "on",
+    "editor.lineNumbers": "relative",
     "editor.linkedEditing": true,
     "editor.minimap.enabled": false,
     "editor.multiCursorPaste": "full",
@@ -309,7 +309,8 @@
     "workbench.editor.enablePreview": false,
     "workbench.editor.pinnedTabSizing": "compact",
     "workbench.editorAssociations": {
-        "*.ipynb": "jupyter-notebook"
+        "*.ipynb": "jupyter-notebook",
+        "git-rebase-todo": "gitlens.rebase"
     },
     "workbench.iconTheme": "vscode-icons",
     "workbench.list.horizontalScrolling": true,
@@ -318,4 +319,5 @@
     "zenMode.hideLineNumbers": false,
     "zenMode.hideStatusBar": false,
     "workbench.panel.defaultLocation": "bottom",
+    "editor.unicodeHighlight.ambiguousCharacters": false,
 }
