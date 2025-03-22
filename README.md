@@ -20,9 +20,9 @@ new-item -itemtype symboliclink -path "$env:appdata/code/user/settings.json" -ta
 # Neovim Settings
 if(test-path -path $env:localappdata/nvim){remove-item -path "$env:localappdata/nvim" -recurse -force}
 new-item -itemtype symboliclink -path "$env:localappdata/nvim" -target "$env:userprofile/.config/nvim" -force
-if(test-path -path $env:localappdata/nvim_dev){remove-item -path "$env:localappdata/nvim-dev" -recurse -force}
+if(test-path -path $env:localappdata/nvim-dev){remove-item -path "$env:localappdata/nvim-dev" -recurse -force}
 new-item -itemtype symboliclink -path "$env:localappdata/nvim-dev" -target "$env:userprofile/.config/neovim/nvim-dev" -force
-if(test-path -path $env:localappdata/nvim_dev){remove-item -path "$env:localappdata/nvim-lazy" -recurse -force}
+if(test-path -path $env:localappdata/nvim-lazy){remove-item -path "$env:localappdata/nvim-lazy" -recurse -force}
 new-item -itemtype symboliclink -path "$env:localappdata/nvim-lazy" -target "$env:userprofile/.config/neovim/nvim-lazy" -force
 if(test-path -path $env:localappdata/nvim_dev){remove-item -path "$env:localappdata/nvim_dev" -recurse -force}
 new-item -itemtype symboliclink -path "$env:localappdata/nvim_dev" -target "$env:userprofile/.config/neovim/nvim_dev" -force
