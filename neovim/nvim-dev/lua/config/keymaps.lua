@@ -92,6 +92,13 @@ map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
 map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+-- with split keyboard
+map("n", "]5", diagnostic_goto(true), { desc = "Next Diagnostic" })
+map("n", "[5", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+map("n", "]8", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+map("n", "[8", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+map("n", "]7", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+map("n", "[7", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- location list
 map("n", "<leader>xl", function()
@@ -115,6 +122,6 @@ map("n", "[`", vim.cmd.cprev, { desc = "Previous Quickfix" })
 map("n", "]`", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 
-if utils.is_plugin_installed("snacks.nvim") == true then
-  Snacks.notify("[keymaps] snacks plugin is installed !!!")
-end
+-- if utils.is_plugin_installed("snacks.nvim") == true then
+--   Snacks.notify("[keymaps] snacks plugin is installed !!!")
+-- end
