@@ -1,9 +1,9 @@
 local M = {}
-local global = require("global")
+local utils = require("utils")
 
 local dependent = function()
   local plugins = {}
-  if global.is_linux then
+  if utils.is_linux then
     table.insert(plugins, "williamboman/mason.nvim")
     table.insert(plugins, "williamboman/mason-lspconfig.nvim")
     table.insert(plugins, "zapling/mason-conform.nvim")
@@ -53,7 +53,7 @@ function M.init(args)
           timeout_ms = 2000,
         })
       end, { desc = "Format file or range (in visual mode)" })
-      if global.is_linux then
+      if utils.is_linux then
         require("mason-conform").setup({
           ensure_installed = {
               "black",
