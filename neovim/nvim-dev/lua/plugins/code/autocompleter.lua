@@ -4,7 +4,7 @@ function M.init(args)
   setmetatable(args, { __index = { enable = true } })
   local data = {
     enabled = args.enable,
-    event = "InsertEnter",
+    event = {"InsertEnter", "CmdlineEnter"},
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
     dependencies = {
