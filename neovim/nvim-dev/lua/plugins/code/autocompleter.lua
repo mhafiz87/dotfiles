@@ -9,6 +9,7 @@ function M.init(args)
     -- optional: provides snippets for the snippet source
     dependencies = {
       'rafamadriz/friendly-snippets',
+      'hrsh7th/cmp-cmdline',
       {"saghen/blink.compat", opts = {enable_events = true}},
       {
         "folke/lazydev.nvim",
@@ -106,23 +107,28 @@ function M.init(args)
           }
         },
         keymap = {
-          preset = "cmdline",
-          -- ['<C-e>'] = { 'hide' },
-          -- ['<Esc>'] = { 'cancel', 'fallback' },
-          -- ['<Enter>'] = { 'select_and_accept', 'fallback' },
-          -- ['<C-y>'] = { 'select_and_accept' },
-          -- ['<Up>'] = { 'select_prev', 'fallback' },
-          -- ['<Down>'] = { 'select_next', 'fallback' },
-          -- ['<C-p>'] = { 'select_prev' },
-          -- ['<C-n>'] = { 'select_next' },
-          -- ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-          -- ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-          -- ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
-          -- ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+          ['<Tab>'] = {
+            function(cmp)
+              if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then return cmp.accept() end
+            end,
+            'show_and_insert',
+            'select_next',
+          },
+          ['<S-Tab>'] = { 'show_and_insert', 'select_prev' },
+
+          ['<C-space>'] = { 'show', 'fallback' },
+
+          ['<C-n>'] = { 'select_next', 'fallback' },
+          ['<C-p>'] = { 'select_prev', 'fallback' },
+          ['<Right>'] = { 'select_next', 'fallback' },
+          ['<Left>'] = { 'select_prev', 'fallback' },
+
+          ['<C-y>'] = { 'select_and_accept' },
+          ['<C-e>'] = { 'cancel' },
         }
       },
       sources = {
-        default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+        default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer', 'cmdline' },
         providers = {
           lazydev = {
             name = "LazyDev",
@@ -150,6 +156,12 @@ function M.init(args)
             module = "blink.cmp.sources.snippets",
             score_offset = 96,
           },
+          cmdline = {
+            name = "cmdline",
+            module = "blink.compat.source",
+            score_offset = 95,
+            enabled = true
+          },
         }
       },
     },
@@ -170,7 +182,7 @@ function M.init(args)
       })
       vim.keymap.set("i", "<A-f>", function()
           require("neocodeium").accept()
-      end)
+      end, {desc="[neocodeium] accept"})
       vim.keymap.set("i", "<A-w>", function()
           require("neocodeium").accept_word()
       end)
