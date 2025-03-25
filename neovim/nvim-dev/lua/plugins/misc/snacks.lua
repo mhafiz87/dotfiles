@@ -47,6 +47,17 @@ function M.init(args)
       scroll = { enabled = false },
       statuscolumn = { enabled = true },
       words = { enabled = true },
+      zen = {
+        toggles = {
+          git_signs = true,
+          mini_diff_signs = true,
+          diagnostics = true
+        },
+        show = {
+          statusline = true,
+          tabline = true
+        }
+      }
     },
     keys = {
       { "<leader>bf", function() Snacks.picker.buffers() end, desc = "[b]uffers [f]ind" },
@@ -58,11 +69,21 @@ function M.init(args)
       { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
       { "<leader>dga", function() Snacks.picker.diagnostics() end, desc = "[d]ia[g]nostics" },
       { "<leader>dgb", function() Snacks.picker.diagnostics_buffer() end, desc = "[d]ia[g]nostics [b]uffer" },
-      { "<leader>dgb", function() Snacks.picker.diagnostics_buffer() end, desc = "[d]ia[g]nostics [b]uffer" },
       { "<leader>gs", function() Snacks.picker.git_status() end, desc = "[g]it [s]tatus" },
-      { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "[g]it [s]tatus" },
-      { "<leader>gl", function() Snacks.git.blame_line() end, desc = "[g]it [s]tatus" },
+      { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "[g]it [b]ranch" },
+      { "<leader>gl", function() Snacks.git.blame_line() end, desc = "[g]it b[l]ame" },
+      { "<leader>tz", function() Snacks.zen() end, desc = "[t]oggle [z]en" },
     },
+    init = function()
+        vim.api.nvim_create_autocmd("User", {
+          pattern = "VeryLazy",
+          callback = function ()
+            Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>trn")
+            Snacks.toggle.inlay_hints():map("<leader>tih")
+            Snacks.toggle.diagnostics():map("<leader>td")
+          end,
+        })
+    end
   }
   return data
 end
