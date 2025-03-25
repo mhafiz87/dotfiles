@@ -72,6 +72,7 @@ function M.init(args)
       { "<leader>gs", function() Snacks.picker.git_status() end, desc = "[g]it [s]tatus" },
       { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "[g]it [b]ranch" },
       { "<leader>gl", function() Snacks.git.blame_line() end, desc = "[g]it b[l]ame" },
+      { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "[g]it b[l]ame" },
       { "<leader>tz", function() Snacks.zen() end, desc = "[t]oggle [z]en" },
     },
     init = function()

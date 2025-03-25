@@ -160,7 +160,9 @@ function M.init(args)
             name = "cmdline",
             module = "blink.compat.source",
             score_offset = 95,
-            enabled = true
+            enabled = function ()
+              return vim.fn.getcmdtype() == ":"
+            end
           },
         }
       },
