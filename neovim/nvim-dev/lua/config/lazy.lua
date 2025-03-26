@@ -40,6 +40,7 @@ require("lazy").setup({
     { require("plugins.code.garbage-day").init({ enable = true }) },
     { require("plugins.code.markdown").init({ enable = true }) },
     { require("plugins.code.neogen").init({ enable = true }) },
+    { require("plugins.code.autopair").init({ enable = true }) },
   },
   checker = {
     enabled = true,
