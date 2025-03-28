@@ -36,6 +36,7 @@ require("lazy").setup({
     { require("plugins.misc.trouble").init({ enable = true }) },
     { require("plugins.misc.unfold").init({ enable = true }) },
     { require("plugins.code.autocompleter-blink").init({ enable = true }) },
+    { require("plugins.code.autocompleter-cmp").init({ enable = false }) },
     { require("plugins.code.autoformatter").init({ enable = true }) },
     { require("plugins.code.garbage-day").init({ enable = true }) },
     { require("plugins.code.markdown").init({ enable = true }) },
