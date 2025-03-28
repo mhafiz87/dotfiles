@@ -42,6 +42,7 @@ require("lazy").setup({
     { require("plugins.code.markdown").init({ enable = true }) },
     { require("plugins.code.neogen").init({ enable = true }) },
     { require("plugins.code.autopair").init({ enable = true }) },
+    { require("plugins.code.debugger").init({ enable = true }) },
   },
   checker = {
     enabled = true,
