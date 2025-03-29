@@ -58,7 +58,9 @@ function M.init(args)
           dapui.close()
         end
         vim.keymap.set("n", "<leader>dbb", dap.toggle_breakpoint, { desc = "[d]e[b]ugger [b]reakpoint" })
+        vim.keymap.set("n", "<leader>dbB", function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, { desc = "[d]e[b]ugger [B]reakpoint condition" })
         vim.keymap.set("n", "<leader>dbc", dap.continue, { desc = "[d]e[b]ugger [c]ontinue" })
+        vim.keymap.set("n", "<leader>dbC", dap.run_to_cursor, { desc = "[d]e[b]ugger run to [C]ursor" })
         vim.keymap.set("n", "<leader>dbt", dapui.toggle, { desc = "[d]e[b]ugger [t]oggle" })
         vim.keymap.set("n", "<leader>dbo", dap.step_over, { desc = "[d]e[b]ugger step [o]ver" })
         vim.keymap.set("n", "<leader>dbi", dap.step_over, { desc = "[d]e[b]ugger step [i]nto" })
@@ -82,6 +84,7 @@ function M.init(args)
         else
           dap_python.setup()
         end
+        dap_python.setup("python")
         vim.keymap.set("n", "<leader>dbr", dap_python.test_method, { desc = "[d]e[b]ugger [r]un" })
       end,
     },
