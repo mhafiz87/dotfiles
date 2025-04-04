@@ -1,6 +1,6 @@
 return {
   'lewis6991/gitsigns.nvim',
-  priority = 998,
+  priority = 997,
   event = "BufReadPre",
   opts = {
     signs = {

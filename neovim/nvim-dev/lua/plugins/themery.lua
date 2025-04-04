@@ -1,6 +1,7 @@
 return {
   'zaldih/themery.nvim',
   lazy = false,
+  priority = 999,
   dependencies = {
     {
       'folke/tokyonight.nvim',
