@@ -13,6 +13,7 @@ return {
   opts = function()
     local Snacks = require("snacks")
     local icons = require("config.icons")
+    local gitsigns = require("gitsigns")
     local lualine = require("lualine")
     -- PERF: we don't need this lualine require madness 🤷
     local lualine_require = require("lualine_require")
@@ -39,7 +40,7 @@ return {
             -- 3: Absolute path, with tilde as the home directory
             -- 4: Filename and parent dir, with tilde as the home directory
             symbols = {
-              modified = "", -- Text to show when the file is modified.
+              modified = icons.git.modified, -- Text to show when the file is modified.
               readonly = "", -- Text to show when the file is non-modifiable or readonly.
             },
             {
@@ -56,6 +57,36 @@ return {
         },
         lualine_x = {
           Snacks.profiler.status(),
+          -- stylua: ignore
+          {
+            function() return "  " .. require("dap").status() end,
+            cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
+            color = function() return { fg = Snacks.util.color("Debug") } end,
+          },
+          -- stylua: ignore
+          {
+            require("lazy.status").updates,
+            cond = require("lazy.status").has_updates,
+            color = function() return { fg = Snacks.util.color("Special") } end,
+          },
+          {
+            "diff",
+            symbols = {
+              added = icons.git.added,
+              modified = icons.git.modified,
+              removed = icons.git.removed,
+            },
+            source = function()
+              local gitsigns = vim.b.gitsigns_status_dict
+              if gitsigns then
+                return {
+                  added = gitsigns.added,
+                  modified = gitsigns.changed,
+                  removed = gitsigns.removed,
+                }
+              end
+            end,
+          },
           { "encoding" },
           { "fileformat" },
           { "filetype" },

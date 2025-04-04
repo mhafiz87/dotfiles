@@ -13,6 +13,7 @@ return {
     current_line_blame = true,
     signcolumn = true,
     on_attach = function(bufnr)
+      local gitsigns = require("gitsigns")
       local gs = package.loaded.gitsigns
       vim.keymap.set("n", "<leader>gp", function()
         vim.notify("gitsigns plugin is loaded !!!")
