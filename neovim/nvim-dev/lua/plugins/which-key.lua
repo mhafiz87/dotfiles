@@ -38,6 +38,21 @@ return {
         desc = "+diagnostics/debugger",
         mode = "n",
       },
+      { --toggle
+        "<leader>t",
+        desc = "+toggle",
+        mode = "n",
+      },
+      { --toggle relativenumber
+        "<leader>tr",
+        desc = "+relativenumber",
+        mode = "n",
+      },
+      { --toggle inlayhints
+        "<leader>ti",
+        desc = "+inlay hints",
+        mode = "n",
+      },
     })
   end
 }
