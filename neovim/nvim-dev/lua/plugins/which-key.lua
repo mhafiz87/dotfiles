@@ -9,6 +9,17 @@ return {
         winblend = 50
       }
     },
+    spec = {
+      mode = {"n", "v"},
+      {"<leader>b", group = "buffer"},
+      {"<leader>c", group = "highlight"},
+      {"<leader>d", group = "debugger/diagnostics/docstring"},
+      {"<leader>g", group = "git"},
+      {"<leader>m", group = "format"},
+      {"<leader>t", group = "toggle"},
+      {"<leader>tr", group = "relative number"},
+      {"<leader>ti", group = "inlay hint"},
+    },
   },
   keys = {
     {
@@ -19,40 +30,4 @@ return {
       desc = "Buffer Local Keymaps (which-key)",
     },
   },
-  config = function(_, opts)
-    local wk = require("which-key")
-    wk.setup(opts)
-    wk.add({
-      { --buffer
-        "<leader>b",
-        desc = "+buffer",
-        mode = "n",
-      },
-      { --highlight
-        "<leader>c",
-        desc = "+highlight",
-        mode = "n",
-      },
-      { --diagnostics/debugger
-        "<leader>d",
-        desc = "+diagnostics/debugger",
-        mode = "n",
-      },
-      { --toggle
-        "<leader>t",
-        desc = "+toggle",
-        mode = "n",
-      },
-      { --toggle relativenumber
-        "<leader>tr",
-        desc = "+relativenumber",
-        mode = "n",
-      },
-      { --toggle inlayhints
-        "<leader>ti",
-        desc = "+inlay hints",
-        mode = "n",
-      },
-    })
-  end
 }
