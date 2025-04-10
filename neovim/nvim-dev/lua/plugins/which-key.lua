@@ -14,6 +14,7 @@ return {
       {"<leader>b", group = "buffer"},
       {"<leader>c", group = "highlight"},
       {"<leader>d", group = "debugger/diagnostics/docstring"},
+      {"<leader>dg", group = "diagnostics"},
       {"<leader>g", group = "git"},
       {"<leader>m", group = "format"},
       {"<leader>t", group = "toggle"},

@@ -120,8 +120,8 @@ return {
 
         ['<C-space>'] = { 'show', 'fallback' },
 
-        ['<Up>'] = { 'select_next', 'fallback' },
-        ['<Down>'] = { 'select_prev', 'fallback' },
+        ['<Up>'] = { 'select_prev', 'fallback' },
+        ['<Down>'] = { 'select_next', 'fallback' },
         ['<C-n>'] = { 'select_next', 'fallback' },
         ['<C-p>'] = { 'select_prev', 'fallback' },
         ['<Right>'] = { 'select_next', 'fallback' },
