@@ -70,3 +70,8 @@ if utils.is_windows then
 elseif utils.is_linux then
     vim.g.python3_host_prog = os.getenv("HOME") .. "/.venv/neovim/bin/python"
 end
+
+-- if utils.is_plugin_installed("snacks.nvim") == true then
+--   Snacks.notify("[options] snacks plugin is installed !!!")
+--   opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+-- end
