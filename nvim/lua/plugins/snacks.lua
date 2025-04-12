@@ -56,6 +56,8 @@ return {
   },
   keys = {
     { "<leader>bf", function() Snacks.picker.buffers() end, desc = "[b]uffers [f]ind" },
+    { "<leader>bd", function() Snacks.picker.bufdelete() end, desc = "[b]uffers [f]ind" },
+    { "<leader>bD", function() Snacks.picker.bufdelete.other() end, desc = "[b]uffers [f]ind" },
     { "<leader>ff", function() Snacks.picker.files({hidden=true}) end, desc = "[f]ind [f]files" },
     { "<leader>fm", function() Snacks.picker.marks() end, desc = "[f]ind [m]arks" },
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
@@ -68,6 +70,7 @@ return {
     { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "[g]it [b]ranch" },
     { "<leader>gl", function() Snacks.git.blame_line() end, desc = "[g]it b[l]ame" },
     { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "[g]it b[l]ame" },
+    { "<leader>tt", function() Snacks.terminal("pwsh") end, desc = "[t]oggle [t]erminal" },
     { "<leader>tz", function() Snacks.zen() end, desc = "[t]oggle [z]en" },
   },
   init = function()
