@@ -56,8 +56,8 @@ return {
   },
   keys = {
     { "<leader>bf", function() Snacks.picker.buffers() end, desc = "[b]uffers [f]ind" },
-    { "<leader>bd", function() Snacks.picker.bufdelete() end, desc = "[b]uffers [f]ind" },
-    { "<leader>bD", function() Snacks.picker.bufdelete.other() end, desc = "[b]uffers [f]ind" },
+    { "<leader>bd", function() Snacks.bufdelete(0) end, desc = "[b]uffers [f]ind" },
+    { "<leader>bD", function() Snacks.bufdelete.other() end, desc = "[b]uffers [f]ind" },
     { "<leader>ff", function() Snacks.picker.files({hidden=true}) end, desc = "[f]ind [f]files" },
     { "<leader>fm", function() Snacks.picker.marks() end, desc = "[f]ind [m]arks" },
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
