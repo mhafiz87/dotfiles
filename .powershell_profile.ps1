@@ -208,7 +208,7 @@ Function Nvim-Selector {
 }
 # https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlinekeyhandler?view=powershell-7.4
 # https://github.com/kelleyma49/PSFzf/blob/3f31db0367a4865378cc9f667dd3f679d2590c6f/PSFzf.Base.ps1#L883
-Set-PSReadLineKeyHandler -Chord Ctrl+n -ScriptBlock {
+Set-PSReadLineKeyHandler -Chord Ctrl+Shift+n -ScriptBlock {
     [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
     [Microsoft.PowerShell.PSConsoleReadLine]::Insert('Nvim-Selector')
     [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
