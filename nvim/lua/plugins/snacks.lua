@@ -63,7 +63,7 @@ return {
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
-    { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+    -- { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
     { "<leader>dga", function() Snacks.picker.diagnostics() end, desc = "[d]ia[g]nostics" },
     { "<leader>dgb", function() Snacks.picker.diagnostics_buffer() end, desc = "[d]ia[g]nostics [b]uffer" },
     { "<leader>gs", function() Snacks.picker.git_status() end, desc = "[g]it [s]tatus" },
