@@ -60,6 +60,8 @@
     "editor.fontLigatures": true,
     "editor.fontSize": 12,
     "editor.formatOnSave": false,
+    "editor.guides.bracketPairs": "active",
+    "editor.guides.bracketPairsHorizontal": true,
     "editor.insertSpaces": true,
     "editor.lineNumbers": "relative",
     "editor.linkedEditing": true,
@@ -322,4 +324,7 @@
     "zenMode.hideStatusBar": false,
     "workbench.panel.defaultLocation": "bottom",
     "editor.unicodeHighlight.ambiguousCharacters": false,
+    "remote.SSH.remotePlatform": {
+        "outpost-9": "linux"
+    },
 }
