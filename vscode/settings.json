@@ -71,6 +71,8 @@
     "editor.suggestSelection": "first",
     "editor.tabSize": 4,
     "explicitFolding.autoFold": "comments",
+    "explorer.autoReveal": false,
+    "explorer.compactFolders": false,
     "explorer.confirmDelete": false,
     "explorer.openEditors.visible": 5,
     "files.associations": {
