@@ -80,7 +80,7 @@ function Git-Branch-FZF {
     git checkout $(git branch | Select-String -NotMatch "^\*" | fzf --prompt=" Git Branch Selector" | ForEach-Object { Write-Output($_.trim()) })
 }
 
-function Get-GitStatus { & git status -sb $args }
+function Get-GitStatus { & git status --short --branch --show-stash $args }
 
 Set-Alias -Name gbf -Value Git-Branch-FZF
 Set-Alias -Name gs -Value Get-GitStatus

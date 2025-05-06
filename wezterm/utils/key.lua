@@ -1,6 +1,6 @@
--- LEADER CTRL F       | resize font (=, - , BS)
+-- LEADER CTRL F       | resize font CTRL + (=, - , BS)
 -- LEADER CTRL W       | pane navigation (h, j, k, l, w, d, t, v, s, u, i)
--- LEADER P            | resize pane using (h, j, k, l, b)
+-- LEADER CTRL P       | resize pane using (h, j, k, l, b)
 -- LEADER W            | workspace (o, d, l, h)
 -- LEADER CTRL SHIFT F | search
 -- LEADER F11          | Toggle full screen
@@ -179,7 +179,7 @@ local keys_default = {
     key = "w",
     mods = "LEADER|CTRL",
     action = act.ActivateKeyTable({
-      name = "pane_operation",
+      name = "windows",
       one_shot = false,
       -- timeout_milliseconds = 2000,
       until_unknown = true,
@@ -189,7 +189,7 @@ local keys_default = {
   -- resize_pane
   {
     key = "p",
-    mods = "LEADER",
+    mods = "LEADER|CTRL",
     action = act.ActivateKeyTable({
       name = "resize_pane",
       one_shot = false,
@@ -300,9 +300,9 @@ M.key_tables = {
     { key = "q",      action = "PopKeyTable" },
   },
   resize_font = {
-    { key = "=",         action = act.IncreaseFontSize },
-    { key = "-",         action = act.DecreaseFontSize },
-    { key = "Backspace", action = act.ResetFontSize },
+    { key = "=",         mods = "CTRL", action = act.IncreaseFontSize },
+    { key = "-",         mods = "CTRL", action = act.DecreaseFontSize },
+    { key = "Backspace", mods = "CTRL", action = act.ResetFontSize },
     { key = "Escape",    action = "PopKeyTable" },
     { key = "q",         action = "PopKeyTable" },
   },
@@ -321,7 +321,7 @@ M.key_tables = {
     { key = "Escape", action = "PopKeyTable" },
     { key = "q",      action = "PopKeyTable" },
   },
-  pane_operation = {
+  windows = {
     { key = "w",      action = act.CloseCurrentPane({ confirm = true }) },
     { key = "h",      action = act.ActivatePaneDirection("Left") },
     { key = "j",      action = act.ActivatePaneDirection("Down") },
