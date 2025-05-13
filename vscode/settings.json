@@ -83,6 +83,7 @@
   "editor.minimap.enabled": false,
   "editor.multiCursorPaste": "full",
   "editor.showFoldingControls": "always",
+  "editor.snippetSuggestions": "bottom",
   "editor.suggestSelection": "first",
   "editor.tabSize": 4,
   "explorer.confirmDelete": false,
