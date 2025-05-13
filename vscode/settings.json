@@ -68,6 +68,9 @@
   ],
 
   // VS Code  "diffEditor.renderSideBySide": true,
+
+  "editor.cursorBlinking": "blink",
+  "editor.cursorStyle": "block",
   "editor.definitionLinkOpensInPeek": false,
   "editor.detectIndentation": true,
   "editor.foldingImportsByDefault": false,
@@ -146,6 +149,9 @@
   "hediet.vscode-drawio.resizeImages": null,
 
   // Vim
+  "vim.cursorStylePerMode.insert": "line",
+  "vim.cursorStylePerMode.normal": "block",
+  "vim.disableExtension": false,
   "vim.easymotion": true,
   "vim.foldfix": false,
   "vim.highlightedyank.color": "rgba(250, 240, 170, 1)",

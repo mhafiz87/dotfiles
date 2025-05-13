@@ -32,6 +32,28 @@
       ]
     }
   },
+  // Toggle VIM
+  {
+    "key": "F6",
+    "command": "toggle",
+    "args": {
+      "id": "vim_toggle",
+      "value": [
+        {
+          "editor.cursorStyle": "block",
+          "vim.cursorStylePerMode.insert": "line",
+          "vim.cursorStylePerMode.normal": "block",
+          "vim.disableExtension": false
+        },
+        {
+          "editor.cursorStyle": "line",
+          "vim.cursorStylePerMode.insert": "line",
+          "vim.cursorStylePerMode.normal": "line",
+          "vim.disableExtension": true
+        }
+      ]
+    }
+  },
   // quick open navigation
   {
       "key": "ctrl+n",
@@ -212,5 +234,13 @@
     "key": "ctrl+j",
     "command": "-extension.vim_ctrl+j",
     "when": "editorTextFocus && vim.active && vim.use<C-j> && !inDebugRepl"
+  },
+  {
+    "key": "f6",
+    "command": "-workbench.action.focusNextPart"
+  },
+  {
+    "key": "shift+f6",
+    "command": "-workbench.action.focusPreviousPart"
   },
 ]
