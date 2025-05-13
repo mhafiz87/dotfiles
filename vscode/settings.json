@@ -104,6 +104,7 @@
   "window.commandCenter": false,
   "window.density.editorTabHeight": "compact",
   "window.menuBarVisibility": "compact",
+  "window.newWindowProfile": "Default",
   "window.restoreWindows": "none",
   "workbench.colorTheme": "Default Dark Modern",
   "workbench.editor.showTabs": "multiple",
@@ -1605,10 +1606,10 @@
   // Auto Update
   "editor.lineNumbers": "relative",
   "workbench.colorCustomizations": {
-    "statusBar.background": "#FFD700",
-    "statusBar.noFolderBackground": "#FFD700",
-    "statusBar.debuggingBackground": "#FFD700",
-    "statusBar.foreground": "#000000",
-    "statusBar.debuggingForeground": "#000000"
+    "statusBar.background": "#1F1F1F",
+    "statusBar.noFolderBackground": "#1F1F1F",
+    "statusBar.debuggingBackground": "#1F1F1F",
+    "statusBar.foreground": "#ffffff",
+    "statusBar.debuggingForeground": "#ffffff"
   },
 }
