@@ -13,8 +13,8 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     event = "BufReadPre",
-    version = "1.0.1",
-    -- commit = "7ce11ab",
+    -- version = "1.0.1",
+    commit = "*",  -- to get the latest commit
     config = function()
       local gitsigns = require("gitsigns")
       gitsigns.setup({
