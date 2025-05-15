@@ -67,8 +67,8 @@
     "W"
   ],
 
-  // VS Code  "diffEditor.renderSideBySide": true,
-
+  // VS Code
+  "diffEditor.renderSideBySide": true,
   "editor.cursorBlinking": "blink",
   "editor.cursorStyle": "block",
   "editor.definitionLinkOpensInPeek": false,
@@ -829,23 +829,34 @@
       "type": "bindings",
       "bindings": [
         {
-          "key": "n",
-          "name": "next hunk",
-          "type": "commands",
-          "commands": [
-            "editor.action.dirtydiff.next",
-            "center-editor-window.center"
-          ]
+          "key": "h",
+          "name": "hunk",
+          "type": "command",
+          "command": "whichkey.showTransient",
+          "args":{
+            "title": "Git Hunk",
+            "bindings": [
+              {
+                "key": "n",
+                "name": "next hunk",
+                "type": "commands",
+                "commands": [
+                  "editor.action.dirtydiff.next",
+                  "center-editor-window.center"
+                ]
+              },
+              {
+                "key": "p",
+                "name": "previous hunk",
+                "type": "commands",
+                "commands": [
+                  "editor.action.dirtydiff.previous",
+                  "center-editor-window.center"
+                ]
+              }
+            ]
+          }
         },
-        {
-          "key": "p",
-          "name": "next hunk",
-          "type": "commands",
-          "commands": [
-            "editor.action.dirtydiff.previous",
-            "center-editor-window.center"
-          ]
-        }
       ]
     },
     {
