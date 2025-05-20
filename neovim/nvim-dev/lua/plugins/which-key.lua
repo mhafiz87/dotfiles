@@ -22,9 +22,6 @@ return {
       {"<leader>ti", group = "inlay hint"},
     },
   },
-  triggers = {
-    { "<auto>", mode = "nxso" },
-  },
   keys = {
     {
       "<leader>?",
@@ -33,24 +30,5 @@ return {
       end,
       desc = "Buffer Local Keymaps (which-key)",
     },
-    -- {
-    --   "<c-w>.",
-    --   function()
-    --     require("which-key").show({
-    --       keys = "<c-w>",
-    --       loop = true
-    --     })
-    --   end,
-    --   desc = "Window Navigation"
-    -- },
-    -- { "<c-w>h", "<c-w>h", desc = "Go to left window" },
-    -- { "<c-w>l", "<c-w>l", desc = "Go to right window" },
-    -- { "<c-w>+", "<c-w>+", desc = "Increase height" },
-    -- { "<c-w>-", "<c-w>-", desc = "Decrease height" },
-    -- { "<c-w>_", "<c-w>-", desc = "Max height" },
-    -- { "<c-w>>", "<c-w>>", desc = "Increase width" },
-    -- { "<c-w><", "<c-w><", desc = "Decrease width" },
-    -- { "<c-w>|", "<c-w>|", desc = "Max width" },
-    -- { "<c-w>=", "<c-w>=", desc = "Equally high and wide" },
   },
 }

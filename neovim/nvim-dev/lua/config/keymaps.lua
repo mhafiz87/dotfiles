@@ -19,6 +19,10 @@ map("v", "K", ":m '<-2<CR>gv=gv")
 -- Don't copy the replaced text after pasting.
 map("v", "p", '"_dP')
 
+-- https://www.reddit.com/r/neovim/comments/13y3thq/comment/jmm7tut/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+-- Keep cursor at the current position after yanking
+map("v", "y", "ygv<esc>")
+
 -- Clear highlight
 map({ "n", "v" }, "<leader>cl", "<cmd>:nohl<cr>", descs("[c]lear high[l]ights"))
 

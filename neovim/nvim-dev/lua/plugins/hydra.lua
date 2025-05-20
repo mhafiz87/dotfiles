@@ -59,7 +59,7 @@ _\\_: max height
             {"<", "<c-w><", {desc = "decrease width",silent = true}},
             {"=", "<c-w>=", {desc = "equal window size",silent = true}},
             {"|", "<c-w>|", {desc = "max width",silent = true}},
-            {"\\", "<c-w>\\", {desc = "max width",silent = true}},
+            {"\\", "<c-w>_", {desc = "max height",silent = true}},
           }
         }
       )
