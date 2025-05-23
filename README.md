@@ -7,6 +7,10 @@
 Create symbolic link.
 
 ```bash
+# gitconfig
+if(test-path -path "$env:userprofile/.gitconfig"){remove-item -path "$env:userprofile/.gitconfig" -force}
+new-item -itemtype symboliclink -path $env:userprofile/.gitconfig -target "$env:userprofile/.config/.gitconfig" -force
+
 # Powershell Profile
 if(test-path -path "$profile"){remove-item -path "$profile" -force}
 new-item -itemtype symboliclink -path $profile -target "$env:userprofile/.config/.powershell_profile.ps1" -force
