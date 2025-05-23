@@ -1,12 +1,25 @@
 [color]
-	ui = auto
+  ui = auto
 [alias]
-	hist = log --oneline --graph --decorate --all --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)%cr %C(bold cyan)<%an>%C(reset)' --abbrev-commit
-	lg = log --no-merges --first-parent --decorate --abbrev-commit --pretty=tformat:'%C(bold red)%h%C(reset)%C(bold yellow)%d%C(reset) | %C(bold cyan)%an%C(reset) | %C(bold green)%cr%C(reset)%n%C(bold white)%s%C(reset)%n%b'
+  hist = log --oneline --graph --decorate --all --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)%cr %C(bold cyan)<%an>%C(reset)' --abbrev-commit
+  lg = log --no-merges --first-parent --decorate --abbrev-commit --pretty=tformat:'%C(bold red)%h%C(reset)%C(bold yellow)%d%C(reset) | %C(bold cyan)%an%C(reset) | %C(bold green)%cr%C(reset)%n%C(bold white)%s%C(reset)%n%b'
+[commit]
+  template = "~/.gitmessage"
+[status]
+  short = true
+  branch = true
+  showStash = true
+  showUntrackedFiles = all
 [core]
-	editor = notepad++ -multiInst -notabbar -nosession -noPlugin
-	pager = delta
+  editor = notepad++ -multiInst -notabbar -nosession -noPlugin
+  pager = delta
+  sshCommand = 'C:\\Windows\\System32\\OpenSSH\\ssh.exe'
+  longpaths = true
 [interactive]
-	diffFilter = delta --color-only
+  diffFilter = delta --color-only
 [delta]
-	navigate = true
+  navigate = true
+  side-by-side = true
+  true-color = always
+  line-numbers = true
+  hyperlinks = true
