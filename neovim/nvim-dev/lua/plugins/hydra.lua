@@ -1,5 +1,5 @@
 return {
-    enabled = true,
+    enabled = false,
     "nvimtools/hydra.nvim",
     config = function()
         -- create hydras in here
@@ -60,6 +60,57 @@ _\\_: max height
             {"=", "<c-w>=", {desc = "equal window size",silent = true}},
             {"|", "<c-w>|", {desc = "max width",silent = true}},
             {"\\", "<c-w>_", {desc = "max height",silent = true}},
+          }
+        }
+      )
+      Hydra(
+        {
+          name = "git hunk",
+          mode = "n",
+          body = "<leader>gh",
+          config = {
+            hint = {
+              type = "window",
+              position = "bottom-right"
+            }
+          },
+          hint = [[
+Git Hunk
+^
+_n_: go to next hunk
+^
+          ]],
+          heads = {
+            {
+              "n",
+              function ()
+                require("gitsigns").next_hunk()
+                vim.cmd(":sleep 50m")
+                vim.cmd("norm! zz")
+              end,
+              {
+                desc = "[g]o to [n]ext Hunk"
+              }
+            }
+          }
+        }
+      )
+      Hydra(
+        {
+          name = "window navigation",
+          mode = "n",
+          body = "<leader>sn",
+          config = {
+            invoke_on_body = true,
+            on_enter = require('nvim-treesitter.incremental_selection').init_selection,
+            hint = {
+              type = "window",
+              position = "bottom-right"
+            }
+          },
+          heads = {
+            {"n", require('nvim-treesitter.incremental_selection').node_incremental},
+            {"N", ":lua require('nvim-treesitter.incremental_selection').node_decremental()<CR>"}
           }
         }
       )

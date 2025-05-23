@@ -1630,4 +1630,5 @@
     "statusBar.foreground": "#ffffff",
     "statusBar.debuggingForeground": "#ffffff"
   },
+  "extensions.ignoreRecommendations": true,
 }
