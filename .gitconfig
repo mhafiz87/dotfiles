@@ -11,7 +11,8 @@
   showStash = true
   showUntrackedFiles = all
 [core]
-  editor = notepad++ -multiInst -notabbar -nosession -noPlugin
+  ; editor = notepad++ -multiInst -notabbar -nosession -noPlugin
+  editor = "nvim --clean -f"
   pager = delta
   sshCommand = 'C:\\Windows\\System32\\OpenSSH\\ssh.exe'
   longpaths = true
