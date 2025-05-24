@@ -23,3 +23,5 @@
   true-color = always
   line-numbers = true
   hyperlinks = true
+[url "https://github.com/mhafiz87/"]
+  insteadOf = "mhafiz87:"
