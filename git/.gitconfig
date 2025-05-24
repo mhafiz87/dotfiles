@@ -9,7 +9,6 @@
   short = true
   branch = true
   showStash = true
-  showUntrackedFiles = all
 [core]
   ; editor = notepad++ -multiInst -notabbar -nosession -noPlugin
   editor = "nvim -f"
