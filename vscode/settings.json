@@ -376,7 +376,7 @@
   "vim.handleKeys": {
     "<C-a>": false,
     "<C-f>": false,
-    // "<C-w>": false,
+    "<C-w>": false,
     "<C-p>": false
   },
 
