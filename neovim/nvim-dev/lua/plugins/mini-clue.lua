@@ -6,7 +6,10 @@ return {
     local miniclue = require('mini.clue')
     miniclue.setup({
       window = {
-        delay = 50,
+        delay = 0,
+        config = {
+          width = "auto"
+        }
       },
       triggers = {
         -- Leader triggers
@@ -51,8 +54,11 @@ return {
         miniclue.gen_clues.registers(),
         miniclue.gen_clues.windows(),
         miniclue.gen_clues.z(),
+        -- Git Hunk
         { mode = "n", keys = "<leader>gh[", postkeys = "<leader>gh" },
         { mode = "n", keys = "<leader>gh]", postkeys = "<leader>gh" },
+        -- LSP
+        { mode = "n", keys = "gr", desc = "[g]o to [r]eferences"},
       },
     })
   end
