@@ -112,6 +112,7 @@
   "window.restoreWindows": "none",
   "workbench.colorTheme": "Default Dark Modern",
   "workbench.editor.showTabs": "multiple",
+  "workbench.editor.enablePreview": false,
   "workbench.iconTheme": "material-icon-theme",
   "workbench.panel.defaultLocation": "bottom",
   "workbench.startupEditor": "none",
