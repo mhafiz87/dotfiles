@@ -148,6 +148,7 @@
     "method"
   ],
   "hediet.vscode-drawio.resizeImages": null,
+  "python.analysis.typeCheckingMode": "basic",
 
   // Vim
   "vim.cursorStylePerMode.insert": "line",
