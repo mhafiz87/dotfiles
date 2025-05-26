@@ -9,9 +9,9 @@ Create symbolic link.
 ```bash
 # git
 if(test-path -path "$env:userprofile/.gitconfig"){remove-item -path "$env:userprofile/.gitconfig" -force}
-new-item -itemtype symboliclink -path $env:userprofile/.gitconfig -target "$env:userprofile/.config/.gitconfig" -force
+new-item -itemtype symboliclink -path $env:userprofile/.gitconfig -target "$env:userprofile/.config/git/.gitconfig" -force
 if(test-path -path "$env:userprofile/.gitmessage"){remove-item -path "$env:userprofile/.gitmessage" -force}
-new-item -itemtype symboliclink -path $env:userprofile/.gitconfig -target "$env:userprofile/.config/.gitmessage" -force
+new-item -itemtype symboliclink -path $env:userprofile/.gitconfig -target "$env:userprofile/.config/git/.gitmessage" -force
 
 # Powershell Profile
 if(test-path -path "$profile"){remove-item -path "$profile" -force}
