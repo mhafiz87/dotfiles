@@ -2,8 +2,14 @@ local utils = require("utils")
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    {"mason-org/mason.nvim", version = "1.*.*"},
-    {"mason-org/mason-lspconfig.nvim", version = "1.*.*"}, -- manage / auto-install LSP server
+    { -- manage / auto-install LSP server
+      "mason-org/mason-lspconfig.nvim",
+      -- version = "1.*.*",
+      dependencies = {
+        "mason-org/mason.nvim",
+        -- version = "1.*.*",
+      }
+    },
     "j-hui/fidget.nvim", -- to show LSP progress
   },
   event = "BufReadPre",
@@ -89,7 +95,6 @@ return {
       ensure_installed = {
         "lua_ls",
         "basedpyright",
-        -- "pyright",
         "powershell_es",
         "marksman",
         "ruff",
