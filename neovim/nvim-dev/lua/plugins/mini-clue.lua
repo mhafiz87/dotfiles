@@ -1,5 +1,5 @@
 return {
-  -- enabled = false,
+  enabled = false,
   'echasnovski/mini.clue',
   version = '*',
   config = function ()
@@ -55,8 +55,9 @@ return {
         miniclue.gen_clues.windows(),
         miniclue.gen_clues.z(),
         -- Git Hunk
-        { mode = "n", keys = "<leader>gh[", postkeys = "<leader>gh" },
-        { mode = "n", keys = "<leader>gh]", postkeys = "<leader>gh" },
+        { mode = "n", keys = "<leader>ghp", postkeys = "<leader>gh" },
+        { mode = "n", keys = "<leader>ghn", postkeys = "<leader>gh" },
+        { mode = "n", keys = "<leader>ghr", postkeys = "<leader>gh" },
         -- LSP
         { mode = "n", keys = "gr", desc = "[g]o to [r]eferences"},
       },
