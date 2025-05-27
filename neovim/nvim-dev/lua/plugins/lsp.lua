@@ -19,12 +19,20 @@ return {
         if not client then
           return
         end
+        vim.keymap.set(
+          "n",
+          "K",
+          function()
+            vim.lsp.buf.hover { border = "rounded", max_height = 25, max_width = 120 }
+          end,
+          { buffer = event_context.buf }
+        )
       end
     })
 
     -- A mapping from lsp server name to the executable name
     local enabled_lsp_servers = {
-      pyright = "delance-langserver",
+      basedpyright = "basedpyright-langserver",
       ruff = "ruff",
       lua_ls = "lua-language-server",
       -- ltex = "ltex-ls",
