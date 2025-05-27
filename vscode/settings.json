@@ -355,11 +355,6 @@
       "before": ["<space>"],
       "commands": ["whichkey.show"]
     },
-    // Half Page Navigation Then Re-Centre
-    {
-      "before": [ "j", "k" ],
-      "after": [ "<Esc>" ]
-    },
     // Allow tab line multiple times
     {
       "before": [ ">" ],

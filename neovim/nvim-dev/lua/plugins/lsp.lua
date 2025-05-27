@@ -19,14 +19,18 @@ return {
         if not client then
           return
         end
-        vim.keymap.set(
-          "n",
-          "K",
-          function()
-            vim.lsp.buf.hover { border = "rounded", max_height = 25, max_width = 120 }
-          end,
-          { buffer = event_context.buf }
-        )
+
+        local bufnr = event_context.buf
+
+        -- Mappings.
+        local map = function(mode, l, r, opts)
+          opts = opts or {}
+          opts.silent = true
+          opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, opts)
+        end
+
+        map( "n", "K", function() vim.lsp.buf.hover { border = "rounded", max_height = 25, max_width = 120 } end)
       end
     })
 
