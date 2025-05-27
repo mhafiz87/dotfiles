@@ -11,7 +11,7 @@
   showStash = true
 [core]
   ; editor = notepad++ -multiInst -notabbar -nosession -noPlugin
-  editor = "nvim -f --clean"
+  editor = "nvim -f --clean -c 'set rnu'"
   pager = delta
   sshCommand = 'C:\\Windows\\System32\\OpenSSH\\ssh.exe'
   longpaths = true
