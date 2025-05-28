@@ -39,6 +39,7 @@ return {
       basedpyright = "basedpyright-langserver",
       ruff = "ruff",
       lua_ls = "lua-language-server",
+      taplo = "taplo"
       -- ltex = "ltex-ls",
       -- clangd = "clangd",
       -- vimls = "vim-language-server",
