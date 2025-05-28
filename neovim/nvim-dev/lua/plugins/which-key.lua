@@ -1,5 +1,5 @@
 return {
-  -- enabled = false,
+  enabled = false,
   "folke/which-key.nvim",
   event = "VeryLazy",
   opts = {

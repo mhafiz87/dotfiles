@@ -1,5 +1,5 @@
 return {
-  enabled = false,
+  -- enabled = false,
   'echasnovski/mini.clue',
   version = '*',
   config = function ()

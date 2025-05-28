@@ -36,6 +36,9 @@ return {
         auto_attach = true,
         current_line_blame = true,
         signcolumn = true,
+        preview_config = {
+          border = "rounded"
+        },
         on_attach = function(bufnr)
           vim.keymap.set(
             "n",
