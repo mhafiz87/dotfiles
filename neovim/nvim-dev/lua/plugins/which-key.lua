@@ -1,5 +1,5 @@
 return {
-  enabled = false,
+  -- enabled = false,
   "folke/which-key.nvim",
   event = "VeryLazy",
   opts = {
@@ -30,6 +30,18 @@ return {
       "<leader>?",
       function()
         require("which-key").show({ global = false })
+      end,
+      desc = "Buffer Local Keymaps (which-key)",
+    },
+    {
+      "<C-w>.",
+      function()
+        require("which-key").show(
+          {
+            keys = "<C-w>",
+            loop = true
+          }
+        )
       end,
       desc = "Buffer Local Keymaps (which-key)",
     },
