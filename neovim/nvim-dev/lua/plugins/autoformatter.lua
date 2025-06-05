@@ -41,6 +41,7 @@ return {
       -- javascript = { { "prettierd", "prettier" } },
       markdown = { "prettier" },
       toml = { "taplo" },
+      yaml = { "yamlfix" },
     },
     -- format_after_save = {
     --   lsp_fallback = true,
