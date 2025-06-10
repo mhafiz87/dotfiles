@@ -34,6 +34,12 @@ return {
         map( "n", "K", function() vim.lsp.buf.hover { border = "rounded", max_height = 25, max_width = 120 } end)
         if (snacks_exist) then
           map( "n", "gd", function() snacks.picker.lsp_definitions() end, { desc = "go to definition" })
+          map("n", "gD", function() snacks.picker.lsp_declarations() end, {desc = "go to declaration"} )
+          map("n", "gr", function() snacks.picker.lsp_references() end, {nowait = true, desc = "references"} )
+          map("n", "gI", function() snacks.picker.lsp_implementations() end, {desc = "go to implementation"} )
+          map("n", "gy", function() snacks.picker.lsp_type_definitions() end, { desc = "go to type definition" } )
+          map("n", "<leader>ss", function() snacks.picker.lsp_symbols() end, {desc = "lsp symbols"} )
+          map("n", "<leader>sS", function() snacks.picker.lsp_workspace_symbols() end, {desc = "lsp workspace symbols"} )
         end
       end
     })
