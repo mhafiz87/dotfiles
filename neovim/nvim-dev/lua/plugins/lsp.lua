@@ -41,7 +41,28 @@ return {
           map("n", "<leader>ss", function() snacks.picker.lsp_symbols() end, {desc = "lsp symbols"} )
           map("n", "<leader>sS", function() snacks.picker.lsp_workspace_symbols() end, {desc = "lsp workspace symbols"} )
         end
-      end
+        -- The blow command will highlight the current variable and its usages in the buffer.
+        if client.server_capabilities.documentHighlightProvider then
+          local gid = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+          vim.api.nvim_create_autocmd("CursorHold", {
+            group = gid,
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.document_highlight()
+            end,
+          })
+
+          vim.api.nvim_create_autocmd("CursorMoved", {
+            group = gid,
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.clear_references()
+            end,
+          })
+        end
+      end,
+      nested = true,
+      desc = "Configure buffer keymap and behavior based on LSP",
     })
 
     local capabilities = utils.get_default_capabilities()
