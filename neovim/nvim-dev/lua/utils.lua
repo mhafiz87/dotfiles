@@ -14,6 +14,19 @@ M.is_plugin_installed = function(plugins_name)
   end
 end
 
+-- https://github.com/jdhao/nvim-config/blob/main/lua/lsp_utils.lua
+M.get_default_capabilities = function()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+  -- required by nvim-ufo
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+  }
+
+  return capabilities
+end
+
 M.is_windows = function ()
     return vim.loop.os_uname().sysname == "Windows_NT"
 end

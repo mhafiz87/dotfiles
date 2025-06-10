@@ -10,6 +10,7 @@ return {
   event = "BufReadPre",
   config = function()
     require("fidget").setup()
+    local snacks_exist, snacks = pcall(require, "snacks")
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("lsp_buf_conf", { clear = true }),
       callback = function(event_context)
@@ -31,7 +32,19 @@ return {
         end
 
         map( "n", "K", function() vim.lsp.buf.hover { border = "rounded", max_height = 25, max_width = 120 } end)
+        if (snacks_exist) then
+          map( "n", "gd", function() snacks.picker.lsp_definitions() end, { desc = "go to definition" })
+        end
       end
+    })
+
+    local capabilities = utils.get_default_capabilities()
+
+    vim.lsp.config("*", {
+      capabilities = capabilities,
+      flags = {
+        debounce_text_changes = 500,
+      },
     })
 
     -- A mapping from lsp server name to the executable name
