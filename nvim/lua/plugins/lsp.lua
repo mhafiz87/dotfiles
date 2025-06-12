@@ -31,15 +31,15 @@ return {
           vim.keymap.set(mode, l, r, opts)
         end
 
-        map( "n", "K", function() vim.lsp.buf.hover { border = "rounded", max_height = 25, max_width = 120 } end)
+        map( "n", "K", function() vim.lsp.buf.hover { border = "rounded", max_height = 25, max_width = 120 } end, { desc = "show do[K]umentation" })
         if (snacks_exist) then
-          map( "n", "gd", function() snacks.picker.lsp_definitions() end, { desc = "go to definition" })
-          map("n", "gD", function() snacks.picker.lsp_declarations() end, {desc = "go to declaration"} )
-          map("n", "gr", function() snacks.picker.lsp_references() end, {nowait = true, desc = "references"} )
-          map("n", "gI", function() snacks.picker.lsp_implementations() end, {desc = "go to implementation"} )
-          map("n", "gy", function() snacks.picker.lsp_type_definitions() end, { desc = "go to type definition" } )
-          map("n", "<leader>ss", function() snacks.picker.lsp_symbols() end, {desc = "lsp symbols"} )
-          map("n", "<leader>sS", function() snacks.picker.lsp_workspace_symbols() end, {desc = "lsp workspace symbols"} )
+          map( "n", "gd", function() snacks.picker.lsp_definitions() end, { desc = "[g]o to [d]efinition" })
+          map("n", "gD", function() snacks.picker.lsp_declarations() end, {desc = "[g]o to [D]eclaration"} )
+          map("n", "gr", function() snacks.picker.lsp_references() end, {nowait = true, desc = "[g] to [r]eferences"} )
+          map("n", "gI", function() snacks.picker.lsp_implementations() end, {desc = "[g]o to [I]mplementation"} )
+          map("n", "gy", function() snacks.picker.lsp_type_definitions() end, { desc = "[g]o to t[y]pe definition" } )
+          map("n", "<leader>ss", function() snacks.picker.lsp_symbols() end, {desc = "[s]how [s]ymbols"} )
+          map("n", "<leader>sS", function() snacks.picker.lsp_workspace_symbols() end, {desc = "[s]how workspace [S]ymbols"} )
         end
         -- The blow command will highlight the current variable and its usages in the buffer.
         if client.server_capabilities.documentHighlightProvider then
