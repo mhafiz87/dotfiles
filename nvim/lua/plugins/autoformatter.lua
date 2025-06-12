@@ -13,23 +13,23 @@ end
 return {
   "stevearc/conform.nvim",
   dependencies = {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    {
-      "zapling/mason-conform.nvim",
-      opts = {
-        ensure_installed = {
-            "black",
-            "isort",
-            "markdownlint",
-            "markdown-toc",
-            "prettier",
-            "stylua"
-          },
-          automatic_installation = {},
-          ignore_install = {},
-      },
-    }
+    -- "williamboman/mason.nvim",
+    -- "williamboman/mason-lspconfig.nvim",
+    -- {
+    --   "zapling/mason-conform.nvim",
+    --   opts = {
+    --     ensure_installed = {
+    --         "black",
+    --         "isort",
+    --         "markdownlint",
+    --         "markdown-toc",
+    --         "prettier",
+    --         "stylua"
+    --       },
+    --       automatic_installation = {},
+    --       ignore_install = {},
+    --   },
+    -- }
   },
   event = { "BufReadPre", "BufNewFile" },
   opts = {
@@ -40,6 +40,8 @@ return {
       -- Use a sub-list to run only the first available formatter
       -- javascript = { { "prettierd", "prettier" } },
       markdown = { "prettier" },
+      toml = { "taplo" },
+      yaml = { "yamlfix" },
     },
     -- format_after_save = {
     --   lsp_fallback = true,

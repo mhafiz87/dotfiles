@@ -36,24 +36,61 @@ return {
         auto_attach = true,
         current_line_blame = true,
         signcolumn = true,
+        preview_config = {
+          border = "rounded"
+        },
         on_attach = function(bufnr)
-          -- if utils.is_plugin_installed("gitsigns.nvim") == true then
-          --   local Snacks = require("snacks")
-          --   Snacks.notify("[gitsigns] gitsigns plugin is installed !!!")
-          -- end
-          vim.keymap.set("n", "<leader>gp", function()
-            vim.notify("gitsigns plugin is loaded !!!")
-            gitsigns.prev_hunk()
-            vim.cmd(":sleep 50m")
-            vim.cmd("norm! zz")
-          end, { buffer = bufnr, desc = "[g]o to [p]revious Hunk" })
-          vim.keymap.set("n", "<leader>gn", function()
-            gitsigns.next_hunk()
-            vim.cmd(":sleep 50m")
-            vim.cmd("norm! zz")
-          end, { buffer = bufnr, desc = "[g]o to [n]ext Hunk" })
-          vim.keymap.set("n", "<leader>gh", gitsigns.preview_hunk, { buffer = bufnr, desc = "View [g]it [h]unk" })
-          vim.keymap.set("n", "<leader>gr", gitsigns.toggle_current_line_blame, { buffer = bufnr, desc = "Toggle [g]it [b]lame" })
+          vim.keymap.set(
+            "n",
+            "<leader>gh.",
+            function()
+              require("which-key").show(
+                {
+                  keys = "<leader>gh",
+                  loop = true
+                }
+              )
+            end,
+            {
+              buffer = bufnr,
+              desc = "enable hydra mode"
+            }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>ghp",
+            function()
+              gitsigns.prev_hunk()
+              vim.cmd(":sleep 50m")
+              vim.cmd("norm! zz")
+            end,
+            {
+              buffer = bufnr,
+              desc = "[g]it [h]unk [p]revious"
+            }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>ghn",
+            function()
+              gitsigns.next_hunk()
+              vim.cmd(":sleep 50m")
+              vim.cmd("norm! zz")
+            end,
+            {
+              buffer = bufnr,
+              desc = "[g]it [h]unk [n]ext"
+            }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>ghr",
+            gitsigns.preview_hunk,
+            {
+              buffer = bufnr,
+              desc = "[g]it [h]unk p[r]eview"
+            }
+          )
         end,
       })
     end

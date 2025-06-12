@@ -4,7 +4,7 @@ return {
     ft = "markdown",
     config = function()
       vim.fn["mkdp#util#install"]()
-      vim.keymap.set("n", "<leader>md", "<CMD>MarkdownPreviewToggle<CR>")
+      vim.keymap.set("n", "<leader>mdp", "<CMD>MarkdownPreviewToggle<CR>")
       vim.g.mkdp_auto_close = 0
       vim.g.mkdp_theme = "light"
     end,
@@ -16,7 +16,7 @@ return {
     config = function()
       require('render-markdown').setup({
         on_attach = function (bufnr)
-          vim.keymap.set("n", "<leader>mr", require("render-markdown").toggle, { desc = "[m]arkdown [r]ender", buffer = bufnr })
+          vim.keymap.set("n", "<leader>mdr", require("render-markdown").toggle, { desc = "[m]arkdown [r]ender", buffer = bufnr })
         end
       })
     end,
@@ -30,10 +30,10 @@ return {
           -- local function toggle(key)
           --   return "<Esc>gv<Cmd>lua require'markdown.inline'" .. ".toggle_emphasis_visual'" .. key .. "'<CR>"
           -- end
-          vim.keymap.set("n", "<leader>mci", "<cmd>MDInsertToc<cr>", { desc = "Insert table of content", buffer = bufnr })
-          vim.keymap.set("n", "<leader>mcl", "<cmd>MDToc<cr>", { desc = "View table of content content", buffer = bufnr })
-          vim.keymap.set("n", "<leader>mtt", "<cmd>MDTaskToggle<cr>", { desc = "Toggle task", buffer = bufnr })
-          vim.keymap.set("x", "<leader>mtt", ":TaskToggle<cr>", { desc = "Toggle task", buffer = bufnr })
+          vim.keymap.set("n", "<leader>mdc", "<cmd>MDInsertToc<cr>", { desc = "Insert table of content", buffer = bufnr })
+          vim.keymap.set("n", "<leader>mdo", "<cmd>MDToc<cr>", { desc = "View table of content content", buffer = bufnr })
+          vim.keymap.set("n", "<leader>mds", "<cmd>MDTaskToggle<cr>", { desc = "Toggle task", buffer = bufnr })
+          vim.keymap.set("x", "<leader>mds", ":TaskToggle<cr>", { desc = "Toggle task", buffer = bufnr })
           -- vim.keymap.set("x", "<c-b>", toggle("b"), { buffer = bufnr })
           -- vim.keymap.set("x", "<c-i>", toggle("i"), { buffer = bufnr })
           -- vim.keymap.set("x", "<c-s>", toggle("s"), { buffer = bufnr })

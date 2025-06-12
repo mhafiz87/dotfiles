@@ -52,6 +52,7 @@ opt.splitright = true -- Put new windows right of current
 opt.tabstop = 4 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
 opt.timeoutlen = vim.g.vscode and 1000 or 300
+-- opt.timeoutlen = 500
 opt.undofile = true
 opt.undolevels = 10000
 opt.updatetime = 250 -- Save swap file and trigger CursorHold

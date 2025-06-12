@@ -2,12 +2,29 @@ local M = {}
 
 M.plugins_path = vim.fn.stdpath("data") .. "/lazy/"
 
+function M.executable(name)
+  return vim.fn.executable(name) > 0
+end
+
 M.is_plugin_installed = function(plugins_name)
   if vim.fn.empty(vim.fn.glob(M.plugins_path .. plugins_name)) > 0 then
     return false
   else
     return true
   end
+end
+
+-- https://github.com/jdhao/nvim-config/blob/main/lua/lsp_utils.lua
+M.get_default_capabilities = function()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+  -- required by nvim-ufo
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+  }
+
+  return capabilities
 end
 
 M.is_windows = function ()

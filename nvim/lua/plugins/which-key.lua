@@ -1,4 +1,5 @@
 return {
+  -- enabled = false,
   "folke/which-key.nvim",
   event = "VeryLazy",
   opts = {
@@ -10,16 +11,19 @@ return {
       }
     },
     spec = {
-      mode = {"n", "v"},
+      mode = {"n"},
       {"<leader>b", group = "buffer"},
-      {"<leader>c", group = "highlight"},
+      -- {"<leader>c", group = "highlight"},
       {"<leader>d", group = "debugger/diagnostics/docstring"},
       {"<leader>dg", group = "diagnostics"},
-      {"<leader>g", group = "git"},
-      {"<leader>m", group = "format"},
-      {"<leader>t", group = "toggle"},
-      {"<leader>tr", group = "relative number"},
-      {"<leader>ti", group = "inlay hint"},
+      {"<leader>g", group = "+git"},
+      {"<leader>gh", group = "+git hunk"},
+      {"<leader>m", group = "+markdown"},
+      {"<leader>md", group = "+markdown"},
+      {"<leader>t", group = "+toggle"},
+      -- {"<leader>tr", group = "relative number"},
+      -- {"<leader>ti", group = "inlay hint"},
+      {"<leader><leader>", group = "+flash"},
     },
   },
   keys = {
@@ -27,6 +31,18 @@ return {
       "<leader>?",
       function()
         require("which-key").show({ global = false })
+      end,
+      desc = "Buffer Local Keymaps (which-key)",
+    },
+    {
+      "<C-w>.",
+      function()
+        require("which-key").show(
+          {
+            keys = "<C-w>",
+            loop = true
+          }
+        )
       end,
       desc = "Buffer Local Keymaps (which-key)",
     },
