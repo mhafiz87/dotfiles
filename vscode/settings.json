@@ -11,10 +11,12 @@
   },
   "[python]": {
     "editor.codeActionsOnSave": {
-      "source.organizeImports": "explicit"
+      // "source.organizeImports": "explicit",
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
     },
     "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding",
-    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "modificationsIfAvailable",
@@ -59,6 +61,7 @@
   "notebook.lineNumbers": "on",
   "python.analysis.diagnosticMode": "openFilesOnly",
   "python.languageServer": "Pylance",
+  "ruff.fixAll": true,
   "ruff.lineLength": 88,
   "ruff.lint.select": [
     "C",
@@ -66,6 +69,7 @@
     "F",
     "W"
   ],
+  "ruff.organizeImports": true,
 
   // VS Code
   "diffEditor.renderSideBySide": true,
