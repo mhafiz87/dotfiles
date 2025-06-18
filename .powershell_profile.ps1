@@ -14,7 +14,7 @@ $canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds
 # Import Modules and External Profiles
 # Ensure Terminal-Icons module is installed before importing
 # foreach ($module in @("PSReadLine", "Terminal-Icons", "7Zip4Powershell", "posh-git", "PSFzf", "PSTree", "ps-color-scripts")) {
-foreach ($module in @("PSReadLine", "Terminal-Icons", "7Zip4Powershell", "PSFzf", "PSTree", "ps-color-scripts")) {
+foreach ($module in @("PSReadLine", "Terminal-Icons", "7Zip4Powershell", "PSFzf", "PSTree", "ps-color-scripts", "PSReadExif")) {
     if (-not (Get-Module -ListAvailable -Name $module)) {
         Install-Module -Name $module -Scope CurrentUser -Force -SkipPublisherCheck
     }
@@ -27,6 +27,7 @@ Import-Module 7Zip4Powershell
 Import-Module PSFzf
 Import-Module PSTree
 # Import-Module ps-color-scripts
+Import-Module PSReadExif
 
 # Set-Alias -Name colorscript -Value Show-ColorScript
 
