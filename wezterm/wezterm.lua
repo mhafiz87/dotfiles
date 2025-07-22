@@ -38,7 +38,8 @@ config.canonicalize_pasted_newlines = "CarriageReturn"
 
 -- Themes
 -- Override scrollbar thumb color
-local theme = "Monokai Remastered"
+-- local theme = "Monokai Remastered"
+local theme = "rose-pine"
 local scheme = wezterm.get_builtin_color_schemes()[theme]
 scheme.scrollbar_thumb = "#ffffff"
 config.color_schemes = { [theme] = scheme }

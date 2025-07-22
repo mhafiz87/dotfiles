@@ -1,6 +1,7 @@
 local trigger_text = ";"
 
 return {
+  enabled = true,
   'saghen/blink.cmp',
   event = {"InsertEnter", "CmdlineEnter"},
   -- optional: provides snippets for the snippet source
