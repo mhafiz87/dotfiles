@@ -1,4 +1,5 @@
 local utils = require("utils")
+local icon = require("config.icons")
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -72,7 +73,15 @@ vim.diagnostic.config({
   source = "if_many",
     prefix = " ● ",
   },
-  signs = true,
+  signs = {
+    active = true,
+    text = {
+      [vim.diagnostic.severity.ERROR] = icon.diagnostics.Error,
+      [vim.diagnostic.severity.WARN] = icon.diagnostics.Warn,
+      [vim.diagnostic.severity.INFO] = icon.diagnostics.Info,
+      [vim.diagnostic.severity.HINT] = icon.diagnostics.Hint
+    }
+  },
   underline = true,
   update_in_insert = false,
   severity_sort = true,
