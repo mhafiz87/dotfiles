@@ -1,5 +1,5 @@
 local utils = require("utils")
-local icon = require("config.icons")
+local defaults = require("config.defaults")
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -68,32 +68,7 @@ opt.undofile = true
 opt.undodir = vim.fn.getcwd() .. "/.nvim/undo"
 
 -- diagnostics
-vim.diagnostic.config({
-  virtual_text = {
-  source = "if_many",
-    prefix = " ● ",
-  },
-  signs = {
-    active = true,
-    text = {
-      [vim.diagnostic.severity.ERROR] = icon.diagnostics.Error,
-      [vim.diagnostic.severity.WARN] = icon.diagnostics.Warn,
-      [vim.diagnostic.severity.INFO] = icon.diagnostics.Info,
-      [vim.diagnostic.severity.HINT] = icon.diagnostics.Hint
-    }
-  },
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
-  float = {
-    focusable = false,
-    style = 'minimal',
-    border = 'rounded',
-    source = 'if_many',
-    header = '',
-    prefix = '',
-  },
-})
+vim.diagnostic.config(defaults.diagnostic)
 
 if utils.is_windows then
     vim.g.python3_host_prog = vim.fn.getenv("USERPROFILE") .. "\\.venv\\neovim\\scripts\\python.exe"
