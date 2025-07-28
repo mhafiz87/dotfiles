@@ -18,6 +18,10 @@ return {
     end
   },
   {
+    "olimorris/onedarkpro.nvim",
+    priority = 1003
+  },
+  {
     'zaldih/themery.nvim',
     lazy = false,
     priority = 2000,
@@ -45,7 +49,6 @@ return {
           {
             name = "monokai pro",
             colorscheme = "monokai-pro",
-
           },
           {
             name = "monokai pro classic",
@@ -62,6 +65,14 @@ return {
           {
             name = "rose pine dawn",
             colorscheme = "rose-pine-dawn",
+          },
+          {
+            name = "onedarkpro",
+            colorscheme = "onedark",
+          },
+          {
+            name = "onedarkpro_dark",
+            colorscheme = "onedark_dark",
           },
         },
         livePreview = true,

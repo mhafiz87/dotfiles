@@ -66,6 +66,26 @@ opt.guicursor = "n-v-sm:block,c-i-ci-ve:ver25,a:blinkwait700-blinkoff400-blinkon
 opt.undofile = true
 opt.undodir = vim.fn.getcwd() .. "/.nvim/undo"
 
+-- diagnostics
+vim.diagnostic.config({
+  virtual_text = {
+  source = "if_many",
+    prefix = " ● ",
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = {
+    focusable = false,
+    style = 'minimal',
+    border = 'rounded',
+    source = 'if_many',
+    header = '',
+    prefix = '',
+  },
+})
+
 if utils.is_windows then
     vim.g.python3_host_prog = vim.fn.getenv("USERPROFILE") .. "\\.venv\\neovim\\scripts\\python.exe"
 elseif utils.is_linux then

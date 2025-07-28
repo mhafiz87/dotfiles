@@ -95,6 +95,9 @@ local diagnostic_goto = function(next, severity)
     go({ severity = severity })
   end
 end
+map("n", "<leader>dgt", function() 
+  vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })
+end, { desc = "Toggle Virtual Text Diagnostics" })
 map("n", "<leader>dgl", function() vim.diagnostic.open_float { border="rounded" } end, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
