@@ -183,7 +183,7 @@ Function Find-File($name) {
 }
 
 Function Nvim-Selector {
-    $apps = "prod", "dev", "lazy"
+    $apps = "prod", "dev", "min", "lazy"
     $index = 0
     foreach ($currentItemName in $apps) {
         if ("nvim-$currentItemName" -eq $env:NVIM_APPNAME) {
