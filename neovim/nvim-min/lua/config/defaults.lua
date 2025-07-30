@@ -1,6 +1,6 @@
 local icon = require("config.icons")
 
-M = {}
+local M = {}
 
 M.diagnostic = {
   virtual_text = {
