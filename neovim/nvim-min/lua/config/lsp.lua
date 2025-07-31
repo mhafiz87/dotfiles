@@ -3,10 +3,13 @@
 -- 2. https://github.com/mplusp/minimal-nvim-0.11-lsp-setup
 -- 3. https://www.youtube.com/watch?v=IZnhl121yo0
 -- 4. https://github.com/adibhanna/minimal-vim
+-- 5. https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 
 -- TODO: list all files in ../lsp directory and auto enable LSPs
 
 vim.lsp.enable("lua_ls")
+vim.lsp.enable("basedpyright")
+vim.lsp.enable("ruff")
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
