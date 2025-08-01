@@ -4,7 +4,8 @@
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[lua]": {
-    "editor.defaultFormatter": "JohnnyMorganz.stylua"
+    "editor.defaultFormatter": "JohnnyMorganz.stylua",
+    "editor.tabSize": 2
   },
   "[markdown]": {
     "editor.defaultFormatter": "yzhang.markdown-all-in-one"
