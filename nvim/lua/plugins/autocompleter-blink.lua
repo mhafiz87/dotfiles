@@ -1,3 +1,7 @@
+-- References:
+-- 1. https://github.com/linkarzu/dotfiles-latest/blob/main/neovim/neobean/lua/plugins/blink-cmp.lua
+
+
 local trigger_text = ";"
 
 return {
@@ -158,6 +162,7 @@ return {
           module = "blink.cmp.sources.buffer",
           score_offset = 97,
         },
+        -- https://github.com/linkarzu/dotfiles-latest/blob/a12375c8b4976efc23454f5c15473277c1d277ed/neovim/neobean/lua/plugins/blink-cmp.lua#L91 ⤵
         snippets = {
           name = "snippets",
           module = "blink.cmp.sources.snippets",
