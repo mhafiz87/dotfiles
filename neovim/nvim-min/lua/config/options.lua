@@ -12,10 +12,9 @@ opt.autowrite = true -- Enable auto write
 opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 
 -- Better Tab Completion ⤵
--- Shows completion menu even there's only one match ⤵
 -- Shows completion menu ONLY when there's more than one match ⤵
 -- Prevents automatic selection of the first item ⤵
-opt.completeopt = "menu,menuone,noselect,fuzzy,popup"
+opt.completeopt = "menuone,noselect,fuzzy,popup"
 
 opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
 opt.cursorline = true -- Enable highlighting of the current line
@@ -29,8 +28,11 @@ opt.fillchars = {
   eob = " ",
 }
 opt.foldlevel = 99
-opt.ignorecase = true -- Ignore case
+
+-- search options ⤵
+opt.ignorecase = true -- ignore case in search pattern
 opt.inccommand = "nosplit" -- preview incremental substitute
+
 opt.jumpoptions = "view"
 opt.laststatus = 3 -- global statusline
 opt.linebreak = true -- Wrap lines at convenient points
@@ -42,8 +44,9 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.relativenumber = true -- Relative line numbers
 opt.ruler = false -- Disable the default ruler
 
-opt.scrolloff = 8 -- Lines of context
-opt.sidescrolloff = 8 -- Lines of context
+-- number of line/char to keep visible when scrolling 
+opt.scrolloff = 8 -- vertical (lines)
+opt.sidescrolloff = 8 -- horizontal (char)
 
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shiftround = true -- Round indent
@@ -51,8 +54,8 @@ opt.shiftwidth = 2 -- Size of an indent
 
 -- Suppress 'written', 'introductory', 'completion',
 opt.shortmess:append({ W = true, I = true, c = true })
+
 opt.showmode = false -- Dont show mode since we have a statusline
-opt.sidescrolloff = 8 -- Columns of context
 opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 opt.smartcase = true -- Don't ignore case with capitals
 opt.smartindent = true -- Insert indents automatically
@@ -74,6 +77,7 @@ opt.virtualedit = "block" -- Allow cursor to move where there is no text in visu
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
+opt.sidescrolloff = 8 -- Columns of context
 
 -- blinking cursor ⤵
 opt.guicursor = "n-v-sm:block,c-i-ci-ve:ver25,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
