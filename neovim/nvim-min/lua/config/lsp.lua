@@ -5,11 +5,20 @@
 -- 4. https://github.com/adibhanna/minimal-vim
 -- 5. https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 
--- TODO: list all files in ../lsp directory and auto enable LSPs
+-- auto populate lsp
+local lsp_list = {}
+local lsp_directory = vim.fn.expand("~/.config/neovim/nvim-min/lsp")
+local lsp_files_dir = vim.fn.readdir(lsp_directory)
 
-vim.lsp.enable("lua_ls")
-vim.lsp.enable("basedpyright")
-vim.lsp.enable("ruff")
+if lsp_files_dir then
+  print("Files in " .. lsp_directory .. ": ")
+  for _, item_name in ipairs(lsp_files_dir) do
+    local lsp = string.gsub(item_name, ".lua", "")
+    table.insert(lsp_list, lsp)
+  end
+end
+
+vim.lsp.enable(lsp_list)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
@@ -23,3 +32,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
+

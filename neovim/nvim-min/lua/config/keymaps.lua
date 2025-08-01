@@ -34,10 +34,6 @@ map("n", "<C-u>", "<C-u>zz", descs())
 -- Keep cursor in the column 0 when [J]oining line below with current one ⤵
 map("n", "J", "mzJ`z", descs())
 
--- Move current line with context awar ⤵e
-map("v", "J", ":m '>+1<CR>gv=gv")
-map("v", "K", ":m '<-2<CR>gv=gv")
-
 -- Open Current Working Directory In VSCode ⤵
 map("n", "<F3>", "<cmd>silent !code " .. vim.fn.getcwd() .. "<cr>", descs("Open current working directory in VSCode."))
 
