@@ -4,6 +4,7 @@
 -- 3. https://www.youtube.com/watch?v=IZnhl121yo0
 -- 4. https://github.com/adibhanna/minimal-vim
 -- 5. https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+-- 6. https://github.com/adibhanna/nvim/blob/08642120e45f63d7f07dc1977df80e8213440172/lua/core/lsp.lua
 
 -- auto populate lsp
 local lsp_list = {}
