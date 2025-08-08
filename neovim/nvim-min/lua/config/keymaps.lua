@@ -83,7 +83,8 @@ local diagnostic_goto = function(next, severity)
     end
   severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
-    go({ severity = severity })
+    -- go({ severity = severity })
+    go()
   end
 end
 vim.keymap.set("n", "<leader>dgt", function()
