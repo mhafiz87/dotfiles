@@ -1,9 +1,15 @@
+local default_options = require("config.default-options")
+
 -- options
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- relative line numbers
+-- enable mouse support in all modes
+vim.opt.mouse = "a"
+
+-- show current line numbers
 vim.opt.nu = true
+-- relative line numbers
 vim.opt.rnu = true
 
 -- use global clipboard
@@ -28,16 +34,18 @@ vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,\z
 a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,\z
 sm:block-blinkwait175-blinkoff150-blinkon175"
 
--- tab
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
+-- tab / indent
+vim.opt.smartindent = true
+vim.opt.expandtab = true  -- use spaces instead of tab
+vim.opt.shiftwidth = 4  -- tab size
+vim.opt.softtabstop = 4  -- tab size
 
 -- split
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- file messages
-vim.opt.shortmess = "I"
+vim.opt.shortmess = "ltTIoOCF"
 
 -- signcolumn (always)
 vim.opt.signcolumn = "yes"
@@ -54,12 +62,31 @@ vim.opt.undodir = vim.fn.getcwd() .. "/.nvim/undo"
 vim.opt.wildmode = "longest:full,full"
 vim.opt.wildoptions = "fuzzy,pum,tagfile"
 
+-- show tab as '>', trailing whitespace as '━', nbsp as '+'
+vim.opt.list = true
+vim.opt.listchars = "tab:<->,trail:━,nbsp:+"
+
 -- window
 vim.opt.winborder = "rounded"
 
--- utility
+-- diagnostics
+vim.diagnostic.config(default_options.diagnostic)
 
--- autocmds
+-- Don't auto commenting new lines
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "",
+  command = "set fo-=c fo-=r fo-=o",
+})
 
 -- keymap
 vim.keymap.set("i", "jk", "<Esc>")
+
+-- source current file
+vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<cr>")
+-- execute current line
+vim.keymap.set("n", "<leader>x", ":.lua<cr>")
+-- execute selected line
+vim.keymap.set("v", "<leader>x", ":lua<cr>")
+
+require("config.lazy")
+
