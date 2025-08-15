@@ -69,6 +69,10 @@ vim.keymap.set("n", "<leader>x", ":.lua<cr>")
 -- execute selected line
 vim.keymap.set("v", "<leader>x", ":lua<cr>")
 
+-- https://www.reddit.com/r/neovim/comments/13y3thq/comment/jmm7tut/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button ⤵
+-- Keep cursor at the current position after yanking ⤵
+vim.keymap.set("v", "y", "ygv<esc>")
+
 -- autocmds
 -- Don't auto commenting new lines
 vim.api.nvim_create_autocmd("BufEnter", {
@@ -83,3 +87,4 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end
 })
 
+require("config.lazy")
