@@ -45,7 +45,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- file messages
-vim.opt.shortmess = "ltTIoOCF"
+vim.opt.shortmess:append({W = true, I = true, c = true, C = true })
 
 -- signcolumn (always)
 vim.opt.signcolumn = "yes"
@@ -64,7 +64,7 @@ vim.opt.wildoptions = "fuzzy,pum,tagfile"
 
 -- show tab as '>', trailing whitespace as '━', nbsp as '+'
 vim.opt.list = true
-vim.opt.listchars = "tab:<->,trail:━,nbsp:+"
+vim.opt.listchars = "tab:<->,trail:-,nbsp:+"
 
 -- window
 vim.opt.winborder = "rounded"
