@@ -98,7 +98,7 @@ return {
         ghost_text = { enabled = true },
         list = {
           selection = {
-            preselect = true,
+            preselect = false,
             auto_insert = true,
           },
         }
