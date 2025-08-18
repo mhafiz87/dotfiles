@@ -86,9 +86,16 @@ vim.keymap.set("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 vim.keymap.set("n", "]5", diagnostic_goto(true), { desc = "Next Diagnostic" })
 vim.keymap.set("n", "[5", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 
--- source current file
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<cr>")
--- execute current line
-vim.keymap.set("n", "<leader>x", ":.lua<cr>")
--- execute selected line
-vim.keymap.set("v", "<leader>x", ":lua<cr>")
+-- quickfix list ⤵
+vim.keymap.set("n", "<leader>xq", function()
+  local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
+  if not success and err then
+    vim.notify(err, vim.log.levels.ERROR)
+  end
+end, { desc = "Quickfix List" })
+
+vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
+vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
+vim.keymap.set("n", "[`", vim.cmd.cprev, { desc = "Previous Quickfix" })
+vim.keymap.set("n", "]`", vim.cmd.cnext, { desc = "Next Quickfix" })
+
