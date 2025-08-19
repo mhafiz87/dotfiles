@@ -31,8 +31,8 @@ vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr=true })
 vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr=true })
 
 -- better indenting ⤵
-vim.keymap.set("v", "<", "<gv")
-vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")  -- (indent then reselect)
+vim.keymap.set("v", ">", ">gv")  -- (indent then reselect)
 
 -- keep cursor current position when [J]oining line below with current one ⤵
 vim.keymap.set("n", "J", "mzJ`z")

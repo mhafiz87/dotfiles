@@ -1,6 +1,7 @@
 return {
   enabled = true,
   "neovim/nvim-lspconfig",
+  event = "BufReadPre",
   dependencies = {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
