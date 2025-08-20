@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Path to the commit message file
+COMMIT_MSG_FILE=$1
+
+# Read the commit message
+COMMIT_MSG=$(cat $COMMIT_MSG_FILE)
+
+# Conventional Commit pattern
+# Format: [optional scope]: 
+# Example: feat(api): add user authentication
+COMMIT_PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: .{1,}'
+
+if ! [[ $COMMIT_MSG =~ $COMMIT_PATTERN ]]; then
+  echo "ERROR: Commit message does not follow conventional format."
+  echo "Required format: [optional scope]: "
+  echo "Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+  echo "Example: feat(api): add user authentication"
+  exit 1
+fi
+
+# Check if description starts with a capital letter
+DESCRIPTION=$(echo "$COMMIT_MSG" | sed -E 's/^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: //')
+FIRST_CHAR=$(echo "$DESCRIPTION" | cut -c1)
+
+if [[ "$FIRST_CHAR" =~ [A-Z] ]]; then
+  echo "ERROR: Description should not start with a capital letter"
+  exit 1
+fi
+
+# Check if description ends with a period
+if [[ "$DESCRIPTION" =~ \.$ ]]; then
+  echo "ERROR: Description should not end with a period"
+  exit 1
+fi
+
+# Check if commit message is too long (>72 characters)
+if [[ ${#COMMIT_MSG} -gt 72 ]]; then
+  echo "WARNING: Commit message is longer than 72 characters"
+fi
+
+exit 0
