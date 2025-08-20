@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Git pre-commit hook using Ruff to sort imports, check, and fix issues
+
+# Store list of staged Python files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.py$')
+
+if [[ "$STAGED_FILES" = "" ]]; then
+  echo -e "\e[1mNo Python files staged for commit. Skipping Ruff checks.\e[0m"
+  exit 0
+fi
+
+echo -e "\e[1mRunning Ruff on staged Python files...\e[0m"
+
+# First, sort imports
+echo -e "\e[1mSorting imports with Ruff...\e[0m"
+ruff check --select I --fix $STAGED_FILES
+
+# Then run Ruff to check and fix other issues
+echo -e "\e[1mRunning Ruff checks and fixes...\e[0m"
+ruff check --fix $STAGED_FILES
+
+# Check if any files were modified by Ruff
+if git diff --name-only | grep -E '\.py$' > /dev/null; then
+  echo -e "\e[1mRuff made changes. Adding modified files to staging area.\e[0m"
+  git add $STAGED_FILES
+fi
+
+# Run a final check to ensure all issues are fixed or properly ignored
+echo -e "\e[1mRunning final verification...\e[0m"
+if ! ruff check $STAGED_FILES; then
+  echo -e "❌ \e1mRuff found issues that couldn't be automatically fixed."
+  echo -e "Please fix the remaining issues and try committing again.\e[0m"
+  exit 1
+fi
+
+echo "✅ Ruff checks passed!"
+exit 0
