@@ -1,7 +1,7 @@
 return {
   enabled = true,
   "neovim/nvim-lspconfig",
-  event = "BufReadPre",
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
@@ -14,7 +14,7 @@ return {
     },
   },
   config = function()
-    local lsp_list = { "lua_ls", "pyright", "ruff", "marksman", "taplo" }
+    local lsp_list = { "lua_ls", "basedpyright", "ruff", "marksman", "taplo" , "bashls"}
     for index = 1, #lsp_list do
       vim.lsp.enable(lsp_list[index])
     end
