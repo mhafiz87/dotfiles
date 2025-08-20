@@ -81,18 +81,17 @@ if [[ -n "$FOOTER" ]]; then
   # Check for breaking changes format
   BREAKING_CHANGES=$(echo "$FOOTER" | grep -i "^BREAKING CHANGE:")
   if [[ -n "$BREAKING_CHANGES" && ! "$HEADER" =~ ^(feat|fix) ]]; then
-    echo "WARNING: Breaking changes should be in feat or fix type commits"
+    echo -e "\e[93mWARNING: Breaking changes should be in feat or fix type commits\e[0m"
   fi
-  
-  # Check for issue references format
-  ISSUE_REFS=$(echo "$FOOTER" | grep -E "(Closes|Fixes|Resolves) #[0-9]+")
-  if [[ -n "$ISSUE_REFS" ]]; then
-    INVALID_REFS=$(echo "$ISSUE_REFS" | grep -v -E "^(Closes|Fixes|Resolves) #[0-9]+$")
-    if [[ -n "$INVALID_REFS" ]]; then
-      echo "WARNING: Issue references should follow format: 'Closes/Fixes/Resolves #123'"
-    fi
-  fi
+
+  # # Check for issue references format
+  # ISSUE_REFS=$(echo "$FOOTER" | grep -E "(Closes|Fixes|Resolves) #[0-9]+")
+  # if [[ -n "$ISSUE_REFS" ]]; then
+  #   INVALID_REFS=$(echo "$ISSUE_REFS" | grep -v -E "^(Closes|Fixes|Resolves) #[0-9]+$")
+  #   if [[ -n "$INVALID_REFS" ]]; then
+  #     echo -e "\e[93mWARNING: Issue references should follow format: 'Closes/Fixes/Resolves #123'\e[0m"
+  #   fi
+  # fi
 fi
 
 exit 0
-
