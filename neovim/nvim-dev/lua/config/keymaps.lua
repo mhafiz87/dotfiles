@@ -13,8 +13,8 @@ vim.keymap.set("v", "p", '"_dP')
 -- moves a visually selected block of lines, (:m '>+1<CR>)
 -- then re-selects the moved block, re-indents it, (gv=)
 -- and re-selects it again for further actions. (gv)
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")  -- down
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")  -- up
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })  -- down
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })  -- up
 
 -- https://www.reddit.com/r/neovim/comments/13y3thq/comment/jmm7tut/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button ⤵
 -- Keep cursor at the current position after yanking ⤵
@@ -35,15 +35,15 @@ vim.keymap.set("v", "<", "<gv")  -- (indent then reselect)
 vim.keymap.set("v", ">", ">gv")  -- (indent then reselect)
 
 -- keep cursor current position when [J]oining line below with current one ⤵
-vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "J", "mzJ`z", { desc = "move line below to the end of current line"})
 
 -- 'n' always search forward and 'N' always search backward
-vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true })
-vim.keymap.set("x", "n", "'Nn'[v:searchforward]", { expr = true })
-vim.keymap.set("o", "n", "'Nn'[v:searchforward]", { expr = true })
-vim.keymap.set("n", "N", "'nN'[v:searchforward].'zv'", { expr = true })
-vim.keymap.set("x", "N", "'nN'[v:searchforward]", { expr = true })
-vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true })
+vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { desc = "search forward", expr = true })
+vim.keymap.set("x", "n", "'Nn'[v:searchforward]", { desc = "search forward", expr = true })
+vim.keymap.set("o", "n", "'Nn'[v:searchforward]", { desc = "search forward", expr = true })
+vim.keymap.set("n", "N", "'nN'[v:searchforward].'zv'", { desc = "search backward", expr = true })
+vim.keymap.set("x", "N", "'nN'[v:searchforward]", { desc = "search backward", expr = true })
+vim.keymap.set("o", "N", "'nN'[v:searchforward]", { desc = "search backward", expr = true })
 
 -- buffers ⤵
 vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "[b]uffer [p]revious" })
