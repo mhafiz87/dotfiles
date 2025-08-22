@@ -20,6 +20,15 @@ ruff check --select I --fix $STAGED_FILES
 echo -e "\e[1mRunning Ruff checks and fixes...\e[0m"
 ruff check --fix $STAGED_FILES
 
+# Check docstrings
+# D102: undocumented-public-method
+# D103: undocumented-public-function
+# D105: undocumented-magic-method
+# D414: empty-docstring-section
+# D419: empty-docstring
+echo -e "\e[1mRunning Ruff checks for dosctring...\e[0m"
+ruff check --select Q002,D102,D103,D105,D414,D419 --fix $STAGED_FILES
+
 # Check if any files were modified by Ruff
 if git diff --name-only | grep -E '\.py$' > /dev/null; then
   echo -e "\e[1mRuff made changes. Adding modified files to staging area.\e[0m"
