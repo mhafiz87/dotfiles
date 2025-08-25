@@ -83,6 +83,18 @@ return {
           )
           vim.keymap.set(
             "n",
+            "<leader>ghS",
+            gitsigns.stage_hunk,
+            { buffer = bufnr, desc = "[S]tage hunk" }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>ghR",
+            gitsigns.reset_hunk,
+            { buffer = bufnr, desc = "[R]eset hunk" }
+          )
+          vim.keymap.set(
+            "n",
             "<leader>ghp",
             function()
               gitsigns.nav_hunk("prev")
@@ -123,6 +135,28 @@ return {
             {
               buffer = bufnr,
               desc = "[g]it [h]unk pre[V]iew inline"
+            }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>ghc",
+            function ()
+              gitsigns.setqflist(0)
+            end,
+            {
+              buffer = bufnr,
+              desc = "view current buffer git hunk in [c]uickfix"
+            }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>ghC",
+            function ()
+              gitsigns.setqflist("all")
+            end,
+            {
+              buffer = bufnr,
+              desc = "view repo git hunk in [C]uickfix"
             }
           )
         end,
