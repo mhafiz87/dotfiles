@@ -49,7 +49,7 @@ vim.opt.splitright = true
 vim.opt.shortmess:append({W = true, I = true, c = true, C = true })
 
 -- signcolumn (always)
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "auto:2-3"
 
 -- timeout
 vim.opt.timeoutlen = 500

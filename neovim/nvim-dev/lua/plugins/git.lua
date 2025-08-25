@@ -38,29 +38,56 @@ return {
           border = "rounded"
         },
         on_attach = function(bufnr)
+          local which_key_exist, which_key = pcall(require, "which-key")
+          if which_key_exist then
+            vim.keymap.set(
+              "n",
+              "<leader>gh.",
+              function()
+                which_key.show(
+                  {
+                    keys = "<leader>gh",
+                    loop = true
+                  }
+                )
+              end,
+              {
+                buffer = bufnr,
+                desc = "enable hydra mode"
+              }
+            )
+          end
           vim.keymap.set(
             "n",
-            "<leader>gh.",
-            function()
-              require("which-key").show(
-                {
-                  keys = "<leader>gh",
-                  loop = true
-                }
-              )
-            end,
-            {
-              buffer = bufnr,
-              desc = "enable hydra mode"
-            }
+            "<leader>ghl",
+            gitsigns.toggle_current_line_blame,
+            { buffer = bufnr, desc = "toggle current [line] blame" }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>ghL",
+            gitsigns.blame_line,
+            { buffer = bufnr, desc = "blame [L]ine" }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>ghw",
+            gitsigns.toggle_word_diff,
+            { buffer = bufnr, desc = "toggle [w]ord diff" }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>ghH",
+            gitsigns.select_hunk,
+            { buffer = bufnr, desc = "select [H]unk" }
           )
           vim.keymap.set(
             "n",
             "<leader>ghp",
             function()
-              gitsigns.prev_hunk()
+              gitsigns.nav_hunk("prev")
               vim.cmd(":sleep 50m")
-              vim.cmd("norm! zz")
+              vim.cmd.normal({"zz", bang = true})
             end,
             {
               buffer = bufnr,
@@ -71,7 +98,7 @@ return {
             "n",
             "<leader>ghn",
             function()
-              gitsigns.next_hunk()
+              gitsigns.nav_hunk("next")
               vim.cmd(":sleep 50m")
               vim.cmd("norm! zz")
             end,
@@ -82,11 +109,20 @@ return {
           )
           vim.keymap.set(
             "n",
-            "<leader>ghr",
+            "<leader>ghv",
             gitsigns.preview_hunk,
             {
               buffer = bufnr,
-              desc = "[g]it [h]unk p[r]eview"
+              desc = "[g]it [h]unk pre[v]iew"
+            }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>ghV",
+            gitsigns.preview_hunk_inline,
+            {
+              buffer = bufnr,
+              desc = "[g]it [h]unk pre[V]iew inline"
             }
           )
         end,
