@@ -81,6 +81,9 @@ vim.keymap.set("n", "<leader>dgt", function()
   -- end
 end, { desc = "Toggle Virtual Text Diagnostics" })
 vim.keymap.set("n", "<leader>dgl", function() vim.diagnostic.open_float { border="rounded" } end, { desc = "Line Diagnostics" })
+vim.keymap.set("n", "dgb", function()
+  vim.diagnostic.setqflist({}, { bufnr = vim.api.nvim_get_current_buf() })
+end, { desc = "Current Buffer Diagnostic" })
 vim.keymap.set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 vim.keymap.set("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 -- with split keyboard ⤵

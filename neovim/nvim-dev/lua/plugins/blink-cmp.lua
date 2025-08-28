@@ -126,14 +126,14 @@ return {
         ['<C-e>'] = { 'cancel' },
         -- #TODO: WIP
         -- ['<Enter>'] = { 'select_accept_and_enter' },:
-        ['<Enter>'] = {
-          function(cmp)
-            if cmp.is_menu_visible() then
-              return cmp.select_and_accept()
-            end
-          end,
-          "fallback",
-        },
+        -- ['<Enter>'] = {
+        --   function(cmp)
+        --     if cmp.is_menu_visible() then
+        --       return cmp.select_and_accept()
+        --     end
+        --   end,
+        --   "fallback",
+        -- },
       },
       sources = { "buffer", "cmdline" },
     },
