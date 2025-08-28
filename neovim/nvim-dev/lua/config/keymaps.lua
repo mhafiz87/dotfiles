@@ -72,12 +72,13 @@ local diagnostic_goto = function(next, severity)
   end
 end
 vim.keymap.set("n", "<leader>dgt", function()
-  if vim.diagnostic.config().virtual_text then
-    vim.diagnostic.config({ virtual_text = false })
-  else
-    vim.diagnostic.config(defaults.diagnostic)
-  end
-  -- vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })
+  local current_diagnostic_config = vim.diagnostic.config()
+  vim.diagnostic.config({ virtual_text = not current_diagnostic_config.virtual_text })
+  -- if vim.diagnostic.config().virtual_text then
+  --   vim.diagnostic.config({ virtual_text = false })
+  -- else
+  --   vim.diagnostic.config(defaults.diagnostic)
+  -- end
 end, { desc = "Toggle Virtual Text Diagnostics" })
 vim.keymap.set("n", "<leader>dgl", function() vim.diagnostic.open_float { border="rounded" } end, { desc = "Line Diagnostics" })
 vim.keymap.set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
