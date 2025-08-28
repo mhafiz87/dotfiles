@@ -19,6 +19,7 @@ global_hook() {
 
     if ! [[ $HEADER =~ $HEADER_PATTERN ]]; then
       echo -e "\e[1;31mERROR: Commit message does not follow conventional format.\e[0m"
+      echo -e "\e[1;31mERROR: $HEADER.\e[0m"
       echo ""
       echo "Required format:"
       echo '```'
@@ -46,6 +47,7 @@ global_hook() {
       echo -e "\e[3;90mReferences:"
       echo "1. https://www.conventionalcommits.org/en/v1.0.0/#specification"
       echo -e "2. https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13\e[0m"
+      echo ""
       exit 1
     fi
 
@@ -162,7 +164,6 @@ if [[ "$LOCAL_HOOK" == *":"* ]]; then
   # echo "The string contains a colon."
     # lowercase first letter then remove colon
     ADJUSTED=$(echo "${LOCAL_HOOK,}" | sed 's/://g; s/^/\//')
-    echo $ADJUSTED
 else
     ADJUSTED=$LOCAL_HOOK
     # echo "The string does not contain a colon."
@@ -171,7 +172,7 @@ fi
 
 if [ "$SCRIPT_DIR" = "$ADJUSTED" ]; then
     echo "Local hook is the global hook. Using global hook..."
-    global_hook
+    global_hook "$@"
 elif [ -f "$ADJUSTED" ] && [ -x "$ADJUSTED" ]; then
     echo "Using local pre-commit hook..."
     exec "$LOCAL_HOOK" "$@"
