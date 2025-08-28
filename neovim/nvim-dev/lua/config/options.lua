@@ -1,4 +1,5 @@
 local default_options = require("config.default-options")
+local utils = require("utils")
 
 -- options
 -- leader key
@@ -73,3 +74,9 @@ vim.opt.winborder = "rounded"
 
 -- diagnostics
 vim.diagnostic.config(default_options.diagnostic)
+
+if utils.is_windows then
+    vim.g.python3_host_prog = vim.fn.getenv("USERPROFILE") .. "\\.venv\\neovim\\scripts\\python.exe"
+elseif utils.is_linux then
+    vim.g.python3_host_prog = os.getenv("HOME") .. "/.venv/neovim/bin/python"
+end
