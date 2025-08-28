@@ -65,7 +65,8 @@ vim.opt.wildoptions = "fuzzy,pum,tagfile"
 
 -- show tab as '>', trailing whitespace as '━', nbsp as '+'
 vim.opt.list = true
-vim.opt.listchars = "tab:<->,trail:-,nbsp:+"
+vim.opt.listchars = "tab:<->,trail:-,nbsp:+,extends:🠞,precedes:🠈"
+vim.api.nvim_set_hl(0, "NonText", { fg = "#908caa" })
 
 -- window
 vim.opt.winborder = "rounded"
