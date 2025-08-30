@@ -6,4 +6,10 @@
       event = "InsertEnter",
       opts = {},
     },
+    {
+      enabled = true,
+      "windwp/nvim-autopairs",
+      event = "InsertEnter",
+      config = true
+    },
   }

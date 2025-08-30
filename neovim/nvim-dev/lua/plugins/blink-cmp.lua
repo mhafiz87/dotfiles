@@ -1,3 +1,7 @@
+-- References:
+-- 1. https://github.com/linkarzu/dotfiles-latest/blob/main/neovim/neobean/lua/plugins/blink-cmp.lua
+
+local trigger_text = ";"
 local sources_list = { 'lsp', 'path', 'snippets', 'buffer' }
 local lazydev_exist, _ = pcall(require, "lazydev")
 if lazydev_exist then
@@ -10,8 +14,23 @@ return {
   event = { "InsertEnter", "CmdlineEnter" },
   -- optional: provides snippets for the snippet source
   dependencies = {
+    {"saghen/blink.compat", opts = {enable_events = true}},
+    'hrsh7th/cmp-cmdline',
     'rafamadriz/friendly-snippets',
     "xzbdmw/colorful-menu.nvim",
+    {
+      enabled = true,
+      "folke/lazydev.nvim",
+      ft = "lua", -- only load on lua files
+      opts = {
+        library = {
+          -- See the configuration section for more details
+          -- Load luvit types when the `vim.uv` word is found
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        },
+      },
+    }
+
   },
   -- use a release tag to download pre-built binaries
   version = '1.*',
@@ -142,6 +161,73 @@ return {
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
       default = sources_list,
+      providers = {
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          -- make lazydev completions top priority (see `:h blink.cmp`)
+          score_offset = 100,
+        },
+        lsp = {
+          name = "lsp",
+          module = "blink.cmp.sources.lsp",
+          score_offset = 99,
+        },
+        path = {
+          name = "path",
+          module = "blink.cmp.sources.path",
+          score_offset = 98,
+        },
+        buffer = {
+          name = "buffer",
+          module = "blink.cmp.sources.buffer",
+          score_offset = 97,
+        },
+        cmdline = {
+          name = "cmdline",
+          module = "blink.compat.source",
+          score_offset = 95,
+          enabled = function ()
+            return vim.fn.getcmdtype() == ":"
+          end
+        },
+        -- https://github.com/linkarzu/dotfiles-latest/blob/a12375c8b4976efc23454f5c15473277c1d277ed/neovim/neobean/lua/plugins/blink-cmp.lua#L91 ⤵
+        snippets = {
+          name = "snippets",
+          module = "blink.cmp.sources.snippets",
+          score_offset = 96,
+          -- Only show snippets if I type the trigger_text characters, so
+          -- to expand the "bash" snippet, if the trigger_text is ";" I have to
+          should_show_items = function()
+            local col = vim.api.nvim_win_get_cursor(0)[2]
+            local before_cursor = vim.api.nvim_get_current_line():sub(1, col)
+            -- NOTE: remember that `trigger_text` is modified at the top of the file
+            return before_cursor:match(trigger_text .. "%w*$") ~= nil
+          end,
+          transform_items = function(_, items)
+            local line = vim.api.nvim_get_current_line()
+            local col = vim.api.nvim_win_get_cursor(0)[2]
+            local before_cursor = line:sub(1, col)
+            local start_pos, end_pos = before_cursor:find(trigger_text .. "[^" .. trigger_text .. "]*$")
+            if start_pos then
+              for _, item in ipairs(items) do
+                if not item.trigger_text_modified then
+                  ---@diagnostic disable-next-line: inject-field
+                  item.trigger_text_modified = true
+                  item.textEdit = {
+                    newText = item.insertText or item.label,
+                    range = {
+                      start = { line = vim.fn.line(".") - 1, character = start_pos - 1 },
+                      ["end"] = { line = vim.fn.line(".") - 1, character = end_pos },
+                    },
+                  }
+                end
+              end
+            end
+            return items
+          end,
+        },
+      },
     },
     fuzzy = { implementation = "prefer_rust_with_warning" }
   },
