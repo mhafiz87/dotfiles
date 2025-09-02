@@ -151,6 +151,31 @@ end
 -- Define the :Refurb command
 vim.api.nvim_create_user_command('Refurb', M.Refurb, {})
 
+
+-- LSPAttach Auto Command
+-- vim.api.nvim_create_autocmd("LSPAttach", {
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.py",
+  callback = function ()
+    local clients = vim.lsp.get_clients({bufnr = 0})
+    for key, client in pairs(clients) do
+      if client["name"] == "ruff" then
+        vim.lsp.buf.code_action({
+          context = {
+            only = { "source.organizeImports" }
+          },
+          apply = true,
+        })
+        vim.lsp.buf.format {
+          async = true,
+          name = "ruff"
+        }
+      end
+    end
+  end
+})
+
+
 set.expandtab = true
 set.autoindent = true
 set.smarttab = true
