@@ -117,7 +117,7 @@ function M.Refurb()
       if #line == 0 then
         goto continue
       end
-      local row = line:match(":(%d):")
+      local row = line:match(":(%d+):")
       local column = line:match(":(%d+) ")
       local text = line:match(":%d+:%d+ (.+)")
       -- print(row .. " : " .. column .. " : " .. text)
