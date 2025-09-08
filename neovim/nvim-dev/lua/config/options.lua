@@ -53,7 +53,7 @@ vim.opt.shortmess:append({W = true, I = true, c = true, C = true })
 vim.opt.signcolumn = "auto:2-3"
 
 -- timeout
-vim.opt.timeoutlen = 500
+vim.opt.timeoutlen = 250
 
 -- persist undo
 vim.opt.undolevels = 10000
