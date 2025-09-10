@@ -1,5 +1,4 @@
 -- References: https://github.com/KevinSilvester/wezterm-config/blob/master/config/bindings.lua
-
 -- Pull in the wezterm API
 local platform = require("utils.platform")()
 local key = require("utils.key")
@@ -125,6 +124,7 @@ wezterm.on("gui-attached", function()
 end)
 
 wezterm.on('window-config-reloaded', function(window, pane)
+  window:toast_notification('wezterm', 'configuration reloaded!', nil, 1000)
 end)
 
 -- Tab bar

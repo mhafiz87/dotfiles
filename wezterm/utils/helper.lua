@@ -1,3 +1,4 @@
+local nvim_process = { "nvim", "lua-language-server.exe", "node.exe", "taplo.exe" }
 local M = {}
 
 function M.basename(s)
@@ -21,12 +22,12 @@ end
 function M.is_vim(pane)
   local process_info = pane:get_foreground_process_info()
   local process_name = ""
-  if string.find(process_info.executable, "nvim") then
-    process_name = "nvim"
-  else
-    process_name = M.basename(process_info.name)
+  for i = 1, #nvim_process do
+    if string.find(process_info.executable, nvim_process[i]) then
+      return true
+    end
   end
-  return process_name == "nvim" or process_name == "python"
+  return false
 end
 
 function M.find_vim_pane(tab)

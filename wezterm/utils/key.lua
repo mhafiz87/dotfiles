@@ -123,12 +123,16 @@ local keys_default = {
     mods = "CTRL",
     action = wezterm.action_callback(function(window, pane)
       local tab = window:active_tab()
+      local cwd = pane:get_current_working_dir()
       -- if current active pane is vim
       if helper.is_vim(pane) then
         -- if number of panes is 1
         if (#tab:panes()) == 1 then
           -- Split pane to the right
-          pane:split({ direction = "Right" })
+          pane:split({
+            cwd = cwd,
+            direction = "Right"
+          })
         else
           for _, panel in ipairs(tab:panes_with_info()) do
             if helper.is_vim(panel.pane) then
