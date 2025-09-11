@@ -1,19 +1,12 @@
 -- References: https://github.com/KevinSilvester/wezterm-config/blob/master/config/bindings.lua
 -- Pull in the wezterm API
-local platform = require("utils.platform")()
+local platform = require("utils.platform")
 local key = require("utils.key")
 local wezterm = require("wezterm")
 local helper = require("utils.helper")
 local ws = require("utils.workspaces")
 local mux = wezterm.mux
 local act = wezterm.action
-
-local function remove_exe(s)
-  local temp = string.gmatch(s, "%.")
-  for i in temp do
-    print(i)
-  end
-end
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
@@ -23,11 +16,11 @@ end
 
 -- This is where you actually apply your config choices
 
-if not platform.is_win then
+if not platform.is_windows() then
   config.default_cwd = "~"
 end
 
-if platform.is_win then
+if platform.is_windows() then
   config.default_cwd = os.getenv("userprofile")
   config.default_prog = { "pwsh", "-l" }
 end
@@ -37,7 +30,7 @@ config.canonicalize_pasted_newlines = "CarriageReturn"
 
 -- Themes
 -- Override scrollbar thumb color
-local theme = "Monokai Remastered"
+local theme = "Rosé Pine (base16)"
 -- local theme = "rose-pine"
 local scheme = wezterm.get_builtin_color_schemes()[theme]
 scheme.scrollbar_thumb = "#ffffff"
@@ -45,22 +38,26 @@ config.color_schemes = { [theme] = scheme }
 config.color_scheme = theme
 
 -- UI
-config.front_end = "OpenGL"
+config.adjust_window_size_when_changing_font_size = false
 config.disable_default_key_bindings = true
 config.enable_scroll_bar = true
-config.adjust_window_size_when_changing_font_size = false
+config.front_end = "OpenGL"
 config.hide_mouse_cursor_when_typing = true
 config.hide_tab_bar_if_only_one_tab = false
+config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.50 }
+config.min_scroll_bar_height = "2cell"
 config.tab_max_width = 25
+config.window_decorations = "RESIZE"
+config.window_frame = {
+  font = wezterm.font({ family = "JetBrainsMono Nerd Font" }),
+  font_size = 8,
+}
 config.window_padding = {
   left = 5,
   right = 15,
   top = 10,
   bottom = 10,
 }
-config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.50 }
-config.min_scroll_bar_height = "2cell"
-config.window_decorations = "RESIZE"
 
 -- Cursor
 config.animation_fps = 60
@@ -96,7 +93,7 @@ wezterm.on("gui-startup", function(cmd)
     args = cmd.args
   end
 
-  if platform.is_win then
+  if platform.is_windows() then
     temp = { "pwsh", "-l" }
     for key, value in ipairs(temp) do
       table.insert(args, value)
@@ -114,7 +111,7 @@ wezterm.on("gui-startup", function(cmd)
     args = args,
   }
   mux.set_active_workspace "home"
-  -- if platform.is_win then
+  -- if platform.is_windows() then
   --   pane:send_text("clear\r")
   -- end
   window:gui_window():maximize()
@@ -149,7 +146,7 @@ wezterm.on("update-right-status", function(window, pane)
     process = "nvim"
   end
   -- Number of panes in current tab
-  local panes_n = helper.table_length(window:active_tab():panes_with_info())
+  local panes_n = #window:active_tab():panes_with_info()
   local pane_str = "pane"
   if panes_n > 1 then
     pane_str = "panes"
