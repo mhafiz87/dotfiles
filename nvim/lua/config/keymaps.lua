@@ -1,148 +1,105 @@
-local utils = require("utils")
-local defaults = require("config.defaults")
-local map = vim.keymap.set
+local defaults = require("config.default-options")
 
-local function descs(desc)
-  desc = desc or "which_key_ignore"
-  return { desc = desc, noremap = true, silent = true }
-end
+-- bound 'jk' to escape from input mode ⤵
+vim.keymap.set("i", "jk", "<Esc>")
 
--- Map Esc to jk ⤵
-map("i", "jk", "<Esc>", descs())
+-- bound 'jk' to exit terminal ⤵
+vim.keymap.set("t", "jk", "<C-\\><C-n>")
 
--- exit terminal ⤵
-map("t", "jk", "<C-\\><C-n>", descs("Exit terminal mode"))
+-- don't copy the replaced text after pasting. ⤵
+vim.keymap.set("v", "p", '"_dP')
 
--- Move current line with context aware ⤵
-map("v", "J", ":m '>+1<CR>gv=gv")
-map("v", "K", ":m '<-2<CR>gv=gv")
-
--- Don't copy the replaced text after pasting. ⤵
-map("v", "p", '"_dP')
+-- move current line with context aware (move and reindent) ⤵
+-- moves a visually selected block of lines, (:m '>+1<CR>)
+-- then re-selects the moved block, re-indents it, (gv=)
+-- and re-selects it again for further actions. (gv)
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })  -- down
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })  -- up
 
 -- https://www.reddit.com/r/neovim/comments/13y3thq/comment/jmm7tut/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button ⤵
 -- Keep cursor at the current position after yanking ⤵
-map("v", "y", "ygv<esc>")
+vim.keymap.set("v", "y", "ygv<esc>")
 
--- Clear highlight ⤵
-map({ "n", "v" }, "<leader>cl", "<cmd>:nohl<cr>", descs("[c]lear high[l]ights"))
+-- keep cursor in the middle when move 1/2 page ⤵
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
--- Keep cursor in the middle ⤵
-map("n", "<C-d>", "<C-d>zz", descs())
-map("n", "<C-u>", "<C-u>zz", descs())
-
--- Keep cursor in the column 0 when [J]oining line below with current one ⤵
-map("n", "J", "mzJ`z", descs())
-
--- Move current line with context awar ⤵e
-map("v", "J", ":m '>+1<CR>gv=gv")
-map("v", "K", ":m '<-2<CR>gv=gv")
-
--- Open Current Working Directory In VSCode ⤵
-map("n", "<F3>", "<cmd>silent !code " .. vim.fn.getcwd() .. "<cr>", descs("Open current working directory in VSCode."))
-
--- Open current buffer folder in Windows Explorer ⤵
-map("n", "<F4>", "<cmd>!start explorer %:p:h<cr>", descs("Open current buffer directory in Windows explorer."))
-
--- better up/down ⤵
-map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-
--- Move to window using the <ctrl> hjkl keys | Define in which-key.lua
--- map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
--- map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
--- map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
--- map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
-
--- Resize window using <ctrl> arrow keys ⤵
-map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+-- better up/down when there's a wrapped line ⤵
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr=true })
+vim.keymap.set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr=true })
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr=true })
+vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr=true })
 
 -- better indenting ⤵
-map("v", "<", "<gv", descs())
-map("v", ">", ">gv", descs())
+vim.keymap.set("v", "<", "<gv")  -- (indent then reselect)
+vim.keymap.set("v", ">", ">gv")  -- (indent then reselect)
 
--- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n ⤵
-map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
-map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
-map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
-map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search Result" })
-map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
-map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
+-- keep cursor current position when [J]oining line below with current one ⤵
+vim.keymap.set("n", "J", "mzJ`z", { desc = "move line below to the end of current line"})
+
+-- 'n' always search forward and 'N' always search backward
+vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { desc = "search forward", expr = true })
+vim.keymap.set("x", "n", "'Nn'[v:searchforward]", { desc = "search forward", expr = true })
+vim.keymap.set("o", "n", "'Nn'[v:searchforward]", { desc = "search forward", expr = true })
+vim.keymap.set("n", "N", "'nN'[v:searchforward].'zv'", { desc = "search backward", expr = true })
+vim.keymap.set("x", "N", "'nN'[v:searchforward]", { desc = "search backward", expr = true })
+vim.keymap.set("o", "N", "'nN'[v:searchforward]", { desc = "search backward", expr = true })
 
 -- buffers ⤵
-map("n", "<leader>bp", "<cmd>bprevious<cr>", descs("[b]uffer [p]revious"))
-map("n", "<leader>bn", "<cmd>bnext<cr>", descs("[b]uffer [n]ext"))
-map("n", "<leader>bb", "<cmd>e #<cr>", descs("switch to other [b]uffer"))
-map("n", "<leader>bc", "<cmd>bp|bd #<cr>", descs("[b]uffer [c]lose without closing split"))
+vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "[b]uffer [p]revious" })
+vim.keymap.set("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "[b]uffer [n]ext" })
+vim.keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "switch to other [b]uffer" })
+vim.keymap.set("n", "<leader>bc", "<cmd>bp|bd #<cr>", { desc = "[b]uffer [c]lose without closing split" })
 -- https://vi.stackexchange.com/a/2127 ⤵
-map("n", "<leader>bf", "<cmd>:call setqflist(map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), '{\"bufnr\": v:val}')) | copen<cr>", descs("[b]uffer [f]ind in quick list"))
+vim.keymap.set("n", "<leader>bf", "<cmd>:call setqflist(map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), '{\"bufnr\": v:val}')) | copen<cr>", { desc = "[b]uffer [f]ind in quick list" })
 -- Reference "https://tech.serhatteker.com/post/2020-06/close-all-buffers-but-current-in-vim/" ⤵
-map("n", "<leader>bo", "<cmd>%bd|e#|bd#<cr>", descs("delete [o]ther [b]uffers"))
+vim.keymap.set("n", "<leader>bo", "<cmd>%bd|e#|bd#<cr>", { desc = "delete [o]ther [b]uffers" })
 
 -- diagnostics ⤵
 local diagnostic_goto = function(next, severity)
   local go = next
     and function ()
       vim.diagnostic.jump ({ count=1, float = { border = "rounded" } })
+      vim.cmd("norm! zz")
     end
     or function ()
       vim.diagnostic.jump ({ count=-1, float = { border = "rounded" } })
+      vim.cmd("norm! zz")
     end
   severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
     go({ severity = severity })
   end
 end
-map("n", "<leader>dgt", function()
-  if vim.diagnostic.config().virtual_text then
-    vim.diagnostic.config({ virtual_text = false })
-  else
-    vim.diagnostic.config(defaults.diagnostic)
-  end
-  -- vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })
+vim.keymap.set("n", "<leader>dgt", function()
+  local current_diagnostic_config = vim.diagnostic.config()
+  vim.diagnostic.config({ virtual_text = not current_diagnostic_config.virtual_text })
+  -- if vim.diagnostic.config().virtual_text then
+  --   vim.diagnostic.config({ virtual_text = false })
+  -- else
+  --   vim.diagnostic.config(defaults.diagnostic)
+  -- end
 end, { desc = "Toggle Virtual Text Diagnostics" })
-map("n", "<leader>dgl", function() vim.diagnostic.open_float { border="rounded" } end, { desc = "Line Diagnostics" })
-map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
-map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
-map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+vim.keymap.set("n", "<leader>dgl", function() vim.diagnostic.open_float { border="rounded" } end, { desc = "Line Diagnostics" })
+vim.keymap.set("n", "dgb", function()
+  vim.diagnostic.setqflist({}, { bufnr = vim.api.nvim_get_current_buf() })
+end, { desc = "Current Buffer Diagnostic" })
+vim.keymap.set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+vim.keymap.set("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 -- with split keyboard ⤵
-map("n", "]5", diagnostic_goto(true), { desc = "Next Diagnostic" })
-map("n", "[5", diagnostic_goto(false), { desc = "Prev Diagnostic" })
-map("n", "]8", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-map("n", "[8", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-map("n", "]7", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-map("n", "[7", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
-
--- location list ⤵
-map("n", "<leader>xl", function()
-  local success, err = pcall(vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose or vim.cmd.lopen)
-  if not success and err then
-    vim.notify(err, vim.log.levels.ERROR)
-  end
-end, { desc = "Location List" })
+vim.keymap.set("n", "]5", diagnostic_goto(true), { desc = "Next Diagnostic" })
+vim.keymap.set("n", "[5", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 
 -- quickfix list ⤵
-map("n", "<leader>xq", function()
+vim.keymap.set("n", "<leader>xq", function()
   local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
   if not success and err then
     vim.notify(err, vim.log.levels.ERROR)
   end
 end, { desc = "Quickfix List" })
 
-map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
-map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
-map("n", "[`", vim.cmd.cprev, { desc = "Previous Quickfix" })
-map("n", "]`", vim.cmd.cnext, { desc = "Next Quickfix" })
+vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
+vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
+vim.keymap.set("n", "[`", vim.cmd.cprev, { desc = "Previous Quickfix" })
+vim.keymap.set("n", "]`", vim.cmd.cnext, { desc = "Next Quickfix" })
 
-
--- if utils.is_plugin_installed("snacks.nvim") == true then
---   Snacks.notify("[keymaps] snacks plugin is installed !!!")
--- end

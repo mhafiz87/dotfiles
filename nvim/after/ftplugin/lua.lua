@@ -1,6 +1,5 @@
-vim.opt.expandtab = true
-vim.opt.autoindent = true
-vim.opt.smarttab = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
+local set = vim.opt_local
+
+set.shiftwidth = 2  -- tab size
+set.softtabstop = 2  -- tab size
+set.colorcolumn = "80,120"

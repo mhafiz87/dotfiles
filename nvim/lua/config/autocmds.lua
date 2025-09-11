@@ -1,35 +1,27 @@
-local augroup = vim.api.nvim_create_augroup -- Create/get autocommand group
-local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
-
-local function augroup(name)
-  return vim.api.nvim_create_augroup(name, { clear = true })
-end
-
--- Highlight on yank
-augroup("YankHighlight")
-autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-	group = "YankHighlight",
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = "1000" })
-	end,
+-- Don't auto commenting new lines
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "",
+  command = "set fo-=c fo-=r fo-=o",
 })
 
--- Don't auto commenting new lines
-autocmd("BufEnter", {
-	pattern = "",
-	command = "set fo-=c fo-=r fo-=o",
+-- highlight copied text
+vim.api.nvim_create_autocmd( "TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup( "YankHighlight", { clear = true} ),
+  callback = function()
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = "500" })
+  end,
 })
 
 -- Auto Reload File If Content Changes From Outside
-autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
   pattern = { "*" },
   command = "if mode() != 'c' | checktime | endif",
 })
 
 -- resize splits if window got resized
 vim.api.nvim_create_autocmd({ "VimResized" }, {
-  group = augroup("resize_splits"),
+  group = vim.api.nvim_create_augroup("resize_splits", { clear = true }),
   callback = function()
     local current_tab = vim.fn.tabpagenr()
     vim.cmd("tabdo wincmd =")
@@ -39,7 +31,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
-  group = augroup("last_loc"),
+  group = vim.api.nvim_create_augroup("last_loc", { clear = true }),
   callback = function(event)
     local exclude = { "gitcommit" }
     local buf = event.buf
@@ -57,7 +49,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("close_with_q"),
+  group = vim.api.nvim_create_augroup("close_with_q", { clear = true }),
   pattern = {
     "PlenaryTestPopup",
     "checkhealth",
@@ -90,18 +82,9 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- make it easier to close man-files when opened inline
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("man_unlisted"),
-  pattern = { "man" },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-  end,
-})
-
 -- wrap and check for spell in text filetypes
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("wrap_spell"),
+  group = vim.api.nvim_create_augroup("wrap_spell", { clear = true }),
   pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
   callback = function()
     vim.opt_local.wrap = true
@@ -111,7 +94,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Fix conceallevel for json files
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = augroup("json_conceal"),
+  group = vim.api.nvim_create_augroup("json_conceal", { clear = true }),
   pattern = { "json", "jsonc", "json5" },
   callback = function()
     vim.opt_local.conceallevel = 0

@@ -1,77 +1,82 @@
+local default_options = require("config.default-options")
 local utils = require("utils")
-local defaults = require("config.defaults")
 
+-- options
+-- leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-local opt = vim.opt
+-- enable mouse support in all modes
+vim.opt.mouse = "a"
 
-opt.autowrite = true -- Enable auto write
--- only set clipboard if not in ssh, to make sure the OSC 52
--- integration works automatically. Requires Neovim >= 0.10.0
-opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
-opt.completeopt = "menu,menuone,noselect"
-opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
-opt.cursorline = true -- Enable highlighting of the current line
-opt.expandtab = true -- Use spaces instead of tabs
-opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
-}
-opt.foldlevel = 99
-opt.ignorecase = true -- Ignore case
-opt.inccommand = "nosplit" -- preview incremental substitute
-opt.jumpoptions = "view"
-opt.laststatus = 3 -- global statusline
-opt.linebreak = true -- Wrap lines at convenient points
-opt.list = true -- Show some invisible characters (tabs...
-opt.mouse = "a" -- Enable mouse mode
-opt.number = true -- Print line number
-opt.pumblend = 10 -- Popup blend
-opt.pumheight = 10 -- Maximum number of entries in a popup
-opt.relativenumber = true -- Relative line numbers
-opt.ruler = false -- Disable the default ruler
-opt.scrolloff = 8 -- Lines of context
-opt.sidescrolloff = 8 -- Lines of context
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
-opt.shiftround = true -- Round indent
-opt.shiftwidth = 2 -- Size of an indent
-opt.shortmess:append({ W = true, I = true, c = true, C = true })
-opt.showmode = false -- Dont show mode since we have a statusline
-opt.sidescrolloff = 8 -- Columns of context
-opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
-opt.smartcase = true -- Don't ignore case with capitals
-opt.smartindent = true -- Insert indents automatically
-opt.spelllang = { "en" }
-opt.splitbelow = true -- Put new windows below current
-opt.splitkeep = "screen"
-opt.splitright = true -- Put new windows right of current
-opt.tabstop = 4 -- Number of spaces tabs count for
-opt.termguicolors = true -- True color support
-opt.timeoutlen = vim.g.vscode and 1000 or 300
--- opt.timeoutlen = 500
-opt.undofile = true
-opt.undolevels = 10000
-opt.updatetime = 250 -- Save swap file and trigger CursorHold
-opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
-opt.wildmode = "longest:full,full" -- Command-line completion mode
-opt.winminwidth = 5 -- Minimum window width
-opt.wrap = false -- Disable line wrap
-opt.guicursor = "n-v-sm:block,c-i-ci-ve:ver25,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
+-- show current line numbers
+vim.opt.nu = true
+-- relative line numbers
+vim.opt.rnu = true
 
--- Persist Undo
-opt.undofile = true
-opt.undodir = vim.fn.getcwd() .. "/.nvim/undo"
+-- use global clipboard
+vim.opt.clipboard = "unnamedplus"
+
+-- autocomplete
+vim.opt.completeopt = "fuzzy,menu,menuone,noinsert,noselect,popup"
+
+-- search
+vim.opt.ignorecase = true
+
+-- minimal number of screen lines to keep above and below the cursor
+vim.opt.scrolloff = 8
+-- minimal number of screen columns to keep to the left and to the right of the cursor
+vim.opt.sidescrolloff = 8
+
+-- disable wrap
+vim.opt.wrap = false
+
+-- guicursor
+vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,\z
+a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,\z
+sm:block-blinkwait175-blinkoff150-blinkon175"
+
+-- tab / indent
+vim.opt.smartindent = true
+vim.opt.expandtab = true  -- use spaces instead of tab
+vim.opt.shiftwidth = 4  -- tab size
+vim.opt.softtabstop = 4  -- tab size
+
+-- split
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+-- file messages
+vim.opt.shortmess:append({W = true, I = true, c = true, C = true })
+
+-- signcolumn (always)
+vim.opt.signcolumn = "auto:2-3"
+
+-- timeout
+vim.opt.timeoutlen = 250
+
+-- persist undo
+vim.opt.undolevels = 10000
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.getcwd() .. "/.nvim/undo"
+
+-- command line completion
+vim.opt.wildmode = "longest:full,full"
+vim.opt.wildoptions = "fuzzy,pum,tagfile"
+
+-- show tab as '>', trailing whitespace as '━', nbsp as '+'
+vim.opt.list = true
+vim.opt.listchars = "tab:<->,trail:-,nbsp:+,extends:🠞,precedes:🠈"
+vim.api.nvim_set_hl(0, "NonText", { fg = "#908caa" })
+
+-- window
+vim.opt.winborder = "rounded"
 
 -- diagnostics
-vim.diagnostic.config(defaults.diagnostic)
+vim.diagnostic.config(default_options.diagnostic)
 
-if utils.is_windows then
+if utils.is_windows() then
     vim.g.python3_host_prog = vim.fn.getenv("USERPROFILE") .. "\\.venv\\neovim\\scripts\\python.exe"
-elseif utils.is_linux then
-    vim.g.python3_host_prog = os.getenv("HOME") .. "/.venv/neovim/bin/python"
+elseif utils.is_linux() then
+    vim.g.python3_host_prog = vim.fn.getenv("HOME") .. "/.venv/neovim/bin/python"
 end
