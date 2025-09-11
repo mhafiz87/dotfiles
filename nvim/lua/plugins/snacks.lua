@@ -4,6 +4,7 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
+    image = { enabled = true },
     picker = { enabled = true },
   },
   keys = {
@@ -17,16 +18,18 @@ return {
     -- find
     { "<leader>ff", function() Snacks.picker.files() end, desc = "[f]ind [f]iles" },
     { "<leader>fm", function() Snacks.picker.marks() end, desc = "[f]ind [m]arks" },
+    -- grep
+    { "<leader>/", function() Snacks.picker.grep() end, desc = "grep" },
     -- git
     { "<leader>ghf", function() Snacks.picker.git_diff() end, desc = "[g]it [h]unk [f]ind" },
     { "<leader>ghs", function() Snacks.picker.git_status() end, desc = "[g]it [h]unk [s]tatus" },
     { "<leader>ghb", function() Snacks.picker.git_branches() end, desc = "[g]it [h]unk [b]ranches" },
     { "<leader>ghd", function() Snacks.picker.git_diff() end, desc = "[g]it [h]unk [d]iff" },
     -- lsp
-    { "<leader>grd", function() Snacks.picker.lsp_definitions() end, desc = "lsp definitions" },
-    { "<leader>grD", function() Snacks.picker.lsp_declarations() end, desc = "lsp declarations" },
-    { "<leader>grr", function() Snacks.picker.lsp_references() end, desc = "lsp references" },
-    { "<leader>gri", function() Snacks.picker.lsp_implementations() end, desc = "lsp implementation" },
+    { "grd", function() Snacks.picker.lsp_definitions() end, desc = "lsp definitions" },
+    { "grD", function() Snacks.picker.lsp_declarations() end, desc = "lsp declarations" },
+    { "grr", function() Snacks.picker.lsp_references() end, desc = "lsp references" },
+    { "gri", function() Snacks.picker.lsp_implementations() end, desc = "lsp implementation" },
     -- marks
   },
   config = function (_, opts)
