@@ -66,8 +66,12 @@ config.cursor_blink_ease_out = "Constant"
 config.default_cursor_style = "BlinkingBlock"
 
 -- Font Settings
+config.font_dirs = { 'fonts' }
 config.font = wezterm.font_with_fallback({
-  { family = "JetBrainsMono Nerd Font" },
+    "JetBrainsMono Nerd Font",
+    "FiraCode Nerd Font",
+    "DejaVuSansM Nerd Font",
+    "Noto Color Emoji"
 })
 config.font_size = 10
 
