@@ -2,6 +2,7 @@ local utils = require("utils")
 local build = ""
 if utils.is_windows() then
   -- build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release"
+  -- https://github.com/nvim-telescope/telescope-fzf-native.nvim/issues/122#issuecomment-2657633030
   build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
 else
   build = "make"
