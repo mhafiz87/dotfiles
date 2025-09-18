@@ -104,28 +104,32 @@ wezterm.on("gui-startup", function(cmd)
     args = cmd.args
   end
 
-  if platform.is_windows() then
-    temp = { "pwsh", "-l" }
-    for key, value in ipairs(temp) do
-      table.insert(args, value)
-    end
-  end
-  -- local tab, pane, window = mux.spawn_window {
-  --   workspace = "awake",
-  --   cwd = config.default_cwd
-  -- }
-  -- mux.set_active_workspace("awake")
-  -- pane:send_text("clear\rkeep-awake\r")
+  -- if platform.is_windows() then
+  --   temp = { "pwsh", "-l" }
+  --   for key, value in ipairs(temp) do
+  --     table.insert(args, value)
+  --   end
+  -- end
+
+  -- -- local tab, pane, window = mux.spawn_window {
+  -- --   workspace = "awake",
+  -- --   cwd = config.default_cwd
+  -- -- }
+  -- -- mux.set_active_workspace("awake")
+  -- -- pane:send_text("clear\rkeep-awake\r")
+
   local tab, pane, window = mux.spawn_window {
     workspace = "home",
     cwd = config.default_cwd,
     args = args,
   }
-  mux.set_active_workspace "home"
-  -- if platform.is_windows() then
-  --   pane:send_text("clear\r")
-  -- end
+
+  -- mux.set_active_workspace "home"
+  -- -- if platform.is_windows() then
+  -- --   pane:send_text("clear\r")
+  -- -- end
   window:gui_window():maximize()
+
 end)
 
 wezterm.on("gui-attached", function()
@@ -136,7 +140,7 @@ wezterm.on('window-config-reloaded', function(window, pane)
 end)
 
 wezterm.on("update-right-status", function(window, pane)
-  -- Workspace name
+--   -- Workspace name
   local tab = window:active_tab()
   local stat = window:active_workspace()
   -- It's a little silly to have workspace name all the time
@@ -145,9 +149,15 @@ wezterm.on("update-right-status", function(window, pane)
   if window:leader_is_active() then stat = "LDR" end
   -- Current process
   -- local process = helper.basename(pane:get_foreground_process_name())
-  local process = pane:get_foreground_process_info().executable
-  if string.find(process, "nvim") then
-    process = "nvim"
+  local process = ""
+  local process_name = ""
+  process = pane:get_foreground_process_info()
+  -- wezterm.log_info(process)
+  if process ~= nil then
+    process_name = process.name
+    if string.find(process_name, "nvim") then
+      process_name = "nvim"
+    end
   end
   -- Number of panes in current tab
   local panes_n = #window:active_tab():panes_with_info()
@@ -165,7 +175,7 @@ wezterm.on("update-right-status", function(window, pane)
     { Text = wezterm.nerdfonts.cod_layout .. " " .. panes_n .. " " .. pane_str },
     { Text = " | " },
     { Foreground = { Color = "rgba(255, 184, 108, 0)" } },
-    { Text = wezterm.nerdfonts.fa_code .. "  " .. process },
+    { Text = wezterm.nerdfonts.fa_code .. "  " .. process_name },
     "ResetAttributes",
     { Background = { Color = "rgba(0, 0, 0, 0)" } },
     { Text = " | " },
