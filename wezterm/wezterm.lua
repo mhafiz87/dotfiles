@@ -98,18 +98,29 @@ config.mouse_bindings = {
   },
 }
 
+-- SSH Domains
+config.ssh_domains = {
+  {
+    name = "auto-01",
+    remote_address = "ds4-auto-orbital-01",
+    username = "autouser",
+    default_prog = { "bash" },
+    assume_shell = "Posix",
+  },
+}
+
 wezterm.on("gui-startup", function(cmd)
   local args = {}
   if cmd then
     args = cmd.args
   end
 
-  -- if platform.is_windows() then
-  --   temp = { "pwsh", "-l" }
-  --   for key, value in ipairs(temp) do
-  --     table.insert(args, value)
-  --   end
-  -- end
+  if platform.is_windows() then
+    temp = { "pwsh", "-l" }
+    for key, value in ipairs(temp) do
+      table.insert(args, value)
+    end
+  end
 
   -- -- local tab, pane, window = mux.spawn_window {
   -- --   workspace = "awake",
