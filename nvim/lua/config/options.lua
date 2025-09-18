@@ -1,6 +1,5 @@
 local default_options = require("config.default-options")
 local utils = require("utils")
-local python_util = require("utils.python")
 
 -- options
 -- leader key
@@ -75,15 +74,6 @@ vim.opt.winborder = "rounded"
 
 -- diagnostics
 vim.diagnostic.config(default_options.diagnostic)
-
--- python
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "python",
-    callback = function()
-        python_util.PyDocHide()
-    end
-})
 
 if utils.is_windows() then
     vim.g.python3_host_prog = vim.fn.getenv("USERPROFILE") .. "\\.venv\\neovim\\scripts\\python.exe"
