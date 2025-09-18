@@ -48,10 +48,6 @@ config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.50 }
 config.min_scroll_bar_height = "2cell"
 config.tab_max_width = 25
 config.window_decorations = "RESIZE"
-config.window_frame = {
-  font = wezterm.font({ family = "JetBrainsMono Nerd Font" }),
-  font_size = 8,
-}
 config.window_padding = {
   left = 5,
   right = 15,
@@ -79,6 +75,17 @@ config.font_size = 10
 config.leader = key.leader
 config.keys = key.keys
 config.key_tables = key.key_tables
+
+-- Tab bar
+-- https://github.com/theopn/dotfiles/blob/25b85936ef3e7195a0f029525f854fdb915b9f90/wezterm/wezterm.lua
+config.use_fancy_tab_bar = true
+config.status_update_interval = 500
+config.window_frame = {
+  active_titlebar_bg = "rgba(0, 0, 0, 0)",
+  -- font = wezterm.font({ family = "JetBrainsMono Nerd Font" }),
+  font_size = 10
+}
+
 
 -- Mouse Bindings
 config.mouse_bindings = {
@@ -127,14 +134,6 @@ end)
 wezterm.on('window-config-reloaded', function(window, pane)
   window:toast_notification('wezterm', 'configuration reloaded!', nil, 1000)
 end)
-
--- Tab bar
--- https://github.com/theopn/dotfiles/blob/25b85936ef3e7195a0f029525f854fdb915b9f90/wezterm/wezterm.lua
-config.use_fancy_tab_bar = true
-config.status_update_interval = 500
-config.window_frame = {
-  active_titlebar_bg = "rgba(0, 0, 0, 0)"
-}
 
 wezterm.on("update-right-status", function(window, pane)
   -- Workspace name
