@@ -135,6 +135,7 @@ config.status_update_interval = 500
 config.window_frame = {
   active_titlebar_bg = "rgba(0, 0, 0, 0)"
 }
+
 wezterm.on("update-right-status", function(window, pane)
   -- Workspace name
   local tab = window:active_tab()
@@ -173,4 +174,5 @@ wezterm.on("update-right-status", function(window, pane)
     { Text = " |" },
   }))
 end)
+
 return config
