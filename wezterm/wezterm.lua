@@ -98,6 +98,10 @@ config.mouse_bindings = {
   },
 }
 
+-- To support SSH into linux, modify /etc/ssh/sshd_config
+-- find `AcceptEnv` or add it, then modify
+-- AcceptEnv LANG LC_* WSLENV WEZTERM_* TERM TERM_PROGRAM TERM_PROGRAM_VERSION COLORTERM
+-- sudo systemctl restart sshd
 -- SSH Domains
 config.ssh_domains = {
   {
