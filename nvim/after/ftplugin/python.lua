@@ -11,7 +11,7 @@ vim.api.nvim_create_user_command('PyDocHide', M.PyDocHide, {})
 -- https://influentcoder.com/posts/nvim-diagnostics/
 -- local nvim_bqf_exist, _ = utils.is_plugin_installed("nvim-bqf")
 local nvim_bqf_exist, nvim_bqf = pcall(require, "bqf")
-nvim_bqf.enable()
+-- nvim_bqf.enable()
 
 vim.api.nvim_create_namespace("ns_refurb")
 
