@@ -113,6 +113,12 @@ config.ssh_domains = {
   },
 }
 
+config.unix_domains = {
+  {
+    name = "unix",
+  },
+}
+
 wezterm.on("gui-startup", function(cmd)
   local args = {}
   if cmd then
@@ -162,6 +168,7 @@ wezterm.on("update-right-status", function(window, pane)
   -- Utilize this to display LDR or current key table name
   if window:active_key_table() then stat = window:active_key_table() end
   if window:leader_is_active() then stat = "LDR" end
+
   -- Current process
   -- local process = helper.basename(pane:get_foreground_process_name())
   local process = ""
@@ -174,6 +181,11 @@ wezterm.on("update-right-status", function(window, pane)
       process_name = "nvim"
     end
   end
+
+  -- Domain
+  local domain_name = pane:get_domain_name()
+  -- wezterm.log_info("Current domain: " .. domain_name)
+
   -- Number of panes in current tab
   local panes_n = #window:active_tab():panes_with_info()
   local pane_str = "pane"
@@ -190,7 +202,12 @@ wezterm.on("update-right-status", function(window, pane)
     { Text = wezterm.nerdfonts.cod_layout .. " " .. panes_n .. " " .. pane_str },
     { Text = " | " },
     { Foreground = { Color = "rgba(255, 184, 108, 0)" } },
-    { Text = wezterm.nerdfonts.fa_code .. "  " .. process_name },
+    { Text = wezterm.nerdfonts.md_application_settings_outline .. "   " .. process_name },
+    "ResetAttributes",
+    { Background = { Color = "rgba(0, 0, 0, 0)" } },
+    { Text = " | " },
+    { Foreground = { Color = "rgba(98, 219, 87, 0)" } },
+    { Text = wezterm.nerdfonts.cod_multiple_windows .. "  " .. domain_name },
     "ResetAttributes",
     { Background = { Color = "rgba(0, 0, 0, 0)" } },
     { Text = " | " },
