@@ -14,7 +14,7 @@ return {
   event = { "InsertEnter", "CmdlineEnter" },
   -- optional: provides snippets for the snippet source
   dependencies = {
-    {"saghen/blink.compat", opts = {enable_events = true}},
+    { "saghen/blink.compat", opts = { enable_events = true } },
     'hrsh7th/cmp-cmdline',
     'rafamadriz/friendly-snippets',
     "xzbdmw/colorful-menu.nvim",
@@ -29,8 +29,11 @@ return {
           { path = "${3rd}/luv/library", words = { "vim%.uv" } },
         },
       },
-    }
-
+    },
+    {
+      "monkoose/neocodeium",
+      event = "VeryLazy",
+    },
   },
   -- use a release tag to download pre-built binaries
   version = '1.*',
@@ -231,5 +234,40 @@ return {
     },
     fuzzy = { implementation = "prefer_rust_with_warning" }
   },
-  opts_extend = { "sources.default" }
+  opts_extend = { "sources.default" },
+  config = function (_, opts)
+    local neocodeium = require("neocodeium")
+    local blink = require("blink.cmp")
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'BlinkCmpMenuOpen',
+      callback = function()
+        neocodeium.clear()
+      end,
+    })
+    neocodeium.setup({
+      filter = function()
+        return not blink.is_visible()
+      end,
+    })
+    vim.keymap.set("i", "<A-f>", function()
+        require("neocodeium").accept()
+    end, {desc="[neocodeium] accept"})
+    vim.keymap.set("i", "<A-w>", function()
+        require("neocodeium").accept_word()
+    end, {desc="[neocodeium] accept word"})
+    vim.keymap.set("i", "<A-a>", function()
+        require("neocodeium").accept_line()
+    end, {desc="[neocodeium] accept line"})
+    vim.keymap.set("i", "<A-e>", function()
+        require("neocodeium").cycle_or_complete()
+    end, {desc="[neocodeium] cycle or complete"})
+    vim.keymap.set("i", "<A-r>", function()
+        require("neocodeium").cycle_or_complete(-1)
+    end, {desc="[neocodeium] cycle or complete"})
+    vim.keymap.set("i", "<A-c>", function()
+        require("neocodeium").clear()
+    end, {desc="[neocodeium] clear"})
+    require("blink.compat").setup({})
+    blink.setup(opts)
+  end
 }
