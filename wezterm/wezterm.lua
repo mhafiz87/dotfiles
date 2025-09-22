@@ -66,8 +66,9 @@ config.font_dirs = { 'fonts' }
 config.font = wezterm.font_with_fallback({
     "JetBrainsMono Nerd Font",
     "FiraCode Nerd Font",
+    "MesloLGS NF",
     "DejaVuSansM Nerd Font",
-    "Noto Color Emoji"
+    "Noto Color Emoji",
 })
 config.font_size = 10
 
