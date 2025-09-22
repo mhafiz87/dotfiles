@@ -60,6 +60,17 @@ end
 -- Define the :Refurb command
 vim.api.nvim_create_user_command('Refurb', M.Refurb, {})
 
+
+local conform_exist, conform = pcall(require, "conform")
+if conform_exist then
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "python",
+    callback = function(args)
+      conform.format({ bufnr = args.buf })
+    end,
+  })
+end
+
 set.expandtab = true
 set.autoindent = true
 set.smarttab = true
