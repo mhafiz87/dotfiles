@@ -163,9 +163,10 @@ end)
 wezterm.on("update-right-status", function(window, pane)
 --   -- Workspace name
   local tab = window:active_tab()
-  local stat = window:active_workspace()
+  local workspace = window:active_workspace()
   -- It's a little silly to have workspace name all the time
   -- Utilize this to display LDR or current key table name
+  local stat = ""
   if window:active_key_table() then stat = window:active_key_table() end
   if window:leader_is_active() then stat = "LDR" end
 
@@ -195,9 +196,9 @@ wezterm.on("update-right-status", function(window, pane)
   -- Time
   local time = wezterm.strftime("%H:%M")
 
-  window:set_right_status(wezterm.format({
+  local right_status_data = {
     { Background = { Color = "rgba(0, 0, 0, 0)" } },
-    { Text = wezterm.nerdfonts.oct_table .. "  " .. stat },
+    { Text = wezterm.nerdfonts.oct_table .. "  " .. workspace },
     { Text = " | " },
     { Text = wezterm.nerdfonts.cod_layout .. " " .. panes_n .. " " .. pane_str },
     { Text = " | " },
@@ -213,7 +214,17 @@ wezterm.on("update-right-status", function(window, pane)
     { Text = " | " },
     { Text = wezterm.nerdfonts.md_clock .. "  " .. time },
     { Text = " |" },
-  }))
+  }
+
+  if stat ~= ""  then
+    table.insert(right_status_data, 1, "ResetAttributes")
+    table.insert(right_status_data, 1, { Text = " | " })
+    table.insert(right_status_data, 1, { Text = stat })
+    table.insert(right_status_data, 1, { Foreground = { Color = "rgba(235, 111, 146, 0)" } })
+    table.insert(right_status_data, 1, { Background = { Color = "rgba(0, 0, 0, 0)" } })
+  end
+
+  window:set_right_status(wezterm.format(right_status_data))
 end)
 
 return config
