@@ -31,6 +31,7 @@ return {
     -- find
     { "<leader>ff", function() Snacks.picker.files() end, desc = "[f]ind [f]iles" },
     { "<leader>fm", function() Snacks.picker.marks() end, desc = "[f]ind [m]arks" },
+    { "<leader>fw", function() Snacks.picker.grep({buffers=true}) end, desc = "[f]ind [w]ords in current buffer" },
     -- grep
     { "<leader>/", function() Snacks.picker.grep() end, desc = "grep" },
     -- git
