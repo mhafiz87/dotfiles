@@ -1,0 +1,142 @@
+#!/bin/bash
+
+global_hook() {
+    # Path to the commit message file
+    COMMIT_MSG_FILE=$1
+
+    # Read the commit message
+    COMMIT_MSG=$(cat $COMMIT_MSG_FILE)
+
+    # Extract header, body, and footer
+    HEADER=$(echo "$COMMIT_MSG" | head -n 1)
+    BODY=$(echo "$COMMIT_MSG" | sed -n '3,/^$/p' | sed '/^$/d')
+    FOOTER=$(echo "$COMMIT_MSG" | grep -i -E "^(JIRA:|MISTY:|BREAKING CHANGE:|[A-Z]+-[0-9]+:|Closes #|Fixes #|Resolves #)")
+
+    # Conventional Commit pattern
+    # Format: [optional scope]: 
+    # Example: feat(api): add user authentication
+    HEADER_PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: .{1,}'
+
+    if ! [[ $HEADER =~ $HEADER_PATTERN ]]; then
+      echo -e "\e[1;31mERROR: Commit message does not follow conventional format.\e[0m"
+      echo -e "\e[1;31mERROR: $HEADER.\e[0m"
+      echo ""
+      echo "Required format:"
+      echo '```'
+      echo -e "\e[38;2;255;165;0m<type>\e[0m\e[92m(<optional scope>)\e[0m: \e[38;2;255;165;0m<description>\e[0m"
+      echo -e "\e[3;90m<empty line separator>\e[0m"
+      echo "<optional body>"
+      echo -e "\e[3;90m<empty line separator>\e[0m"
+      echo "<optional footer>"
+      echo '```'
+      echo ""
+      echo "Supported types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+      echo ""
+      echo -e "\e[3;90mExample:\e[0m"
+      echo -e "feat(api): add user authentication  \e[3;90m# message\e[0m"
+      echo ""
+      echo -e "Uses httpx requests api.  \e[3;90m# body\e[0m"
+      echo ""
+      echo -e "JIRA: DM25AUTO-123  \e[3;90m# footer\e[0m"
+      echo ""
+      echo -e "\e[3;90mExample with breaking feature without any footer (exclamation after type or scope):\e[0m"
+      echo -e "feat(serial)!: add user authentication  \e[3;90m# message\e[0m"
+      echo ""
+      echo -e "New serial device replacing old.  \e[3;90m# body\e[0m"
+      echo ""
+      echo -e "\e[3;90mReferences:"
+      echo "1. https://www.conventionalcommits.org/en/v1.0.0/#specification"
+      echo -e "2. https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13\e[0m"
+      echo ""
+      exit 1
+    fi
+
+    echo "✅ Git commit message passed!"
+
+    # Check if description starts with a capital letter
+    DESCRIPTION=$(echo "$HEADER" | sed -E 's/^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: //')
+    FIRST_CHAR=$(echo "$DESCRIPTION" | cut -c1)
+
+    if [[ "$FIRST_CHAR" =~ [A-Z] ]]; then
+      echo -e "\e[1;31mERROR: Description should not start with a capital letter\e[0m"
+      exit 1
+    fi
+
+    # Check if description ends with a period
+    if [[ "$DESCRIPTION" =~ \.$ ]]; then
+      echo -e "\e[1;31mERROR: Description should not end with a period\e[0m"
+      exit 1
+    fi
+
+    # Check if commit message is too long (>72 characters)
+    if [[ ${#HEADER} -gt 72 ]]; then
+      echo -e "\e[93mWARNING: Commit message is longer than 72 characters\e[0m"
+    fi
+
+    # Check body format if it exists
+    if [[ -n "$BODY" ]]; then
+      # Check if body lines are wrapped at 72 characters
+      while IFS= read -r line; do
+        if [[ ${#line} -gt 72 ]]; then
+          echo -e "\e[93mWARNING: Body line longer than 72 characters:\e[0m"
+          echo -e "\e[38;2;255;165;0m$line\e[0m"
+        fi
+      done <<< "$BODY"
+
+      # Check if body starts with a capital letter
+      BODY_FIRST_CHAR=$(echo "$BODY" | head -n 1 | cut -c1)
+      if ! [[ "$BODY_FIRST_CHAR" =~ [A-Z] ]]; then
+        echo -e "\e[93mWARNING: Body should start with a capital letter\e[0m"
+      fi
+    fi
+
+    # Check footer format if it exists
+    if [[ -n "$FOOTER" ]]; then
+      # Check for breaking changes format
+      BREAKING_CHANGES=$(echo "$FOOTER" | grep -i "^BREAKING CHANGE:")
+      if [[ -n "$BREAKING_CHANGES" && ! "$HEADER" =~ ^(feat|fix) ]]; then
+        echo -e "\e[93mWARNING: Breaking changes should be in feat or fix type commits\e[0m"
+      fi
+
+      # # Check for issue references format
+      # ISSUE_REFS=$(echo "$FOOTER" | grep -E "(Closes|Fixes|Resolves) #[0-9]+")
+      # if [[ -n "$ISSUE_REFS" ]]; then
+      #   INVALID_REFS=$(echo "$ISSUE_REFS" | grep -v -E "^(Closes|Fixes|Resolves) #[0-9]+$")
+      #   if [[ -n "$INVALID_REFS" ]]; then
+      #     echo -e "\e[93mWARNING: Issue references should follow format: 'Closes/Fixes/Resolves #123'\e[0m"
+      #   fi
+      # fi
+    fi
+
+    echo "✅ Git commit body & footer passed!"
+}
+
+# Check if local commit-msg hook exists
+
+GLOBAL_HOOK="${BASH_SOURCE[0]}"
+LOCAL_HOOK="$(git rev-parse --show-toplevel)"'/.git/hooks/commit-msg'
+
+if [[ "$LOCAL_HOOK" == *":"* ]]; then
+  # echo "The string contains a colon."
+    # lowercase first letter then remove colon
+    ADJUSTED=$(echo "${LOCAL_HOOK,}" | sed 's/://g; s/^/\//')
+else
+    ADJUSTED=$LOCAL_HOOK
+    # echo "The string does not contain a colon."
+fi
+
+# echo "GLOBAL_HOOK: $GLOBAL_HOOK"
+# echo "LOCAL_HOOK: $LOCAL_HOOK"
+# echo "ADJUSTED: $ADJUSTED"
+# echo "$@"
+
+# if [ "$GLOBAL_HOOK" = "$ADJUSTED" ]; then
+if [[ ! -f "$LOCAL_HOOK" ]]; then
+    echo "Local hook not available. Using global hook..."
+    global_hook "$@"
+else
+    echo "Local hook is available. Using local hook..."
+    exit 1
+    exec "$LOCAL_HOOK" "$@"
+fi
+
