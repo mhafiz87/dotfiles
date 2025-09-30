@@ -174,7 +174,7 @@ local keys_default = {
       name = "resize_font",
       one_shot = false,
       -- timeout_milliseconds = 1000,
-      until_unknown = true,
+      -- until_unknown = true,
     }),
   },
 
@@ -186,7 +186,7 @@ local keys_default = {
       name = "windows",
       one_shot = false,
       -- timeout_milliseconds = 2000,
-      until_unknown = true,
+      -- until_unknown = true,
     }),
   },
 
@@ -198,7 +198,7 @@ local keys_default = {
       name = "resize_pane",
       one_shot = false,
       -- timeout_milliseconds = 2000,
-      until_unknown = true,
+      -- until_unknown = true,
     }),
   },
 
@@ -209,8 +209,8 @@ local keys_default = {
     action = act.ActivateKeyTable({
       name = "workspace",
       one_shot = false,
-      timeout_milliseconds = 2000,
-      until_unknown = true,
+      -- timeout_milliseconds = 2000,
+      -- until_unknown = true,
     })
   },
 }
