@@ -52,7 +52,7 @@ global_hook() {
     HEADER_PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: .{1,}'
 
     if ! [[ $HEADER =~ $HEADER_PATTERN ]]; then
-      stop_spinner "${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}\n"
+      stop_spinner "${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET} ❌\n"
       # echo -e "\e[u\r${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}\n"
       # echo -e "\e[1;31mERROR: Commit message does not follow conventional format.${RESET}"
       echo -e "\e[1;31m\"$HEADER\"${RESET}"
@@ -93,18 +93,18 @@ global_hook() {
 
     if [[ "$FIRST_CHAR" =~ [A-Z] ]]; then
       # echo -e "\e[1;31mERROR: Description should not start with a capital letter${RESET}"
-      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not start with a capital letter.${RESET}\n"
+      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not start with a capital letter.${RESET} ❌\n"
       exit 1
     fi
 
     # Check if description ends with a period
     if [[ "$DESCRIPTION" =~ \.$ ]]; then
       # echo -e "\e[1;31mERROR: Description should not end with a period${RESET}"
-      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not end with a period.${RESET}\n"
+      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not end with a period.${RESET} ❌\n"
       exit 1
     fi
 
-    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit message passed!"
+    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit message passed! ✅"
 
     start_spinner "Checking body and footer..."
 
@@ -148,8 +148,7 @@ global_hook() {
       # fi
     fi
 
-    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit body & footer passed!"
-    # echo "✅ Git commit body & footer passed!"
+    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit body & footer passed! ✅\n"
 }
 
 # Check if local commit-msg hook exists
@@ -173,11 +172,10 @@ fi
 
 # if [ "$GLOBAL_HOOK" = "$ADJUSTED" ]; then
 if [[ ! -f "$LOCAL_HOOK" ]]; then
-    echo "commit-msg local hook not available. using global hook..."
+    echo -e "\e[3;90mcommit-msg local hook not available. using global hook...${RESET}"
     global_hook "$@"
 else
-    echo "commit-msg local hook is available. using local hook..."
-    exit 1
+    echo -e "\e[3;90mcommit-msg local hook is available. using local hook...${RESET}"
     exec "$LOCAL_HOOK" "$@"
 fi
 
