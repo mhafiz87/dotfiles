@@ -1,6 +1,40 @@
 #!/bin/bash
 
+# https://stackoverflow.com/questions/24998434/read-command-display-the-prompt-in-color-or-enable-interpretation-of-backslas
+# https://www.ditig.com/256-colors-cheat-sheet
+RESET="\e[0m"
+BOLD="\e[1m"
+ITALIC="\e[3m"
+
+FRED="\e[38;2;255;0;0m"
+FGREEN="\e[38;2;0;255;0m"
+FYELLOW="\e[33m"
+FBLUE="\e[34m"
+FMAGENTA="\e[35m"
+FCYAN="\e[36m"
+FGOLD1="\e[38;2;255;215;0m"
+FPINK1="\e[38;2;255;175;215m"
+FORANGE="\e[38;2;255;165;0"
+
+BRED="\e[41m"
+BGREEN="\e[42m"
+BYELLOW="\e[43m"
+BBLUE="\e[44m"
+BMAGENTA="\e[45m"
+BCYAN="\e[46m"
+
+# https://gist.github.com/SamEureka/3e61942d37256550b40d0ffe75bc22c4
+six_dot_cell_pattern=("⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇")
+eight_dot_cell_pattern=("⣾" "⢿" "⡿" "⣷" "⣯" "⢟" "⡻" "⣽")
+braille_spinner=("${eight_dot_cell_pattern[@]}")
+frame_duration=0.1
+start_spinner() { ( spinner_index=0; while :; do printf "\r%s " "${braille_spinner[spinner_index]}"; spinner_index=$(( (spinner_index + 1) % ${#braille_spinner[@]} )); sleep "$frame_duration"; done ) & spinner_pid=$!; echo -en "\e[s"; echo -en "  $1" ; disown; }
+stop_spinner() { kill -9 "$spinner_pid"; printf "\r%s " "⠀"; echo -en "\e[u\e[2K\r" ; display_message "$1"; }
+# display_message() { if [ -n "$1" ]; then echo -e "\n$1"; else echo -e "\e[10D${BOLD}${FGREEN}⣿${RESET}"$"\n"; fi; }
+display_message() { if [ -n "$1" ]; then echo -e "$1"; else echo -e "\e[u\r"$""; fi; }
+
 global_hook() {
+    start_spinner "Checking commit message..."
     # Path to the commit message file
     COMMIT_MSG_FILE=$1
 
@@ -18,8 +52,10 @@ global_hook() {
     HEADER_PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: .{1,}'
 
     if ! [[ $HEADER =~ $HEADER_PATTERN ]]; then
-      echo -e "\e[1;31mERROR: Commit message does not follow conventional format.\e[0m"
-      echo -e "\e[1;31mERROR: $HEADER.\e[0m"
+      stop_spinner "${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}\n"
+      # echo -e "\e[u\r${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}\n"
+      # echo -e "\e[1;31mERROR: Commit message does not follow conventional format.\e[0m"
+      echo -e "\e[1;31m\"$HEADER\"\e[0m"
       echo ""
       echo "Required format:"
       echo '```'
@@ -51,22 +87,26 @@ global_hook() {
       exit 1
     fi
 
-    echo "✅ Git commit message passed!"
-
     # Check if description starts with a capital letter
     DESCRIPTION=$(echo "$HEADER" | sed -E 's/^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: //')
     FIRST_CHAR=$(echo "$DESCRIPTION" | cut -c1)
 
     if [[ "$FIRST_CHAR" =~ [A-Z] ]]; then
-      echo -e "\e[1;31mERROR: Description should not start with a capital letter\e[0m"
+      # echo -e "\e[1;31mERROR: Description should not start with a capital letter\e[0m"
+      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not start with a capital letter.${RESET}\n"
       exit 1
     fi
 
     # Check if description ends with a period
     if [[ "$DESCRIPTION" =~ \.$ ]]; then
-      echo -e "\e[1;31mERROR: Description should not end with a period\e[0m"
+      # echo -e "\e[1;31mERROR: Description should not end with a period\e[0m"
+      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not end with a period.${RESET}\n"
       exit 1
     fi
+
+    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit message passed!"
+
+    start_spinner "Checking body and footer..."
 
     # Check if commit message is too long (>72 characters)
     if [[ ${#HEADER} -gt 72 ]]; then
@@ -108,7 +148,8 @@ global_hook() {
       # fi
     fi
 
-    echo "✅ Git commit body & footer passed!"
+    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit body & footer passed!"
+    # echo "✅ Git commit body & footer passed!"
 }
 
 # Check if local commit-msg hook exists
@@ -132,10 +173,10 @@ fi
 
 # if [ "$GLOBAL_HOOK" = "$ADJUSTED" ]; then
 if [[ ! -f "$LOCAL_HOOK" ]]; then
-    echo "Local hook not available. Using global hook..."
+    echo "commit-msg local hook not available. using global hook..."
     global_hook "$@"
 else
-    echo "Local hook is available. Using local hook..."
+    echo "commit-msg local hook is available. using local hook..."
     exit 1
     exec "$LOCAL_HOOK" "$@"
 fi
