@@ -23,13 +23,24 @@ BBLUE="\e[44m"
 BMAGENTA="\e[45m"
 BCYAN="\e[46m"
 
+justify() {
+    max_length=78
+    args_length=${#1}
+    remaining_length=$((max_length - args_length))
+    printf "%b" "${1}"
+    eval printf "%.0s." {1..${remaining_length}}
+    printf "%s" "${2}"
+    printf "\e[0m\n"
+}
+
 # https://gist.github.com/SamEureka/3e61942d37256550b40d0ffe75bc22c4
 six_dot_cell_pattern=("⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇")
 eight_dot_cell_pattern=("⣾" "⢿" "⡿" "⣷" "⣯" "⢟" "⡻" "⣽")
 braille_spinner=("${eight_dot_cell_pattern[@]}")
 frame_duration=0.1
 start_spinner() { ( spinner_index=0; while :; do printf "\r%s " "${braille_spinner[spinner_index]}"; spinner_index=$(( (spinner_index + 1) % ${#braille_spinner[@]} )); sleep "$frame_duration"; done ) & spinner_pid=$!; echo -en "\e[s"; echo -en "  $1" ; disown; }
-stop_spinner() { kill -9 "$spinner_pid"; printf "\r%s " "⠀"; echo -en "\e[u\e[2K\r" ; display_message "$1"; }
+# stop_spinner() { kill -9 "$spinner_pid"; printf "\r%s " "⠀"; echo -en "\e[u\e[2K\r" ; display_message "$1"; }
+stop_spinner() { kill -9 "$spinner_pid"; printf "\r%s " "⠀"; echo -en "\e[u\e[2K\r" ; justify "$@"; }
 # display_message() { if [ -n "$1" ]; then echo -e "\n$1"; else echo -e "\e[10D${BOLD}${FGREEN}⣿${RESET}"$"\n"; fi; }
 display_message() { if [ -n "$1" ]; then echo -e "$1"; else echo -e "\e[u\r"$""; fi; }
 
@@ -52,7 +63,7 @@ global_hook() {
     HEADER_PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: .{1,}'
 
     if ! [[ $HEADER =~ $HEADER_PATTERN ]]; then
-      stop_spinner "${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET} ❌\n"
+      stop_spinner "${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}" "❌"
       # echo -e "\e[u\r${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}\n"
       # echo -e "\e[1;31mERROR: Commit message does not follow conventional format.${RESET}"
       echo -e "\e[1;31m\"$HEADER\"${RESET}"
@@ -93,18 +104,18 @@ global_hook() {
 
     if [[ "$FIRST_CHAR" =~ [A-Z] ]]; then
       # echo -e "\e[1;31mERROR: Description should not start with a capital letter${RESET}"
-      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not start with a capital letter.${RESET} ❌\n"
+      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not start with a capital letter.${RESET}" "❌"
       exit 1
     fi
 
     # Check if description ends with a period
     if [[ "$DESCRIPTION" =~ \.$ ]]; then
       # echo -e "\e[1;31mERROR: Description should not end with a period${RESET}"
-      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not end with a period.${RESET} ❌\n"
+      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not end with a period.${RESET}" "❌"
       exit 1
     fi
 
-    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit message passed! ✅"
+    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit message passed!" "✅"
 
     start_spinner "Checking body and footer..."
 
@@ -148,7 +159,7 @@ global_hook() {
       # fi
     fi
 
-    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit body & footer passed! ✅\n"
+    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit body & footer passed!" "✅"
 }
 
 # Check if local commit-msg hook exists
