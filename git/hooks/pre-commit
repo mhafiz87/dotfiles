@@ -1,49 +1,121 @@
 #!/bin/bash
+
+# https://stackoverflow.com/questions/24998434/read-command-display-the-prompt-in-color-or-enable-interpretation-of-backslas
+# https://www.ditig.com/256-colors-cheat-sheet
+RESET="\e[0m"
+BOLD="\e[1m"
+ITALIC="\e[3m"
+
+FRED="\e[38;2;255;0;0m"
+FGREEN="\e[38;2;0;255;0m"
+FYELLOW="\e[33m"
+FBLUE="\e[34m"
+FMAGENTA="\e[35m"
+FCYAN="\e[36m"
+FGOLD1="\e[38;2;255;215;0m"
+FPINK1="\e[38;2;255;175;215m"
+FORANGE="\e[38;2;255;165;0"
+
+BRED="\e[41m"
+BGREEN="\e[42m"
+BYELLOW="\e[43m"
+BBLUE="\e[44m"
+BMAGENTA="\e[45m"
+BCYAN="\e[46m"
+
+# https://gist.github.com/SamEureka/3e61942d37256550b40d0ffe75bc22c4
+six_dot_cell_pattern=("⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇")
+eight_dot_cell_pattern=("⣾" "⢿" "⡿" "⣷" "⣯" "⢟" "⡻" "⣽")
+braille_spinner=("${eight_dot_cell_pattern[@]}")
+frame_duration=0.1
+start_spinner() { ( spinner_index=0; while :; do printf "\r%s " "${braille_spinner[spinner_index]}"; spinner_index=$(( (spinner_index + 1) % ${#braille_spinner[@]} )); sleep "$frame_duration"; done ) & spinner_pid=$!; echo -en "\e[s"; echo -en "  $1" ; disown; }
+stop_spinner() { kill -9 "$spinner_pid"; printf "\r%s " "⠀"; echo -en "\e[u\e[2K\r" ; display_message "$1"; }
+display_message() { if [ -n "$1" ]; then echo -e "$1"; else echo -e "\e[u\r"$""; fi; }
+
 # Python
 # Git pre-commit hook using Ruff to sort imports, check, and fix issues
 
-# Store list of staged Python files
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.py$')
+global_hook() {
+    # Store list of staged Python files
+    STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.py$')
 
-if [[ "$STAGED_FILES" = "" ]]; then
-  echo -e "\e[1mNo Python files staged for commit. Skipping Ruff checks.\e[0m"
-  exit 0
+    if [[ "$STAGED_FILES" = "" ]]; then
+        echo -e "\e[3;90mNo Python files staged for commit. Skipping Ruff checks.${RESET}"
+        exit 0
+    fi
+
+    # echo -e "\e[1mRunning Ruff on staged Python files...${RESET}"
+    start_spinner "Running Ruff on staged Python files..."
+    stop_spinner
+
+    # First, sort imports
+    # echo -e "\e[1mSorting imports with Ruff...${RESET}"
+    start_spinner "Sorting imports with Ruff..."
+    output=$(ruff check --select I --fix $STAGED_FILES)
+    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Sorting imports with Ruff... ✅"
+
+    # Then run Ruff to check and fix other issues
+    # echo -e "\e[1mRunning Ruff checks and fixes...${RESET}"
+    start_spinner "Running Ruff checks and fixes..."
+    output=$(ruff check --fix $STAGED_FILES)
+    if [[ $? != 0 ]]; then
+        stop_spinner "\e[31m⣿ Ruff checks and fixes: Ruff error found...${RESET} ❌"
+        echo -e "${output}"
+    else
+        stop_spinner "${BOLD}${FGREEN}⣿${RESET} Ruff checks and fixes: ${output} ✅"
+    fi
+
+    # Check docstrings
+    # D102: undocumented-public-method
+    # D103: undocumented-public-function
+    # D105: undocumented-magic-method
+    # D414: empty-docstring-section
+    # D419: empty-docstring
+    # echo -e "\e[1mRunning Ruff checks for dosctring...${RESET}"
+    start_spinner "Running Ruff checks for dosctring..."
+    # output=$(script -q /dev/null -c "ruff check --select Q002,D102,D103,D105,D414,D419 --fix $STAGED_FILES" | cat)
+    output=$(ruff check --select Q002,D102,D103,D105,D414,D419 --fix $STAGED_FILES)
+    if [[ $? != 0 ]]; then
+        stop_spinner "\e[31m⣿ Ruff error in dosctring, does not affect commit...${RESET} ❌"
+        # printf "%b%s%b %20s\n" "\e[31m" "⣿ Ruff error in dosctring, does not affect commit" "${RESET}" "❌"
+        # echo -e "${output}"
+        ruff check --select Q002,D102,D103,D105,D414,D419 --fix $STAGED_FILES
+    else
+        stop_spinner "${BOLD}${FGREEN}⣿${RESET} ${output} ✅"
+    fi
+
+    # Check if any files were modified by Ruff
+    if git diff --name-only | grep -E '\.py$' > /dev/null; then
+        echo -e "\e[3mRuff made changes. Adding modified files to staging area.${RESET}"
+        git add $STAGED_FILES
+    fi
+
+    # Run a final check to ensure all issues are fixed or properly ignored
+    # echo -e "\e[1mRunning final verification...${RESET}"
+    start_spinner "Running final verification..."
+    if ! ruff check $STAGED_FILES; then
+        # echo -e " \e1mRuff found issues that couldn't be automatically fixed."
+        # echo -e "Please fix the remaining issues and try committing again.${RESET} ❌"
+        stop_spinner "\e[31m⣿ Ruff found issues that couldn't be automatically fixed. Please fix the remaining issues and try committing again.${RESET}} ❌"
+        exit 1
+    fi
+
+    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Ruff checks passed! ✅\n"
+    # echo -e "${BOLD}${FGREEN}⣿${RESET} Ruff checks passed! ✅"
+
+    exit 0
+}
+
+# Check if local pre-commit hook exists
+
+GLOBAL_HOOK="${BASH_SOURCE[0]}"
+LOCAL_HOOK="$(git rev-parse --show-toplevel)"'/.git/hooks/pre-commit'
+
+if [[ ! -f "$LOCAL_HOOK" ]]; then
+    echo -e "\e[3;90mpre-commit local hook NOT available. using global hook...${RESET}"
+    global_hook "$@"
+else
+    echo -e "\e[3;90mpre-commit local hook is available. using local hook...${RESET}"
+    exec "$LOCAL_HOOK" "$@"
 fi
-
-echo -e "\e[1mRunning Ruff on staged Python files...\e[0m"
-
-# First, sort imports
-echo -e "\e[1mSorting imports with Ruff...\e[0m"
-ruff check --select I --fix $STAGED_FILES
-
-# Then run Ruff to check and fix other issues
-echo -e "\e[1mRunning Ruff checks and fixes...\e[0m"
-ruff check --fix $STAGED_FILES
-
-# Check docstrings
-# D102: undocumented-public-method
-# D103: undocumented-public-function
-# D105: undocumented-magic-method
-# D414: empty-docstring-section
-# D419: empty-docstring
-echo -e "\e[1mRunning Ruff checks for dosctring...\e[0m"
-ruff check --select Q002,D102,D103,D105,D414,D419 --fix $STAGED_FILES
-
-# Check if any files were modified by Ruff
-if git diff --name-only | grep -E '\.py$' > /dev/null; then
-  echo -e "\e[1mRuff made changes. Adding modified files to staging area.\e[0m"
-  git add $STAGED_FILES
-fi
-
-# Run a final check to ensure all issues are fixed or properly ignored
-echo -e "\e[1mRunning final verification...\e[0m"
-if ! ruff check $STAGED_FILES; then
-  echo -e "❌ \e1mRuff found issues that couldn't be automatically fixed."
-  echo -e "Please fix the remaining issues and try committing again.\e[0m"
-  exit 1
-fi
-
-echo "✅ Ruff checks passed!"
-
-exit 0
 

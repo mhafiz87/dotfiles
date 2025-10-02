@@ -61,15 +61,15 @@ end
 vim.api.nvim_create_user_command('Refurb', M.Refurb, {})
 
 
-local conform_exist, conform = pcall(require, "conform")
-if conform_exist then
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*.py",
-    callback = function(args)
-      conform.format({ bufnr = args.buf })
-    end,
-  })
-end
+-- local conform_exist, conform = pcall(require, "conform")
+-- if conform_exist then
+--   vim.api.nvim_create_autocmd("BufWritePre", {
+--     pattern = "*.py",
+--     callback = function(args)
+--       conform.format({ bufnr = args.buf })
+--     end,
+--   })
+-- end
 
 set.expandtab = true
 set.autoindent = true

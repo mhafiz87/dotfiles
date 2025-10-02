@@ -19,6 +19,17 @@ return {
       },
       refresh = 50, -- refresh at most every 50ms
     },
+    zen = {
+      toggles = {
+        git_signs = true,
+        mini_diff_signs = true,
+        diagnostics = true
+      },
+      show = {
+        statusline = true,
+        tabline = true
+      }
+    }
   },
   keys = {
     -- buffers
@@ -45,6 +56,8 @@ return {
     { "grD", function() Snacks.picker.lsp_declarations() end, desc = "lsp declarations" },
     { "grr", function() Snacks.picker.lsp_references() end, desc = "lsp references" },
     { "gri", function() Snacks.picker.lsp_implementations() end, desc = "lsp implementation" },
+    -- toggle
+    { "<leader>tz", function() Snacks.zen() end, desc = "[t]oggle [z]en" },
     -- marks
   },
   config = function (_, opts)
