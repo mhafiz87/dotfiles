@@ -8,41 +8,24 @@ ITALIC="\e[3m"
 
 FRED="\e[38;2;255;0;0m"
 FGREEN="\e[38;2;0;255;0m"
-FYELLOW="\e[33m"
-FBLUE="\e[34m"
-FMAGENTA="\e[35m"
-FCYAN="\e[36m"
-FGOLD1="\e[38;2;255;215;0m"
-FPINK1="\e[38;2;255;175;215m"
-FORANGE="\e[38;2;255;165;0"
+FTRED="\e[31m"
+FTYELLOW="\e[33m"
+FTBLACKDARK="\e[90m"
+FTGREENDARK="\e[92m"
+FTYELLOWDARK="\e[93m"
 
-BRED="\e[41m"
-BGREEN="\e[42m"
-BYELLOW="\e[43m"
-BBLUE="\e[44m"
-BMAGENTA="\e[45m"
-BCYAN="\e[46m"
+CLEARLINE="\e[2K"
+RESETCURSOR="\e[0G"  # or "\r"
 
-justify() {
-    max_length=78
-    args_length=${#1}
-    remaining_length=$((max_length - args_length))
-    printf "%b" "${1}"
-    eval printf "%.0s." {1..${remaining_length}}
-    printf "%s" "${2}"
-    printf "\e[0m\n"
-}
+justify() { max_length=78; args_length=${#1}; remaining_length=$((max_length - args_length)); printf "%b" "${1}"; eval printf "%.0s." {1..${remaining_length}}; printf "%s" "${2}"; printf "${RESET}\n"; }
 
 # https://gist.github.com/SamEureka/3e61942d37256550b40d0ffe75bc22c4
 six_dot_cell_pattern=("⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇")
 eight_dot_cell_pattern=("⣾" "⢿" "⡿" "⣷" "⣯" "⢟" "⡻" "⣽")
 braille_spinner=("${eight_dot_cell_pattern[@]}")
 frame_duration=0.1
-start_spinner() { ( spinner_index=0; while :; do printf "\r%s " "${braille_spinner[spinner_index]}"; spinner_index=$(( (spinner_index + 1) % ${#braille_spinner[@]} )); sleep "$frame_duration"; done ) & spinner_pid=$!; echo -en "\e[s"; echo -en "  $1" ; disown; }
-# stop_spinner() { kill -9 "$spinner_pid"; printf "\r%s " "⠀"; echo -en "\e[u\e[2K\r" ; display_message "$1"; }
-stop_spinner() { kill -9 "$spinner_pid"; printf "\r%s " "⠀"; echo -en "\e[u\e[2K\r" ; justify "$@"; }
-# display_message() { if [ -n "$1" ]; then echo -e "\n$1"; else echo -e "\e[10D${BOLD}${FGREEN}⣿${RESET}"$"\n"; fi; }
-display_message() { if [ -n "$1" ]; then echo -e "$1"; else echo -e "\e[u\r"$""; fi; }
+start_spinner() { tput civis; ( spinner_index=0; while :; do printf "\r%s " "${braille_spinner[spinner_index]}"; spinner_index=$(((spinner_index + 1) % ${#braille_spinner[@]})); sleep "$frame_duration"; done) & spinner_pid=$!; echo -en "  $1"; disown; }
+stop_spinner() { kill -9 "$spinner_pid"; tput cnorm; echo -en "${CLEARLINE}\r"; justify "$@"; }
 
 global_hook() {
     start_spinner "Checking commit message..."
@@ -64,34 +47,32 @@ global_hook() {
 
     if ! [[ $HEADER =~ $HEADER_PATTERN ]]; then
       stop_spinner "${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}" "❌"
-      # echo -e "\e[u\r${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}\n"
-      # echo -e "\e[1;31mERROR: Commit message does not follow conventional format.${RESET}"
-      echo -e "\e[1;31m\"$HEADER\"${RESET}"
+      echo -e "${BOLD}${FRED}\"$HEADER\"${RESET}"
       echo ""
       echo "Required format:"
       echo '```'
-      echo -e "${FORANGE}<type>${RESET}\e[92m(<optional scope>)${RESET}: ${FORANGE}<description>${RESET}"
-      echo -e "\e[3;90m<empty line separator>${RESET}"
+      echo -e "${FTYELLOW}<type>${RESET}${FTGREENDARK}(<optional scope>)${RESET}: ${FTYELLOW}<description>${RESET}"
+      echo -e "${ITALIC}${FTBLACKDARK}<empty line separator>${RESET}"
       echo "<optional body>"
-      echo -e "\e[3;90m<empty line separator>${RESET}"
+      echo -e "${ITALIC}${FTBLACKDARK}<empty line separator>${RESET}"
       echo "<optional footer>"
       echo '```'
       echo ""
       echo "Supported types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
       echo ""
-      echo -e "\e[3;90mExample:${RESET}"
-      echo -e "feat(api): add user authentication  \e[3;90m# message${RESET}"
+      echo -e "${ITALIC}${FTBLACKDARK}Example:${RESET}"
+      echo -e "feat(api): add user authentication  ${ITALIC}${FTBLACKDARK}# message${RESET}"
       echo ""
-      echo -e "Uses httpx requests api.  \e[3;90m# body${RESET}"
+      echo -e "Uses httpx requests api.  ${ITALIC}${FTBLACKDARK}# body${RESET}"
       echo ""
-      echo -e "JIRA: DM25AUTO-123  \e[3;90m# footer${RESET}"
+      echo -e "JIRA: DM25AUTO-123  ${ITALIC}${FTBLACKDARK}# footer${RESET}"
       echo ""
-      echo -e "\e[3;90mExample with breaking feature without any footer (exclamation after type or scope):${RESET}"
-      echo -e "feat(serial)!: add user authentication  \e[3;90m# message${RESET}"
+      echo -e "${ITALIC}${FTBLACKDARK}Example with breaking feature without any footer (exclamation after type or scope):${RESET}"
+      echo -e "feat(serial)!: add user authentication  ${ITALIC}${FTBLACKDARK}# message${RESET}"
       echo ""
-      echo -e "New serial device replacing old.  \e[3;90m# body${RESET}"
+      echo -e "New serial device replacing old.  ${ITALIC}${FTBLACKDARK}# body${RESET}"
       echo ""
-      echo -e "\e[3;90mReferences:"
+      echo -e "${ITALIC}${FTBLACKDARK}References:"
       echo "1. https://www.conventionalcommits.org/en/v1.0.0/#specification"
       echo -e "2. https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13${RESET}"
       echo ""
@@ -103,14 +84,12 @@ global_hook() {
     FIRST_CHAR=$(echo "$DESCRIPTION" | cut -c1)
 
     if [[ "$FIRST_CHAR" =~ [A-Z] ]]; then
-      # echo -e "\e[1;31mERROR: Description should not start with a capital letter${RESET}"
       stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not start with a capital letter.${RESET}" "❌"
       exit 1
     fi
 
     # Check if description ends with a period
     if [[ "$DESCRIPTION" =~ \.$ ]]; then
-      # echo -e "\e[1;31mERROR: Description should not end with a period${RESET}"
       stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not end with a period.${RESET}" "❌"
       exit 1
     fi
@@ -121,7 +100,7 @@ global_hook() {
 
     # Check if commit message is too long (>72 characters)
     if [[ ${#HEADER} -gt 72 ]]; then
-      echo -e "\e[93mWARNING: Commit message is longer than 72 characters${RESET}"
+      echo -e "${FTYELLOWDARK}WARNING: Commit message is longer than 72 characters${RESET}"
     fi
 
     # Check body format if it exists
@@ -129,7 +108,7 @@ global_hook() {
       # Check if body lines are wrapped at 72 characters
       while IFS= read -r line; do
         if [[ ${#line} -gt 72 ]]; then
-          echo -e "\e[93mWARNING: Body line longer than 72 characters:${RESET}"
+          echo -e "${FTYELLOWDARK}WARNING: Body line longer than 72 characters:${RESET}"
           echo -e "\e[38;2;255;165;0m$line${RESET}"
         fi
       done <<< "$BODY"
@@ -137,7 +116,7 @@ global_hook() {
       # Check if body starts with a capital letter
       BODY_FIRST_CHAR=$(echo "$BODY" | head -n 1 | cut -c1)
       if ! [[ "$BODY_FIRST_CHAR" =~ [A-Z] ]]; then
-        echo -e "\e[93mWARNING: Body should start with a capital letter${RESET}"
+        echo -e "${FTYELLOWDARK}WARNING: Body should start with a capital letter${RESET}"
       fi
     fi
 
@@ -146,7 +125,7 @@ global_hook() {
       # Check for breaking changes format
       BREAKING_CHANGES=$(echo "$FOOTER" | grep -i "^BREAKING CHANGE:")
       if [[ -n "$BREAKING_CHANGES" && ! "$HEADER" =~ ^(feat|fix) ]]; then
-        echo -e "\e[93mWARNING: Breaking changes should be in feat or fix type commits${RESET}"
+        echo -e "${FTYELLOWDARK}WARNING: Breaking changes should be in feat or fix type commits${RESET}"
       fi
 
       # # Check for issue references format
@@ -154,7 +133,7 @@ global_hook() {
       # if [[ -n "$ISSUE_REFS" ]]; then
       #   INVALID_REFS=$(echo "$ISSUE_REFS" | grep -v -E "^(Closes|Fixes|Resolves) #[0-9]+$")
       #   if [[ -n "$INVALID_REFS" ]]; then
-      #     echo -e "\e[93mWARNING: Issue references should follow format: 'Closes/Fixes/Resolves #123'${RESET}"
+      #     echo -e "${FTYELLOWDARK}WARNING: Issue references should follow format: 'Closes/Fixes/Resolves #123'${RESET}"
       #   fi
       # fi
     fi
@@ -183,10 +162,10 @@ fi
 
 # if [ "$GLOBAL_HOOK" = "$ADJUSTED" ]; then
 if [[ ! -f "$LOCAL_HOOK" ]]; then
-    echo -e "\e[3;90mcommit-msg local hook not available. using global hook...${RESET}"
+    echo -e "${ITALIC}${FTBLACKDARK}commit-msg local hook not available. using global hook...${RESET}"
     global_hook "$@"
 else
-    echo -e "\e[3;90mcommit-msg local hook is available. using local hook...${RESET}"
+    echo -e "${ITALIC}${FTBLACKDARK}commit-msg local hook is available. using local hook...${RESET}"
     exec "$LOCAL_HOOK" "$@"
 fi
 
