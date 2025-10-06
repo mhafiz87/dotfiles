@@ -51,10 +51,15 @@ FRED="\e[38;2;255;0;0m"
 FGREEN="\e[38;2;0;255;0m"
 FGOLD1="\e[38;2;255;215;0m"
 FPINK1="\e[38;2;255;175;215m"
-FORANGE="\e[38;2;255;165;0"
+FORANGE="\e[38;2;255;165;0m"
 
 CLEARLINE="\e[2K"
+RESETCURSOR="\e[0G" # or "\r"
 
+# Function to justify string by append dot until column 78
+# Arguments:
+#   $1: string to justify
+#   $2: string to append and column 79
 justify() {
     max_length=78
     args_length=${#1}
@@ -77,6 +82,8 @@ braille_spinner=("${eight_dot_cell_pattern[@]}")
 frame_duration=0.1
 
 # Function to start the spinner in the background
+# Arguments:
+#   $1: message to display
 start_spinner() {
     tput civis # hide cursor
     (
@@ -94,6 +101,8 @@ start_spinner() {
 }
 
 # Function to stop the spinner with U+2800
+# Arguments:
+#   $1: message to display
 stop_spinner() {
     kill -9 "$spinner_pid" # Stop the spinner loop
     tput cnorm             # show cursor
