@@ -7,7 +7,6 @@ RESET="\e[0m"
 BOLD="\e[1m"
 ITALIC="\e[3m"
 
-FRED="\e[38;2;255;0;0m"
 FGREEN="\e[38;2;0;255;0m"
 FORANGE="\e[38;2;255;165;0m"
 FTRED="\e[31m"
@@ -25,8 +24,9 @@ RESETCURSOR="\e[0G" # or "\r"
 #   $2: string to append and column 79
 justify() {
     max_length=78
-    args_length=${#1}
-    remaining_length=$((max_length - args_length))
+    temp=$(echo -e "$1" | sed 's/\x1b\[[0-9;]*m//g') # remove color codes
+    clean_length=${#temp}
+    remaining_length=$((max_length - clean_length))
     printf "%b" "${1}"
     eval printf "%.0s." {1..${remaining_length}}
     printf "%s" "${2}"
@@ -86,8 +86,8 @@ global_hook() {
     HEADER_PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: .{1,}'
 
     if ! [[ $HEADER =~ $HEADER_PATTERN ]]; then
-        stop_spinner "${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}" "❌"
-        echo -e "${BOLD}${FRED}\"$HEADER\"${RESET}"
+        stop_spinner "${BOLD}${FTRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}" "❌"
+        echo -e "${BOLD}${FTRED}\"$HEADER\"${RESET}"
         echo ""
         echo "Required format:"
         echo '```'
@@ -124,14 +124,14 @@ global_hook() {
     FIRST_CHAR=$(echo "$DESCRIPTION" | cut -c1)
 
     if [[ "$FIRST_CHAR" =~ [A-Z] ]]; then
-        stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not start with a capital letter.${RESET}" "❌"
+        stop_spinner "${BOLD}${FTRED}⣿ ERROR: commit message description should not start with a capital letter" "❌"
         echo ""
         exit 1
     fi
 
     # Check if description ends with a period
     if [[ "$DESCRIPTION" =~ \.$ ]]; then
-        stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not end with a period.${RESET}" "❌"
+        stop_spinner "${BOLD}${FTRED}⣿ ERROR: commit message description should not end with a period" "❌"
         echo ""
         exit 1
     fi

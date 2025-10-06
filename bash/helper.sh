@@ -62,12 +62,13 @@ RESETCURSOR="\e[0G" # or "\r"
 #   $2: string to append and column 79
 justify() {
     max_length=78
-    args_length=${#1}
-    remaining_length=$((max_length - args_length))
+    temp=$(echo -e "$1" | sed 's/\x1b\[[0-9;]*m//g') # remove color codes
+    clean_length=${#temp}
+    remaining_length=$((max_length - clean_length))
     printf "%b" "${1}"
     eval printf "%.0s." {1..${remaining_length}}
     printf "%s" "${2}"
-    printf "\e[0m\n"
+    printf "${RESET}\n"
 }
 
 # https://gist.github.com/SamEureka/3e61942d37256550b40d0ffe75bc22c4
