@@ -6,6 +6,7 @@ return {
     local conform = require("conform")
     conform.setup({
       formatters_by_ft = {
+        bash = { "shfmt" },
         lua = { "sytlua" },
         python = { "ruff_organize_imports", "ruff_fix", "ruff_format" },
       },
