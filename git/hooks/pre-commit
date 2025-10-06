@@ -63,7 +63,11 @@ stop_spinner() {
     kill -9 "$spinner_pid"
     tput cnorm
     echo -en "${CLEARLINE}\r"
-    justify "$@"
+    if [[ -n "$1" ]]; then
+        justify "$@"
+    else
+        echo -en "${RESET}"
+    fi
 }
 
 # Python
@@ -90,7 +94,7 @@ global_hook() {
     start_spinner "Running Ruff checks and fixes..."
     output=$(ruff check --fix $STAGED_FILES)
     if [[ $? != 0 ]]; then
-        stop_spinner "${FTRED}⣿ Ruff checks and fixes: Ruff error found${RESET}" "❌"
+        stop_spinner "${FTRED}⣿ Ruff checks and fixes: Ruff error found" "❌"
         # ruff check --fix $STAGED_FILES
         # echo -e "${output}"
     else
@@ -108,11 +112,11 @@ global_hook() {
     # output=$(script -q /dev/null -c "ruff check --select Q002,D102,D103,D105,D414,D419 --fix $STAGED_FILES" | cat)
     output=$(ruff check --select Q002,D102,D103,D105,D414,D419 --fix $STAGED_FILES)
     if [[ $? != 0 ]]; then
-        stop_spinner "${FTYELLOW}⣿ Ruff error in dosctring, does not affect commit${RESET}" "❌"
+        stop_spinner "${FTYELLOW}⣿ Ruff error in dosctring, does not affect commit" "❌"
         # echo -e "${output}"
         # ruff check --select Q002,D102,D103,D105,D414,D419 --fix $STAGED_FILES
     else
-        stop_spinner "${BOLD}${FGREEN}⣿${RESET} ${output}" "✅"
+        stop_spinner "${BOLD}${FGREEN}⣿${RESET} Ruff checks for dosctring: ${output}" "✅"
     fi
 
     # Check if any files were modified by Ruff
@@ -123,8 +127,9 @@ global_hook() {
 
     # Run a final check to ensure all issues are fixed or properly ignored
     start_spinner "Running final verification..."
-    if ! ruff check $STAGED_FILES; then
-        stop_spinner "${FTRED}⣿ Ruff found issues that couldn't be auto fixed. Please fix and commit again${RESET}" "❌"
+    output=$(ruff check $STAGED_FILES)
+    if [[ $? != 0 ]]; then
+        stop_spinner "${FTRED}⣿ Ruff found issues that couldn't be auto fixed. Please fix and commit again" "❌"
         echo ""
         exit 1
     fi

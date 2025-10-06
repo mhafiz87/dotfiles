@@ -64,7 +64,11 @@ stop_spinner() {
     kill -9 "$spinner_pid"
     tput cnorm
     echo -en "${CLEARLINE}\r"
-    justify "$@"
+    if [[ -n "$1" ]]; then
+        justify "$@"
+    else
+        echo -en "${RESET}"
+    fi
 }
 
 global_hook() {

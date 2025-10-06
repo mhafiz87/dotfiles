@@ -105,9 +105,12 @@ start_spinner() {
 # Arguments:
 #   $1: message to display
 stop_spinner() {
-    kill -9 "$spinner_pid" # Stop the spinner loop
-    tput cnorm             # show cursor
-    # echo -en "\e[u"      # restore cursor
-    echo -en "\e[2K\r" # Clear the line and set cursor to column 0
-    justify "$@"       # display message
+    kill -9 "$spinner_pid"
+    tput cnorm
+    echo -en "${CLEARLINE}\r"
+    if [[ -n "$1" ]]; then
+        justify "$@"
+    else
+        echo -en "${RESET}"
+    fi
 }
