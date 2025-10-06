@@ -87,7 +87,7 @@ global_hook() {
     # Conventional Commit pattern
     # Format: [optional scope]:
     # Example: feat(api): add user authentication
-    HEADER_PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: .{1,}'
+    HEADER_PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|task)(\([|a-z 0-9-]+\))?: .{1,}'
 
     if ! [[ $HEADER =~ $HEADER_PATTERN ]]; then
         stop_spinner "${BOLD}${FTRED}⣿ ERROR: Commit message does not follow conventional format" "❌"
@@ -192,15 +192,6 @@ global_hook() {
 
 GLOBAL_HOOK="${BASH_SOURCE[0]}"
 LOCAL_HOOK="$(git rev-parse --show-toplevel)"'/.git/hooks/commit-msg'
-
-if [[ "$LOCAL_HOOK" == *":"* ]]; then
-    # echo "The string contains a colon."
-    # lowercase first letter then remove colon
-    ADJUSTED=$(echo "${LOCAL_HOOK,}" | sed 's/://g; s/^/\//')
-else
-    ADJUSTED=$LOCAL_HOOK
-    # echo "The string does not contain a colon."
-fi
 
 # if [ "$GLOBAL_HOOK" = "$ADJUSTED" ]; then
 if [[ ! -f "$LOCAL_HOOK" ]]; then
