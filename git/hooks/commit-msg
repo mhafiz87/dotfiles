@@ -2,12 +2,14 @@
 
 # https://stackoverflow.com/questions/24998434/read-command-display-the-prompt-in-color-or-enable-interpretation-of-backslas
 # https://www.ditig.com/256-colors-cheat-sheet
+
 RESET="\e[0m"
 BOLD="\e[1m"
 ITALIC="\e[3m"
 
 FRED="\e[38;2;255;0;0m"
 FGREEN="\e[38;2;0;255;0m"
+FORANGE="\e[38;2;255;165;0m"
 FTRED="\e[31m"
 FTYELLOW="\e[33m"
 FTBLACKDARK="\e[90m"
@@ -15,17 +17,55 @@ FTGREENDARK="\e[92m"
 FTYELLOWDARK="\e[93m"
 
 CLEARLINE="\e[2K"
-RESETCURSOR="\e[0G"  # or "\r"
+RESETCURSOR="\e[0G" # or "\r"
 
-justify() { max_length=78; args_length=${#1}; remaining_length=$((max_length - args_length)); printf "%b" "${1}"; eval printf "%.0s." {1..${remaining_length}}; printf "%s" "${2}"; printf "${RESET}\n"; }
+# Function to justify string by append dot until column 78
+# Arguments:
+#   $1: string to justify
+#   $2: string to append and column 79
+justify() {
+    max_length=78
+    args_length=${#1}
+    remaining_length=$((max_length - args_length))
+    printf "%b" "${1}"
+    eval printf "%.0s." {1..${remaining_length}}
+    printf "%s" "${2}"
+    printf "${RESET}\n"
+}
 
 # https://gist.github.com/SamEureka/3e61942d37256550b40d0ffe75bc22c4
 six_dot_cell_pattern=("⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇")
 eight_dot_cell_pattern=("⣾" "⢿" "⡿" "⣷" "⣯" "⢟" "⡻" "⣽")
 braille_spinner=("${eight_dot_cell_pattern[@]}")
 frame_duration=0.1
-start_spinner() { tput civis; ( spinner_index=0; while :; do printf "\r%s " "${braille_spinner[spinner_index]}"; spinner_index=$(((spinner_index + 1) % ${#braille_spinner[@]})); sleep "$frame_duration"; done) & spinner_pid=$!; echo -en "  $1"; disown; }
-stop_spinner() { kill -9 "$spinner_pid"; tput cnorm; echo -en "${CLEARLINE}\r"; justify "$@"; }
+
+# Function to start the spinner in the background
+# Arguments:
+#   $1: message to display
+start_spinner() {
+    tput civis
+    (
+        spinner_index=0
+        while :; do
+            printf "\r%s " "${braille_spinner[spinner_index]}"
+            spinner_index=$(((spinner_index + 1) % ${#braille_spinner[@]}))
+            sleep "$frame_duration"
+        done
+    ) &
+    spinner_pid=$!
+    echo -en "  $1"
+    disown
+}
+
+# Function to start the spinner in the background
+# Arguments:
+#   $1: message to display
+stop_spinner() {
+    kill -9 "$spinner_pid"
+    tput cnorm
+    echo -en "${CLEARLINE}\r"
+    justify "$@"
+}
 
 global_hook() {
     start_spinner "Checking commit message..."
@@ -41,42 +81,42 @@ global_hook() {
     FOOTER=$(echo "$COMMIT_MSG" | grep -i -E "^(JIRA:|MISTY:|BREAKING CHANGE:|[A-Z]+-[0-9]+:|Closes #|Fixes #|Resolves #)")
 
     # Conventional Commit pattern
-    # Format: [optional scope]: 
+    # Format: [optional scope]:
     # Example: feat(api): add user authentication
     HEADER_PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: .{1,}'
 
     if ! [[ $HEADER =~ $HEADER_PATTERN ]]; then
-      stop_spinner "${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}" "❌"
-      echo -e "${BOLD}${FRED}\"$HEADER\"${RESET}"
-      echo ""
-      echo "Required format:"
-      echo '```'
-      echo -e "${FTYELLOW}<type>${RESET}${FTGREENDARK}(<optional scope>)${RESET}: ${FTYELLOW}<description>${RESET}"
-      echo -e "${ITALIC}${FTBLACKDARK}<empty line separator>${RESET}"
-      echo "<optional body>"
-      echo -e "${ITALIC}${FTBLACKDARK}<empty line separator>${RESET}"
-      echo "<optional footer>"
-      echo '```'
-      echo ""
-      echo "Supported types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
-      echo ""
-      echo -e "${ITALIC}${FTBLACKDARK}Example:${RESET}"
-      echo -e "feat(api): add user authentication  ${ITALIC}${FTBLACKDARK}# message${RESET}"
-      echo ""
-      echo -e "Uses httpx requests api.  ${ITALIC}${FTBLACKDARK}# body${RESET}"
-      echo ""
-      echo -e "JIRA: DM25AUTO-123  ${ITALIC}${FTBLACKDARK}# footer${RESET}"
-      echo ""
-      echo -e "${ITALIC}${FTBLACKDARK}Example with breaking feature without any footer (exclamation after type or scope):${RESET}"
-      echo -e "feat(serial)!: add user authentication  ${ITALIC}${FTBLACKDARK}# message${RESET}"
-      echo ""
-      echo -e "New serial device replacing old.  ${ITALIC}${FTBLACKDARK}# body${RESET}"
-      echo ""
-      echo -e "${ITALIC}${FTBLACKDARK}References:"
-      echo "1. https://www.conventionalcommits.org/en/v1.0.0/#specification"
-      echo -e "2. https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13${RESET}"
-      echo ""
-      exit 1
+        stop_spinner "${BOLD}${FRED}⣿ ERROR: Commit message does not follow conventional format.${RESET}" "❌"
+        echo -e "${BOLD}${FRED}\"$HEADER\"${RESET}"
+        echo ""
+        echo "Required format:"
+        echo '```'
+        echo -e "${FTYELLOW}<type>${RESET}${FTGREENDARK}(<optional scope>)${RESET}: ${FTYELLOW}<description>${RESET}"
+        echo -e "${ITALIC}${FTBLACKDARK}<empty line separator>${RESET}"
+        echo "<optional body>"
+        echo -e "${ITALIC}${FTBLACKDARK}<empty line separator>${RESET}"
+        echo "<optional footer>"
+        echo '```'
+        echo ""
+        echo "Supported types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+        echo ""
+        echo -e "${ITALIC}${FTBLACKDARK}Example:${RESET}"
+        echo -e "feat(api): add user authentication  ${ITALIC}${FTBLACKDARK}# message${RESET}"
+        echo ""
+        echo -e "Uses httpx requests api.  ${ITALIC}${FTBLACKDARK}# body${RESET}"
+        echo ""
+        echo -e "JIRA: DM25AUTO-123  ${ITALIC}${FTBLACKDARK}# footer${RESET}"
+        echo ""
+        echo -e "${ITALIC}${FTBLACKDARK}Example with breaking feature without any footer (exclamation after type or scope):${RESET}"
+        echo -e "feat(serial)!: add user authentication  ${ITALIC}${FTBLACKDARK}# message${RESET}"
+        echo ""
+        echo -e "New serial device replacing old.  ${ITALIC}${FTBLACKDARK}# body${RESET}"
+        echo ""
+        echo -e "${ITALIC}${FTBLACKDARK}References:"
+        echo "1. https://www.conventionalcommits.org/en/v1.0.0/#specification"
+        echo -e "2. https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13${RESET}"
+        echo ""
+        exit 1
     fi
 
     # Check if description starts with a capital letter
@@ -84,14 +124,16 @@ global_hook() {
     FIRST_CHAR=$(echo "$DESCRIPTION" | cut -c1)
 
     if [[ "$FIRST_CHAR" =~ [A-Z] ]]; then
-      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not start with a capital letter.${RESET}" "❌"
-      exit 1
+        stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not start with a capital letter.${RESET}" "❌"
+        echo ""
+        exit 1
     fi
 
     # Check if description ends with a period
     if [[ "$DESCRIPTION" =~ \.$ ]]; then
-      stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not end with a period.${RESET}" "❌"
-      exit 1
+        stop_spinner "${BOLD}${FRED}⣿ ERROR: commit message description should not end with a period.${RESET}" "❌"
+        echo ""
+        exit 1
     fi
 
     stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit message passed!" "✅"
@@ -100,45 +142,46 @@ global_hook() {
 
     # Check if commit message is too long (>72 characters)
     if [[ ${#HEADER} -gt 72 ]]; then
-      echo -e "${FTYELLOWDARK}WARNING: Commit message is longer than 72 characters${RESET}"
+        echo -e "${FTYELLOWDARK}WARNING: Commit message is longer than 72 characters${RESET}"
     fi
 
     # Check body format if it exists
     if [[ -n "$BODY" ]]; then
-      # Check if body lines are wrapped at 72 characters
-      while IFS= read -r line; do
-        if [[ ${#line} -gt 72 ]]; then
-          echo -e "${FTYELLOWDARK}WARNING: Body line longer than 72 characters:${RESET}"
-          echo -e "\e[38;2;255;165;0m$line${RESET}"
-        fi
-      done <<< "$BODY"
+        # Check if body lines are wrapped at 72 characters
+        while IFS= read -r line; do
+            if [[ ${#line} -gt 72 ]]; then
+                echo -e "${FTYELLOWDARK}WARNING: Body line longer than 72 characters:${RESET}"
+                echo -e "${FORANGE}$line${RESET}"
+            fi
+        done <<<"$BODY"
 
-      # Check if body starts with a capital letter
-      BODY_FIRST_CHAR=$(echo "$BODY" | head -n 1 | cut -c1)
-      if ! [[ "$BODY_FIRST_CHAR" =~ [A-Z] ]]; then
-        echo -e "${FTYELLOWDARK}WARNING: Body should start with a capital letter${RESET}"
-      fi
+        # Check if body starts with a capital letter
+        BODY_FIRST_CHAR=$(echo "$BODY" | head -n 1 | cut -c1)
+        if ! [[ "$BODY_FIRST_CHAR" =~ [A-Z] ]]; then
+            echo -e "${FTYELLOWDARK}WARNING: Body should start with a capital letter${RESET}"
+        fi
     fi
 
     # Check footer format if it exists
     if [[ -n "$FOOTER" ]]; then
-      # Check for breaking changes format
-      BREAKING_CHANGES=$(echo "$FOOTER" | grep -i "^BREAKING CHANGE:")
-      if [[ -n "$BREAKING_CHANGES" && ! "$HEADER" =~ ^(feat|fix) ]]; then
-        echo -e "${FTYELLOWDARK}WARNING: Breaking changes should be in feat or fix type commits${RESET}"
-      fi
+        # Check for breaking changes format
+        BREAKING_CHANGES=$(echo "$FOOTER" | grep -i "^BREAKING CHANGE:")
+        if [[ -n "$BREAKING_CHANGES" && ! "$HEADER" =~ ^(feat|fix) ]]; then
+            echo -e "${FTYELLOWDARK}WARNING: Breaking changes should be in feat or fix type commits${RESET}"
+        fi
 
-      # # Check for issue references format
-      # ISSUE_REFS=$(echo "$FOOTER" | grep -E "(Closes|Fixes|Resolves) #[0-9]+")
-      # if [[ -n "$ISSUE_REFS" ]]; then
-      #   INVALID_REFS=$(echo "$ISSUE_REFS" | grep -v -E "^(Closes|Fixes|Resolves) #[0-9]+$")
-      #   if [[ -n "$INVALID_REFS" ]]; then
-      #     echo -e "${FTYELLOWDARK}WARNING: Issue references should follow format: 'Closes/Fixes/Resolves #123'${RESET}"
-      #   fi
-      # fi
+        # # Check for issue references format
+        # ISSUE_REFS=$(echo "$FOOTER" | grep -E "(Closes|Fixes|Resolves) #[0-9]+")
+        # if [[ -n "$ISSUE_REFS" ]]; then
+        #   INVALID_REFS=$(echo "$ISSUE_REFS" | grep -v -E "^(Closes|Fixes|Resolves) #[0-9]+$")
+        #   if [[ -n "$INVALID_REFS" ]]; then
+        #     echo -e "${FTYELLOWDARK}WARNING: Issue references should follow format: 'Closes/Fixes/Resolves #123'${RESET}"
+        #   fi
+        # fi
     fi
 
     stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit body & footer passed!" "✅"
+    echo ""
 }
 
 # Check if local commit-msg hook exists
@@ -147,18 +190,13 @@ GLOBAL_HOOK="${BASH_SOURCE[0]}"
 LOCAL_HOOK="$(git rev-parse --show-toplevel)"'/.git/hooks/commit-msg'
 
 if [[ "$LOCAL_HOOK" == *":"* ]]; then
-  # echo "The string contains a colon."
+    # echo "The string contains a colon."
     # lowercase first letter then remove colon
     ADJUSTED=$(echo "${LOCAL_HOOK,}" | sed 's/://g; s/^/\//')
 else
     ADJUSTED=$LOCAL_HOOK
     # echo "The string does not contain a colon."
 fi
-
-# echo "GLOBAL_HOOK: $GLOBAL_HOOK"
-# echo "LOCAL_HOOK: $LOCAL_HOOK"
-# echo "ADJUSTED: $ADJUSTED"
-# echo "$@"
 
 # if [ "$GLOBAL_HOOK" = "$ADJUSTED" ]; then
 if [[ ! -f "$LOCAL_HOOK" ]]; then
@@ -168,4 +206,3 @@ else
     echo -e "${ITALIC}${FTBLACKDARK}commit-msg local hook is available. using local hook...${RESET}"
     exec "$LOCAL_HOOK" "$@"
 fi
-
