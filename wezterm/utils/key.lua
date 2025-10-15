@@ -326,6 +326,13 @@ M.key_tables = {
     { key = "q",      action = "PopKeyTable" },
   },
   windows = {
+    { key = "s",  action = act.ActivateKeyTable({
+        name = "workspace",
+        one_shot = false,
+        -- timeout_milliseconds = 2000,
+        until_unknown = true,
+      })
+    },
     { key = "w",      action = act.CloseCurrentPane({ confirm = true }) },
     { key = "h",      action = act.ActivatePaneDirection("Left") },
     { key = "j",      action = act.ActivatePaneDirection("Down") },
