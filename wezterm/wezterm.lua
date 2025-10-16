@@ -23,6 +23,9 @@ end
 if platform.is_windows() then
   config.default_cwd = os.getenv("userprofile")
   config.default_prog = { "pwsh", "-l" }
+else
+  config.default_cwd = os.getenv("HOME")
+  config.default_prog = { "bash" }
 end
 
 config.automatically_reload_config = true
@@ -105,10 +108,22 @@ config.mouse_bindings = {
 -- sudo systemctl restart sshd
 -- SSH Domains
 config.ssh_domains = {
+  -- cmd: wezterm connect auto-01 &
   {
     name = "auto-01",
     remote_address = "ds4-auto-orbital-01",
     username = "autouser",
+    default_prog = { "bash" },
+    assume_shell = "Posix",
+  },
+  -- cmd: wezterm connect system-01 &
+  {
+    name = "system-01",
+    remote_address = "ds4-system-orbital-01",
+    username = "systemuser",
+    ssh_option = {
+      identityfile = "C:/Users/5004124381/.ssh/ds4-orbital-auto-1",
+    },
     default_prog = { "bash" },
     assume_shell = "Posix",
   },

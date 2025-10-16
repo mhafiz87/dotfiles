@@ -1633,4 +1633,5 @@
     "statusBar.debuggingForeground": "#ffffff"
   },
   "extensions.ignoreRecommendations": true,
+  "arduinoMakerWorkshop.arduinoCLI.userDirectory": "C:\\Users\\5004124381\\Documents\\Arduino\n\n",
 }
