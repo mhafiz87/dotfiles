@@ -20,11 +20,11 @@ local dap_ui_layout = {
         size = 120
       }, {
         elements = { {
-            id = "repl",
-            size = 0.5
-          }, {
             id = "console",
-            size = 0.5
+            size = 0.75
+          }, {
+            id = "repl",
+            size = 0.25
           } },
         position = "bottom",
         size = 10
@@ -85,6 +85,18 @@ return {
         ui.close()
       end
 
+      local which_key_exist, which_key = pcall(require, "which-key")
+      if which_key_exist then
+        vim.keymap.set("n", "<leader>db.", function()
+          which_key.show(
+            {
+              keys = "<leader>db",
+              loop = true
+            }
+          )
+        end, { desc = "enable hydra mode" }
+        )
+      end
       vim.keymap.set("n", "<leader>dbb", function()
         dap.toggle_breakpoint()
       end, { desc = "toggle [b]reakpoint" })
@@ -106,9 +118,9 @@ return {
       vim.keymap.set("n", "<leader>dbu", function()
         ui.toggle()
       end, { desc = "Toggle UI" })
-      -- vim.keymap.set("n", "<leader>dbt", function()
+      -- vim.keymap.set("n", "<leader>dbh", function()
       --   dap.toggle_breakpoint({ condition = "condition" })
-      -- end, { desc = "Toggle Breakpoint with Condition" })
+      -- end, { desc = "toggle breakpoint with [c]ondition" })
 
     end
   },
