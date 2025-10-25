@@ -19,6 +19,7 @@ vim.opt.runtimepath:prepend(lazypath)
 
 -- Setup lazy.nvim
 require("lazy").setup({
+  rocks = { enabled = false },
   spec = {
     { import = "plugins" },
   },
