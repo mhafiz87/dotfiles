@@ -46,6 +46,13 @@ return {
       local ui = require("dapui")
       local dap_virtual_text = require("nvim-dap-virtual-text")
 
+      vim.fn.sign_define("DapBreakpointCondition", {
+        text = "",
+        texthl = "DiagnosticSignWarn",
+        linehl = "",
+        numhl = "",
+      })
+
       vim.fn.sign_define("DapBreakpoint", {
         text = "",
         texthl = "DiagnosticSignError",
@@ -118,6 +125,14 @@ return {
       vim.keymap.set("n", "<leader>dbu", function()
         ui.toggle()
       end, { desc = "Toggle UI" })
+      vim.keymap.set("n", "<leader>dbB", function()
+        local condition = vim.fn.input("Breakpoint condition (optional): ")
+        local hit_condition = vim.fn.input("Hit count (optional): ")
+        -- Convert empty strings to nil
+        condition = condition ~= "" and condition or nil
+        hit_condition = hit_condition ~= "" and hit_condition or nil
+        dap.toggle_breakpoint(condition, hit_condition)
+      end, { desc = "set conditional [b]reakpoint" })
       -- vim.keymap.set("n", "<leader>dbh", function()
       --   dap.toggle_breakpoint({ condition = "condition" })
       -- end, { desc = "toggle breakpoint with [c]ondition" })
