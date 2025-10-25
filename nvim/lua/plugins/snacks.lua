@@ -5,6 +5,7 @@ return {
   ---@type snacks.Config
   opts = {
     image = { enabled = true },
+    input = { enabled = true },
     picker = { enabled = true },
     statuscolumn = {
       left = { "mark", "sign" }, -- priority of signs on the left (high to low)

@@ -126,12 +126,39 @@ return {
         ui.toggle()
       end, { desc = "Toggle UI" })
       vim.keymap.set("n", "<leader>dbB", function()
-        local condition = vim.fn.input("Breakpoint condition (optional): ")
-        local hit_condition = vim.fn.input("Hit count (optional): ")
-        -- Convert empty strings to nil
-        condition = condition ~= "" and condition or nil
-        hit_condition = hit_condition ~= "" and hit_condition or nil
-        dap.toggle_breakpoint(condition, hit_condition)
+        local snacks_exist, Snacks = pcall(require, "snacks")
+        local condition = nil
+        local hit_condition = nil
+        local log_message = nil
+        if snacks_exist then
+          local get_input = function(prompt)
+            local co = coroutine.running()
+            assert(co, "must be in coroutine")
+            Snacks.input({prompt=prompt}, function(data)
+              coroutine.resume(co, data)
+            end)
+            return coroutine.yield()
+          end
+          coroutine.wrap(function()
+            log_message = get_input("Log message (optional): ")
+            dap.toggle_breakpoint(condition, hit_condition, log_message)
+          end)()
+          coroutine.wrap(function()
+            hit_condition = get_input("Hit count (optional): ")
+          end)()
+          coroutine.wrap(function()
+            condition = get_input("Breakpoint condition (optional): ")
+          end)()
+        else
+          condition = vim.fn.input("Breakpoint condition (optional): ")
+          hit_condition = vim.fn.input("Hit count (optional): ")
+          log_message = vim.fn.input("Log message (optional): ")
+          -- Convert empty strings to nil
+          condition = condition ~= "" and condition or nil
+          hit_condition = hit_condition ~= "" and hit_condition or nil
+          log_message = log_message ~= "" and log_message or nil
+          dap.toggle_breakpoint(condition, hit_condition, log_message)
+        end
       end, { desc = "set conditional [b]reakpoint" })
       -- vim.keymap.set("n", "<leader>dbh", function()
       --   dap.toggle_breakpoint({ condition = "condition" })
