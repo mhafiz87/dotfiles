@@ -17,14 +17,14 @@ local dap_ui_layout = {
             size = 0.25
           } },
         position = "left",
-        size = 120
+        size = 80
       }, {
         elements = { {
-            id = "console",
-            size = 0.75
-          }, {
             id = "repl",
-            size = 0.25
+            size = 0.6
+          }, {
+            id = "console",
+            size = 0.4
           } },
         position = "bottom",
         size = 10
