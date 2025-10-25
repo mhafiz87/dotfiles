@@ -1,6 +1,36 @@
 -- references:
 -- https://tamerlan.dev/a-guide-to-debugging-applications-in-neovim/
 
+local dap_ui_layout = {
+    layouts = { {
+        elements = { {
+            id = "scopes",
+            size = 0.25
+          }, {
+            id = "breakpoints",
+            size = 0.25
+          }, {
+            id = "stacks",
+            size = 0.25
+          }, {
+            id = "watches",
+            size = 0.25
+          } },
+        position = "left",
+        size = 120
+      }, {
+        elements = { {
+            id = "repl",
+            size = 0.5
+          }, {
+            id = "console",
+            size = 0.5
+          } },
+        position = "bottom",
+        size = 10
+      } },
+}
+
 return {
   {
     "mfussenegger/nvim-dap",
@@ -38,7 +68,7 @@ return {
       })
 
       dap_virtual_text.setup({})
-      ui.setup()
+      ui.setup(dap_ui_layout)
       dap.listeners.before.attach["dapui_config"] = function()
         ui.open()
       end
