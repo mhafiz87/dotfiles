@@ -344,6 +344,8 @@ M.key_tables = {
     { key = "x",      action = act.CloseCurrentPane({ confirm = false }) },
     { key = "i",      action = act.ScrollByLine(-5) },
     { key = "u",      action = act.ScrollByLine(5) },
+    { key = "y",      action = act.SwitchWorkspaceRelative(1) },
+    { key = "o",      action = act.SwitchWorkspaceRelative(-1) },
     { key = "Escape", action = "PopKeyTable" },
     { key = "q",      action = "PopKeyTable" },
   },
