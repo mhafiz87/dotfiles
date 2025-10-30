@@ -13,6 +13,7 @@ FTYELLOW="\e[33m"
 FTBLUE="\e[34m"
 
 FGREEN="\e[38;2;0;255;0m"
+FORANGE="\e[38;2;255;165;0m"
 
 CLEARLINE="\e[2K"
 RESETCURSOR="\e[0G" # or "\r"
@@ -125,9 +126,29 @@ global_hook() {
         git add $STAGED_FILES
     fi
 
+    # # if type -P basedpyright $>/dev/null; then
+    # start_spinner "Running basedpyright..."
+    # output=$(basedpyright --level error $STAGED_FILES)
+    # basedpyright_status=$?
+    # if [[ $basedpyright_status != 0 ]]; then
+    #     stop_spinner "${FTRED}⣿ Basedpyright found issues. Please fix and commit again" "❌"
+    #     root=$(git rev-parse --show-toplevel)
+    #     if [[ $OSTYPE == "msys" ]]; then
+    #         root=$(echo -e "${root}" | sed 's|\/|\\|g')
+    #         root="${root,}"
+    #     fi
+    #     res=$(echo -e "${output}" | grep --color=always -E "^  .+error.+")
+    #     echo -e "${RESET}${FORANGE}${res}${RESET}"
+    #     echo ""
+    #     exit 1
+    # fi
+    # # else
+    # #     echo -e "${ITALIC}${FTBLACKDARK}basedpyright does not exist... ${RESET}"
+    # # fi
+
     # Run a final check to ensure all issues are fixed or properly ignored
     start_spinner "Running final verification..."
-    output=$(ruff check $STAGED_FILES)
+    output=$(ruff check --extend-select F $STAGED_FILES)
     if [[ $? != 0 ]]; then
         stop_spinner "${FTRED}⣿ Ruff found issues that couldn't be auto fixed. Please fix and commit again" "❌"
         echo ""
