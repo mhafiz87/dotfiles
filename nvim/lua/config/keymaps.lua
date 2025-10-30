@@ -75,11 +75,6 @@ end
 vim.keymap.set("n", "<leader>dgt", function()
   local current_diagnostic_config = vim.diagnostic.config()
   vim.diagnostic.config({ virtual_text = not current_diagnostic_config.virtual_text })
-  -- if vim.diagnostic.config().virtual_text then
-  --   vim.diagnostic.config({ virtual_text = false })
-  -- else
-  --   vim.diagnostic.config(defaults.diagnostic)
-  -- end
 end, { desc = "Toggle Virtual Text Diagnostics" })
 vim.keymap.set("n", "<leader>dgl", function() vim.diagnostic.open_float { border="rounded" } end, { desc = "Line Diagnostics" })
 vim.keymap.set("n", "dgb", function()
