@@ -77,7 +77,9 @@ six_dot_cell_pattern=("⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇")
 eight_dot_cell_pattern=("⣾" "⢿" "⡿" "⣷" "⣯" "⢟" "⡻" "⣽")
 
 # Set the pattern
-braille_spinner=("${eight_dot_cell_pattern[@]}")
+braille_spinner=("${six_dot_cell_pattern[@]}")
+
+chosen_spinner="⠿" # ⣿
 
 # Set the duration for each spinner frame (in seconds)
 frame_duration=0.1

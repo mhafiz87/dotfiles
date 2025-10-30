@@ -36,8 +36,9 @@ justify() {
 # https://gist.github.com/SamEureka/3e61942d37256550b40d0ffe75bc22c4
 six_dot_cell_pattern=("⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇")
 eight_dot_cell_pattern=("⣾" "⢿" "⡿" "⣷" "⣯" "⢟" "⡻" "⣽")
-braille_spinner=("${eight_dot_cell_pattern[@]}")
-frame_duration=0.1
+braille_spinner=("${six_dot_cell_pattern[@]}")
+chosen_spinner="⠿" # ⣿
+frame_duration=0.025
 
 # Function to start the spinner in the background
 # Arguments:
@@ -89,17 +90,18 @@ global_hook() {
     # First, sort imports
     start_spinner "Sorting imports with Ruff..."
     output=$(ruff check --select I --fix $STAGED_FILES)
-    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Sorting imports with Ruff" "✅"
+    text="${BOLD}${FGREEN}${chosen_spinner}${RESET} Sorting imports with Ruff"
+    stop_spinner "${text}" "✅"
 
     # Then run Ruff to check and fix other issues
     start_spinner "Running Ruff checks and fixes..."
     output=$(ruff check --fix $STAGED_FILES)
     if [[ $? != 0 ]]; then
-        stop_spinner "${FTRED}⣿ Ruff checks and fixes: Ruff error found" "❌"
+        stop_spinner "${FTRED}${chosen_spinner} Ruff checks and fixes: Ruff error found" "❌"
         # ruff check --fix $STAGED_FILES
         # echo -e "${output}"
     else
-        stop_spinner "${BOLD}${FGREEN}⣿${RESET} Ruff checks and fixes: ${output}" "✅"
+        stop_spinner "${BOLD}${FGREEN}${chosen_spinner}${RESET} Ruff checks and fixes: ${output}" "✅"
     fi
 
     # Check docstrings
@@ -113,11 +115,11 @@ global_hook() {
     # output=$(script -q /dev/null -c "ruff check --select Q002,D102,D103,D105,D414,D419 --fix $STAGED_FILES" | cat)
     output=$(ruff check --select Q002,D102,D103,D105,D414,D419 --fix $STAGED_FILES)
     if [[ $? != 0 ]]; then
-        stop_spinner "${FTYELLOW}⣿ Ruff error in dosctring, does not affect commit" "❌"
+        stop_spinner "${FTYELLOW}${chosen_spinner} Ruff error in dosctring, does not affect commit" "❌"
         # echo -e "${output}"
         # ruff check --select Q002,D102,D103,D105,D414,D419 --fix $STAGED_FILES
     else
-        stop_spinner "${BOLD}${FGREEN}⣿${RESET} Ruff checks for dosctring: ${output}" "✅"
+        stop_spinner "${BOLD}${FGREEN}${chosen_spinner}${RESET} Ruff checks for dosctring: ${output}" "✅"
     fi
 
     # Check if any files were modified by Ruff
@@ -131,7 +133,7 @@ global_hook() {
     # output=$(basedpyright --level error $STAGED_FILES)
     # basedpyright_status=$?
     # if [[ $basedpyright_status != 0 ]]; then
-    #     stop_spinner "${FTRED}⣿ Basedpyright found issues. Please fix and commit again" "❌"
+    #     stop_spinner "${FTRED}${chosen_spinner} Basedpyright found issues. Please fix and commit again" "❌"
     #     root=$(git rev-parse --show-toplevel)
     #     if [[ $OSTYPE == "msys" ]]; then
     #         root=$(echo -e "${root}" | sed 's|\/|\\|g')
@@ -150,12 +152,12 @@ global_hook() {
     start_spinner "Running final verification..."
     output=$(ruff check --extend-select F $STAGED_FILES)
     if [[ $? != 0 ]]; then
-        stop_spinner "${FTRED}⣿ Ruff found issues that couldn't be auto fixed. Please fix and commit again" "❌"
+        stop_spinner "${FTRED}${chosen_spinner} Ruff found issues that couldn't be auto fixed. Please fix and commit again" "❌"
         echo ""
         exit 1
     fi
 
-    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Ruff checks passed" "✅"
+    stop_spinner "${BOLD}${FGREEN}${chosen_spinner}${RESET} Ruff checks passed" "✅"
     echo ""
 
     exit 0

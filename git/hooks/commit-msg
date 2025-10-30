@@ -36,8 +36,9 @@ justify() {
 # https://gist.github.com/SamEureka/3e61942d37256550b40d0ffe75bc22c4
 six_dot_cell_pattern=("⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇")
 eight_dot_cell_pattern=("⣾" "⢿" "⡿" "⣷" "⣯" "⢟" "⡻" "⣽")
-braille_spinner=("${eight_dot_cell_pattern[@]}")
-frame_duration=0.1
+braille_spinner=("${six_dot_cell_pattern[@]}")
+chosen_spinner="⠿" # ⣿
+frame_duration=0.025
 
 # Function to start the spinner in the background
 # Arguments:
@@ -90,7 +91,7 @@ global_hook() {
     HEADER_PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|task)(\([|a-z 0-9-]+\))?: .{1,}'
 
     if ! [[ $HEADER =~ $HEADER_PATTERN ]]; then
-        stop_spinner "${BOLD}${FTRED}⣿ ERROR: Commit message does not follow conventional format" "❌"
+        stop_spinner "${BOLD}${FTRED}${chosen_spinner} ERROR: Commit message does not follow conventional format" "❌"
         echo -e "${BOLD}${FTRED}\"$HEADER\"${RESET}"
         echo ""
         echo "Required format:"
@@ -128,19 +129,19 @@ global_hook() {
     FIRST_CHAR=$(echo "$DESCRIPTION" | cut -c1)
 
     if [[ "$FIRST_CHAR" =~ [A-Z] ]]; then
-        stop_spinner "${BOLD}${FTRED}⣿ ERROR: commit message description should not start with a capital letter" "❌"
+        stop_spinner "${BOLD}${FTRED}${chosen_spinner} ERROR: commit message description should not start with a capital letter" "❌"
         echo ""
         exit 1
     fi
 
     # Check if description ends with a period
     if [[ "$DESCRIPTION" =~ \.$ ]]; then
-        stop_spinner "${BOLD}${FTRED}⣿ ERROR: commit message description should not end with a period" "❌"
+        stop_spinner "${BOLD}${FTRED}${chosen_spinner} ERROR: commit message description should not end with a period" "❌"
         echo ""
         exit 1
     fi
 
-    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit message passed!" "✅"
+    stop_spinner "${BOLD}${FGREEN}${chosen_spinner}${RESET} Git commit message passed!" "✅"
 
     start_spinner "Checking body and footer..."
 
@@ -184,7 +185,7 @@ global_hook() {
         # fi
     fi
 
-    stop_spinner "${BOLD}${FGREEN}⣿${RESET} Git commit body & footer passed!" "✅"
+    stop_spinner "${BOLD}${FGREEN}${chosen_spinner}${RESET} Git commit body & footer passed!" "✅"
     echo ""
 }
 
