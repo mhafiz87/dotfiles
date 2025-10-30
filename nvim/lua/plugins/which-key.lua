@@ -46,7 +46,31 @@ return {
           }
         )
       end,
-      desc = "Buffer Local Keymaps (which-key)",
+      desc = "Enable hydra mode",
+    },
+    {
+      "].",
+      function()
+        require("which-key").show(
+          {
+            keys = "]",
+            loop = true
+          }
+        )
+      end,
+      desc = "Enable hydra mode",
+    },
+    {
+      "[.",
+      function()
+        require("which-key").show(
+          {
+            keys = "[",
+            loop = true
+          }
+        )
+      end,
+      desc = "Enable hydra mode",
     },
   },
 }

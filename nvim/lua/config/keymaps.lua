@@ -1,4 +1,5 @@
 local defaults = require("config.default-options")
+local utils = require("utils")
 
 -- bound 'jk' to escape from input mode ⤵
 vim.keymap.set("i", "jk", "<Esc>")
@@ -100,6 +101,21 @@ end, { desc = "Quickfix List" })
 
 vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
 vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
+-- with split keyboard ⤵
 vim.keymap.set("n", "[`", vim.cmd.cprev, { desc = "Previous Quickfix" })
 vim.keymap.set("n", "]`", vim.cmd.cnext, { desc = "Next Quickfix" })
+
+vim.api.nvim_create_autocmd({ "WinEnter", "OptionSet" }, {
+  pattern = "*",
+  callback = function ()
+    if vim.wo.diff then
+      if not utils.is_buf_keymap_set(0, "n", "]2") then
+        vim.api.nvim_buf_set_keymap(0, 'n', ']2', ':norm ]c<CR>', { desc = "Next [c]hange", noremap = true, silent = true })
+      end
+      if not utils.is_buf_keymap_set(0, "n", "[2") then
+        vim.api.nvim_buf_set_keymap(0, 'n', '[2', ':norm [c<CR>', { desc = "Previous [c]hange", noremap = true, silent = true })
+      end
+    end
+  end,
+})
 
