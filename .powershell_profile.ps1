@@ -42,6 +42,7 @@ Set-PSReadLineOption -AddToHistoryHandler {
 # Set UNIX-like aliases for the admin command, so sudo <command> will run the command with elevated rights.
 Set-Alias -Name su -Value admin
 Set-Alias -Name sudo -Value admin
+
 Set-Alias -Name whereis -Value where.exe
 
 $versionMinimum = [Version]'7.1.999'
