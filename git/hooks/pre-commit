@@ -153,6 +153,7 @@ global_hook() {
     output=$(ruff check --extend-select F $STAGED_FILES)
     if [[ $? != 0 ]]; then
         stop_spinner "${FTRED}${chosen_spinner} Ruff found issues that couldn't be auto fixed. Please fix and commit again" "❌"
+        echo -e "${output}"
         echo ""
         exit 1
     fi
