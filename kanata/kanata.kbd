@@ -11,11 +11,16 @@
   lctl lmet  lalt          spc             ralt  rmet  rctl
 )
 
+(defvar
+  lprnt "("
+  rprnt ")"
+)
+
 (deflayer qwerty
   _     _     _     _     _     _     _     _     _     _     _     _     _    _
   _     _     _     _     _     _     _     _     _     _     _     _     _    _
   _     @a    @s    @d    @f    _     _     @j    @k    @l    @;    _     _
-  _     _     _     @lc    _     _     @ln   _     _     _     _     _
+  _     _     _     @lc   @lv   _     @ln   _     _     _     _     _
   _     _     _              _              _     _     _
 )
 
@@ -35,6 +40,14 @@
   _     _     _              _              _     _     _
 )
 
+(deflayer symbol
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _    S-[   S-]   S-,   S-.    _     _     _
+  _     _     _     _     _     _     _    S-9   S-0    [     ]     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _              _              _     _     _
+)
+
 (deflayer empty
   _     _     _     _     _     _     _     _     _     _     _     _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _     _     _
@@ -46,6 +59,7 @@
 (defalias
   l_num (layer-toggle num)
   l_cur (layer-toggle cur)
+  l_sym (layer-toggle symbol)
   a (tap-hold 200 200 a rmet)
   s (tap-hold 200 200 s lalt)
   d (tap-hold 200 200 d lctl)
@@ -56,4 +70,5 @@
   ; (tap-hold 200 200 ; rmet)
   ln (tap-hold 200 200 n @l_num)
   lc (tap-hold 200 200 c @l_cur)
+  lv (tap-hold 200 200 v @l_sym)
 )
