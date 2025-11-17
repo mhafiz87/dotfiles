@@ -68,7 +68,7 @@ justify() {
     printf "%b" "${1}"
     eval printf "%.0s." {1..${remaining_length}}
     printf "%s" "${2}"
-    printf "${RESET}\n"
+    printf "%s\n" "${RESET}"
 }
 
 # https://gist.github.com/SamEureka/3e61942d37256550b40d0ffe75bc22c4

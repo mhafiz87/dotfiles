@@ -14,7 +14,7 @@ return {
     },
   },
   config = function()
-    local lsp_list = { "lua_ls", "basedpyright", "ruff", "marksman", "taplo" , "bashls"}
+    local lsp_list = { "lua_ls", "basedpyright", "ruff", "marksman", "taplo" , "bashls", "shellcheck"}
     for index = 1, #lsp_list do
       vim.lsp.enable(lsp_list[index])
     end
