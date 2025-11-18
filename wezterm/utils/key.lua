@@ -71,6 +71,14 @@ local keys_default = {
       cwd = os.getenv("userprofile"),
     }),
   },
+  {
+    key = "3",
+    mods = "LEADER|CTRL",
+    action = act.SpawnCommandInNewTab({
+      args = { "msys2_shell.cmd", "-defterm", "-here", "-no-start", "-ucrt64" },
+      cwd = os.getenv("userprofile"),
+    }),
+  },
 
   -- Hyperlink
   {
