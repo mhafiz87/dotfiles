@@ -176,6 +176,14 @@ wezterm.on('window-config-reloaded', function(window, pane)
   window:toast_notification('wezterm', 'configuration reloaded!', nil, 1000)
 end)
 
+local battery_index = 0
+local battery_level = {
+  wezterm.nerdfonts.md_battery_outline .. " ",
+  wezterm.nerdfonts.md_battery_low .. " ",
+  wezterm.nerdfonts.md_battery_medium .. " ",
+  wezterm.nerdfonts.md_battery_high .. " "
+}
+
 wezterm.on("update-right-status", function(window, pane)
 --   -- Workspace name
   local tab = window:active_tab()
@@ -209,23 +217,64 @@ wezterm.on("update-right-status", function(window, pane)
   if panes_n > 1 then
     pane_str = "panes"
   end
+
+  -- Battery
+  local bat = ''
+  local bat_color = "rgba(0, 0, 0, 0)"
+  local battery_status = ' 🔋'
+  for _, b in ipairs(wezterm.battery_info()) do
+    if b.state == "Full" then
+      battery_index = 4
+      battery_status = battery_level[battery_index]
+    elseif b.state == "Charging" then
+      battery_index = battery_index + 1
+      if battery_index > 4 then battery_index = 1 end
+      battery_status = battery_level[battery_index]
+    elseif b.state == "Discharging" then
+      battery_index = battery_index - 1
+      if battery_index < 1 then battery_index = 4 end
+      battery_status = battery_level[battery_index]
+    end
+    bat = battery_status .. string.format('%.0f%%', b.state_of_charge * 100)
+    if b.state == "Charging" then
+      bat_color = "rgba(98, 219, 87, 1)"
+    elseif b.state == "Discharging" then
+      bat_color = "rgba(235, 111, 146, 1)"
+    elseif b.state == "Full" then
+      bat_color = "rgba(255, 184, 108, 1)"
+    elseif b.state == "Unknown" then
+      bat_color = "rgba(0, 0, 0, 1)"
+    end
+  end
+
   -- Time
   local time = wezterm.strftime("%H:%M")
 
   local right_status_data = {
+    -- current workspace
     { Background = { Color = "rgba(0, 0, 0, 0)" } },
     { Text = wezterm.nerdfonts.oct_table .. "  " .. workspace },
     { Text = " | " },
+    -- number of panes
     { Text = wezterm.nerdfonts.cod_layout .. " " .. panes_n .. " " .. pane_str },
     { Text = " | " },
+    -- current process
     { Foreground = { Color = "rgba(255, 184, 108, 0)" } },
     { Text = wezterm.nerdfonts.md_application_settings_outline .. "   " .. process_name },
     "ResetAttributes",
     { Background = { Color = "rgba(0, 0, 0, 0)" } },
     { Text = " | " },
-    { Foreground = { Color = "rgba(98, 219, 87, 0)" } },
+    -- current domain
+    { Foreground = { Color = "rgba(98, 219, 87, 1)" } },
     { Text = wezterm.nerdfonts.cod_multiple_windows .. "  " .. domain_name },
     "ResetAttributes",
+    { Background = { Color = "rgba(0, 0, 0, 0)" } },
+    { Text = " | " },
+    -- current battery
+    { Foreground = { Color = bat_color } },
+    { Text = bat },
+    "ResetAttributes",
+    -- current time
     { Background = { Color = "rgba(0, 0, 0, 0)" } },
     { Text = " | " },
     { Text = wezterm.nerdfonts.md_clock .. "  " .. time },

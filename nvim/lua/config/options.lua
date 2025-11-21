@@ -9,6 +9,9 @@ vim.g.maplocalleader = " "
 -- enable mouse support in all modes
 vim.opt.mouse = "a"
 
+-- termguicolors
+vim.opt.termguicolors = true
+
 -- show current line numbers
 vim.opt.nu = true
 -- relative line numbers
