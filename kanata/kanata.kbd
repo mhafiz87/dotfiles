@@ -12,8 +12,18 @@
 )
 
 (defvar
-  lprnt "("
-  rprnt ")"
+  tap-time 200
+  hold-time 150
+  left-hand-keys (
+    q w e r t
+    a s d f g
+    z x c v b
+  )
+  right-hand-keys (
+    y u i o p
+    h j k l ;
+    n m , . /
+  )
 )
 
 (deflayer qwerty
@@ -60,15 +70,15 @@
   l_num (layer-toggle num)
   l_cur (layer-toggle cur)
   l_sym (layer-toggle symbol)
-  a (tap-hold 200 200 a rmet)
-  s (tap-hold 200 200 s lalt)
-  d (tap-hold 200 200 d lctl)
-  f (tap-hold 200 200 f lsft)
-  j (tap-hold 200 200 j rsft)
-  k (tap-hold 200 200 k rctl)
-  l (tap-hold 200 200 l ralt)
-  ; (tap-hold 200 200 ; rmet)
-  ln (tap-hold 200 200 n @l_num)
-  lc (tap-hold 200 200 c @l_cur)
-  lv (tap-hold 200 200 v @l_sym)
+  a (tap-hold $tap-time $hold-time a lmet)
+  s (tap-hold $tap-time $hold-time s lalt)
+  d (tap-hold $tap-time $hold-time d lctl)
+  f (tap-hold $tap-time $hold-time f lsft)
+  j (tap-hold $tap-time $hold-time j rsft)
+  k (tap-hold $tap-time $hold-time k rctl)
+  l (tap-hold $tap-time $hold-time l ralt)
+  ; (tap-hold $tap-time $hold-time ; rmet)
+  ln (tap-hold $tap-time $hold-time n @l_num)
+  lc (tap-hold $tap-time $hold-time c @l_cur)
+  lv (tap-hold $tap-time $hold-time v @l_sym)
 )
