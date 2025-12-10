@@ -2,7 +2,7 @@
   ui = auto
 [alias]
   lg = log --no-merges --first-parent --decorate --abbrev-commit --pretty=tformat:'%C(bold red)%h%C(reset)%C(bold yellow)%d%C(reset) | %C(bold cyan)%an%C(reset) | %C(bold green)%cr%C(reset)%n%C(bold white)%s%C(reset)%n%b'
-	hist = log --oneline --graph --decorate --all --abbrev-commit --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)(%cr) %C(bold blue)%an%C(reset)'
+  hist = log --oneline --graph --decorate --all --abbrev-commit --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)(%cr) %C(bold blue)%an%C(reset)'
 [commit]
   template = "~/.gitmessage"
 [status]
@@ -27,4 +27,4 @@
 [url "https://github.com/mhafiz87/"]
   insteadOf = "mhafiz87:"
 [push]
-	autoSetupRemote = true
+  autoSetupRemote = true

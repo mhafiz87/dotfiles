@@ -1,19 +1,13 @@
 (defcfg
   concurrent-tap-hold yes
-  rapid-event-delay 5
-)
-
-(defsrc
-  grv   1     2     3     4     5     6     7     8     9     0     -     =    bspc
-  tab   q     w     e     r     t     y     u     i     o     p     [     ]    \
-  caps  a     s     d     f     g     h     j     k     l     ;     '     ret
-  lsft  z     x     c     v     b     n     m     ,     .     /     rsft
-  lctl lmet  lalt          spc             ralt  rmet  rctl
+  ;; rapid-event-delay 5
+  log-layer-changes no
+  process-unmapped-keys yes
 )
 
 (defvar
   tap-time 200
-  hold-time 150
+  hold-time 200
   left-hand-keys (
     q w e r t
     a s d f g
@@ -25,6 +19,34 @@
     n m , . /
   )
 )
+
+(defalias
+  l_num (layer-toggle num)
+  l_cur (layer-toggle cur)
+  l_sym (layer-toggle symbol)
+  ;; home row mods
+  a (switch ((key-timing 1 less-than $tap-time)) _ break () (tap-hold $tap-time $hold-time a lmet) break)
+  s (switch ((key-timing 1 less-than $tap-time)) _ break () (tap-hold $tap-time $hold-time s lalt) break)
+  d (switch ((key-timing 1 less-than $tap-time)) _ break () (tap-hold $tap-time $hold-time d lctl) break)
+  f (switch ((key-timing 1 less-than $tap-time)) _ break () (tap-hold $tap-time $hold-time f lsft) break)
+  j (switch ((key-timing 1 less-than $tap-time)) _ break () (tap-hold $tap-time $hold-time j rsft) break)
+  k (switch ((key-timing 1 less-than $tap-time)) _ break () (tap-hold $tap-time $hold-time k rctl) break)
+  l (switch ((key-timing 1 less-than $tap-time)) _ break () (tap-hold $tap-time $hold-time l ralt) break)
+  ; (switch ((key-timing 1 less-than $tap-time)) _ break () (tap-hold $tap-time $hold-time ; rmet) break)
+  ;; toggle layer
+  ln (switch ((key-timing 1 less-than $tap-time)) _ break () (tap-hold $tap-time $hold-time n @l_num) break)
+  lc (switch ((key-timing 1 less-than $tap-time)) _ break () (tap-hold $tap-time $hold-time c @l_cur) break)
+  lv (switch ((key-timing 1 less-than $tap-time)) _ break () (tap-hold $tap-time $hold-time v @l_sym) break)
+)
+
+(defsrc
+  grv   1     2     3     4     5     6     7     8     9     0     -     =    bspc
+  tab   q     w     e     r     t     y     u     i     o     p     [     ]    \
+  caps  a     s     d     f     g     h     j     k     l     ;     '     ret
+  lsft  z     x     c     v     b     n     m     ,     .     /     rsft
+  lctl lmet  lalt          spc             ralt  rmet  rctl
+)
+
 
 (deflayer qwerty
   _     _     _     _     _     _     _     _     _     _     _     _     _    _
@@ -66,19 +88,3 @@
   _     _     _              _              _     _     _
 )
 
-(defalias
-  l_num (layer-toggle num)
-  l_cur (layer-toggle cur)
-  l_sym (layer-toggle symbol)
-  a (tap-hold $tap-time $hold-time a lmet)
-  s (tap-hold $tap-time $hold-time s lalt)
-  d (tap-hold $tap-time $hold-time d lctl)
-  f (tap-hold $tap-time $hold-time f lsft)
-  j (tap-hold $tap-time $hold-time j rsft)
-  k (tap-hold $tap-time $hold-time k rctl)
-  l (tap-hold $tap-time $hold-time l ralt)
-  ; (tap-hold $tap-time $hold-time ; rmet)
-  ln (tap-hold $tap-time $hold-time n @l_num)
-  lc (tap-hold $tap-time $hold-time c @l_cur)
-  lv (tap-hold $tap-time $hold-time v @l_sym)
-)
