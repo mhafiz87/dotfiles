@@ -9,6 +9,7 @@ return {
         bash = { "shfmt" },
         lua = { "sytlua" },
         python = { "ruff_organize_imports", "ruff_fix", "ruff_format" },
+        markdown = { "mdformat" },
       },
     })
     vim.keymap.set({"n", "v"}, "<leader>mp",function ()
