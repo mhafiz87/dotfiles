@@ -2,7 +2,7 @@
 -- 1. https://github.com/linkarzu/dotfiles-latest/blob/main/neovim/neobean/lua/plugins/blink-cmp.lua
 
 local trigger_text = ";"
-local sources_list = { 'lsp', 'path', 'snippets', 'buffer' }
+local sources_list = { 'lazydev', 'copilot', 'lsp', 'path', 'snippets', 'buffer' }
 local lazydev_exist, _ = pcall(require, "lazydev")
 if lazydev_exist then
   table.insert(sources_list, 1, "lazydev")
@@ -34,6 +34,7 @@ return {
       "monkoose/neocodeium",
       event = "VeryLazy",
     },
+    "fang2hou/blink-copilot"
   },
   -- use a release tag to download pre-built binaries
   version = '1.*',
@@ -169,7 +170,13 @@ return {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
           -- make lazydev completions top priority (see `:h blink.cmp`)
+          score_offset = 101,
+        },
+        copilot = {
+          name = "copilot",
+          module = "blink-copilot",
           score_offset = 100,
+          async = true,
         },
         lsp = {
           name = "lsp",
