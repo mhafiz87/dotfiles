@@ -35,6 +35,9 @@ vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr=true })
 vim.keymap.set("v", "<", "<gv")  -- (indent then reselect)
 vim.keymap.set("v", ">", ">gv")  -- (indent then reselect)
 
+-- toggle case and maintain cursor position ⤵
+vim.keymap.set("n", "~", "~h")
+
 -- keep cursor current position when [J]oining line below with current one ⤵
 vim.keymap.set("n", "J", "mzJ`z", { desc = "move line below to the end of current line"})
 
