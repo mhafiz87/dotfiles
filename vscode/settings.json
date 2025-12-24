@@ -1629,11 +1629,11 @@
   // Auto Update
   "editor.lineNumbers": "relative",
   "workbench.colorCustomizations": {
-    "statusBar.background": "#90EE90",
-    "statusBar.noFolderBackground": "#90EE90",
-    "statusBar.debuggingBackground": "#90EE90",
-    "statusBar.foreground": "#000000",
-    "statusBar.debuggingForeground": "#000000"
+    "statusBar.background": "#1F1F1F",
+    "statusBar.noFolderBackground": "#1F1F1F",
+    "statusBar.debuggingBackground": "#1F1F1F",
+    "statusBar.foreground": "#ffffff",
+    "statusBar.debuggingForeground": "#ffffff"
   },
   "extensions.ignoreRecommendations": true,
   "arduinoMakerWorkshop.arduinoCLI.userDirectory": "C:\\Users\\5004124381\\Documents\\Arduino\n\n",
