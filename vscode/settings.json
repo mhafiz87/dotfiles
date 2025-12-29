@@ -50,10 +50,6 @@
       }
     ],
   },
-  "isort.args": [
-    "--profile",
-    "black"
-  ],
   "jupyter.interactiveWindow.creationMode": "perFile",
   "markdownlint.config": {
     "MD033": false
