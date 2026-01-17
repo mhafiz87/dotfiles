@@ -12,11 +12,12 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
-    ft = "markdown",
+    ft = { "markdown" },
     config = function()
       require('render-markdown').setup({
-        on_attach = function (bufnr)
-          vim.keymap.set("n", "<leader>mdr", require("render-markdown").toggle, { desc = "[m]arkdown [r]ender", buffer = bufnr })
+        on_attach = function(bufnr)
+          vim.keymap.set("n", "<leader>mdr", require("render-markdown").toggle,
+            { desc = "[m]arkdown [r]ender", buffer = bufnr })
         end
       })
     end,
@@ -43,3 +44,4 @@ return {
     end,
   }
 }
+
