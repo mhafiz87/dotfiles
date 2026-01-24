@@ -50,6 +50,9 @@
       }
     ],
   },
+  "arduinoMakerWorkshop.arduinoCLI.userDirectory": "C:\\Users\\5004124381\\Documents\\Arduino\n\n",
+  "extensions.ignoreRecommendations": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
   "jupyter.interactiveWindow.creationMode": "perFile",
   "markdownlint.config": {
     "MD033": false
@@ -1631,7 +1634,7 @@
     "statusBar.foreground": "#ffffff",
     "statusBar.debuggingForeground": "#ffffff"
   },
-  "extensions.ignoreRecommendations": true,
-  "arduinoMakerWorkshop.arduinoCLI.userDirectory": "C:\\Users\\5004124381\\Documents\\Arduino\n\n",
-  "github.copilot.nextEditSuggestions.enabled": true,
+  "remote.SSH.remotePlatform": {
+    "ds4-auto-orbital-01": "linux"
+  },
 }
