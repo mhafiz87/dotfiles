@@ -1,3 +1,29 @@
+local lsp_list = {
+  "bash",
+  "c",
+  "cpp",
+  "css",
+  "dockerfile",
+  -- "gitcommit",
+  "gitignore",
+  "html",
+  "javascript",
+  "json",
+  "latex",
+  "lua",
+  "markdown_inline",
+  "markdown",
+  "python",
+  "query",
+  "rust",
+  "toml",
+  "typescript",
+  "vim",
+  "vimdoc",
+  "xml",
+  "yaml",
+}
+
 return {
   {
     enabled = true,
@@ -7,7 +33,19 @@ return {
     lazy = false,
     build = ":TSUpdate",
     config = function(_, opts)
-      require("nvim-treesitter").install({ "python" }):wait(60000)
+      require("nvim-treesitter").install( lsp_list ):wait(60000)
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = lsp_list,
+        callback = function()
+          -- syntax highlighting, provided by Neovim
+          vim.treesitter.start()
+          -- folds, provided by Neovim
+          -- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          -- vim.wo.foldmethod = 'expr'
+          -- indentation, provided by nvim-treesitter
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
     end,
   },
   {
