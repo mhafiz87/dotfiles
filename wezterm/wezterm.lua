@@ -67,6 +67,7 @@ config.default_cursor_style = "BlinkingBlock"
 -- Font Settings
 config.font_dirs = { 'fonts' }
 config.font = wezterm.font_with_fallback({
+    "Cascadia Code NF",
     "JetBrainsMono Nerd Font",
     "FiraCode Nerd Font",
     "MesloLGS NF",
@@ -74,6 +75,16 @@ config.font = wezterm.font_with_fallback({
     "Noto Color Emoji",
 })
 config.font_size = 10
+config.font_rules = {
+  {
+    intensity = "Normal",
+    italic = true,
+    font = wezterm.font {
+      family = "Cascadia Code NF",
+      style = "Italic",
+    },
+  },
+}
 
 -- Keybindings
 config.leader = key.leader
