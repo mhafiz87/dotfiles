@@ -82,7 +82,7 @@
   "editor.detectIndentation": true,
   "editor.foldingImportsByDefault": false,
   "editor.foldingStrategy": "auto",
-  "editor.fontFamily": "JetBrainsMono Nerd Font",
+  "editor.fontFamily": "'JetBrainsMono Nerd Font', 'VictorMono Nerd Font'",
   "editor.fontLigatures": true,
   "editor.fontSize": 12,
   "editor.formatOnSave": false,
@@ -96,6 +96,33 @@
   "editor.snippetSuggestions": "bottom",
   "editor.suggestSelection": "first",
   "editor.tabSize": 4,
+  "editor.tokenColorCustomizations": {
+      "textMateRules": [
+          {
+              "scope": [
+                  "keyword",
+                  "storage.modifier",
+                  "storage.type.class.js",
+                  "constant"
+              ],
+              "settings": {
+                  "fontStyle": "italic"
+              }
+          },
+          {
+              "scope": "storage.type.function.python",
+              "settings": {
+                  "fontStyle": "italic"
+              }
+          },
+          {
+              "scope": "storage.type.class.python",
+              "settings": {
+                  "fontStyle": "italic"
+              }
+          }
+      ]
+  },
   "explorer.confirmDelete": false,
   "files.exclude": {
     "**/.DS_Store": true,
@@ -156,6 +183,9 @@
   ],
   "hediet.vscode-drawio.resizeImages": null,
   "python.analysis.typeCheckingMode": "standard",
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportOptionalMemberAccess": "none"
+  },
 
   // Vim
   "vim.cursorStylePerMode.insert": "line",
@@ -1635,6 +1665,7 @@
     "statusBar.debuggingForeground": "#ffffff"
   },
   "remote.SSH.remotePlatform": {
-    "ds4-auto-orbital-01": "linux"
+    "ds4-auto-orbital-01": "linux",
+    "ds4-system-orbital-01": "linux"
   },
 }

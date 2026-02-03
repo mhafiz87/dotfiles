@@ -101,6 +101,11 @@
       "when": "editorTextFocus"
   },
   {
+      "key": "ctrl+0",
+      "command": "editor.action.fontZoomReset",
+      "when": "editorTextFocus"
+  },
+  {
       "key": "ctrl+=",
       "command": "workbench.action.terminal.fontZoomIn",
       "when": "terminalFocus"
@@ -108,6 +113,11 @@
   {
       "key": "ctrl+-",
       "command": "workbench.action.terminal.fontZoomOut",
+      "when": "terminalFocus"
+  },
+  {
+      "key": "ctrl+0",
+      "command": "workbench.action.terminal.fontZoomReset",
       "when": "terminalFocus"
   },
   // Select Suggestion Using Tab
@@ -140,7 +150,7 @@
   {
       "key": "ctrl+alt+m",
       "command": "workbench.action.toggleMaximizedPanel",
-      "when": "terminalFocus"
+      "when": "terminalFocus || problemFocus"
   },
   // Terminal
   {
@@ -194,7 +204,20 @@
     "command": "copyRelativeFilePath",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
-  // Remove Vim Keybindings
+  // Remove Keybindings
+  {
+    "key": "f6",
+    "command": "-workbench.action.focusNextPart"
+  },
+  {
+    "key": "shift+f6",
+    "command": "-workbench.action.focusPreviousPart"
+  },
+  {
+    "key": "ctrl+0",
+    "command": "-workbench.action.focusSideBar"
+  },
+  // Remove VIM Keybindings
   {
     "key": "ctrl+pagedown",
     "command": "-extension.vim_ctrl+pagedown",
@@ -234,13 +257,5 @@
     "key": "ctrl+j",
     "command": "-extension.vim_ctrl+j",
     "when": "editorTextFocus && vim.active && vim.use<C-j> && !inDebugRepl"
-  },
-  {
-    "key": "f6",
-    "command": "-workbench.action.focusNextPart"
-  },
-  {
-    "key": "shift+f6",
-    "command": "-workbench.action.focusPreviousPart"
   },
 ]
