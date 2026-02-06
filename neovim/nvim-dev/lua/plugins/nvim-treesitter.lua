@@ -4,7 +4,7 @@ local lsp_list = {
   "cpp",
   "css",
   "dockerfile",
-  -- "gitcommit",
+  "gitcommit",
   "gitignore",
   "html",
   "javascript",
@@ -34,6 +34,9 @@ return {
     build = ":TSUpdate",
     config = function(_, opts)
       require("nvim-treesitter").install( lsp_list ):wait(60000)
+      -- require("nvim-treesitter.configs").setup({
+      --   ensure_installed = lsp_list,
+      -- })
       vim.api.nvim_create_autocmd('FileType', {
         pattern = lsp_list,
         callback = function()
