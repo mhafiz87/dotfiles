@@ -474,6 +474,43 @@
       "command": "whichkey.repeatMostRecent"
     },
     {
+      "key": "a",
+      "name": "+AI",
+      "type": "bindings",
+      "bindings": [
+        {
+          "key": "a",
+          "name": "Accept AI suggestion",
+          "type": "command",
+          "command": "github.copilot.acceptSuggestion"
+        },
+        {
+          "key": "d",
+          "name": "Dismiss AI suggestion",
+          "type": "command",
+          "command": "github.copilot.dismissSuggestion"
+        },
+        {
+          "key": "n",
+          "name": "Next AI suggestion",
+          "type": "command",
+          "command": "editor.action.inlineSuggest.showNext"
+        },
+        {
+          "key": "p",
+          "name": "Previous AI suggestion",
+          "type": "command",
+          "command": "editor.action.inlineSuggest.showPrevious"
+        },
+        {
+          "key": "i",
+          "name": "Open AI inline chat",
+          "type": "command",
+          "command": "inlineChat.start"
+        },
+      ]
+    },
+    {
       "key": "b",
       "name": "+Buffers/Editors",
       "type": "bindings",
@@ -1668,5 +1705,11 @@
   "remote.SSH.remotePlatform": {
     "ds4-auto-orbital-01": "linux",
     "ds4-system-orbital-01": "linux"
+  },
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
   },
 }
