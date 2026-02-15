@@ -49,7 +49,7 @@
         "indentation": true,
         "offSide": true
       }
-    ],
+    ]
   },
   "arduinoMakerWorkshop.arduinoCLI.userDirectory": "C:\\Users\\5004124381\\Documents\\Arduino\n\n",
   "extensions.ignoreRecommendations": true,
@@ -228,7 +228,7 @@
       "after": [ "<Esc>" ]
     }
   ],
-  "vim.normalModeKeyBindings": [
+  "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": ["<space>"],
       "commands": ["whichkey.show"]
@@ -241,6 +241,11 @@
     {
       "before": [ "<C-u>" ],
       "after": [ "<C-u>", "z", "z" ]
+    },
+    // Move line below to the end of current line while maintaining cursor position
+    {
+      "before": [ "J" ],
+      "after": [ "m", "z", "J", "`", "z" ]
     },
     // Search Then Re-Centre
     {
@@ -346,7 +351,8 @@
         {
           "command": "center-editor-window.center"
         }
-      ]
+      ],
+      "silent": true
     },
     {
       "before": [ "]", "-" ],
@@ -1689,7 +1695,7 @@
       "name": "Focus 8th editor group",
       "type": "command",
       "command": "workbench.action.focusEighthEditorGroup"
-    },
+    }
   ],
 
 
