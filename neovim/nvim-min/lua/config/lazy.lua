@@ -19,6 +19,7 @@ vim.opt.runtimepath:prepend(lazypath)
 
 -- Setup lazy.nvim
 require("lazy").setup({
+  rocks = { enabled = false },
   spec = {
     { import = "plugins" },
   },
@@ -26,6 +27,8 @@ require("lazy").setup({
   -- -- colorscheme that will be used when installing plugins.
   -- install = { colorscheme = { "habamax" } },
   -- -- automatically check for plugin updates
-  checker = { enabled = true },
-}) 
-
+  checker = {
+    enabled = false,  -- disable update checking
+    notify = false,  -- disable notification if config changes
+  },
+})

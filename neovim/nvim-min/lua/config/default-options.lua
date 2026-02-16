@@ -26,12 +26,10 @@ M.diagnostic = {
     focusable = false,
     style = 'minimal',
     border = 'rounded',
-    source = 'if_many',
+    source = true,
     header = '',
     prefix = '',
   },
-
 }
 
 return M
-
