@@ -67,6 +67,13 @@ return {
           -- },
         })
         vim.cmd [[colorscheme vscode]]
+        utils.update_theme_hl("return_type", { italic = true })
+        utils.update_theme_hl("@decorator", { italic = true })
+        utils.update_theme_hl("@keyword", { italic = true })
+        utils.update_theme_hl("@keyword.conditional", { italic = true })
+        utils.update_theme_hl("@keyword.repeat", { italic = true })
+        utils.update_theme_hl("@keyword.return", { italic = true })
+        utils.update_theme_hl("@keyword.exception", { italic = true })
         utils.update_theme_hl("@keyword.import", { italic = true })
     end
   }
