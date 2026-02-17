@@ -1,50 +1,55 @@
-local lsp_list = {
-  "bash",
-  "c",
-  "cpp",
-  "css",
-  "dockerfile",
-  "gitcommit",
-  "gitignore",
-  "html",
-  "javascript",
-  "json",
-  "latex",
+-- https://tduyng.com/blog/neovim-highlight-syntax/
+
+local parser = {
+  -- "bash",
+  -- "c",
+  -- "cpp",
+  -- "css",
+  -- "dockerfile",
+  -- "gitcommit",
+  -- "gitignore",
+  -- "html",
+  -- "javascript",
+  -- "json",
+  -- "latex",
   "lua",
-  "markdown_inline",
-  "markdown",
+  -- "markdown_inline",
+  -- "markdown",
   "python",
-  "query",
-  "rust",
-  "toml",
-  "typescript",
+  -- "query",
+  -- "rust",
+  -- "toml",
+  -- "typescript",
   "vim",
   "vimdoc",
-  "xml",
-  "yaml",
+  -- "xml",
+  -- "yaml",
 }
 
 return {
   {
     enabled = true,
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPre", "BufNewFile" },
+    -- event = { "BufReadPre", "BufNewFile" },
     branch = "main",
     lazy = false,
     build = ":TSUpdate",
+    opts = {
+      ensure_installed = parser,
+    },
     config = function(_, opts)
-      require("nvim-treesitter").install( lsp_list ):wait(60000)
+      require("nvim-treesitter").install( parser ):wait(60000)
       -- require("nvim-treesitter.configs").setup({
-      --   ensure_installed = lsp_list,
+      --   ensure_installed = parser,
       -- })
       vim.api.nvim_create_autocmd('FileType', {
-        pattern = lsp_list,
+        pattern = parser,
         callback = function()
           -- syntax highlighting, provided by Neovim
           vim.treesitter.start()
           -- folds, provided by Neovim
-          -- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-          -- vim.wo.foldmethod = 'expr'
+          vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          vim.wo.foldmethod = 'expr'
           -- indentation, provided by nvim-treesitter
           vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end,
@@ -63,6 +68,7 @@ return {
     },
   },
   {
+    enabled = false,
     "nvim-treesitter/nvim-treesitter-textobjects",
     branch = "main",
     priority = 994,

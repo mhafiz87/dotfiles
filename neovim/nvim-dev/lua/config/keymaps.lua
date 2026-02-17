@@ -25,27 +25,6 @@ vim.keymap.set("v", "y", "ygv<esc>")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
--- keep cursor current position when [J]oining line below with current one ⤵
-vim.keymap.set("n", "J", "mzJ`z", { desc = "move line below to the end of current line and center"})
-
--- (zv) is often combined with other commands to manage navigation,
--- such as in the commonly remapped command (nzzzv),
--- which searches for the next instance (n), centers the screen (zz),
--- and ensures the line is unfolded (zv).
--- This combination enhances the visibility of search results by centering
--- them on the screen and making sure they are not hidden within folded sections of text.
-
--- 'n' always search forward and 'N' always search backward ⤵
-vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zzzv'", { desc = "search forward", expr = true })
-vim.keymap.set("x", "n", "'Nn'[v:searchforward].'zz'", { desc = "search forward", expr = true })
-vim.keymap.set("o", "n", "'Nn'[v:searchforward].'zz'", { desc = "search forward", expr = true })
-vim.keymap.set("n", "N", "'nN'[v:searchforward].'zzzv'", { desc = "search backward", expr = true })
-vim.keymap.set("x", "N", "'nN'[v:searchforward].'zz'", { desc = "search backward", expr = true })
-vim.keymap.set("o", "N", "'nN'[v:searchforward].'zz'", { desc = "search backward", expr = true })
-
--- center cursor when going back to older position ⤵
-vim.keymap.set("n", "<C-o>", "<C-o>zzzv", { silent = true, noremap = true, desc = "last + center" })
-
 -- better up/down when there's a wrapped line ⤵
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr=true })
 vim.keymap.set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr=true })
@@ -58,6 +37,17 @@ vim.keymap.set("v", ">", ">gv")  -- (indent then reselect)
 
 -- toggle case and maintain cursor position ⤵
 vim.keymap.set("n", "~", "~h")
+
+-- keep cursor current position when [J]oining line below with current one ⤵
+vim.keymap.set("n", "J", "mzJ`z", { desc = "move line below to the end of current line"})
+
+-- 'n' always search forward and 'N' always search backward
+vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { desc = "search forward", expr = true })
+vim.keymap.set("x", "n", "'Nn'[v:searchforward]", { desc = "search forward", expr = true })
+vim.keymap.set("o", "n", "'Nn'[v:searchforward]", { desc = "search forward", expr = true })
+vim.keymap.set("n", "N", "'nN'[v:searchforward].'zv'", { desc = "search backward", expr = true })
+vim.keymap.set("x", "N", "'nN'[v:searchforward]", { desc = "search backward", expr = true })
+vim.keymap.set("o", "N", "'nN'[v:searchforward]", { desc = "search backward", expr = true })
 
 -- buffers ⤵
 vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "[b]uffer [p]revious" })

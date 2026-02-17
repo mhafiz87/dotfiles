@@ -67,24 +67,14 @@ config.default_cursor_style = "BlinkingBlock"
 -- Font Settings
 config.font_dirs = { 'fonts' }
 config.font = wezterm.font_with_fallback({
-    "Cascadia Code NF",
-    "JetBrainsMono Nerd Font",
-    "FiraCode Nerd Font",
-    "MesloLGS NF",
-    "DejaVuSansM Nerd Font",
-    "Noto Color Emoji",
+    { family = "Cascadia Code NF", harfbuzz_features= { "ss01" } },
+    { family = "JetBrainsMono Nerd Font", harfbuzz_features= { "ss01" }  },
+    { family = "FiraCode Nerd Font", harfbuzz_features= { "ss01" }  },
+    { family = "MesloLGS NF" },
+    { family = "DejaVuSansM Nerd Font" },
+    { family = "Noto Color Emoji" }
 })
 config.font_size = 10
-config.font_rules = {
-  {
-    intensity = "Normal",
-    italic = true,
-    font = wezterm.font {
-      family = "Cascadia Code NF",
-      style = "Italic",
-    },
-  },
-}
 
 -- Keybindings
 config.leader = key.leader
