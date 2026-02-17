@@ -68,7 +68,7 @@ return {
     },
   },
   {
-    enabled = false,
+    enabled = true,
     "nvim-treesitter/nvim-treesitter-textobjects",
     branch = "main",
     priority = 994,
@@ -85,8 +85,7 @@ return {
       -- vim.g.no_go_maps = true
     end,
     config = function()
-      local ts_repeat_move =
-        require("nvim-treesitter-textobjects.repeatable_move")
+      local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
 
       -- Repeat movement with ; and ,
       -- ensure ; goes forward and , goes backward regardless of the last direction
@@ -107,33 +106,33 @@ return {
           "@function.outer",
           "textobjects"
         )
-        vim.cmd(":sleep 100m")
+        vim.cmd(":sleep 25m")
         vim.cmd("norm! zz")
-      end)
+      end, { desc = "Next [m]ethod" })
       vim.keymap.set({ "n", "x", "o" }, "]-", function()
         require("nvim-treesitter-textobjects.move").goto_next_start(
           "@function.outer",
           "textobjects"
         )
-        vim.cmd(":sleep 100m")
+        vim.cmd(":sleep 25m")
         vim.cmd("norm! zz")
-      end)
+      end, { desc = "Next [m]ethod" })
       vim.keymap.set({ "n", "x", "o" }, "[m", function()
         require("nvim-treesitter-textobjects.move").goto_previous_start(
           "@function.outer",
           "textobjects"
         )
-        vim.cmd(":sleep 100m")
+        vim.cmd(":sleep 25m")
         vim.cmd("norm! zz")
-      end)
+      end, { desc = "Previous [m]ethod" })
       vim.keymap.set({ "n", "x", "o" }, "[-", function()
         require("nvim-treesitter-textobjects.move").goto_previous_start(
           "@function.outer",
           "textobjects"
         )
-        vim.cmd(":sleep 100m")
+        vim.cmd(":sleep 25m")
         vim.cmd("norm! zz")
-      end)
+      end, { desc = "Previous [m]ethod" })
     end,
   },
 }
