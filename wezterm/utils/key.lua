@@ -314,7 +314,7 @@ M.key_tables = {
   resize_font = {
     { key = "=",         action = act.IncreaseFontSize },
     { key = "-",         action = act.DecreaseFontSize },
-    { key = "Backspace", action = act.ResetFontSize },
+    { key = "0", action = act.ResetFontSize },
     { key = "Escape",    action = "PopKeyTable" },
     { key = "q",         action = "PopKeyTable" },
   },
