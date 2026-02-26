@@ -7,6 +7,7 @@ return {
     'hrsh7th/cmp-cmdline',
     'rafamadriz/friendly-snippets',
     "xzbdmw/colorful-menu.nvim",
+    "fang2hou/blink-copilot"
   },
 
   -- use a release tag to download pre-built binaries
@@ -28,7 +29,25 @@ return {
       ['<Down>'] = { 'select_next', 'fallback' },
       ['<C-p>'] = { 'select_prev' },
       ['<C-n>'] = { 'select_next' },
-      ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+      ['<Tab>'] = {
+        function(cmp)
+          if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+            cmp.hide()
+            return (
+              require("copilot-lsp.nes").apply_pending_nes()
+              and require("copilot-lsp.nes").walk_cursor_end_edit()
+            )
+          end
+          if cmp.snippet_active() then
+            return cmp.accept()
+          else
+            return cmp.select_and_accept()
+          end
+        end,
+        'select_next',
+        'snippet_forward',
+        'fallback'
+      },
       ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
       -- navigate documentation
       ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
@@ -140,13 +159,19 @@ return {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lazydev', 'copilot', 'lsp', 'path', 'snippets', 'buffer' },
       providers = {
         lazydev = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
           -- make lazydev completions top priority (see `:h blink.cmp`)
+          score_offset = 101,
+        },
+        copilot = {
+          name = "copilot",
+          module = "blink-copilot",
           score_offset = 100,
+          async = true,
         },
         lsp = {
           name = "lsp",

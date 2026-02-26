@@ -83,3 +83,5 @@ vim.diagnostic.config(default_options.diagnostic)
 -- elseif utils.is_linux() then
 --     vim.g.python3_host_prog = vim.fn.getenv("HOME") .. "/.venv/neovim/bin/python"
 -- end
+
+-- vim.env.CODECOMPANION_TOKEN_PATH = vim.fn.getenv("LOCALAPPDATA") .. "\\github-copilot\\apps.json"

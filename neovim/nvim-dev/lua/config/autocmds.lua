@@ -51,6 +51,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("close_with_q", { clear = true }),
   pattern = {
+    "Copilot",
+    "copilot",
     "PlenaryTestPopup",
     "checkhealth",
     "dbout",

@@ -6,7 +6,6 @@ local parser = {
   "cpp",
   "css",
   "dockerfile",
-  "gitcommit",
   "gitignore",
   "html",
   "javascript",
