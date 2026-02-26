@@ -407,6 +407,98 @@ public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 
 }
 
+function Start-FileDownload {
+    <#
+    .SYNOPSIS
+        Downloads a file using BITS transfer with progress display.
+    
+    .DESCRIPTION
+        Downloads a file from a URL to a specified path using Start-BitsTransfer
+        with asynchronous transfer and progress monitoring.
+    
+    .PARAMETER DownloadUrl
+        The URL of the file to download.
+    
+    .PARAMETER OutputPath
+        The full path where the file will be saved.
+    
+    .EXAMPLE
+        Start-FileDownload -DownloadUrl "https://aka.ms/vs/17/release/vs_community.exe" -OutputPath "C:\Downloads\vs_community.exe"
+    
+    .EXAMPLE
+        Start-FileDownload "https://aka.ms/vs/17/release/vs_community.exe" "$env:USERPROFILE\Downloads\vs_community.exe"
+    #>
+    
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string]$DownloadUrl,
+
+        [Parameter(Mandatory = $true, Position = 1)]
+        [ValidateNotNullOrEmpty()]
+        [string]$OutputPath
+    )
+
+    begin {
+        # Extract filename for display
+        $fileName = Split-Path -Path $OutputPath -Leaf
+        
+        # Ensure output directory exists
+        $outputDir = Split-Path -Path $OutputPath -Parent
+        if (-not (Test-Path -Path $outputDir)) {
+            New-Item -Path $outputDir -ItemType Directory -Force | Out-Null
+        }
+    }
+
+    process {
+        try {
+            Write-Host "Starting download: $fileName" -ForegroundColor Cyan
+            Write-Host "Source: $DownloadUrl" -ForegroundColor Gray
+            Write-Host "Destination: $OutputPath" -ForegroundColor Gray
+            
+            # Start async transfer
+            $bitsJob = Start-BitsTransfer -Source $DownloadUrl -Destination $OutputPath -Asynchronous -DisplayName $fileName
+
+            # Monitor progress
+            while ($bitsJob.JobState -eq "Transferring" -or $bitsJob.JobState -eq "Connecting") {
+                if ($bitsJob.BytesTotal -gt 0) {
+                    $percent = [math]::Round(($bitsJob.BytesTransferred / $bitsJob.BytesTotal) * 100, 2)
+                    $mbTransferred = [math]::Round($bitsJob.BytesTransferred / 1MB, 2)
+                    $mbTotal = [math]::Round($bitsJob.BytesTotal / 1MB, 2)
+                    Write-Progress -Activity "Downloading $fileName" -Status "$mbTransferred MB / $mbTotal MB ($percent%)" -PercentComplete $percent
+                }
+                else {
+                    Write-Progress -Activity "Downloading $fileName" -Status "Connecting..."
+                }
+                Start-Sleep -Milliseconds 500
+            }
+
+            # Handle completion
+            if ($bitsJob.JobState -eq "Transferred") {
+                Complete-BitsTransfer -BitsJob $bitsJob
+                Write-Host "`nDownload completed successfully: $OutputPath" -ForegroundColor Green
+                return $true
+            }
+            else {
+                Write-Host "`nDownload failed with state: $($bitsJob.JobState)" -ForegroundColor Red
+                Remove-BitsTransfer -BitsJob $bitsJob -ErrorAction SilentlyContinue
+                return $false
+            }
+        }
+        catch {
+            Write-Host "`nError during download: $_" -ForegroundColor Red
+            if ($bitsJob) {
+                Remove-BitsTransfer -BitsJob $bitsJob -ErrorAction SilentlyContinue
+            }
+            return $false
+        }
+        finally {
+            Write-Progress -Activity "Downloading $fileName" -Completed
+        }
+    }
+}
+
 # https://stackoverflow.com/questions/65932454/how-to-launch-teams-exe-with-powershell
 # https://stackoverflow.com/a/78493765
 # https://stackoverflow.com/questions/74147128/how-do-i-send-keys-to-an-active-window-in-powershell
