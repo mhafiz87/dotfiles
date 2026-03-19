@@ -1,47 +1,44 @@
 return {
   {
     enabled = true,
-    "monkoose/neocodeium",
-    event = "VeryLazy",
-    config = function()
-      local neocodeium = require("neocodeium")
-      neocodeium.setup()
-      vim.keymap.set("i", "<A-f>", function()
-        require("neocodeium").accept()
-      end, { desc = "[neocodeium] accept" })
-      vim.keymap.set("i", "<A-w>", function()
-        require("neocodeium").accept_word()
-      end, { desc = "[neocodeium] accept word" })
-      vim.keymap.set("i", "<A-a>", function()
-        require("neocodeium").accept_line()
-      end, { desc = "[neocodeium] accept line" })
-      vim.keymap.set("i", "<A-e>", function()
-        require("neocodeium").cycle_or_complete()
-      end, { desc = "[neocodeium] cycle or complete" })
-      vim.keymap.set("i", "<A-r>", function()
-        require("neocodeium").cycle_or_complete(-1)
-      end, { desc = "[neocodeium] cycle or complete" })
-      vim.keymap.set("i", "<A-c>", function()
-        require("neocodeium").clear()
-      end, { desc = "[neocodeium] clear" })
-    end
-  },
-  {
-    enabled = true,
     "zbirenbaum/copilot.lua",
     dependencies = {
+      {
+        "copilotlsp-nvim/copilot-lsp",
+        config = function ()
+          vim.g.copilot_nes_debounce = 500
+          -- vim.lsp.enable("copilot_ls")
+        end
+      }
     },
     cmd = "Copilot",
-    event = "InsertEnter",
+    event = { "BufReadPost", "BufNewFile", "InsertEnter" },
     config = function()
       require("copilot").setup({
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          accept = false,
+        suggestion = { enabled = false },
+        panel = { enabled = true },
+        filetypes = {
+          markdown = true,
+          help = true,
         },
-        panel = { enabled = false }
+        nes = {
+          enabled = true
+        },
+        -- auth_provider_url = "http://acme.ghe.com"
       })
-    end,
-  }
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "BlinkCmpMenuOpen",
+        callback = function()
+          vim.b.copilot_suggestion_hidden = true
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "BlinkCmpMenuClose",
+        callback = function()
+          vim.b.copilot_suggestion_hidden = false
+        end,
+      })
+    end
+  },
 }

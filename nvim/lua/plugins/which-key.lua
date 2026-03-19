@@ -18,7 +18,7 @@ return {
       {"<leader>d", group = "diagnostics"},
       {"<leader>dg", group = "diagnostics"},
       {"<leader>f", group = "+find"},
-      {"<leader>g", group = "+git"},
+      {"<leader>g", group = "+git/mini.align"},
       {"<leader>gh", group = "+git hunk"},
       -- {"<leader>m", group = "+markdown"},
       -- {"<leader>md", group = "+markdown"},

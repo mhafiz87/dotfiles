@@ -1,3 +1,4 @@
+local utils = require("utils")
 local set = vim.opt_local
 
 local M = {}
@@ -59,7 +60,6 @@ end
 
 -- Define the :Refurb command
 vim.api.nvim_create_user_command('Refurb', M.Refurb, {})
-
 
 -- local conform_exist, conform = pcall(require, "conform")
 -- if conform_exist then

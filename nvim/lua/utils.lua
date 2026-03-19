@@ -31,5 +31,10 @@ M.is_buf_keymap_set = function (bufnr, mode, lhs)
   return false
 end
 
+M.update_theme_hl = function (name, tbl)
+  local old_tbl = vim.api.nvim_get_hl(0, { name = name })
+  local new_tbl = vim.tbl_extend("force", old_tbl, tbl)
+  vim.api.nvim_set_hl(0, name, new_tbl)
+end
 
 return M

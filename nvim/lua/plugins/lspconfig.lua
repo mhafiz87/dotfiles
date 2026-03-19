@@ -18,6 +18,15 @@ return {
     for index = 1, #lsp_list do
       vim.lsp.enable(lsp_list[index])
     end
+    vim.lsp.config('lua_ls', {
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { 'vim' }
+          }
+        }
+      }
+    })
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("lsp_buf_conf", { clear = true }),
       callback = function(event_context)
