@@ -24,8 +24,16 @@ if platform.is_windows() then
   config.default_cwd = os.getenv("userprofile")
   config.default_prog = { "pwsh", "-l" }
 else
+  -- Check if zsh is installed using io.popen
+  local file = io.popen("which zsh", "r")
+  local is_zsh_installed = file:read("*a")
+  file:close()
   config.default_cwd = os.getenv("HOME")
-  config.default_prog = { "bash" }
+  if is_zsh_installed and is_zsh_installed ~= "" then
+    config.default_prog = { "zsh" }
+  else
+    config.default_prog = { "bash" }
+  end
 end
 
 config.automatically_reload_config = true
