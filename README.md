@@ -23,6 +23,12 @@ new-item -itemtype symboliclink -path "$env:appdata/code/user/keybindings.json" 
 if(test-path -path "$env:appdata/code/user/settings.json"){remove-item -path "$env:appdata/code/user/settings.json" -force}
 new-item -itemtype symboliclink -path "$env:appdata/code/user/settings.json" -target "$env:userprofile/.config/vscode/settings.json" -force
 
+# Zed Settings
+if(test-path -path $env:appdata/zed/keymap.json){remove-item -path "$env:appdata/zed/keymap.json" -force}
+new-item -itemtype symboliclink -path "$env:appdata/zed/keymap.json" -target "$env:userprofile/.config/zed/keymap.json" -force
+if(test-path -path $env:appdata/zed/settings.json){remove-item -path "$env:appdata/zed/settings.json" -force}
+new-item -itemtype symboliclink -path "$env:appdata/zed/settings.json" -target "$env:userprofile/.config/zed/settings.json" -force
+
 # Neovim Settings
 if(test-path -path $env:localappdata/nvim){remove-item -path "$env:localappdata/nvim" -recurse -force}
 new-item -itemtype symboliclink -path "$env:localappdata/nvim" -target "$env:userprofile/.config/nvim" -force
