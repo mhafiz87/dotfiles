@@ -145,7 +145,6 @@
   "window.menuBarVisibility": "compact",
   "window.newWindowProfile": "Default",
   "window.restoreWindows": "none",
-  "workbench.colorTheme": "Default Dark Modern",
   "workbench.editor.showTabs": "multiple",
   "workbench.editor.enablePreview": false,
   "workbench.iconTheme": "material-icon-theme",
@@ -1702,15 +1701,16 @@
   // Auto Update
   "editor.lineNumbers": "relative",
   "workbench.colorCustomizations": {
-    "statusBar.background": "#90EE90",
-    "statusBar.noFolderBackground": "#90EE90",
-    "statusBar.debuggingBackground": "#90EE90",
-    "statusBar.foreground": "#000000",
-    "statusBar.debuggingForeground": "#000000"
+    "statusBar.background": "#1F1F1F",
+    "statusBar.noFolderBackground": "#1F1F1F",
+    "statusBar.debuggingBackground": "#1F1F1F",
+    "statusBar.foreground": "#ffffff",
+    "statusBar.debuggingForeground": "#ffffff"
   },
   "remote.SSH.remotePlatform": {
     "ds4-auto-orbital-01": "linux",
-    "ds4-system-orbital-01": "linux"
+    "ds4-system-orbital-01": "linux",
+    "ds4-swv-orbital-04": "linux"
   },
   "github.copilot.enable": {
     "*": true,

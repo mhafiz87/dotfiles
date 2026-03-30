@@ -1,0 +1,72 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "ctrl-d": ["workspace::SendKeystrokes", "ctrl-d z z"],
+      "ctrl-u": ["workspace::SendKeystrokes", "ctrl-u z z"],
+      "] m": ["workspace::SendKeystrokes", "] m z t"], // go to next method then move screen to the top
+      "[ m": ["workspace::SendKeystrokes", "[ m z t"], // go to previous method then move screen to the top
+      "~": ["workspace::SendKeystrokes", "~ h"], // toggle case then move cursor to previous position
+      "shift-j": ["workspace::SendKeystrokes", "m z shift-j ` z"], // move bottom line to end of current line while maintaining cursor position
+      "n": ["workspace::SendKeystrokes", "n z t"], // seach then move screen to the top
+    },
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "shift-j": "editor::MoveLineDown",
+      "shift-k": "editor::MoveLineUp",
+      "~": ["workspace::SendKeystrokes", "~ g v h"], // toggle case then reselect
+      ">": ["workspace::SendKeystrokes", "> g v"], // indent then reselect
+      "<": ["workspace::SendKeystrokes", "< g v"], // unindent then reselect
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j k": "vim::NormalBefore",
+    },
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "ctrl-x": null,
+    },
+  },
+  {
+    "context": "Workspace && vim_mode == normal",
+    "bindings": {
+      "ctrl-w ctrl-c": "workspace::CloseActiveDock",
+    },
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-w": "workspace::CloseActiveDock",
+    },
+  },
+  {
+    "context": "Pane",
+    "unbind": {
+      "ctrl-w": [
+        "pane::CloseActiveItem",
+        {
+          "close_pinned": false,
+        },
+      ],
+    },
+  },
+]
