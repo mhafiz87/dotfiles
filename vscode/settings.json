@@ -1707,6 +1707,7 @@
     "statusBar.foreground": "#ffffff",
     "statusBar.debuggingForeground": "#ffffff"
   },
+  "workbench.colorTheme": "Dark Modern",
   "remote.SSH.remotePlatform": {
     "ds4-auto-orbital-01": "linux",
     "ds4-system-orbital-01": "linux",

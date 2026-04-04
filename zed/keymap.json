@@ -19,9 +19,12 @@
       "ctrl-u": ["workspace::SendKeystrokes", "ctrl-u z z"],
       "] m": ["workspace::SendKeystrokes", "] m z t"], // go to next method then move screen to the top
       "[ m": ["workspace::SendKeystrokes", "[ m z t"], // go to previous method then move screen to the top
+      "] -": ["workspace::SendKeystrokes", "] m z t"], // go to next method then move screen to the top
+      "[ -": ["workspace::SendKeystrokes", "[ m z t"], // go to previous method then move screen to the top
       "~": ["workspace::SendKeystrokes", "~ h"], // toggle case then move cursor to previous position
       "shift-j": ["workspace::SendKeystrokes", "m z shift-j ` z"], // move bottom line to end of current line while maintaining cursor position
       "n": ["workspace::SendKeystrokes", "n z t"], // seach then move screen to the top
+      "space t r": "editor::ToggleRelativeLineNumbers", // select all occurrences of current selection then reselect
     },
   },
   {
@@ -60,6 +63,10 @@
   },
   {
     "context": "Pane",
+    "bindings": {
+      "ctrl-tab": "pane::ActivateNextItem",
+      "ctrl-shift-tab": "pane::ActivatePrevItem",
+    },
     "unbind": {
       "ctrl-w": [
         "pane::CloseActiveItem",
@@ -67,6 +74,15 @@
           "close_pinned": false,
         },
       ],
+    },
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "-": "project_panel::CollapseAllEntries",
+    },
+    "unbind": {
+      "ctrl-left": "project_panel::CollapseAllEntries",
     },
   },
 ]
